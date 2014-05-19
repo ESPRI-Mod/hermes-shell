@@ -1,0 +1,7 @@
+db
+fe/logs
+repos
+tmp
+venv
+config.json-backup
+config.json

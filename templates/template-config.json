@@ -1,0 +1,60 @@
+{
+	"api": {
+		"cookie_secret": "p2FAdrUN3tac",
+		"host": "localhost",
+		"port": 8888,
+		"metric": {
+			"cors_white_list": [
+				"http://webportals.ipsl.jussieu.fr"
+			]
+		}
+	},
+	"core": {
+		"mode": "dev"
+	},
+	"db": {
+		"auto_initialize": true,
+		"connection": "postgresql://prodiguer_db_user:@localhost/prodiguer"
+	},
+	"mq": {
+		"auto_initialize": true,
+		"connection": "amqp://guest:guest@localhost:5672/%2F?connection_attempts=3&heartbeat_interval=3600",
+		"exchanges": [
+			{
+				"is_durable": true,
+				"name": "ipsl-prodiguer",
+				"type": "topic"
+			}
+		],
+		"host": "localhost",
+		"queues": [
+			{
+				"acknowledge": true,
+				"confirm": true,
+				"is_durable": true,
+				"name": "main"
+			},
+			{
+				"acknowledge": true,
+				"confirm": true,
+				"is_durable": true,
+				"name": "libligcm.sim-mon"
+			},
+			{
+				"acknowledge": true,
+				"confirm": true,
+				"is_durable": true,
+				"name": "api"
+			}
+		],
+		"types": [
+			{
+				"code": "1000",
+				"confirm": true,
+				"exchange": "ipsl-prodiguer",
+				"priority": 5,
+				"routing_key": "libligcm.sim-mon.1000"
+			}
+		]
+	}
+}
