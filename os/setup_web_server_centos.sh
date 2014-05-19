@@ -8,7 +8,7 @@ cd /opt
 yum install git
 
 # Clone prodiguer shell.
-git clone https://github.com/momipsl/prodiguer-shell.git prodiguer
+git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
 
 # Run boostrapper.
 ./prodiguer/exec.sh bootstrap

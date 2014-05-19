@@ -27,7 +27,7 @@ _bootstrap_notice()
 bootstrap()
 {
 	log "BOOTSTRAP STARTS"
-	set_working_dir 
+	set_working_dir
 	_boostrap_init_config
 	log "BOOTSTRAP ENDS"
 	_bootstrap_notice
@@ -45,13 +45,13 @@ _install_venv()
 		log "Installing virtual environment: $1"
 	fi
 
-	TARGET_VENV=$DIR_VENV/$1	
+	TARGET_VENV=$DIR_VENV/$1
 	TARGET_REQUIREMENTS=$DIR_TEMPLATES/template-venv-$1.txt
 	rm -rf $TARGET_VENV
     mkdir -p $TARGET_VENV
     virtualenv -q $TARGET_VENV
     source $TARGET_VENV/bin/activate
-    pip install -q --allow-all-external -r $TARGET_REQUIREMENTS 
+    pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
     deactivate
 }
 
@@ -68,29 +68,29 @@ _install_python()
 
 	# Download source.
 	set_working_dir $DIR_PYTHON
-	mkdir src	
+	mkdir src
 	cd src
-	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz 
-	tar -xvf Python-$PYTHON_VERSION.tgz 
+	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
+	tar -xvf Python-$PYTHON_VERSION.tgz
 	rm Python-$PYTHON_VERSION.tgz
 
 	# Compile.
 	cd Python-$PYTHON_VERSION
-	./configure --prefix=$DIR_PYTHON 
-	make 
-	make install 
+	./configure --prefix=$DIR_PYTHON
+	make
+	make install
 	export PATH=$DIR_PYTHON/bin:$PATH
 
 	# Install setuptools.
 	cd $DIR_PYTHON/src
-	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py 
-	python ez_setup.py 
+	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+	python ez_setup.py
 
 	# Install pip.
-	easy_install --prefix $DIR_PYTHON pip 
+	easy_install --prefix $DIR_PYTHON pip
 
 	# Install virtualenv.
-	pip install virtualenv 
+	pip install virtualenv
 }
 
 # Installs a git repo.
@@ -99,7 +99,7 @@ _install_repo()
 	log "Installing repo: $1"
 
 	rm -rf $DIR_REPOS/$1
-	git clone -q https://github.com/momipsl/$1.git $DIR_REPOS/$1
+	git clone -q https://github.com/Prodiguer/$1.git $DIR_REPOS/$1
 }
 
 # Installs git repos.
@@ -170,7 +170,7 @@ _update_repo()
 	log "Updating repo: $1"
 
 	set_working_dir $DIR_REPOS/$1
-	git pull -q 
+	git pull -q
 	set_working_dir
 }
 
@@ -186,7 +186,7 @@ _update_config()
 {
 	log "Updating configuration"
 
-	cp ./config.json ./config.json-backup	
+	cp ./config.json ./config.json-backup
 	cp $DIR_TEMPLATES/template-config.json $DIR/config.json
 }
 
@@ -195,8 +195,8 @@ _update_shell()
 {
 	log "Updating shell"
 
-	set_working_dir		
-	git pull -q 
+	set_working_dir
+	git pull -q
 }
 
 # Updates stack.
@@ -207,7 +207,7 @@ update()
 	_update_shell
 	_update_config
 	_update_repos
-	_update_venvs	
+	_update_venvs
 
 	log "UPDATED STACK"
 
