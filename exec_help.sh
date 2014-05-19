@@ -5,7 +5,7 @@
 # ###############################################################
 
 # Displays help text to user.
-help()
+run_help()
 {
 	log "General commands :"
 	log "boostrap" 1

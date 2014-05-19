@@ -5,7 +5,7 @@
 # ###############################################################
 
 # Miscellaneous function.
-misc()
+run_misc()
 {
 	log "Executing miscellaneuos function"
 

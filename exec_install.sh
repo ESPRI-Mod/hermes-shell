@@ -24,7 +24,7 @@ _bootstrap_notice()
 	log "IMPORTANT NOTICE ENDS"
 }
 
-bootstrap()
+run_bootstrap()
 {
 	log "BOOTSTRAP STARTS"
 	set_working_dir
@@ -119,7 +119,7 @@ _install_dirs()
 }
 
 # Installs stack.
-install()
+run_install()
 {
 	log "INSTALLING STACK"
 
@@ -200,7 +200,7 @@ _update_shell()
 }
 
 # Updates stack.
-update()
+run_update()
 {
 	log "UPDATING STACK"
 
@@ -267,7 +267,7 @@ _uninstall_venvs()
 }
 
 # Uninstalls stack.
-uninstall()
+run_uninstall()
 {
 	log "UNINSTALLING STACK"
 
