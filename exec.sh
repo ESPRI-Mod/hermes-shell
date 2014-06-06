@@ -12,6 +12,7 @@ source $DIR/exec_db.sh
 source $DIR/exec_demo.sh
 source $DIR/exec_help.sh
 source $DIR/exec_install.sh
+source $DIR/exec_mq.sh
 source $DIR/exec_other.sh
 source $DIR/exec_tests.sh
 

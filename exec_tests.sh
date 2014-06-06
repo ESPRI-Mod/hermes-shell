@@ -8,7 +8,7 @@
 run_tests()
 {
 	# Set test folder paths.
-	DIR_SERVER_TESTS=$DIR_REPOS/prodiguer-server/tests	
+	DIR_SERVER_TESTS=$DIR_REPOS/prodiguer-server/tests
 	export PYTHONPATH=$PYTHONPATH:$DIR_SERVER_TESTS
 
 	# Activate server venv.
