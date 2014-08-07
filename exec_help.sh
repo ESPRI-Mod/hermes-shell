@@ -40,6 +40,17 @@ run_help()
 	log "drops database(s)" 2
 
 	log ""
+	log "Demo commands :"
+	log "demo-libligcm-to-mq" 1
+	log "Publishes mock libligcm messages to MQ server" 2
+	log "demo-libligcm-to-mq-via-smtp" 1
+	log "Publishes libligcm messages pulled from SMTP server to MQ server" 2
+	log "demo-mq-to-api" 1
+	log "Sends mock MQ notifications to API for routing to front-end via websockets" 2
+	log "demo-metric-lifecycle" 1
+	log "Demonstrates metric API lifecycle" 2
+
+	log ""
 	log "Automated test commands :"
 	log "run-tests" 1
 	log "runs full set of automated tests" 2

@@ -31,6 +31,13 @@ DIR_VENV=$DIR/venv
 # Set path: python.
 DIR_PYTHON=$DIR_VENV/python
 
+# Set path: server.
+DIR_SERVER=$DIR_REPOS/prodiguer-server
+
+# Set path: server demos.
+DIR_SERVER_DEMOS=$DIR_REPOS/prodiguer-server/demos
+
+
 # Set action.
 ACTION=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
 if [[ $ACTION != run-* ]]; then

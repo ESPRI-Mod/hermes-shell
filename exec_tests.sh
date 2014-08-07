@@ -69,6 +69,11 @@ run_tests()
 	    log "TESTS: executing mq tests ..."
 		nosetests -v -s $DIR_SERVER_TESTS/test_mq.py
 
+	# Run MQ tests.
+	elif [ $1 = "mq-mock-producers" ]; then
+	    log "TESTS: executing mq mock producer tests ..."
+		nosetests -v -s $DIR_SERVER_TESTS/test_mq_mock_producers.py
+
 	# Run utility functions tests.
 	elif [ $1 = "u" ]; then
 	    log "TESTS: executing utils tests ..."
