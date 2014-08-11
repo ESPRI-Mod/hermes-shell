@@ -31,6 +31,9 @@ def _db_setup():
 	def setup(connection):
 		rt.log_db("SETUP BEGINS : db = {0}".format(connection))
 
+		# Initialize config.
+		config.init("db-server", "run-db-setup")
+
 		# Start session.
 		db.session.start(connection)
 
