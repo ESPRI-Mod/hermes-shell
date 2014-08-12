@@ -19,11 +19,10 @@ prodiguer-shell is a command line interface for interacting with the prodiguer e
 Why prodiguer-shell ?
 --------------------------------------
 
-There is a need to support command line scenarios such as streamlining deployments ... etc. 
+There is a need to support command line scenarios such as streamlining deployments ... etc.
 
 
 Who uses prodiguer-shell ?
 --------------------------------------
 
 Prodiguer system admin and developers.
-

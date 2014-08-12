@@ -60,7 +60,7 @@ run_install_python()
 	set_working_dir $DIR_PYTHON
 	mkdir src
 	cd src
-	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
+	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz --no-check-certificate
 	tar -xvf Python-$PYTHON_VERSION.tgz
 	rm Python-$PYTHON_VERSION.tgz
 

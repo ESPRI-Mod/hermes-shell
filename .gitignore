@@ -1,6 +1,5 @@
-db
-fe/logs
+ops/backups
+ops/logs
+ops/venv
 repos
 tmp
-venv
-config.json-backup
