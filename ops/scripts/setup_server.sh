@@ -10,6 +10,10 @@ setup_common_libs()
 	# Ensure machine is upto date.
 	yum upgrade
 
+	# Enable EPEL v6.
+	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+	yum install foo
+
 	# Install various tools.
 	yum groupinstall -y development
 	yum install xz-libs zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel postgresql93-libs postgresql-devel postgresql93-devel python-devel postgresql93-plpython python-psycopg2
@@ -62,12 +66,36 @@ setup_db_server_install_postgres()
 # ###############################################################
 
 # Sets up the mq server.
+# See - http://sensuapp.org/docs/0.11/installing_rabbitmq_centos
 setup_centos_mq_server()
 {
 	# Install common libraries.
 	setup_common_libs
 
+	# Install dependencies.
+	yum install erlang
+
 	# Install RabbitMQ.
+	rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.5/rabbitmq-server-3.3.5-1.noarch.rpm
+
+	# Enable RabbitMQ management plugin.
+	rabbitmq-plugins enable rabbitmq_management
+
+	# Set RabbitMQ to start on boot and start it up immediately.
+	/sbin/chkconfig rabbitmq-server on
+	/etc/init.d/rabbitmq-server start
+
+	# Set RabbitMQ admin cli.
+	wget http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v3_3_5/bin/rabbitmqadmin -O /opt/prodiguer/tmp/rabbitmqadmin
+	cp /opt/prodiguer/tmp/rabbitmqadmin /usr/local/bin
+	rm -rf /opt/prodiguer/tmp/rabbitmqadmin
+
+	# Import RabbitMQ config.
+	rabbitmqadmin -q import $DIR_CONFIG/mq-server/rabbitmq-setup.json
+
+	# Delete obsolete MQ server resources.
+	rabbitmqctl delete_user guest
 }
 
 # ###############################################################
@@ -105,6 +133,10 @@ yum install git
 
 # Set working directory.
 cd /opt
+
+# Set paths.
+declare DIR=./prodiguer
+declare DIR_CONFIG=$DIR/ops/config
 
 # Declare helper vars.
 declare SERVER_TYPE=$1
