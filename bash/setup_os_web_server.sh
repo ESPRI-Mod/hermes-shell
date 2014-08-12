@@ -13,11 +13,8 @@ run_setup_centos_web_server()
 run_centos_web_server_install_nginx()
 {
 	# Install nginx.
-	rpm -i $DIR_OS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	rpm -i $DIR_TEMPLATES/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum install nginx
-
-	# Create fe logs.
-	mkdir $DIR_FE/logs
 
 	# Update nginx configuration.
 	cp $DIR_TEMPLATES/template-nginx.conf /etc/nginx/nginx.conf

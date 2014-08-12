@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Declare helper vars.
-declare SERVER_TYPE=$1
-declare REPO=https://github.com/Prodiguer/prodiguer-shell.git
+# Ensure that git is available.
+yum install git
 
 # Set working directory.
 cd /opt
 
-# Ensure that git is available.
-yum install git
+# Declare helper vars.
+declare SERVER_TYPE=$1
+declare REPO=https://github.com/Prodiguer/prodiguer-shell.git
 
-# Clone prodiguer shell.
+# Download prodiguer shell.
 rm -rf prodiguer
 git clone $REPO prodiguer
 
@@ -27,12 +27,9 @@ fi
 ./prodiguer/exec.sh stack-bootstrap
 ./prodiguer/exec.sh stack-install
 
-# Install db.
-./prodiguer/exec.sh run-db-install
-
-# Run post setup tasks.
+# Run post stack install tasks.
 if [ $SERVER_TYPE = "db" ]; then
-	./prodiguer/exec.sh run-tests db
+	./prodiguer/exec.sh run-db-install
 elif [ $SERVER_TYPE = "web" ]; then
 	nginx -s reload
 fi
