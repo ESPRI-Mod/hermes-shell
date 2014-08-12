@@ -101,7 +101,7 @@ def _parse_group_id(group_id):
 
 
 def _parse_encoding(encoding, default=None):
-    """Parses encoding."""    
+    """Parses encoding."""
     encoding = str(encoding).lower() if encoding is not None else None
     encoding = encoding or default
     if encoding not in _ENCODINGS:
@@ -242,7 +242,6 @@ def _main(action, arg1=None, arg2=None):
 
     # Invoke action.
     _ACTIONS[action](ctx)
-
 
 
 if __name__ == '__main__':

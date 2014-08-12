@@ -1,13 +1,27 @@
 #!/bin/bash
 
 # ###############################################################
+# SECTION: API
+# ###############################################################
+
+# Run api.
+run_api()
+{
+    log "Launching API"
+
+	activate_venv server
+
+	python $DIR_OPS_SCRIPTS/run_web_api.py
+}
+
+# ###############################################################
 # SECTION: API METRIC
 # ###############################################################
 
 _exec_metric_api()
 {
 	activate_venv server
-	python ./exec_api_metric.py $1 $2 $3
+	python $DIR_OPS_SCRIPTS/run_web_api_metric.py $1 $2 $3
 }
 
 # Add metrics.
@@ -44,12 +58,6 @@ run_metric_fetch_line_count()
 run_metric_fetch_headers()
 {
 	_exec_metric_api "fetch-headers" $1
-}
-
-# List groups.
-run_metric_list()
-{	
-	metric_list_group
 }
 
 # List groups.

@@ -4,17 +4,17 @@
 # SECTION: BOOTSTRAP
 # ###############################################################
 
-# Intiializes configuration files.
-_boostrap_init_config()
+# Run stack bootstrapper.
+run_stack_bootstrap()
 {
+	log "BOOTSTRAP STARTS"
+	set_working_dir
+
 	log "Initializing configuration"
-
 	cp $DIR_TEMPLATES/template-config.json $DIR/config.json
-}
 
-# Displays information notice upon installation.
-_bootstrap_notice()
-{
+	log "BOOTSTRAP ENDS"
+
 	log_banner
 	log "IMPORTANT NOTICE"
 	log "The bootstrap process installs a config file:" 1
@@ -24,22 +24,12 @@ _bootstrap_notice()
 	log "IMPORTANT NOTICE ENDS"
 }
 
-run_bootstrap()
-{
-	log "BOOTSTRAP STARTS"
-	set_working_dir
-	_boostrap_init_config
-	log "BOOTSTRAP ENDS"
-	_bootstrap_notice
-}
-
-
 # ###############################################################
 # SECTION: INSTALL
 # ###############################################################
 
 # Installs virtual environments.
-_install_venv()
+run_install_venv()
 {
 	if [ "$2" ]; then
 		log "Installing virtual environment: $1"
@@ -56,13 +46,13 @@ _install_venv()
 }
 
 # Installs python virtual environments.
-_install_venvs()
+run_install_venvs()
 {
-	_install_venv "server" "echo"
+	run_install_venv "server" "echo"
 }
 
 # Installs a python executable primed with setuptools, pip & virtualenv.
-_install_python()
+run_install_python()
 {
 	log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
@@ -94,7 +84,7 @@ _install_python()
 }
 
 # Installs a git repo.
-_install_repo()
+run_install_repo()
 {
 	log "Installing repo: $1"
 
@@ -103,10 +93,10 @@ _install_repo()
 }
 
 # Installs git repos.
-_install_repos()
+run_install_repos()
 {
-	_install_repo prodiguer-fe
-	_install_repo prodiguer-server
+	run_install_repo prodiguer-fe
+	run_install_repo prodiguer-server
 }
 
 # Sets up directories.
@@ -119,14 +109,14 @@ _install_dirs()
 }
 
 # Installs stack.
-run_install()
+run_stack_install()
 {
 	log "INSTALLING STACK"
 
 	_install_dirs
-	_install_repos
-	_install_python
-	_install_venvs
+	run_install_repos
+	run_install_python
+	run_install_venvs
 
 	log "INSTALLED STACK"
 }
@@ -136,7 +126,7 @@ run_install()
 # SECTION: UPDATE
 # ###############################################################
 
-# Displays information notice upon update.
+# Display post update notice.
 _update_notice()
 {
 	log_banner
@@ -149,22 +139,23 @@ _update_notice()
 	log "IMPORTANT NOTICE ENDS"
 }
 
+# Updates a virtual environment.
 _update_venv()
 {
 	log "Updating virtual environment :: $1"
 
 	_uninstall_venv $1
-	_install_venv $1
+	run_install_venv $1
 }
 
-# updates virtual environments.
-_update_venvs()
+# Updates virtual environments.
+run_stack_update_venvs()
 {
 	export PATH=$DIR_PYTHON/bin:$PATH
 	_update_venv "server"
 }
 
-# Updates a repo.
+# Updates a git repo.
 _update_repo()
 {
 	log "Updating repo: $1"
@@ -174,14 +165,14 @@ _update_repo()
 	set_working_dir
 }
 
-# Updates repos.
-_update_repos()
+# Updates git repos.
+run_stack_update_repos()
 {
 	_update_repo prodiguer-fe
 	_update_repo prodiguer-server
 }
 
-# Updates config file.
+# Updates configuration.
 _update_config()
 {
 	log "Updating configuration"
@@ -191,7 +182,7 @@ _update_config()
 }
 
 # Updates shell.
-_update_shell()
+run_stack_update_shell()
 {
 	log "Updating shell"
 
@@ -200,14 +191,14 @@ _update_shell()
 }
 
 # Updates stack.
-run_update()
+run_stack_update()
 {
 	log "UPDATING STACK"
 
-	_update_shell
+	run_stack_update_shell
 	_update_config
-	_update_repos
-	_update_venvs
+	run_stack_update_repos
+	run_stack_update_venvs
 
 	log "UPDATED STACK"
 
@@ -267,7 +258,7 @@ _uninstall_venvs()
 }
 
 # Uninstalls stack.
-run_uninstall()
+run_stack_uninstall()
 {
 	log "UNINSTALLING STACK"
 

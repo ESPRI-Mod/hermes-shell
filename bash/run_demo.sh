@@ -11,13 +11,6 @@ run_demo_libligcm_to_mq()
     python $DIR_SERVER_DEMOS/monitoring/libligcm_to_mq_server.py $1
 }
 
-# Run demonstration of libligcm message publishing via an SMTP bridge.
-run_demo_libligcm_to_mq_via_smtp()
-{
-    activate_venv server
-    python $DIR_SERVER_DEMOS/monitoring/libligcm_to_mq_server_via_smtp.py
-}
-
 # Run demonstration of informing API of incoming monitoring messsages.
 run_demo_mq_to_api()
 {

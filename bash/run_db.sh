@@ -80,8 +80,8 @@ _db_grant_permissions()
 {
 	log "Granting DB permissions"
 
-	psql -U prodiguer_db_admin -d prodiguer -a -f $DIR/exec_db_grant_permissions.sql
-	psql -U prodiguer_db_admin -d prodiguer_test -a -f $DIR/exec_db_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer -a -f $DIR_BASH/run_db_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer_test -a -f $DIR_BASH/run_db_grant_permissions.sql
 }
 
 # Create db users.
@@ -103,25 +103,12 @@ _db_drop()
 }
 
 # Seed db.
-_db_seed()
+_db_setup()
 {
 	log "Seeding DB"
 
 	activate_venv server
-	python ./exec.py "db-setup"
-}
-
-# Install db.
-run_db_install()
-{
-	log "DB : installing ..."
-
-	_db_create_users
-	_db_create
-	_db_seed
-	_db_grant_permissions
-
-	log "DB : installed ..."
+	python $DIR_OPS_SCRIPTS/run_db_setup.py
 }
 
 # Backup db.
@@ -136,14 +123,17 @@ run_db_backup()
 	log "DB : backed up"
 }
 
-# Restore db.
-run_db_restore()
+# Install db.
+run_db_install()
 {
-	log "DB : restoring ..."
+	log "DB : installing ..."
 
-	log "TODO"
+	_db_create_users
+	_db_create
+	_db_setup
+	_db_grant_permissions
 
-	log "DB : restored"
+	log "DB : installed ..."
 }
 
 # Reset db.
@@ -155,6 +145,16 @@ run_db_reset()
 	run_db_install
 
 	log "DB : reset"
+}
+
+# Restore db.
+run_db_restore()
+{
+	log "DB : restoring ..."
+
+	log "TODO"
+
+	log "DB : restored"
 }
 
 # Uninstall db.

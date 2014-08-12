@@ -10,14 +10,18 @@ yum install git
 # Clone prodiguer shell.
 git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
 
-# Run boostrapper.
-./prodiguer/exec.sh bootstrap
+# Set alias.
+alias prodiguer=./prodiguer/exec.sh
 
 # Run db server setup.
-./prodiguer/exec.sh run-centos-web-server-setup
+prodiguer setup-centos-db-server
 
 # Install stack.
-./prodiguer/exec.sh install
+prodiguer stack-bootstrap
+prodiguer stack-install
 
-# Restart nginx.
-nginx -s reload
+# Install db.
+prodiguer run-db-install
+
+# Verify by running db tests.
+prodiguer run-tests db
