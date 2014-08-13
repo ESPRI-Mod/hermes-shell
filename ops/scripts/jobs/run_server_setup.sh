@@ -53,7 +53,7 @@ setup_db_server_install_postgres()
 
 	# Copy pg_hba.conf template.
 	rm /var/lib/pgsql/9.3/data/pg_hba.conf
-	cp $DIR_TEMPLATES/template-pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
+	cp $DIR_RESOURCES/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
 
 	# Start PostgreSQL service using following command.
 	log "Starting PostgreSQL server"
@@ -123,11 +123,11 @@ setup_web_server()
 setup_web_server_install_nginx()
 {
 	# Install nginx.
-	rpm -i $DIR_TEMPLATES/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	rpm -i $DIR_RESOURCES/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum install nginx
 
 	# Update nginx configuration.
-	cp $DIR_TEMPLATES/template-nginx.conf /etc/nginx/nginx.conf
+	cp $DIR_RESOURCES/nginx.conf /etc/nginx/nginx.conf
 }
 
 
@@ -144,7 +144,7 @@ cd /opt
 # Set paths.
 declare DIR=./prodiguer
 declare DIR_CONFIG=$DIR/ops/config
-declare DIR_TEMPLATES=$DIR/ops/templates
+declare DIR_RESOURCES=$DIR/ops/resources
 
 
 # Declare helper vars.

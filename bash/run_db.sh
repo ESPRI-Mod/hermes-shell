@@ -108,7 +108,7 @@ _db_setup()
 	log "Seeding DB"
 
 	activate_venv server
-	python $DIR_OPS_SCRIPTS/run_db_setup.py
+	python $DIR_SCRIPTS/run_db_setup.py
 }
 
 # Backup db.

@@ -11,14 +11,14 @@ run_stack_bootstrap()
 	set_working_dir
 
 	log "Initializing configuration"
-	cp $DIR_TEMPLATES/template-config.json $DIR/config.json
+	cp $DIR_RESOURCES/prodiguer-config.json $HOME/.prodiguer
 
 	log "BOOTSTRAP ENDS"
 
 	log_banner
 	log "IMPORTANT NOTICE"
 	log "The bootstrap process installs a config file:" 1
-	log "./prodiguer/config.json" 2
+	log "HOME/.prodiguer" 2
 	log "Please review and assign settings as appropriate to your " 1
 	log "environemt prior to continuing with the installation process." 1
 	log "IMPORTANT NOTICE ENDS"
@@ -36,7 +36,7 @@ run_install_venv()
 	fi
 
 	TARGET_VENV=$DIR_VENV/$1
-	TARGET_REQUIREMENTS=$DIR_TEMPLATES/template-venv-$1.txt
+	TARGET_REQUIREMENTS=$DIR_RESOURCES/venv-$1-requirements.txt
 	rm -rf $TARGET_VENV
     mkdir -p $TARGET_VENV
     virtualenv -q $TARGET_VENV
@@ -103,7 +103,6 @@ run_install_repos()
 _install_dirs()
 {
 	mkdir -p $DIR_REPOS
-	mkdir -p $DIR_DB/backups
 	mkdir -p $DIR_PYTHON
 	mkdir -p $DIR_TMP
 }
@@ -177,8 +176,8 @@ _update_config()
 {
 	log "Updating configuration"
 
-	cp ./config.json ./config.json-backup
-	cp $DIR_TEMPLATES/template-config.json $DIR/config.json
+	cp $HOME/.prodiguer $HOME/.prodiguer-backup
+	cp $DIR_RESOURCES/prodiguer-config.json $HOME/.prodiguer
 }
 
 # Updates shell.

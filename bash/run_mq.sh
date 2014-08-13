@@ -22,7 +22,7 @@ run_mq_consumer()
 
 	if [ $1 = "smtp" ]; then
 	    log "MQ: launching SMTP consumer ..."
-    	python $DIR_OPS_SCRIPTS/run_mq_consumer_smtp.py
+    	python $DIR_SCRIPTS/run_mq_consumer_smtp.py
     fi
 
 	log "MQ : launched MQ consumer ..."
@@ -36,7 +36,7 @@ run_mq_to_api()
 
 	if [ $1 = "smtp" ]; then
 	    log "MQ: launching SMTP consumer ..."
-    	python $DIR_OPS_SCRIPTS/run_mq_consumer_smtp.py
+    	python $DIR_SCRIPTS/run_mq_consumer_smtp.py
     fi
 
 	log "MQ : launched MQ consumer ..."

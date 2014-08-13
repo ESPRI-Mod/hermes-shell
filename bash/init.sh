@@ -13,10 +13,6 @@ declare -a initializers=(
 	'run_mq'
 	'run_stack'
 	'run_tests'
-	'setup_os'
-	'setup_os_db_server'
-	'setup_os_mq_server'
-	'setup_os_web_server'
 )
 for initializer in "${initializers[@]}"
 do

@@ -1,0 +1,43 @@
+Searching 16 files for "DIR_OPS_SCRIPTS" (case sensitive)
+
+/Users/macg/dev/prodiguer/bash/init_paths.sh:
+   11  declare DIR_FRONTEND=$DIR/repos/prodiguer-fe
+   12  declare DIR_OPS=$DIR/ops
+   13: declare DIR_OPS_SCRIPTS=$DIR/ops/scripts
+   14  declare DIR_PYTHON=$DIR/ops/venv/python
+   15  declare DIR_REPOS=$DIR/repos
+
+/Users/macg/dev/prodiguer/bash/run_api.sh:
+   12  	activate_venv server
+   13  
+   14: 	python $DIR_OPS_SCRIPTS/run_web_api.py
+   15  }
+   16  
+   ..
+   22  {
+   23  	activate_venv server
+   24: 	python $DIR_OPS_SCRIPTS/run_web_api_metric.py $1 $2 $3
+   25  }
+   26  
+
+/Users/macg/dev/prodiguer/bash/run_db.sh:
+  109  
+  110  	activate_venv server
+  111: 	python $DIR_OPS_SCRIPTS/run_db_setup.py
+  112  }
+  113  
+
+/Users/macg/dev/prodiguer/bash/run_mq.sh:
+   23  	if [ $1 = "smtp" ]; then
+   24  	    log "MQ: launching SMTP consumer ..."
+   25:     	python $DIR_OPS_SCRIPTS/run_mq_consumer_smtp.py
+   26      fi
+   27  
+   ..
+   37  	if [ $1 = "smtp" ]; then
+   38  	    log "MQ: launching SMTP consumer ..."
+   39:     	python $DIR_OPS_SCRIPTS/run_mq_consumer_smtp.py
+   40      fi
+   41  
+
+6 matches across 4 files
