@@ -1,6 +1,0 @@
-{
-	"db": {
-		"auto_initialize": true,
-		"connection": "postgresql://prodiguer_db_user:@localhost/prodiguer"
-	}
-}

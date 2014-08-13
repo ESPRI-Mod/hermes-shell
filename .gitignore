@@ -3,3 +3,5 @@ ops/logs
 ops/venv
 repos
 tmp
+config.json
+config-backup.json

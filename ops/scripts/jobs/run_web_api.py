@@ -1,10 +1,12 @@
-from prodiguer import api
+import prodiguer
 
 
 
 def main():
 	"""Main entry point."""
-	api.run()
+	prodiguer.configure()
+	prodiguer.api.run()
+
 
 
 if __name__ == '__main__':

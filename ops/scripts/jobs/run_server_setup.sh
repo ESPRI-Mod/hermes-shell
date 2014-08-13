@@ -12,7 +12,6 @@ setup_common_libs()
 
 	# Enable EPEL v6.
 	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-	yum install foo
 
 	# Install various tools.
 	yum groupinstall -y development
@@ -67,11 +66,19 @@ setup_db_server_install_postgres()
 
 # Sets up the mq server.
 # See - http://sensuapp.org/docs/0.11/installing_rabbitmq_centos
-setup_centos_mq_server()
+# See - https://github.com/joemiller/joemiller.me-intro-to-sensu/blob/master/intro-to-sensu.md
+setup_mq_server()
 {
 	# Install common libraries.
 	setup_common_libs
 
+	# Install RabbitMQ.
+	setup_mq_server_install_rabbitmq
+}
+
+# Installs RabbitMQ server.
+setup_mq_server_install_rabbitmq()
+{
 	# Install dependencies.
 	yum install erlang
 
@@ -137,6 +144,8 @@ cd /opt
 # Set paths.
 declare DIR=./prodiguer
 declare DIR_CONFIG=$DIR/ops/config
+declare DIR_TEMPLATES=$DIR/ops/templates
+
 
 # Declare helper vars.
 declare SERVER_TYPE=$1
