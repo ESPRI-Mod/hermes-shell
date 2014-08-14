@@ -13,7 +13,7 @@
 """
 import datetime, random, sys, uuid
 
-from prodiguer.mq1 import constants, utils
+from prodiguer.mq import constants, utils
 from prodiguer import db
 
 

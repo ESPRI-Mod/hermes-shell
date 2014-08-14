@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: libligcm_to_mq_server_via_smtp.py
+.. module:: run_mq_producer_smtp.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
@@ -11,25 +11,22 @@
 
 
 """
-import base64, imaplib, json, os, sys
+import base64, imaplib, json
 
 from prodiguer.utils import (
+    config,
     convert,
     runtime as rt
     )
-from prodiguer import mq1
+from prodiguer import mq
 
-
-
-# Configuration file path.
-_CONFIG="{0}/prodiguer-smtp-to-mq.json".format(os.environ['HOME'])
 
 
 class _ProcessingContext(object):
     """Encapsulates processing contextual information."""
     def __init__(self):
         """Constructor."""
-        self.cfg = None
+        self.cfg = config.mq.smtp_bridge
         self.imap_client = None
         self.emails = None
         self.messages = []
@@ -59,20 +56,17 @@ class _Email(object):
 
 def _init(ctx):
     """Pre processing handler."""
-    # Initialize configuration.
-    ctx.cfg = convert.json_file_to_namedtuple(_CONFIG)
-
     # Initialize mail server client.
-    client = imaplib.IMAP4_SSL(host=ctx.cfg.smtp.host,
-                               port=int(ctx.cfg.smtp.port))
-    client.login(ctx.cfg.smtp.username, ctx.cfg.smtp.password)
+    client = imaplib.IMAP4_SSL(host=ctx.cfg.host,
+                               port=int(ctx.cfg.port))
+    client.login(ctx.cfg.username, ctx.cfg.password)
     ctx.imap_client = client
 
 
 def _init_emails(ctx):
     """Initializes set of emails to be processed."""
     # Select mailbox.
-    mailbox = ctx.cfg.smtp.mailbox
+    mailbox = ctx.cfg.mailbox
     typ, data = ctx.imap_client.select(mailbox, readonly=True)
     if typ != 'OK':
         raise Exception("An error occurred whilst selecting a mailbox.")
@@ -129,22 +123,22 @@ def _init_messages(ctx):
 
 def _get_ampq_msg_props(type_id, timestamp):
     """Returns an AMPQ basic properties instance, i.e. message header."""
-    return mq1.utils.create_ampq_message_properties(
-        user_id = mq1.constants.USER_IGCM,
-        producer_id = mq1.constants.PRODUCER_IGCM,
-        app_id = mq1.constants.APP_MONITORING,
+    return mq.utils.create_ampq_message_properties(
+        user_id = mq.constants.USER_IGCM,
+        producer_id = mq.constants.PRODUCER_IGCM,
+        app_id = mq.constants.APP_MONITORING,
         message_type = type_id,
-        mode = mq1.constants.MODE_TEST,
+        mode = mq.constants.MODE_TEST,
         timestamp = convert.date_to_timestamp(timestamp))
 
 
 def _prepare_messages_for_dispatch(ctx):
     """Prepares messages ready for dispatching to MQ server."""
     def transform(message):
-        exchange = mq1.constants.EXCHANGE_PRODIGUER_IN
+        exchange = mq.constants.EXCHANGE_PRODIGUER_IN
         props = _get_ampq_msg_props(message['code'], message['timestamp'])
 
-        return mq1.utils.Message(exchange, props, message)
+        return mq.utils.Message(exchange, props, message)
 
     ctx.messages = (transform(m) for m in ctx.messages)
 
@@ -162,7 +156,8 @@ def _dispatch_messages(ctx):
         for msg in ctx.messages:
             yield msg
 
-    mq1.utils.publish(yield_messages)
+    mq.utils.publish(yield_messages,
+                     connection_url=config.mq.connections.libligcm)
 
 
 def _main():

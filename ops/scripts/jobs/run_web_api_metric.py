@@ -24,7 +24,7 @@ _API = {
 }
 
 # Metric API endpoints.
-_EP = _API[cfg.core.mode] + r"/api/1/metric"
+_EP = _API[cfg.api.mode] + r"/api/1/metric"
 _EP_ADD = _EP + r"/add"
 _EP_LIST_GROUP = _EP + r"/list_group"
 _EP_FETCH = _EP + r"/fetch?group={0}&format={1}"

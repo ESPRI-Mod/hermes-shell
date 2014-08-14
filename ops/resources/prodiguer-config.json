@@ -20,6 +20,7 @@
 			"main": "amqp://prodiguer-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600",
 			"libligcm": "amqp://libligcm-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600"
 		},
+		"connection_reopen_delay": 5,
 		"smtp_bridge": {
 			"host": "imap.ipsl.jussieu.fr",
 			"port": "993",

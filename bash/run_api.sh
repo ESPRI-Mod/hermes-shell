@@ -21,7 +21,7 @@ run_api()
 _exec_metric_api()
 {
 	activate_venv server
-	python $DIR_SCRIPTS/run_web_api_metric.py $1 $2 $3
+	python $DIR_SCRIPTS/jobs/run_web_api_metric.py $1 $2 $3
 }
 
 # Add metrics.

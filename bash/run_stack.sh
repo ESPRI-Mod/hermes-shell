@@ -18,7 +18,7 @@ run_stack_bootstrap()
 	log_banner
 	log "IMPORTANT NOTICE"
 	log "The bootstrap process installs a config file:" 1
-	log "HOME/.prodiguer" 2
+	log "$HOME/.prodiguer" 2
 	log "Please review and assign settings as appropriate to your " 1
 	log "environemt prior to continuing with the installation process." 1
 	log "IMPORTANT NOTICE ENDS"
@@ -35,13 +35,21 @@ run_install_venv()
 		log "Installing virtual environment: $1"
 	fi
 
-	TARGET_VENV=$DIR_VENV/$1
-	TARGET_REQUIREMENTS=$DIR_RESOURCES/venv-$1-requirements.txt
+	# Make directory.
+	declare TARGET_VENV=$DIR_VENV/$1
 	rm -rf $TARGET_VENV
     mkdir -p $TARGET_VENV
+
+    # Initialise venv.
+    export PATH=$DIR_PYTHON/bin:$PATH
     virtualenv -q $TARGET_VENV
+
+    # Build dependencies.
     source $TARGET_VENV/bin/activate
+	declare TARGET_REQUIREMENTS=$DIR_BASH/venv-$1-requirements.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
+
+    # Cleanup.
     deactivate
 }
 

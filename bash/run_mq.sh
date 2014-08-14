@@ -5,39 +5,42 @@
 # ###############################################################
 
 # Launch server.
-run_mq()
+run_mq_server()
 {
-	log "MQ : launching Rabbit-MQ server ..."
-
 	rabbitmq-server
-
-	log "MQ : launched Rabbit-MQ server ..."
 }
 
-run_mq_consumer()
+_run_mq_producer()
 {
-	log "MQ : launching MQ consumer ..."
+	log "MQ : launching $1 MQ producer ..."
 
     activate_venv server
+	python $DIR_SCRIPTS/jobs/run_mq_producer_$1.py
 
-	if [ $1 = "smtp" ]; then
-	    log "MQ: launching SMTP consumer ..."
-    	python $DIR_SCRIPTS/run_mq_consumer_smtp.py
-    fi
+	log "MQ : launched $1 MQ producer ..."
+}
 
-	log "MQ : launched MQ consumer ..."
+_run_mq_consumer()
+{
+	log "MQ : launching $1 MQ consumer ..."
+
+    activate_venv server
+	python $DIR_SCRIPTS/jobs/run_mq_consumer_$1.py
+
+	log "MQ : launched $1 MQ consumer ..."
+}
+
+run_mq_producer_smtp()
+{
+	_run_mq_producer "smtp"
+}
+
+run_mq_consumer_persist()
+{
+	_run_mq_consumer "persist"
 }
 
 run_mq_to_api()
 {
-	log "MQ : launching MQ consumer ..."
-
-    activate_venv server
-
-	if [ $1 = "smtp" ]; then
-	    log "MQ: launching SMTP consumer ..."
-    	python $DIR_SCRIPTS/run_mq_consumer_smtp.py
-    fi
-
-	log "MQ : launched MQ consumer ..."
+	log "TODO"
 }
