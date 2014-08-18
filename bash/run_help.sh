@@ -46,8 +46,14 @@ run_help_db()
 run_help_mq()
 {
 	log "Message Queue commands :"
-	log "mq-producer-smtp" 1
-	log "runs a message producer that publishes messages pulled from an smtp server" 2
+	log "mq-consumer TYPE [LIMIT]" 1
+	log "runs a message consumer" 2
+	log "TYPE = type of consumer to be run" 2
+	log "LIMIT = limit of number of messages to consume" 2
+	log "mq-producer TYPE [LIMIT]" 1
+	log "TYPE = type of producer to be run" 2
+	log "LIMIT = limit of number of messages to produce" 2
+	log "runs a message producer" 2
 	log "mq-mock-libligcm" 1
 	log "runs a mock script that simulates libligcm message production" 2
 	log "mq-mock-api-notifier" 1

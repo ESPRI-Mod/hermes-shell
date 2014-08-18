@@ -10,34 +10,42 @@ run_mq_server()
 	rabbitmq-server
 }
 
-_run_mq_producer()
+run_mq_purge_queues()
 {
-	log "MQ : launching $1 MQ producer ..."
+	log "MQ : purging queues ..."
+
+	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-ext-log
+	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-ext-smtp
+	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-in-log
+	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-in-persist
+	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-internal-monitoring
+
+	log "MQ : purged queues ..."
+}
+
+run_mq_producer()
+{
+	declare typeof=$1
+
+	log "MQ : launching $typeof MQ producer ..."
 
     activate_venv server
-	python $DIR_SCRIPTS/jobs/run_mq_producer_$1.py
+	python $DIR_SCRIPTS/jobs/run_mq_producer_$typeof.py
 
-	log "MQ : launched $1 MQ producer ..."
+	log "MQ : launched $typeof MQ producer ..."
 }
 
-_run_mq_consumer()
+run_mq_consumer()
 {
-	log "MQ : launching $1 MQ consumer ..."
+	declare typeof=$1
+	declare limit=$2
+
+	log "MQ : launching $typeof MQ consumer ..."
 
     activate_venv server
-	python $DIR_SCRIPTS/jobs/run_mq_consumer_$1.py
+	python $DIR_SCRIPTS/jobs/run_mq_consumer_$typeof.py $limit
 
-	log "MQ : launched $1 MQ consumer ..."
-}
-
-run_mq_producer_smtp()
-{
-	_run_mq_producer "smtp"
-}
-
-run_mq_consumer_persist()
-{
-	_run_mq_consumer "persist"
+	log "MQ : launched $typeof MQ consumer ..."
 }
 
 run_mq_to_api()
