@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_mq_producer_smtp.py
+.. module:: ext_smtp.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
@@ -27,71 +27,63 @@ class _ProcessingContext(object):
         """Constructor."""
         self.cfg = config.mq.smtp_bridge
         self.imap_client = None
-        self.emails = None
+        self.email_uid_list = None
         self.messages = []
 
 
 def _init_imap_client(ctx):
     """Initializes imap client used to communicate with email server."""
+    # Login to mail server.
     client = imaplib.IMAP4_SSL(host=ctx.cfg.host,
                                port=int(ctx.cfg.port))
     client.login(ctx.cfg.username, ctx.cfg.password)
     ctx.imap_client = client
 
+    # Set mailbox.
+    ctx.imap_client.select(ctx.cfg.mailbox, readonly=True)
 
-def _init_emails(ctx):
+
+def _init_email_uid_list(ctx):
     """Initializes set of emails to be processed."""
-    # Select mailbox.
-    typ, data = ctx.imap_client.select(ctx.cfg.mailbox,
-                                       readonly=True)
-    if typ != 'OK':
-        raise Exception("An error occurred whilst selecting a mailbox.")
-
-    # Get email identifiers.
+    # Search mailbox.
     typ, data = ctx.imap_client.search(None, 'ALL')
     if typ != 'OK':
         raise Exception("An error occurred whilst searching a mailbox.")
 
-    # Initialise emails.
-    uid_list = data[0].split(" ")
-    ctx.emails = uid_list
+    # Initialise list of email uid's.
+    ctx.email_uid_list = data[0].split(" ")
 
 
-def _init_messages(ctx):
-    """Initializes set of messages to be dispatched."""
-    def _get_ampq_msg_props():
+def _close_imap_client(ctx):
+    """Closes imap client."""
+    ctx.imap_client.close()
+    ctx.imap_client.logout()
+
+
+def _dispatch(ctx):
+    """Dispatches messages to MQ server."""
+    def _get_msg_props():
         """Returns an AMPQ basic properties instance, i.e. message header."""
-        return mq.utils.create_ampq_message_properties(
+        return mq.create_ampq_message_properties(
             user_id = mq.constants.USER_IGCM,
             producer_id = mq.constants.PRODUCER_IGCM,
             app_id = mq.constants.APP_MONITORING,
             message_type = mq.constants.TYPE_GENERAL_SMTP,
             mode = mq.constants.MODE_TEST)
 
-    def transform(email_uid):
-        """Transforms an email id to a message ready for dispatch."""
-        return mq.utils.Message(_get_ampq_msg_props(),
-                                {"email_uid": email_uid},
-                                mq.constants.EXCHANGE_PRODIGUER_EXT)
+    def _get_msg_body(uid):
+        """Returns message body."""
+        return {u"email_uid": uid}
 
-    ctx.messages = (transform(email_id) for email_id in ctx.emails)
+    def _get_messages():
+        """Dispatch message source."""
+        for uid in ctx.email_uid_list:
+            yield mq.Message(_get_msg_props(),
+                             _get_msg_body(uid),
+                             mq.constants.EXCHANGE_PRODIGUER_EXT)
 
-
-def _release_smtp_connection(ctx):
-    """Closes Performs clean up after mail server resources have been processed."""
-    ctx.emails = None
-    ctx.imap_client.close()
-    ctx.imap_client.logout()
-
-
-def _dispatch_messages(ctx):
-    """Dispatches messages to MQ server."""
-    def yield_messages():
-        for msg in ctx.messages:
-            yield msg
-
-    mq.utils.publish(yield_messages,
-                     connection_url=config.mq.connections.libligcm)
+    mq.produce(_get_messages,
+               connection_url=config.mq.connections.libligcm)
 
 
 def _main():
@@ -100,13 +92,12 @@ def _main():
     tasks = {
         "green": (
             _init_imap_client,
-            _init_emails,
-            _init_messages,
-            _release_smtp_connection,
-            _dispatch_messages
+            _init_email_uid_list,
+            _close_imap_client,
+            _dispatch
             ),
         "red": (
-            _release_smtp_connection,
+            _close_imap_client,
             )
     }
 

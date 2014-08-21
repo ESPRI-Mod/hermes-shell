@@ -103,6 +103,7 @@ run_install_repo()
 # Installs git repos.
 run_install_repos()
 {
+	run_install_repo prodiguer-docs
 	run_install_repo prodiguer-fe
 	run_install_repo prodiguer-server
 }
