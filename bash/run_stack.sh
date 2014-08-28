@@ -46,7 +46,7 @@ run_install_venv()
 
     # Build dependencies.
     source $TARGET_VENV/bin/activate
-	declare TARGET_REQUIREMENTS=$DIR_BASH/venv-$1-requirements.txt
+	declare TARGET_REQUIREMENTS=$DIR_RESOURCES/venv/requirements-$1.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -140,9 +140,9 @@ _update_notice()
 	log_banner
 	log "IMPORTANT NOTICE"
 	log "The update process created a new config file:" 1
-	log "./prodiguer/config.json" 2
+	log "$HOME/.prodiguer" 2
 	log "It also created a backup of your old config file:" 1
-	log "./prodiguer/config.json-backup" 2
+	log "$HOME/.prodiguer-backup" 2
 	log "Please verify your local configuration settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }
