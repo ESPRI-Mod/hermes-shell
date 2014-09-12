@@ -4,6 +4,25 @@
 # SECTION: MQ FUNCTIONS
 # ###############################################################
 
+# Set of supported MQ exchanges.
+declare -a MQ_VHOSTS=(
+	'prodiguer'
+)
+
+# Set of supported MQ exchanges.
+declare -a MQ_EXCHANGES=(
+	'ext'
+	'in'
+	'internal'
+	'out'
+)
+
+# Set of supported MQ users.
+declare -a MQ_USERS=(
+	'libligcm-mq-user'
+	'prodiguer-mq-user'
+)
+
 # Set of supported MQ queues.
 declare -a MQ_QUEUES=(
 	'ext-log'
@@ -29,7 +48,7 @@ run_mq_server()
 	rabbitmq-server
 }
 
-run_mq_purge_queues()
+run_mq_purge()
 {
 	log "MQ : purging queues ..."
 
@@ -41,16 +60,49 @@ run_mq_purge_queues()
 	log "MQ : purged queues ..."
 }
 
+run_mq_configure()
+{
+	log "MQ : configuring mq server ..."
+
+	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/rabbitmq-setup.json
+
+	log "MQ : mq server configured ..."
+}
+
+run_mq_reset()
+{
+	log "MQ : resetting server ..."
+
+	for queue in "${MQ_QUEUES[@]}"
+	do
+		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete queue name=q-$queue
+	done
+	for user in "${MQ_USERS[@]}"
+	do
+		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete user name=$user
+	done
+	for exchange in "${MQ_EXCHANGES[@]}"
+	do
+		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete exchange name=x-$exchange
+	done
+	for vhost in "${MQ_VHOSTS[@]}"
+	do
+		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete vhost name=$vhost
+	done
+
+	log "MQ : reset server ..."
+}
+
 _run_mq_agent()
 {
 	declare agent=$1
-	declare typeof=`echo $2 | tr '-' '_'`
-	declare limit=$3
+	declare typeof=$2
+	declare throttle=$3
 
 	log "MQ : launching "$typeof" MQ "$agent" ..."
 
     activate_venv server
-	python $DIR_SCRIPTS"/jobs/mq/"$agent"s/"$typeof".py" $limit
+	python $DIR_SCRIPTS"/jobs/mq/"$agent $typeof $throttle
 
 	log "MQ : launched "$typeof" MQ "$agent" ..."
 }
@@ -58,20 +110,22 @@ _run_mq_agent()
 run_mq_producer()
 {
 	declare typeof=$1
-	declare limit=$2
+	declare throttle=$2
 
-	_run_mq_agent "producer" $typeof $limit
+	log "MQ : launching producer: "$typeof
+
+	_run_mq_agent "producer" $typeof $throttle
 }
 
 run_mq_consumer()
 {
 	declare typeof=$1
-	declare limit=$2
+	declare throttle=$2
+
 
 	log "MQ : launching consumer: "$typeof
 
-    activate_venv server
-	python $DIR_SCRIPTS"/jobs/mq/consumer" $typeof $limit
+	_run_mq_agent "consumer" $typeof $throttle
 }
 
 run_mq_consumers()
@@ -84,7 +138,3 @@ run_mq_consumers()
 	done
 }
 
-run_mq_to_api()
-{
-	log "TODO"
-}

@@ -21,13 +21,15 @@ from prodiguer import mq
 
 
 
-class _ProcessingContext(object):
-    """Encapsulates processing contextual information."""
-    def __init__(self):
+class ProcessingContext(object):
+    """Processing context information wrapper."""
+    def __init__(self, throttle):
         """Constructor."""
         self.cfg = config.mq.smtp_bridge
         self.imap_client = None
         self.email_uid_list = None
+        self.throttle = throttle
+        self.produced = 0
         self.messages = []
 
 
@@ -78,33 +80,29 @@ def _dispatch(ctx):
     def _get_messages():
         """Dispatch message source."""
         for uid in ctx.email_uid_list:
+            # Yield message for dispatch.
             yield mq.Message(_get_msg_props(),
                              _get_msg_body(uid),
                              mq.constants.EXCHANGE_PRODIGUER_EXT)
+
+            # Apply throttle.
+            ctx.produced += 1
+            if ctx.throttle and ctx.throttle == ctx.produced:
+                return
 
     mq.produce(_get_messages,
                connection_url=config.mq.connections.libligcm)
 
 
-def _main():
-    """Main entry point handler."""
-    # Define tasks.
-    tasks = {
-        "green": (
-            _init_imap_client,
-            _init_email_uid_list,
-            _close_imap_client,
-            _dispatch
-            ),
-        "red": (
-            _close_imap_client,
-            )
-    }
-
-    # Invoke tasks.
-    rt.invoke(tasks, _ProcessingContext(), "MQ")
-
-
-# Main entry point.
-if __name__ == "__main__":
-    _main()
+# Set of processing tasks.
+TASKS = {
+    "green": (
+        _init_imap_client,
+        _init_email_uid_list,
+        _close_imap_client,
+        _dispatch
+        ),
+    "red": (
+        _close_imap_client,
+        )
+}

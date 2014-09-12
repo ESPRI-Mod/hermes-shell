@@ -28,6 +28,8 @@ _EP = _API[cfg.api.mode] + r"/api/1/metric"
 _EP_ADD = _EP + r"/add"
 _EP_LIST_GROUP = _EP + r"/list_group"
 _EP_FETCH = _EP + r"/fetch?group={0}&format={1}"
+_EP_FETCH_SETUP = _EP + r"/fetch_setup?group={0}"
+_EP_FETCH_LINE_COUNT = _EP + r"/fetch_line_count?group={0}"
 _EP_FETCH_HEADERS = _EP + r"/fetch?group={0}&headersonly=true"
 _EP_DELETE_LINES = _EP + r"/delete"
 _EP_DELETE_GROUP = _EP + r"/delete_group?group={0}"
@@ -191,10 +193,28 @@ def _fetch_line_count(ctx):
     group_id = _parse_group_id(ctx.arg1)
 
     # Invoke api.
-    r = _invoke_api(requests.get, _EP_FETCH.format(group_id, _ENCODING_JSON))
+    r = _invoke_api(requests.get, _EP_FETCH_LINE_COUNT.format(group_id))
     r = r.json()
 
-    _log("fetch-line-count", len(r['metrics']) if 'metrics' in r else "0")
+    if 'error' in r:
+        _log("fetch-line-count", r['error'])
+    else:
+        _log("fetch-line-count", r['count'])
+
+
+def _fetch_setup(ctx):
+    """Retrieve metric group setup information used to drive UI's."""
+    # Parse params.
+    group_id = _parse_group_id(ctx.arg1)
+
+    # Invoke api.
+    r = _invoke_api(requests.get, _EP_FETCH_SETUP.format(group_id))
+    r = r.json()
+
+    if 'error' in r:
+        _log("fetch-setup", r['error'])
+    else:
+        _log("fetch-setup", r['data'])
 
 
 def _fetch_headers(ctx):
@@ -225,6 +245,7 @@ _ACTIONS = {
     "delete-line": _delete_line,
     "fetch": _fetch,
     "fetch-headers": _fetch_headers,
+    "fetch-setup": _fetch_setup,
     "fetch-line-count": _fetch_line_count,
     "list-group": _list_group,
 }

@@ -37,7 +37,7 @@ run_help_db()
 	log "db-restore" 1
 	log "restores database from backup" 2
 	log "db-uninstall" 1
-	log "drops database" 2	
+	log "drops database" 2
 	log "db-server-install" 1
 	log "installs postgres db server" 2
 }

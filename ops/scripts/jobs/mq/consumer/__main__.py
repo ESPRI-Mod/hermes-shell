@@ -93,7 +93,7 @@ try:
 except IndexError:
     _consume_limit = 0
 except ValueError:
-    raise ValueError("Invalid consume limit - it must be an integer")
+    raise ValueError("Invalid consume limit - it must be an integer >= 0")
 
 
 # Set helper vars.

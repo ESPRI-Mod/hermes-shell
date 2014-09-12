@@ -11,3 +11,31 @@
 
 
 """
+
+
+import os, sys
+
+
+
+class ProcessingContext(object):
+    """Processing context information wrapper."""
+    def __init__(self, batch_id, throttle=0):
+        """Constructor."""
+        self.batch_id = batch_id
+        self.throttle = throttle
+        self.produced = 0
+        self.messages = []
+
+
+def _init_messages(ctx):
+    """Initializes set of messages to be processed."""
+    print("Hello Dolly")
+
+
+# Set of processing tasks.
+TASKS = {
+    "green": (
+    	_init_messages,
+    	),
+    "red": ()
+}
