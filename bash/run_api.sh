@@ -11,7 +11,7 @@ run_api()
 
 	activate_venv server
 
-	python $DIR_SCRIPTS/jobs/web/run_api.py
+	python $DIR_JOBS/api/run_api.py
 }
 
 # ###############################################################

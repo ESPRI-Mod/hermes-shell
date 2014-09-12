@@ -7,7 +7,7 @@ declare -a initializers=(
 	'init_vars'
 	'run_api'
 	'run_db'
-	'run_demo'
+	'run_demos'
 	'run_help'
 	'run_mq'
 	'run_stack'

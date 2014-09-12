@@ -108,7 +108,7 @@ _db_setup()
 	log "Seeding DB"
 
 	activate_venv server
-	python $DIR_SCRIPTS/jobs/db/run_setup.py
+	python $DIR_JOBS/db/run_setup.py
 }
 
 # Backup db.
@@ -169,13 +169,4 @@ run_db_uninstall()
 	log "DB : uninstalled"
 }
 
-# Reinstall db.
-run_db_reinstall()
-{
-	log "DB : reinstalling ..."
-
-	run_db_uninstall
-	run_db_install
-
-	log "DB : reinstalled"
-}
+w

@@ -8,13 +8,12 @@
 run_help()
 {
 	helpers=(
-		run_help_stack
-		run_help_db
-		run_help_mq
-		run_help_web
-		run_help_api_metric
-		run_help_tests
-		run_help_demos
+		run_api_help
+		run_db_help
+		run_metric_help
+		run_mq_help
+		run_stack_help
+		run_tests_help
 	)
 
 	log "------------------------------------------------------------------"
@@ -25,13 +24,25 @@ run_help()
 	done
 }
 
-run_help_db()
+run_api_help()
+{
+	log "Web API commands :"
+	log "api" 1
+	log "launches API" 2
+}
+
+run_help_api()
+{
+	run_api_help
+}
+
+run_db_help()
 {
 	log "DB commands :"
 	log "db-backup" 1
 	log "performs a backup of database" 2
 	log "db-install" 1
-	log "initializes database" 2
+	log "installs database intiialised with setup data" 2
 	log "db-reset" 1
 	log "uninstalls & installs database" 2
 	log "db-restore" 1
@@ -42,48 +53,68 @@ run_help_db()
 	log "installs postgres db server" 2
 }
 
-run_help_mq()
+run_help_db()
 {
-	log "Message Queue commands :"
-	log "mq-consumer TYPE [LIMIT]" 1
-	log "runs a message consumer" 2
-	log "TYPE = type of consumer to be run" 2
-	log "LIMIT = limit of number of messages to consume" 2
-	log "mq-producer TYPE [LIMIT]" 1
-	log "TYPE = type of producer to be run" 2
-	log "LIMIT = limit of number of messages to produce" 2
-	log "runs a message producer" 2
-	log "mq-mock-libligcm" 1
-	log "runs a mock script that simulates libligcm message production" 2
-	log "mq-mock-api-notifier" 1
-	log "runs a mock script that notifies the web API of incoming messages" 2
+	run_db_help
 }
 
-run_help_web()
-{
-	log "Web commands :"
-	log "web-api" 1
-	log "launches web API application" 2
-}
-
-run_help_api_metric()
+run_metric_help()
 {
 	log "Metric web API commands :"
-	log "metric-add" 1
+	log "metric-add FILEPATH" 1
 	log "adds a group of metrics from either a json or csv file" 2
-	log "metric-delete-group" 1
+	log "metric-delete GROUP-ID" 1
 	log "deletes a group of metrics" 2
-	log "metric-delete-line" 1
-	log "deletes a single metric" 2
-	log "metric-fetch" 1
+	log "metric-delete-line LINE_ID" 1
+	log "deletes one or many metric lines" 2
+	log "metric-fetch GROUP-ID" 1
 	log "fetches a group of metrics" 2
-	log "metric-fetch-line-count" 1
+	log "metric-fetch-columns GROUP-ID" 1
+	log "fetches list of metric group columns" 2
+	log "metric-fetch-setup GROUP-ID" 1
+	log "fetches a metric group's distinct column values" 2
+	log "metric-fetch-count GROUP-ID" 1
 	log "fetches number of lines within a metric group" 2
-	log "metric-list-group" 1
-	log "list the names of all metric groups" 2
+	log "metric-lifecycle-demo" 1
+	log "demonstrates full metric API lifecycle" 2
+	log "metric-list" 1
+	log "lists all metric group names" 2
 }
 
-run_help_stack()
+run_help_metric()
+{
+	run_metric_help
+}
+
+run_mq_help()
+{
+	log "Message Queue commands :"
+	log "mq-configure" 1
+	log "uploads RabbitMQ configuration file to RabbitMQ server" 2
+	log "mq-consumer TYPE [THROTTLE]" 1
+	log "runs a message consumer" 2
+	log "TYPE = type of consumer to be run" 2
+	log "THROTTLE = optional limit of number of messages to consume" 2
+	log "mq-consumers" 1
+	log "runs all message consumers in dedicated processes" 2
+	log "mq-producer TYPE [THROTTLE]" 1
+	log "runs a message producer" 2
+	log "TYPE = type of producer to be run" 2
+	log "THROTTLE = optional limit of number of messages to produce" 2
+	log "mq-purge" 1
+	log "deletes all messages from all queues" 2
+	log "mq-reset" 1
+	log "deletes all vhosts, exhanges, queues and users from RabbitMQ server" 2
+	log "mq-server" 1
+	log "launches RabbitMq server" 2
+}
+
+run_help_mq()
+{
+	run_mq_help
+}
+
+run_stack_help()
 {
 	log "Stack commands :"
 	log "stack-bootstrap" 1
@@ -102,7 +133,12 @@ run_help_stack()
 	log "uninstalls stack & virtual environments" 2
 }
 
-run_help_tests()
+run_help_stack()
+{
+	run_stack_help
+}
+
+run_tests_help()
 {
 	log "Unit test commands :"
 	log "tests" 1
@@ -138,15 +174,8 @@ run_help_tests()
 	log "runs configuration utility unit tests" 2
 }
 
-run_help_demos()
+run_help_tests()
 {
-	log "Demo commands :"
-	log "demo-libligcm-to-mq" 1
-	log "Publishes mock libligcm messages to MQ server" 2
-	log "demo-libligcm-to-mq-via-smtp" 1
-	log "Publishes libligcm messages pulled from SMTP server to MQ server" 2
-	log "demo-mq-to-api" 1
-	log "Sends mock MQ notifications to API for routing to front-end via websockets" 2
-	log "demo-metric-lifecycle" 1
-	log "Demonstrates metric API lifecycle" 2
+	run_tests_help
 }
+

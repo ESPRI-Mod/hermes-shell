@@ -42,10 +42,58 @@ declare -a MQ_QUEUES=(
 	'internal-smtp'
 )
 
-# Launch server.
-run_mq_server()
+_run_mq_agent()
 {
-	rabbitmq-server
+	declare agent=$1
+	declare typeof=$2
+	declare throttle=$3
+
+	log "MQ : launching "$typeof" MQ "$agent" ..."
+
+    activate_venv server
+	python $DIR_JOBS"/mq/"$agent $typeof $throttle
+
+	log "MQ : launched "$typeof" MQ "$agent" ..."
+}
+
+run_mq_configure()
+{
+	log "MQ : configuring mq server ..."
+
+	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/rabbitmq-setup.json
+
+	log "MQ : mq server configured ..."
+}
+
+run_mq_consumer()
+{
+	declare typeof=$1
+	declare throttle=$2
+
+
+	log "MQ : launching consumer: "$typeof
+
+	_run_mq_agent "consumer" $typeof $throttle
+}
+
+run_mq_consumers()
+{
+	log "MQ : launching consumers ..."
+
+	for queue in "${MQ_QUEUES[@]}"
+	do
+		run_mq_consumer $queue &
+	done
+}
+
+run_mq_producer()
+{
+	declare typeof=$1
+	declare throttle=$2
+
+	log "MQ : launching producer: "$typeof
+
+	_run_mq_agent "producer" $typeof $throttle
 }
 
 run_mq_purge()
@@ -58,15 +106,6 @@ run_mq_purge()
 	done
 
 	log "MQ : purged queues ..."
-}
-
-run_mq_configure()
-{
-	log "MQ : configuring mq server ..."
-
-	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/rabbitmq-setup.json
-
-	log "MQ : mq server configured ..."
 }
 
 run_mq_reset()
@@ -93,48 +132,10 @@ run_mq_reset()
 	log "MQ : reset server ..."
 }
 
-_run_mq_agent()
+# Launch server.
+run_mq_server()
 {
-	declare agent=$1
-	declare typeof=$2
-	declare throttle=$3
-
-	log "MQ : launching "$typeof" MQ "$agent" ..."
-
-    activate_venv server
-	python $DIR_SCRIPTS"/jobs/mq/"$agent $typeof $throttle
-
-	log "MQ : launched "$typeof" MQ "$agent" ..."
+	rabbitmq-server
 }
 
-run_mq_producer()
-{
-	declare typeof=$1
-	declare throttle=$2
-
-	log "MQ : launching producer: "$typeof
-
-	_run_mq_agent "producer" $typeof $throttle
-}
-
-run_mq_consumer()
-{
-	declare typeof=$1
-	declare throttle=$2
-
-
-	log "MQ : launching consumer: "$typeof
-
-	_run_mq_agent "consumer" $typeof $throttle
-}
-
-run_mq_consumers()
-{
-	log "MQ : launching consumers ..."
-
-	for queue in "${MQ_QUEUES[@]}"
-	do
-		run_mq_consumer $queue &
-	done
-}
 

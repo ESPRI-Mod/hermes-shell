@@ -19,10 +19,8 @@ def _main(group_id, columns=None):
 
     # Invoke api.
     endpoint = utils.get_endpoint(_EP.format(group_id, columns))
-    response = utils.invoke_api(endpoint, expecting_json=False)
+    response = utils.invoke_api(endpoint)
 
-    print response
-    return
     # Log to stdout.
     if 'error' in response:
         utils.log("fetch-setup", response['error'])

@@ -20,9 +20,6 @@ def _main(group_id, encoding=None):
     endpoint = utils.get_endpoint(_EP.format(group_id, encoding))
     response = utils.invoke_api(endpoint, expecting_json=False)
 
-    print response
-    return
-
     # Log to stdout.
     utils.log("fetch", response)
 
