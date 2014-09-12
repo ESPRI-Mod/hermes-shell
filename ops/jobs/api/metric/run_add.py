@@ -76,6 +76,7 @@ def _main(filepath):
     endpoint = utils.get_endpoint(_EP)
     response = utils.invoke_api(endpoint, verb=requests.post, payload=payload)
 
+    # Log to stdout.
     if 'error' in response:
         utils.log("add", response['error'])
     else:

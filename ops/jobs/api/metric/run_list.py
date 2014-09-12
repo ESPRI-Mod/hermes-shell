@@ -13,8 +13,9 @@ def _main():
     """Main entry point."""
     # Invoke api.
     endpoint = utils.get_endpoint(_EP)
-    response = utils.invoke_api(endpoint)
+    response = utils.invoke_api(endpoint, expecting_json=False)
 
+    # Log to stdout.
     if 'error' in response:
         utils.log("list", response['error'])
     else:

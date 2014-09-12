@@ -62,10 +62,10 @@ run_metric_fetch_setup()
 	_exec_metric_api "fetch-setup" $1
 }
 
-# Fetch metric group headers.
-run_metric_fetch_headers()
+# Fetch metric group columns.
+run_metric_fetch_columns()
 {
-	_exec_metric_api "fetch-headers" $1
+	_exec_metric_api "fetch-columns" $1
 }
 
 # List groups.

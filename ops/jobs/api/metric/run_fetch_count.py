@@ -7,7 +7,7 @@ import utils
 
 
 # Metric API endpoint.
-_EP = r"/api/1/metric/fetch_line_count?group={0}"
+_EP = r"/api/1/metric/fetch_count?group={0}"
 
 
 def _main(group_id):
@@ -19,6 +19,7 @@ def _main(group_id):
     endpoint = utils.get_endpoint(_EP.format(group_id))
     response = utils.invoke_api(endpoint)
 
+    # Log to stdout.
     if 'error' in response:
         utils.log("fetch-count", response['error'])
     else:

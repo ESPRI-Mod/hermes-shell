@@ -23,6 +23,7 @@ def _main(lines):
     endpoint = utils.get_endpoint(_EP)
     response = utils.invoke_api(endpoint, verb=requests.post, payload=payload)
 
+    # Log to stdout.
     if 'error' in response:
         utils.log("delete-lines", response['error'])
     else:

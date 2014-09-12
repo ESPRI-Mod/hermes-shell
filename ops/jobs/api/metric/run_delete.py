@@ -21,6 +21,7 @@ def _main(group_id):
     endpoint = utils.get_endpoint(_EP.format(group_id))
     response = utils.invoke_api(endpoint, verb=requests.post)
 
+    # Log to stdout.
     if 'error' in response:
         utils.log("delete", response['error'])
     else:
