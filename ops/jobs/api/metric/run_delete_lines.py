@@ -8,14 +8,15 @@ import utils
 
 
 
-# Metric API endpoints.
+# Metric API endpoint.
 _EP = r"/api/1/metric/delete_lines"
 
 
-def _main(lines):
+def _main(group_id, lines):
     """Main entry point."""
     # Set payload.
     payload = {
+        'group': utils.parse_group_id(group_id),
         'metric_id_list': lines.split("-")
     }
 
@@ -25,11 +26,11 @@ def _main(lines):
 
     # Log to stdout.
     if 'error' in response:
-        utils.log("delete-lines", response['error'])
+        utils.log_error("delete-lines", response['error'])
     else:
-        utils.log("delete-lines", response)
+        utils.log("delete-lines", "Line(s) sucessfully deleted")
 
 
 # Main entry point.
 if __name__ == '__main__':
-    _main(sys.argv[1])
+    _main(sys.argv[1], sys.argv[2])

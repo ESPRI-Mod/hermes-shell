@@ -12,6 +12,9 @@
 
 """
 from prodiguer import mq
+from prodiguer.db.constants import EXECUTION_STATE_ROLLBACK
+
+import in_monitoring_utils as utils
 
 
 
@@ -30,15 +33,14 @@ class Message(mq.Message):
         super(Message, self).__init__(props, body, decode=True)
 
         self.simulation = None
-        self.simulation_name = self.content['simuid']
+        self.simulation_uid = self.content['simuid']
 
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
-    return _update_simulation_state
+    return (
+        lambda ctx: utils.update_simulation_state(ctx, EXECUTION_STATE_ROLLBACK),
+        lambda ctx: utils.notify_operator(ctx, "monitoring-9000")
+        )
 
 
-def _update_simulation_state(ctx):
-    """Updates simulation status."""
-    utils.update_simulation_state(ctx.simulation_name,
-                                  db.constants.EXECUTION_STATE_ROLLBACK)

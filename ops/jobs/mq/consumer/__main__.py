@@ -35,6 +35,7 @@ import in_monitoring_9999
 # Internal queue consumers.
 import internal_api
 import internal_smtp
+import internal_sms
 
 
 
@@ -44,6 +45,7 @@ _CONSUMERS = {
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
     'internal-smtp': internal_smtp,
+    'internal-sms': internal_sms,
     'in-log': in_log,
     'in-monitoring-0000': in_monitoring_0000,
     'in-monitoring-0100': in_monitoring_0100,
@@ -61,10 +63,31 @@ _CONSUMERS = {
 _NON_DB_BOUND_CONSUMERS = {}
 
 
+def _initialize_consumer(consumer):
+    """Initializes a consumer prior to message consumption."""
+    # Invoke task factory.
+    try:
+        tasks = consumer.get_init_tasks()
+    except AttributeError:
+        return
+
+    # Convert to iterable (if necessary).
+    try:
+        iter(tasks)
+    except TypeError:
+        tasks = (tasks, )
+
+    # Execute tasks.
+    for task in tasks:
+        task()
+
+
 def _process_message(msg, consumer):
     """Processes a message being consumed from a queue."""
-    # Set tasks.
+    # Invoke task factory.
     tasks = consumer.get_tasks()
+
+    # Convert to iterable (if necessary).
     try:
         iter(tasks)
     except TypeError:
@@ -107,13 +130,17 @@ try:
 except AttributeError:
     _context_type = mq.Message
 
-# Log.
-rt.log_mq("Message consumer launched: {0}".format(_consumer_type))
-
 # Connect to db.
 if _is_db_bound:
-    db.session.start(config.db.connections.main)
+    db.session.start(config.db.pgres.main)
     db.cache.load()
+
+# Initialise.
+_initialize_consumer(consumer)
+rt.log_mq("Message consumer initialized: {0}".format(_consumer_type))
+
+# Log.
+rt.log_mq("Message consumer launched: {0}".format(_consumer_type))
 
 # Consume messages.
 mq.utils.consume(consumer.MQ_EXCHANGE,

@@ -12,6 +12,7 @@
 
 """
 from prodiguer import convert, db, mq
+from prodiguer.db.constants import EXECUTION_STATE_COMPLETE
 
 import in_monitoring_utils as utils
 
@@ -31,15 +32,13 @@ class Message(mq.Message):
         """Constructor."""
         super(Message, self).__init__(props, body, decode=True)
 
-        self.simulation_name = self.content['simuid']
+        self.simulation = None
+        self.simulation_uid = self.content['simuid']
 
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
-    return _update_state
-
-
-def _update_state(ctx):
-    """Updates state of simulation being processed."""
-    utils.update_simulation_state(ctx.simulation_name,
-                                  db.constants.EXECUTION_STATE_COMPLETE)
+    return (
+        lambda ctx: utils.update_simulation_state(ctx, EXECUTION_STATE_COMPLETE),
+        lambda ctx: utils.notify_operator(ctx, "monitoring-0100")
+        )

@@ -4,30 +4,36 @@
 # SECTION: DEMOS
 # ###############################################################
 
-# Run demonstration of libligcm message publishing.
-run_demo_libligcm_to_mq()
+# Run demonstration of libigcm message publishing.
+run_demo_libigcm_to_mq()
 {
     activate_venv server
-    python $DIR_SERVER_DEMOS/monitoring/libligcm_to_mq_server.py $1
+    python $DIR_DEMOS/monitoring/libigcm_to_mq_server.py $1
 }
 
 # Run demonstration of informing API of incoming monitoring messsages.
 run_demo_mq_to_api()
 {
     activate_venv server
-    python $DIR_SERVER_DEMOS/monitoring/mock_mq_to_api.py
+    python $DIR_DEMOS/monitoring/mock_mq_to_api.py
 }
 
 # Run demonstration of metric API lifecycle.
 run_demo_metric_lifecycle()
 {
-    activate_venv server
-    python $DIR_SERVER_DEMOS/metric/lifecycle.py $1 $2
-}
+	declare group_id=TEST_METRIC_GROUP_01
+	declare filepath=$DIR_DEMOS/api/metric/test_files/TEST_METRIC_GROUP_01.json
+	declare filepath_csv=$DIR_DEMOS/api/metric/test_files/TEST_METRIC_GROUP_01.csv
 
-# Run demonstration of metric API lifecycle.
-run_demo_consume_xin_log()
-{
-    activate_venv server
-    python $DIR_SERVER_DEMOS/monitoring/consume_xin_log.py
+	# Reset group.
+	run_metric_delete $group_id
+
+	# List set of groups.
+	run_metric_list
+
+	# Add metricss.
+	run_metric_add filepath
+
+	# List set of groups.
+	run_metric_list
 }

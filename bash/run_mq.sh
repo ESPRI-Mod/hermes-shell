@@ -19,7 +19,7 @@ declare -a MQ_EXCHANGES=(
 
 # Set of supported MQ users.
 declare -a MQ_USERS=(
-	'libligcm-mq-user'
+	'libigcm-mq-user'
 	'prodiguer-mq-user'
 )
 
@@ -39,7 +39,8 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-9000'
 	'in-monitoring-9999'
 	'internal-api'
-	'internal-smtp'
+	# 'internal-sms'
+	# 'internal-smtp'
 )
 
 _run_mq_agent()
@@ -47,11 +48,12 @@ _run_mq_agent()
 	declare agent=$1
 	declare typeof=$2
 	declare throttle=$3
+	declare misc=$4
 
 	log "MQ : launching "$typeof" MQ "$agent" ..."
 
     activate_venv server
-	python $DIR_JOBS"/mq/"$agent $typeof $throttle
+	python $DIR_JOBS"/mq/"$agent $typeof $throttle $misc
 
 	log "MQ : launched "$typeof" MQ "$agent" ..."
 }
@@ -65,7 +67,7 @@ run_mq_configure()
 	log "MQ : mq server configured ..."
 }
 
-run_mq_consumer()
+run_mq_consume()
 {
 	declare typeof=$1
 	declare throttle=$2
@@ -76,24 +78,26 @@ run_mq_consumer()
 	_run_mq_agent "consumer" $typeof $throttle
 }
 
-run_mq_consumers()
+run_mq_consume_all()
 {
-	log "MQ : launching consumers ..."
+	log "MQ : launching all consumers ..."
 
 	for queue in "${MQ_QUEUES[@]}"
 	do
-		run_mq_consumer $queue &
+		run_mq_consume $queue &
 	done
 }
 
-run_mq_producer()
+run_mq_produce()
 {
 	declare typeof=$1
 	declare throttle=$2
+	declare misc=$3
+
 
 	log "MQ : launching producer: "$typeof
 
-	_run_mq_agent "producer" $typeof $throttle
+	_run_mq_agent "producer" $typeof $throttle $misc
 }
 
 run_mq_purge()

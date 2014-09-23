@@ -47,8 +47,21 @@ except IndexError:
 except ValueError:
     raise ValueError("Invalid produce limit - it must be an integer >= 0")
 
+# Miscellaneous argument.
+try:
+    _arg = sys.argv[3]
+except IndexError:
+    _arg = None
+
+
 # Log.
 rt.log_mq("Message producer launched: {0}".format(_producer_type))
 
+# Create context.
+if _arg:
+    ctx = _producer.ProcessingContext(_throttle, _arg)
+else:
+    ctx = _producer.ProcessingContext(_throttle)
+
 # Invoke tasks.
-rt.invoke(_producer.TASKS, _producer.ProcessingContext(_throttle), "MQ")
+rt.invoke(_producer.TASKS, ctx, "MQ")

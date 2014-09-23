@@ -19,7 +19,7 @@ log()
 	    	echo -e "IPSL PRODIGUER INFO SH > "$1
 	    fi
 	else
-	    echo -e ""
+	    echo -e "IPSL PRODIGUER INFO SH > "
 	fi
 }
 

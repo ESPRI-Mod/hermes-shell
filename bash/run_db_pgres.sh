@@ -168,5 +168,3 @@ run_db_uninstall()
 
 	log "DB : uninstalled"
 }
-
-w

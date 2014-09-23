@@ -1,0 +1,47 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+alias prodiguer='$DIR/exec.sh'
+
+alias prodiguer-api='prodiguer api'
+alias prodiguer-api-heartbeat='prodiguer api-heartbeat'
+alias prodiguer-api-list-endpoints='prodiguer api-list-endpoints'
+
+alias prodiguer-db-backup='prodiguer db-backup'
+alias prodiguer-db-install='prodiguer db-install'
+alias prodiguer-db-reset='prodiguer db-reset'
+alias prodiguer-db-restore='prodiguer db-restore'
+alias prodiguer-db-uninstall='prodiguer db-uninstall'
+
+alias prodiguer-metric-add='prodiguer metric-add'
+alias prodiguer-metric-delete='prodiguer metric-delete'
+alias prodiguer-metric-delete-line='prodiguer metric-delete-line'
+alias prodiguer-metric-fetch='prodiguer metric-fetch'
+alias prodiguer-metric-fetch-columns='prodiguer metric-fetch-columns'
+alias prodiguer-metric-fetch-setup='prodiguer metric-fetch-setup'
+alias prodiguer-metric-fetch-count='prodiguer metric-fetch-count'
+alias prodiguer-metric-list='prodiguer metric-list'
+
+alias prodiguer-help='prodiguer help'
+alias prodiguer-help-api='prodiguer help-api'
+alias prodiguer-help-db='prodiguer help-db'
+alias prodiguer-help-metric='prodiguer help-metric'
+alias prodiguer-help-mq='prodiguer help-mq'
+alias prodiguer-help-stack='prodiguer help-stack'
+
+alias prodiguer-monitor-simulation='prodiguer monitor-simulation'
+
+alias prodiguer-mq-configure='prodiguer mq-configure'
+alias prodiguer-mq-consume='prodiguer mq-consume'
+alias prodiguer-mq-consume-all='prodiguer mq-consume-all'
+alias prodiguer-mq-produce='prodiguer mq-produce'
+alias prodiguer-mq-purge='prodiguer mq-purge'
+alias prodiguer-mq-reset='prodiguer mq-reset'
+alias prodiguer-mq-server='prodiguer mq-server'
+
+alias prodiguer-stack-bootstrap='prodiguer stack-bootstrap'
+alias prodiguer-stack-install='prodiguer stack-install'
+alias prodiguer-stack-update='prodiguer stack-update'
+alias prodiguer-stack-update-shell='prodiguer stack-update-shell'
+alias prodiguer-stack-update-repos='prodiguer stack-update-repos'
+alias prodiguer-stack-update-venvs='prodiguer stack-update-venvs'
+alias prodiguer-stack-uninstall='prodiguer stack-uninstall'
+

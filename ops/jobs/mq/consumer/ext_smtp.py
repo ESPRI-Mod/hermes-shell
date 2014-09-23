@@ -13,6 +13,8 @@
 """
 import base64, imaplib, json
 
+import numpy as np
+
 from prodiguer import config, convert, mq, rt
 
 
@@ -46,6 +48,7 @@ def get_tasks():
         _init_messages,
         _release_smtp_connection,
         _parse_payload,
+        _format_timestamp,
         _dispatch,
         _log_stats
         )
@@ -54,6 +57,13 @@ def get_tasks():
 def get_error_tasks():
     """Returns set of tasks to be executed when a message processing error occurs."""
     return None
+
+
+def _get_timestamp(timestamp):
+    """Returns a formatted timestamp."""
+    stamp = np.datetime64(timestamp, dtype="datetime64[ns]")
+
+    return stamp.astype(long)
 
 
 def _init_imap_client(ctx):
@@ -82,6 +92,7 @@ def _init_messages(ctx):
             ctx.messages = response[1].split("\n")
             break
 
+    ctx.messages = [m.strip() for m in ctx.messages if m and m.strip()]
     ctx.count_read = len(ctx.messages)
 
 
@@ -110,15 +121,23 @@ def _parse_payload(ctx):
     def _parse_messages(messages):
         """Parses set of messages embedded in an email."""
         for msg in messages:
-            if not len(msg.strip()):
-                continue
             try:
                 yield encode_json(decode_base64(msg))
             except Exception as err:
-                rt.log_mq_error(err)
+                yield err
 
-    ctx.messages = list(_parse_messages(ctx.messages))
+    parsed = list(_parse_messages(ctx.messages))
+    ctx.message_errors = [m for m in parsed if isinstance(m, Exception)]
+    ctx.messages = [m for m in parsed if not isinstance(m, Exception)]
     ctx.count_parsed = len(ctx.messages)
+
+
+def _format_timestamp(ctx):
+    """Formats message timestamps."""
+    for msg in ctx.messages:
+        msg['msgTimestamp'] = "{0}T{1}.{2}".format(msg['msgTimestamp'][0:10],
+                                                   msg['msgTimestamp'][11:19],
+                                                   msg['msgTimestamp'][20:])
 
 
 def _dispatch(ctx):
@@ -129,9 +148,10 @@ def _dispatch(ctx):
             user_id = mq.constants.USER_IGCM,
             producer_id = mq.constants.PRODUCER_IGCM,
             app_id = mq.constants.APP_MONITORING,
-            message_type = body['code'],
+            message_id = msg.content['msgUID'],
+            message_type = body['msgCode'],
             mode = mq.constants.MODE_TEST,
-            timestamp = convert.date_to_timestamp(body['timestamp']))
+            timestamp = _get_timestamp(body['msgTimestamp']))
 
     def _get_messages():
         """Dispatch message source."""
@@ -141,10 +161,11 @@ def _dispatch(ctx):
                              mq.constants.EXCHANGE_PRODIGUER_IN)
 
     mq.produce(_get_messages,
-               connection_url=config.mq.connections.libligcm)
+               connection_url=config.mq.connections.libigcm)
 
 
 def _log_stats(ctx):
     """Logs processing statistics."""
     rt.log_mq("Email contained {0} messages".format(ctx.count_read))
     rt.log_mq("{0} messages were parseable.".format(ctx.count_parsed))
+    rt.log_mq("{0} parsing errors .".format(len(ctx.message_errors)))

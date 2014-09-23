@@ -13,7 +13,8 @@
 """
 import datetime
 
-from prodiguer import convert, db, mq
+import arrow
+from prodiguer import db, mq
 
 import in_monitoring_utils as utils
 
@@ -35,23 +36,29 @@ class Message(mq.Message):
 
         self.simulation = None
         self.activity = None
-        self.execution_state = db.constants.EXECUTION_STATE_QUEUED
-        self.execution_start_date = datetime.datetime.now()
-        self.experiment = None
-        self.space = None
-        self.model = None
-        self.name = None
         self.compute_node = None
         self.compute_node_login = None
         self.compute_node_machine = None
+        self.execution_state = db.constants.EXECUTION_STATE_QUEUED
+        self.execution_start_date = datetime.datetime.now()
+        self.experiment = None
+        self.simulation_info = None
+        self.space = None
+        self.model = None
+        self.name = None
+        self.output_start_date = None
+        self.output_end_date = None
+        self.uid = None
 
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
     return (
-        _set_simulation_info,
+        _unpack_content,
         _persist_simulation,
+        _set_simulation_info,
         _notify_api,
+        lambda ctx: utils.notify_operator(ctx, "monitoring-0000")
         )
 
 
@@ -60,19 +67,20 @@ def _get_name(entity_type, entity_id):
     return db.cache.get_name(entity_type, entity_id)
 
 
-def _set_simulation_info(ctx):
-    """Sets simulation information."""
-    print "TODO execution start date from timestamp"
-    print "TODO correct CMIP6 typo"
-    sim_id = ctx.content['simuid'].split(".")
-    ctx.activity = sim_id[0]
-    ctx.compute_node = sim_id[6]
-    ctx.compute_node_login = sim_id[5]
-    ctx.compute_node_machine = "{0} - {1}".format(sim_id[6], sim_id[7])
-    ctx.experiment = sim_id[2]
-    ctx.model = sim_id[4]
-    ctx.name = ctx.content['simuid']
-    ctx.space = sim_id[3]
+def _unpack_content(ctx):
+    """Unpacks information from message content."""
+    ctx.activity = ctx.content['activity']
+    ctx.compute_node = ctx.content['centre']
+    ctx.compute_node_login = ctx.content['login']
+    ctx.compute_node_machine = "{0} - {1}".format(ctx.compute_node, ctx.content['machine'])
+    ctx.execution_start_date = arrow.get(ctx.content['msgTimestamp']).datetime
+    ctx.experiment = ctx.content['experiment']
+    ctx.model = ctx.content['model']
+    ctx.name = ctx.content['name']
+    ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
+    ctx.output_end_date = arrow.get(ctx.content['endDate']).datetime
+    ctx.space = ctx.content['space']
+    ctx.uid = ctx.content['simuid']
 
 
 def _persist_simulation(ctx):
@@ -87,16 +95,17 @@ def _persist_simulation(ctx):
         ctx.experiment,
         ctx.model,
         ctx.name,
-        ctx.space
+        ctx.output_start_date,
+        ctx.output_end_date,
+        ctx.space,
+        ctx.uid
         )
 
 
-def _notify_api(ctx):
-    """Notifies web service API."""
-    # Set body of message to be dispatched to API message queue.
-    event_info = db.types.Convertor.to_dict(ctx.simulation, True)
-    event_info.update({
-        u"event_type": "new_simulation",
+def _set_simulation_info(ctx):
+    """Sets simulation information to be used by notifiers."""
+    ctx.simulation_info = db.types.Convertor.to_dict(ctx.simulation, True)
+    ctx.simulation_info.update({
         u"activity": _get_name(db.types.Activity,
                                ctx.simulation.activity_id),
         u"compute_node": _get_name(db.types.ComputeNode,
@@ -115,4 +124,14 @@ def _notify_api(ctx):
                             ctx.simulation.space_id)
         })
 
-    utils.notify_api(event_info)
+
+def _notify_api(ctx):
+    """Notifies web service API."""
+    # Set data to be dispatched to API message queue.
+    data = {
+        u"event_type": "new_simulation"
+    }
+    data.update(ctx.simulation_info)
+
+    utils.notify_api(data)
+

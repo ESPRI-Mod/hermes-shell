@@ -88,10 +88,25 @@ def parse_encoding(encoding):
     return encoding
 
 
+def parse_boolean(val):
+    """Parses a boolean string value.
+
+    :param str val: A string representing a boolean value.
+
+    :returns: Parsed boolean value.
+    :rtype: str
+
+    """
+    val = str(val).strip()
+    if val in ['', 'f', 'false', 'False', '0']:
+        return 'false'
+    return 'true'
+
+
 def log(action, msg=None):
     """Logger helper function.
 
-    :param str action: Metric APi action that is being invoked.
+    :param str action: Metric API action that is being invoked.
     :param str msg: Log message.
 
     """
@@ -99,4 +114,15 @@ def log(action, msg=None):
         msg = action
     else:
         msg = "{0} :: {1}".format(action, msg)
+    rt.log(msg, module="METRIC")
+
+
+def log_error(action, error):
+    """Error logger helper function.
+
+    :param str action: Metric API action that is being invoked.
+    :param str error: Error message.
+
+    """
+    msg = "{0} :: !!! ERROR !!! {1}".format(action, error)
     rt.log(msg, module="METRIC")

@@ -78,9 +78,9 @@ def _main(filepath):
 
     # Log to stdout.
     if 'error' in response:
-        utils.log("add", response['error'])
+        utils.log_error("add", response['error'])
     else:
-        utils.log("add", "{0} was added".format(response['group']))
+        utils.log("add", "{0} metrics group was sucessfully added".format(response['group']))
 
 
 # Main entry point.

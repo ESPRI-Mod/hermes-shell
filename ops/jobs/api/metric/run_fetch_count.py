@@ -21,7 +21,7 @@ def _main(group_id):
 
     # Log to stdout.
     if 'error' in response:
-        utils.log("fetch-count", response['error'])
+        utils.log_error("fetch-count", response['error'])
     else:
         utils.log("fetch-count", response['count'])
 

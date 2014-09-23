@@ -13,10 +13,7 @@
 """
 import imaplib
 
-from prodiguer.utils import (
-    config,
-    runtime as rt
-    )
+from prodiguer.utils import config
 from prodiguer import mq
 
 
@@ -55,6 +52,8 @@ def _init_email_uid_list(ctx):
     # Initialise list of email uid's.
     ctx.email_uid_list = data[0].split(" ")
 
+    print "AA", ctx.email_uid_list
+
 
 def _close_imap_client(ctx):
     """Closes imap client."""
@@ -91,7 +90,7 @@ def _dispatch(ctx):
                 return
 
     mq.produce(_get_messages,
-               connection_url=config.mq.connections.libligcm)
+               connection_url=config.mq.connections.libigcm)
 
 
 # Set of processing tasks.

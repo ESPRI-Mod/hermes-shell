@@ -45,7 +45,7 @@ def main():
         rt.log()
 
     # Setup each target db.
-    connection = cfg.db.connections.main
+    connection = cfg.db.pgres.main
     targets = [connection, connection + '_test']
     targets = [c.replace(_DB_USER, _DB_USER_ADMIN) for c in targets]
     for target in targets:

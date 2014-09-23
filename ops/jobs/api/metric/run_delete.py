@@ -23,9 +23,9 @@ def _main(group_id):
 
     # Log to stdout.
     if 'error' in response:
-        utils.log("delete", response['error'])
+        utils.log_error("delete", response['error'])
     else:
-        utils.log("delete", "{0} was deleted".format(group_id))
+        utils.log("delete", "Group {0} sucessfully deleted".format(group_id))
 
 
 # Main entry point.

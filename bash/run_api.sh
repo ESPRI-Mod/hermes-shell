@@ -15,61 +15,27 @@ run_api()
 }
 
 # ###############################################################
-# SECTION: API METRIC
+# SECTION: API OPS
 # ###############################################################
 
-_exec_metric_api()
+run_api_heartbeat()
 {
-	declare action=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
-
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_$action.py $2 $3
+	python $DIR_JOBS/api/ops/run_heartbeat.py
 }
 
-# Add metrics.
-run_metric_add()
+run_api_list_endpoints()
 {
-	_exec_metric_api "add" $1
+	activate_venv server
+	python $DIR_JOBS/api/ops/run_list_endpoints.py
 }
 
-# Delete metric.
-run_metric_delete()
-{
-	_exec_metric_api "delete" $1
-}
+# ###############################################################
+# SECTION: API MONITORING
+# ###############################################################
 
-# Delete metric lines.
-run_metric_delete_lines()
+run_monitor_simulation()
 {
-	_exec_metric_api "delete-lines" $1
-}
-
-# Fetch metric group.
-run_metric_fetch()
-{
-	_exec_metric_api "fetch" $1 $2
-}
-
-# Fetch metric count.
-run_metric_fetch_count()
-{
-	_exec_metric_api "fetch-count" $1
-}
-
-# Fetch metric group line count.
-run_metric_fetch_setup()
-{
-	_exec_metric_api "fetch-setup" $1
-}
-
-# Fetch metric group columns.
-run_metric_fetch_columns()
-{
-	_exec_metric_api "fetch-columns" $1
-}
-
-# List groups.
-run_metric_list()
-{
-	_exec_metric_api "list"
+	activate_venv server
+	python $DIR_JOBS/api/monitoring/run_monitor_simulation.py $1
 }

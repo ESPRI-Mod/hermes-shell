@@ -1,0 +1,35 @@
+{
+    "api": {
+        "cookie_secret": "p2FAdrUN3tac",
+        "host": "localhost",
+        "metric": {
+            "cors_white_list": [
+                "*"
+            ]
+        },
+        "mode": "dev",
+        "port": 8888
+    },
+    "db": {
+        "mongodb": {
+            "main": "localhost:27017"
+        },
+        "pgres": {
+            "main": "postgresql://prodiguer_db_user:@localhost/prodiguer"
+        }
+    },
+    "mq": {
+        "connection_reopen_delay": 5,
+        "connections": {
+            "libigcm": "amqp://libigcm-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600",
+            "main": "amqp://prodiguer-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600"
+        },
+        "smtp_bridge": {
+            "host": "imap.ipsl.jussieu.fr",
+            "mailbox": "AMPQ",
+            "password": "Silence107!",
+            "port": "993",
+            "username": "momipsl"
+        }
+    }
+}

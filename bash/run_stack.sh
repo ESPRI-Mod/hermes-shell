@@ -11,14 +11,16 @@ run_stack_bootstrap()
 	set_working_dir
 
 	log "Initializing configuration"
-	cp $DIR_RESOURCES/prodiguer-config.json $HOME/.prodiguer
+	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 
 	log "BOOTSTRAP ENDS"
 
-	log_banner
+	log
+	log
 	log "IMPORTANT NOTICE"
-	log "The bootstrap process installs a config file:" 1
-	log "$HOME/.prodiguer" 2
+	log "The bootstrap process installs config files here:" 1
+	log "$DIR_CONFIG/.prodiguer" 2
 	log "Please review and assign settings as appropriate to your " 1
 	log "environemt prior to continuing with the installation process." 1
 	log "IMPORTANT NOTICE ENDS"
@@ -27,6 +29,19 @@ run_stack_bootstrap()
 # ###############################################################
 # SECTION: INSTALL
 # ###############################################################
+
+# Display post install notice.
+_install_notice()
+{
+	log
+	log
+	log "IMPORTANT NOTICE"
+	log "To prodiguer shell command aliases add the following line to your .bash_profile file:" 1
+	log "test -f $DIR/exec.aliases && source $DIR/exec.aliases
+" 2
+	log "IMPORTANT NOTICE ENDS"
+}
+
 
 # Installs virtual environments.
 run_install_venv()
@@ -127,6 +142,8 @@ run_stack_install()
 	run_install_venvs
 
 	log "INSTALLED STACK"
+
+	_install_notice
 }
 
 
@@ -137,7 +154,8 @@ run_stack_install()
 # Display post update notice.
 _update_notice()
 {
-	log_banner
+	log
+	log
 	log "IMPORTANT NOTICE"
 	log "The update process created a new config file:" 1
 	log "$HOME/.prodiguer" 2
@@ -185,8 +203,13 @@ _update_config()
 {
 	log "Updating configuration"
 
-	cp $HOME/.prodiguer $HOME/.prodiguer-backup
-	cp $DIR_RESOURCES/prodiguer-config.json $HOME/.prodiguer
+	# Create backups.
+	cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
+	cp $DIR_CONFIG/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
+
+	# Copy new config.
+	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 }
 
 # Updates shell.

@@ -5,7 +5,7 @@ import utils
 
 
 # Metric API endpoint.
-_EP = r"/api/1/metric/list"
+_EP = r"/api/1/metric/fetch_list"
 
 
 
@@ -17,7 +17,7 @@ def _main():
 
     # Log to stdout.
     if 'error' in response:
-        utils.log("list", response['error'])
+        utils.log_error("list", response['error'])
     else:
         utils.log("list", ", ".join(response['groups']))
 

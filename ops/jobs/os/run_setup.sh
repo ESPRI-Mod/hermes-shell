@@ -28,8 +28,11 @@ setup_db_server()
 	# Install common libraries.
 	setup_common_libs
 
-	# Install db server.
+	# Install psotgres db server.
 	setup_db_server_install_postgres
+
+	# Install mogondb db server.
+	setup_db_server_install_mongodb
 }
 
 # Installs postgres db server.
@@ -58,6 +61,16 @@ setup_db_server_install_postgres()
 	# Start PostgreSQL service using following command.
 	log "Starting PostgreSQL server"
 	service postgresql-9.3 start
+}
+
+# Installs mongodb db server.
+setup_db_server_install_mongodb()
+{
+	# Configure the package management system (YUM).
+	cp ./yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
+
+	# Install latest stable version of mongodb.
+	yum install -y mongodb-org
 }
 
 # ###############################################################
@@ -94,9 +107,9 @@ setup_mq_server_install_rabbitmq()
 	/etc/init.d/rabbitmq-server start
 
 	# Set RabbitMQ admin cli.
-	wget http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v3_3_5/bin/rabbitmqadmin -O /opt/prodiguer/tmp/rabbitmqadmin
-	cp /opt/prodiguer/tmp/rabbitmqadmin /usr/local/bin
-	rm -rf /opt/prodiguer/tmp/rabbitmqadmin
+	wget http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v3_3_5/bin/rabbitmqadmin -O /opt/prodiguer/ops/tmp/rabbitmqadmin
+	cp /opt/prodiguer/ops/tmp/rabbitmqadmin /usr/local/bin
+	rm -rf /opt/prodiguer/ops/tmp/rabbitmqadmin
 
 	# Import RabbitMQ config.
 	rabbitmqadmin -q import $DIR_CONFIG/mq-server/rabbitmq-setup.json
@@ -144,7 +157,7 @@ cd /opt
 # Set paths.
 declare DIR=./prodiguer
 declare DIR_CONFIG=$DIR/ops/config
-declare DIR_RESOURCES=$DIR/ops/resources
+declare DIR_RESOURCES=$DIR/misc/resources
 
 
 # Declare helper vars.
