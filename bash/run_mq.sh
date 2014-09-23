@@ -62,7 +62,7 @@ run_mq_configure()
 {
 	log "MQ : configuring mq server ..."
 
-	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/rabbitmq-setup.json
+	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/config/rabbitmq.json
 
 	log "MQ : mq server configured ..."
 }

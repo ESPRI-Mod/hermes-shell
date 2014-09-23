@@ -70,6 +70,7 @@ run_install_venv()
 
     # Initialise venv.
     export PATH=$DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
     virtualenv -q $TARGET_VENV
 
     # Build dependencies.
@@ -106,6 +107,7 @@ run_install_python()
 	make
 	make install
 	export PATH=$DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
 
 	# Install setuptools.
 	cd $DIR_PYTHON/src
@@ -190,6 +192,7 @@ _update_venv()
 run_stack_update_venvs()
 {
 	export PATH=$DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
 	_update_venv "server"
 }
 

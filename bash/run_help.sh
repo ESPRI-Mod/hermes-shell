@@ -48,15 +48,15 @@ run_help_api()
 run_db_mongo_help()
 {
 	log "Mongo DB commands :"
-	log "mongo-db-start" 1
+	log "db-mongo-start" 1
 	log "starts mongodb daemon" 2
 	log
 
-	log "mongo-db-stop" 1
+	log "db-mongo-stop" 1
 	log "stops mongodb daemon" 2
 	log
 
-	log "mongo-db-restart" 1
+	log "db-mongo-restart" 1
 	log "restarts mongodb daemon" 2
 	log
 }
