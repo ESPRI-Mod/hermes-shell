@@ -17,5 +17,5 @@ declare -a initializers=(
 )
 for initializer in "${initializers[@]}"
 do
-	test -f $DIR/bash/$initializer.sh && source $DIR/bash/$initializer.sh
+	source $DIR/bash/$initializer.sh
 done

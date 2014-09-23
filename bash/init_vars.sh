@@ -4,4 +4,4 @@
 # SECTION: INITIALIZE VARS FROM CONFIG
 # ###############################################################
 
-source $DIR_CONFIG/prodiguer.sh
+test -f $DIR_CONFIG/prodiguer.sh && source $DIR_CONFIG/prodiguer.sh
