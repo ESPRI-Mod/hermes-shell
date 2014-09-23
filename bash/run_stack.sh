@@ -24,10 +24,10 @@ run_stack_bootstrap()
 	log "BOOTSTRAP ENDS"
 
 	log
-	log
 	log "IMPORTANT NOTICE"
-	log "The bootstrap process installs config files here:" 1
-	log "$DIR_CONFIG/.prodiguer" 2
+	log "The bootstrap process installs the follwing config files:" 1
+	log "$DIR_CONFIG/prodiguer.json" 2
+	log "$DIR_CONFIG/prodiguer.sh" 2
 	log "Please review and assign settings as appropriate to your " 1
 	log "environemt prior to continuing with the installation process." 1
 	log "IMPORTANT NOTICE ENDS"
@@ -40,7 +40,6 @@ run_stack_bootstrap()
 # Display post install notice.
 _install_notice()
 {
-	log
 	log
 	log "IMPORTANT NOTICE"
 	log "To prodiguer shell command aliases add the following line to your .bash_profile file:" 1
@@ -161,7 +160,6 @@ run_stack_install()
 # Display post update notice.
 _update_notice()
 {
-	log
 	log
 	log "IMPORTANT NOTICE"
 	log "The update process created a new config file:" 1
