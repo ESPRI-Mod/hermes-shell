@@ -10,6 +10,7 @@ declare DIR_CONFIG=$DIR/ops/config
 declare DIR_DEMOS=$DIR/misc/demos
 declare DIR_FRONTEND=$DIR/repos/prodiguer-fe
 declare DIR_JOBS=$DIR/ops/jobs
+declare DIR_LOGS=$DIR/ops/logs
 declare DIR_MOCKS=$DIR/misc/mocks
 declare DIR_PYTHON=$DIR/ops/venv/python
 declare DIR_REPOS=$DIR/repos

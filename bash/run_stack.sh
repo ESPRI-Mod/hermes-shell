@@ -13,6 +13,10 @@ run_stack_bootstrap()
 	log "Creating ops directories"
 	mkdir -p $DIR_BACKUPS
 	mkdir -p $DIR_CONFIG
+	mkdir -p $DIR_LOGS
+	mkdir -p $DIR_LOGS/db
+	mkdir -p $DIR_LOGS/mq
+	mkdir -p $DIR_LOGS/web
 	mkdir -p $DIR_PYTHON
 	mkdir -p $DIR_TMP
 	mkdir -p $DIR_VENV
