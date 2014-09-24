@@ -11,8 +11,8 @@ from prodiguer.utils import config, rt
 # API base endpoint.
 _API = {
     "dev": r"http://localhost:8888",
-    "test": r"http://prodiguer-test-web.ipsl.jussieu.fr",
-    "prod": r"http://prodiguer-web.ipsl.jussieu.fr"
+    "test": r"https://prodiguer-test-web.ipsl.jussieu.fr",
+    "prod": r"https://prodiguer-web.ipsl.jussieu.fr"
 }
 
 # Supported file extensions.
