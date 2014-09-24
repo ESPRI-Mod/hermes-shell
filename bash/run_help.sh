@@ -136,7 +136,7 @@ run_metric_help()
 	log "GROUP-ID: group identifier" 2
 	log
 
-	log "metric-list" 1
+	log "metric-fetch-list" 1
 	log "lists all metric group names" 2
 	log
 
