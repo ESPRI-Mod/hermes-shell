@@ -39,36 +39,39 @@ class Message(mq.Message):
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
     return (
-    	_set_operator,
-    	_set_template,
-    	_set_content,
-    	_dispatch
-    	)
+        _unpack_content,
+        _set_operator,
+        _set_template,
+        _set_content,
+        _dispatch
+        )
 
 
 def _unpack_content(ctx):
     """Unpacks information from message content."""
-    print ctx.content
     ctx.notification_type = ctx.content['notificationType']
     ctx.operator_id = ctx.content['operatorID']
 
 
 def _set_operator(ctx):
-	"""Sets information regarding operator."""
-	print "TODO: load operator details."
+    """Sets information regarding operator."""
+    # TODO: load operator details.
+    pass
 
 
 def _set_template(ctx):
-	"""Sets template of sms to be dispatched."""
-	print "TODO: load sms template."
+    """Sets template of sms to be dispatched."""
+    # TODO: load sms template.
+    pass
 
 
 def _set_content(ctx):
     """Sets content of sms to be dispatched."""
-    print "TODO: interpolate sms template."
+    # TODO: interpolate sms template.
+    pass
 
 
 def _dispatch(ctx):
     """Dispatches an sms to an operator."""
-    print "TODO: dispatch sms to operator"
-
+    # TODO: dispatch sms to operator.
+    pass

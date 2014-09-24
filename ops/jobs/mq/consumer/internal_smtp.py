@@ -59,7 +59,7 @@ def get_tasks():
         _set_operator,
         _set_templates,
         _set_mail,
-        _dispatch
+        # _dispatch
         )
 
 
@@ -71,13 +71,13 @@ def get_init_tasks():
 def _cache_templates():
     """Places templates in a memory cache."""
     for fpath in os.listdir(_TEMPLATES_DIRPATH):
-        print fpath, fpath[-3:]
-    print "TODO:: cache templates"
+        pass
+        # print fpath, fpath[-3:]
+    # TODO:: cache templates.
 
 
 def _unpack_content(ctx):
     """Unpacks information from message content."""
-    print ctx.content
     ctx.notification_type = ctx.content['notificationType']
     ctx.operator_id = ctx.content['operatorID']
     ctx.simulation = ctx.content['simulation']
@@ -101,8 +101,8 @@ def _set_mail(ctx):
     ctx.mail_body = ctx.template_body.generate()
     ctx.mail_subject += \
         ctx.template_subject.generate(simulation=ctx.simulation)
-    print "TODO: interpolate email templates."
-    print ctx.mail_body, ctx.mail_subject
+    # TODO: interpolate email templates.
+    # print ctx.mail_body, ctx.mail_subject
     return
 
     mail_body = "{0} body goes here".format(ctx.notification_type)
@@ -120,7 +120,7 @@ def _set_mail(ctx):
 
 def _dispatch(ctx):
     """Dispatches an email to an operator."""
-    print "TODO: dispatch email ..."
+    # TODO: dispatch email ...", ctx.mail
     return
 
     # server = smtplib.SMTP('smtp.ipsl.jussieu.fr')

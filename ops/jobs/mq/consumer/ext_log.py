@@ -33,4 +33,6 @@ def get_tasks():
 
 def _log_message(ctx):
     """Message handler callback."""
-    print "TODO: log x-ext message: {0}".format(ctx.properties.message_id)
+    # TODO: log x-exr message
+    pass
+    # print "TODO: log x-ext message: {0}".format(ctx.properties.message_id)

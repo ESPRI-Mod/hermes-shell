@@ -137,10 +137,9 @@ if _is_db_bound:
 
 # Initialise.
 _initialize_consumer(consumer)
-rt.log_mq("Message consumer initialized: {0}".format(_consumer_type))
 
 # Log.
-rt.log_mq("Message consumer launched: {0}".format(_consumer_type))
+rt.log_mq("launched consumer: {0}".format(_consumer_type))
 
 # Consume messages.
 mq.utils.consume(consumer.MQ_EXCHANGE,

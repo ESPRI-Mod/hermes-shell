@@ -39,8 +39,8 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-9000'
 	'in-monitoring-9999'
 	'internal-api'
-	# 'internal-sms'
-	# 'internal-smtp'
+	'internal-sms'
+	'internal-smtp'
 )
 
 _run_mq_agent()
@@ -50,12 +50,8 @@ _run_mq_agent()
 	declare throttle=$3
 	declare misc=$4
 
-	log "MQ : launching "$typeof" MQ "$agent" ..."
-
     activate_venv server
 	python $DIR_JOBS"/mq/"$agent $typeof $throttle $misc
-
-	log "MQ : launched "$typeof" MQ "$agent" ..."
 }
 
 run_mq_configure()

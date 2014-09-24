@@ -32,5 +32,10 @@ class Message(mq.Message):
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
-    raise NotImplementedError()
+    return _process_message
+
+
+def _process_message(ctx):
+    # TODO: processs message type 8888
+    pass
 
