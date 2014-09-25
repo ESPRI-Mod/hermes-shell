@@ -19,7 +19,7 @@ run_metric_add()
 # Delete metric.
 run_metric_delete()
 {
-	_exec_metric_api "delete" $1
+	_exec_metric_api "delete" $1 $2
 }
 
 # Delete metric lines.
@@ -31,13 +31,7 @@ run_metric_delete_lines()
 # Fetch metric group.
 run_metric_fetch()
 {
-	_exec_metric_api "fetch" $1 $2
-}
-
-# Fetch metric count.
-run_metric_fetch_count()
-{
-	_exec_metric_api "fetch-count" $1
+	_exec_metric_api "fetch" $1 $2 $3
 }
 
 # Fetch metric group columns.
@@ -46,10 +40,10 @@ run_metric_fetch_columns()
 	_exec_metric_api "fetch-columns" $1 $2
 }
 
-# Fetch filtered metrics.
-run_metric_fetch_filtered()
+# Fetch metric count.
+run_metric_fetch_count()
 {
-	_exec_metric_api "fetch-filtered" $1 $2 $3
+	_exec_metric_api "fetch-count" $1 $2
 }
 
 # List groups.
@@ -61,5 +55,5 @@ run_metric_fetch_list()
 # Fetch metric group line count.
 run_metric_fetch_setup()
 {
-	_exec_metric_api "fetch-setup" $1
+	_exec_metric_api "fetch-setup" $1 $2
 }
