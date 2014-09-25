@@ -112,12 +112,6 @@ run_metric_help()
 	log "FILTER-FILEPATH: path to a metrics query filter file" 2
 	log
 
-	log "metric-delete-line GROUP-ID LINE-ID" 1
-	log "deletes one or many metric lines" 2
-	log "GROUP-ID: group identifier" 2
-	log "LINE-ID: line identifier(s)" 2
-	log
-
 	log "metric-fetch GROUP-ID INCLUDE-DB-FIELDS [FILTER-FILEPATH]" 1
 	log "fetches a group of metrics" 2
 	log "GROUP-ID: group identifier" 2

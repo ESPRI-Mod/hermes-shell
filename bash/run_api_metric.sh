@@ -22,12 +22,6 @@ run_metric_delete()
 	_exec_metric_api "delete" $1 $2
 }
 
-# Delete metric lines.
-run_metric_delete_lines()
-{
-	_exec_metric_api "delete-lines" $1 $2
-}
-
 # Fetch metric group.
 run_metric_fetch()
 {
