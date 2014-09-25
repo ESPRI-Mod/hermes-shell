@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json
+import os, json
 
 import requests
 
@@ -101,6 +101,20 @@ def parse_boolean(val):
     if val in ['', 'f', 'false', 'False', '0']:
         return 'false'
     return 'true'
+
+
+def parse_filepath(filepath):
+    """Parses a filepath."""
+    err = None
+    if not os.path.exists(filepath):
+        err = "Invalid file path."
+    if not err:
+        if not os.path.isfile(filepath):
+            err = "File path does not point to a file."
+    if err:
+        raise IOError(err)
+
+    return filepath
 
 
 def log(action, msg=None):

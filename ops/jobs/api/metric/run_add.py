@@ -49,24 +49,10 @@ _GROUP_FACTORIES = {
 }
 
 
-def _parse_filepath(filepath):
-    """Parses filepath."""
-    err = None
-    if not os.path.exists(filepath):
-        err = "Invalid file path."
-    if not err:
-        if not os.path.isfile(filepath):
-            err = "File path does not point to a file."
-    if err:
-        raise IOError(err)
-
-    return filepath
-
-
 def _main(filepath):
     """Main entry point."""
     # Parse params.
-    filepath = _parse_filepath(filepath)
+    filepath = utils.parse_filepath(filepath)
 
     # Set payload.
     encoding = utils.parse_encoding(os.path.splitext(filepath)[1][1:])

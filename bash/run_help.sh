@@ -126,18 +126,25 @@ run_metric_help()
 	log "GROUP-ID: group identifier" 2
 	log
 
-	log "metric-fetch-setup GROUP-ID" 1
-	log "fetches a metric group's distinct column values" 2
-	log "GROUP-ID: group identifier" 2
-	log
-
 	log "metric-fetch-count GROUP-ID" 1
 	log "fetches number of lines within a metric group" 2
 	log "GROUP-ID: group identifier" 2
 	log
 
+	log "metric-fetch-filtered GROUP-ID INCLUDE-DB-FIELDS FILEPATH" 1
+	log "fetches a filtered group of metrics" 2
+	log "GROUP-ID: group identifier" 2
+	log "INCLUDE-DB-FIELDS: flag indicating whether db injected fields are to be returned" 2
+	log "FILEPATH: path to a metrics filter file" 2
+	log
+
 	log "metric-fetch-list" 1
 	log "lists all metric group names" 2
+	log
+
+	log "metric-fetch-setup GROUP-ID" 1
+	log "fetches a metric group's distinct column values" 2
+	log "GROUP-ID: group identifier" 2
 	log
 
 	log "metric-lifecycle-demo" 1

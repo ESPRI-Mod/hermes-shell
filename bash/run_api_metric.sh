@@ -7,7 +7,7 @@ _exec_metric_api()
 	declare action=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
 
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_$action.py $2 $3
+	python $DIR_JOBS/api/metric/run_$action.py $2 $3 $4
 }
 
 # Add metrics.
@@ -40,16 +40,16 @@ run_metric_fetch_count()
 	_exec_metric_api "fetch-count" $1
 }
 
-# Fetch metric group line count.
-run_metric_fetch_setup()
-{
-	_exec_metric_api "fetch-setup" $1
-}
-
 # Fetch metric group columns.
 run_metric_fetch_columns()
 {
 	_exec_metric_api "fetch-columns" $1 $2
+}
+
+# Fetch filtered metrics.
+run_metric_fetch_filtered()
+{
+	_exec_metric_api "fetch-filtered" $1 $2 $3
 }
 
 # List groups.
@@ -58,9 +58,8 @@ run_metric_fetch_list()
 	_exec_metric_api "fetch-list"
 }
 
-# List groups.
-run_metric_pm_ptype()
+# Fetch metric group line count.
+run_metric_fetch_setup()
 {
-	activate_venv server
-	python $DIR_DEMOS/api/metric/pm_ptype.py
+	_exec_metric_api "fetch-setup" $1
 }
