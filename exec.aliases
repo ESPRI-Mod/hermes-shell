@@ -44,5 +44,6 @@ alias prodiguer-stack-update='prodiguer stack-update'
 alias prodiguer-stack-update-shell='prodiguer stack-update-shell'
 alias prodiguer-stack-update-repos='prodiguer stack-update-repos'
 alias prodiguer-stack-update-venvs='prodiguer stack-update-venvs'
+alias prodiguer-stack-update-source='prodiguer stack-update-shell && prodiguer stack-update-repos'
 alias prodiguer-stack-uninstall='prodiguer stack-uninstall'
 
