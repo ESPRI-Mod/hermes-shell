@@ -209,6 +209,7 @@ _update_repo()
 # Updates git repos.
 run_stack_update_repos()
 {
+	_update_repo prodiguer-docs
 	_update_repo prodiguer-fe
 	_update_repo prodiguer-server
 }
@@ -275,6 +276,7 @@ _uninstall_repos()
 {
 	log "Uninstalling repos"
 
+	_uninstall_repo prodiguer-docs
 	_uninstall_repo prodiguer-fe
 	_uninstall_repo prodiguer-server
 }
