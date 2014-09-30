@@ -11,11 +11,11 @@
 
 
 """
-import base64, imaplib, json
+import base64, json
 
 import numpy as np
 
-from prodiguer import config, convert, mq, rt
+from prodiguer import config, email, mq, rt
 
 
 
@@ -26,30 +26,16 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_EXT
 MQ_QUEUE = mq.constants.QUEUE_EXT_SMTP
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper."""
-    def __init__(self, props, body):
-        """Constructor."""
-        super(Message, self).__init__(props, body, decode=True)
-        self.cfg = config.mq.smtp_bridge
-        self.count_parsed = 0
-        self.count_read = 0
-        self.email_uid = self.content['email_uid']
-        self.imap_client = None
-        self.messages = []
-        self.message_errors = []
-
-
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
     return (
-        _init_imap_client,
-        _init_messages,
-        _release_smtp_connection,
-        _parse_payload,
-        _format_timestamp,
+        _set_email,
+        _set_messages_b64,
+        _set_messages_json,
+        _set_messages_dict,
+        _set_messages_ampq,
         _dispatch,
+        _delete_email,
         _log_stats
         )
 
@@ -59,113 +45,130 @@ def get_error_tasks():
     return None
 
 
+# Message information wrapper.
+class Message(mq.Message):
+    """Message information wrapper."""
+    def __init__(self, props, body):
+        """Constructor."""
+        super(Message, self).__init__(props, body, decode=True)
+
+        self.email = None
+        self.email_uid = self.content['email_uid']
+        self.messages = []
+        self.messages_b64 = []
+        self.messages_json = []
+        self.messages_json_error = []
+        self.messages_dict = []
+        self.messages_dict_error = []
+
+
 def _get_timestamp(timestamp):
-    """Returns a formatted timestamp."""
-    stamp = np.datetime64(timestamp, dtype="datetime64[ns]")
+    """Helper function: returns a formatted timestamp."""
+    timestamp = np.datetime64(timestamp, dtype="datetime64[ns]")
 
-    return stamp.astype(long)
-
-
-def _init_imap_client(ctx):
-    """Initializes imap client used to communicate with email server."""
-    # Login to mail server.
-    client = imaplib.IMAP4_SSL(host=ctx.cfg.host,
-                               port=int(ctx.cfg.port))
-    client.login(ctx.cfg.username, ctx.cfg.password)
-    ctx.imap_client = client
-
-    # Set mailbox.
-    ctx.imap_client.select(ctx.cfg.mailbox, readonly=True)
+    return timestamp.astype(long)
 
 
-def _init_messages(ctx):
-    """Initializes set of messages to be dispatched."""
-    # Pull email from mail server.
-    typ, data = ctx.imap_client.fetch(ctx.email_uid, '(BODY.PEEK[TEXT])')
-    if typ != 'OK':
-        raise Exception("Email retrieval error.")
-
-    # Set email body.
-    for response in (i for i in data if isinstance(i, tuple)):
-        uid = response[0].split(" ")[0]
-        if ctx.email_uid == uid:
-            ctx.messages = response[1].split("\n")
-            break
-
-    ctx.messages = [m.strip() for m in ctx.messages if m and m.strip()]
-    ctx.count_read = len(ctx.messages)
+def _get_msg_props(msg):
+    """Returns an AMPQ basic properties instance, i.e. message header."""
+    return mq.utils.create_ampq_message_properties(
+        user_id = mq.constants.USER_IGCM,
+        producer_id = mq.constants.PRODUCER_IGCM,
+        app_id = mq.constants.APP_MONITORING,
+        message_id = msg['msgUID'],
+        message_type = msg['msgCode'],
+        mode = mq.constants.MODE_TEST,
+        timestamp = _get_timestamp(msg['msgTimestamp']))
 
 
-def _release_smtp_connection(ctx):
-    """Closes Performs clean up after mail server resources have been processed."""
-    ctx.imap_client.close()
-    ctx.imap_client.logout()
+def _decode_b64(data):
+    """Helper function: decodes base64 encoded text."""
+    try:
+        return base64.b64decode(data)
+    except Exception as err:
+        return data, err
 
 
-def _parse_payload(ctx):
-    """Parses set of messages to be dispatched."""
-    def decode_base64(msg):
-        """Performs base64 decoding of message content."""
+def _encode_json(data):
+    """Helper function: encodes json encoded text."""
+    try:
+        return json.loads(data)
+    except Exception as err:
         try:
-            return base64.b64decode(msg)
-        except TypeError as err:
-            raise Exception("Base64 decoding error:\n{0}".format(msg))
-
-    def encode_json(msg):
-        """Performs json encoding of message content."""
-        try:
-            return json.loads(msg)
-        except ValueError as err:
-            raise Exception("json encoding error:\n{0}".format(msg))
-
-    def _parse_messages(messages):
-        """Parses set of messages embedded in an email."""
-        for msg in messages:
-            try:
-                yield encode_json(decode_base64(msg))
-            except Exception as err:
-                yield err
-
-    parsed = list(_parse_messages(ctx.messages))
-    ctx.message_errors = [m for m in parsed if isinstance(m, Exception)]
-    ctx.messages = [m for m in parsed if not isinstance(m, Exception)]
-    ctx.count_parsed = len(ctx.messages)
+            return json.loads(data.replace('\\', ''))
+        except Exception as err:
+            return data, err
 
 
-def _format_timestamp(ctx):
-    """Formats message timestamps."""
-    for msg in ctx.messages:
-        msg['msgTimestamp'] = "{0}T{1}.{2}".format(msg['msgTimestamp'][0:10],
-                                                   msg['msgTimestamp'][11:19],
-                                                   msg['msgTimestamp'][20:])
+def _set_email(ctx):
+    """Initializes email to be processed."""
+    proxy = email.get_imap_proxy()
+    try:
+        data = proxy.fetch(ctx.email_uid, ['BODY.PEEK[TEXT]'])
+    finally:
+        email.close_imap_proxy(proxy)
+
+    # Validate imap response.
+    if ctx.email_uid not in data or \
+       u'BODY[TEXT]' not in data[ctx.email_uid]:
+       raise ValueError("Email {0} not found.".format(ctx.email_uid))
+
+    # Set email payload to be processed.
+    ctx.email = data[ctx.email_uid][u'BODY[TEXT]']
+
+
+def _set_messages_b64(ctx):
+    """Sets base64 encoded messages to be processed."""
+    ctx.messages_b64 += [l for l in ctx.email.splitlines() if l]
+
+
+def _set_messages_json(ctx):
+    """Decode json encoded strings from base64 encoded string."""
+    for msg in [_decode_b64(m) for m in ctx.messages_b64]:
+        if isinstance(msg, tuple):
+            ctx.messages_json_error.append(msg)
+        else:
+            ctx.messages_json.append(msg)
+
+
+def _set_messages_dict(ctx):
+    """Encode json encoded strings to dictionaries."""
+    for msg in [_encode_json(m) for m in ctx.messages_json]:
+        if isinstance(msg, tuple):
+            ctx.messages_dict_error.append(msg)
+        else:
+            ctx.messages_dict.append(msg)
+
+
+def _set_messages_ampq(ctx):
+    """Set AMPQ messages to be dispatched."""
+    for msg in ctx.messages_dict:
+        ctx.messages.append(mq.Message(_get_msg_props(msg),
+                                       msg,
+                                       mq.constants.EXCHANGE_PRODIGUER_IN))
 
 
 def _dispatch(ctx):
     """Dispatches messages to MQ server."""
-    def _get_msg_props(body):
-        """Returns an AMPQ basic properties instance, i.e. message header."""
-        return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_IGCM,
-            producer_id = mq.constants.PRODUCER_IGCM,
-            app_id = mq.constants.APP_MONITORING,
-            message_id = msg.content['msgUID'],
-            message_type = body['msgCode'],
-            mode = mq.constants.MODE_TEST,
-            timestamp = _get_timestamp(body['msgTimestamp']))
-
-    def _get_messages():
-        """Dispatch message source."""
-        for body in ctx.messages:
-            yield mq.Message(_get_msg_props(body),
-                             body,
-                             mq.constants.EXCHANGE_PRODIGUER_IN)
-
-    mq.produce(_get_messages,
+    mq.produce(ctx.messages,
                connection_url=config.mq.connections.libigcm)
+
+
+def _delete_email(ctx):
+    """Deletes email as it has already been."""
+    proxy = email.get_imap_proxy()
+    try:
+        proxy.delete_messages(ctx.email_uid)
+    finally:
+        email.close_imap_proxy(proxy)
 
 
 def _log_stats(ctx):
     """Logs processing statistics."""
-    rt.log_mq("Email contained {0} messages".format(ctx.count_read))
-    rt.log_mq("{0} messages were parseable.".format(ctx.count_parsed))
-    rt.log_mq("{0} parsing errors .".format(len(ctx.message_errors)))
+    msg = "Incoming: {0};  "
+    msg += "Base64 decoding errors: {1};  "
+    msg += "JSON encoding errors: {2};  "
+    msg = "Outgoing: {3}."
+    msg = msg.format(len(ctx.messages_b64), len(ctx.messages_json_error), len(ctx.messages_dict_error), len(ctx.messages))
+
+    rt.log_mq(msg)

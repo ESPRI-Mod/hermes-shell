@@ -19,18 +19,21 @@
             "main": "postgresql://prodiguer_db_user:@localhost/prodiguer"
         }
     },
+    "mail": {
+        "addresses": {
+            "prodiguer": "momipsl@ipsl.jussieu.fr",
+            "supervisor": "momipsl@ipsl.jussieu.fr"
+        },
+        "host": "smtp.ipsl.jussieu.fr",
+        "mailbox": "AMPQ",
+        "password": "Silence107!",
+        "port": 587,
+        "username": "momipsl"
+    },
     "mq": {
-        "connection_reopen_delay": 5,
         "connections": {
             "libigcm": "amqp://libigcm-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600",
             "main": "amqp://prodiguer-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600"
-        },
-        "smtp_bridge": {
-            "host": "imap.ipsl.jussieu.fr",
-            "mailbox": "AMPQ",
-            "password": "Silence107!",
-            "port": "993",
-            "username": "momipsl"
         }
     }
 }

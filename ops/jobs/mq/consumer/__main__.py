@@ -65,7 +65,7 @@ _NON_DB_BOUND_CONSUMERS = {}
 
 def _initialize_consumer(consumer):
     """Initializes a consumer prior to message consumption."""
-    # Invoke task factory.
+    # Set collection of initialization tasks.
     try:
         tasks = consumer.get_init_tasks()
     except AttributeError:
@@ -77,14 +77,14 @@ def _initialize_consumer(consumer):
     except TypeError:
         tasks = (tasks, )
 
-    # Execute tasks.
+    # Execute initialization tasks.
     for task in tasks:
         task()
 
 
 def _process_message(msg, consumer):
     """Processes a message being consumed from a queue."""
-    # Invoke task factory.
+    # Set collection of message processing tasks.
     tasks = consumer.get_tasks()
 
     # Convert to iterable (if necessary).

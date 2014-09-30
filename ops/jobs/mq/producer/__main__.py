@@ -16,17 +16,21 @@ import sys
 from prodiguer import rt
 
 # External queue producers.
-import ext_smtp
 import ext_smtp_from_file
+import ext_smtp_polling
+import ext_smtp_realtime
 
 
 
 # Map of producer types to producers.
 _PRODUCERS = {
-    'ext-smtp': ext_smtp,
-    'ext-smtp-from-file': ext_smtp_from_file
+    'ext-smtp-from-file': ext_smtp_from_file,
+    'ext-smtp-polling': ext_smtp_polling,
+    'ext-smtp-realtime': ext_smtp_realtime
 }
 
+# Collection of non-standard producers.
+_NON_STANDARD = [ext_smtp_realtime]
 
 # Set producer to be launched.
 try:
@@ -53,15 +57,30 @@ try:
 except IndexError:
     _arg = None
 
-
 # Log.
 rt.log_mq("Message producer launched: {0}".format(_producer_type))
 
-# Create context.
-if _arg:
-    ctx = _producer.ProcessingContext(_throttle, _arg)
-else:
-    ctx = _producer.ProcessingContext(_throttle)
+# Execute non-standard producers.
+if _producer in _NON_STANDARD:
+    if _arg:
+        _producer.execute(_throttle, _arg)
+    else:
+        _producer.execute(_throttle)
 
-# Invoke tasks.
-rt.invoke(_producer.TASKS, ctx, "MQ")
+# Execute standard producers.
+else:
+    # Create context.
+    if _arg:
+        ctx = _producer.ProcessingContext(_throttle, _arg)
+    else:
+        ctx = _producer.ProcessingContext(_throttle)
+
+    # Set tasks.
+    tasks = _producer.TASKS
+    try:
+        error_tasks = _producer.ERROR_TASKS
+    except AttributeError:
+        error_tasks = None
+
+    # Invoke tasks.
+    rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx, module="MQ")

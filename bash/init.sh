@@ -11,6 +11,7 @@ declare -a initializers=(
 	'run_db_pgres'
 	'run_demos'
 	'run_help'
+	'run_monitoring'
 	'run_mq'
 	'run_stack'
 	'run_tests'
