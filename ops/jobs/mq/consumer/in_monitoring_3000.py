@@ -36,6 +36,6 @@ def get_tasks():
 
 
 def _process_message(ctx):
-    # TODO: processs message type 2000
+    # TODO: processs message type 3000
     pass
 

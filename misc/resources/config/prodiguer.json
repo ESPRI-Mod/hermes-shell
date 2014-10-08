@@ -9,7 +9,7 @@
         },
         "mode": "dev",
         "port": 8888,
-        "ssl": "false"
+        "ssl": false
     },
     "db": {
         "mongodb": {

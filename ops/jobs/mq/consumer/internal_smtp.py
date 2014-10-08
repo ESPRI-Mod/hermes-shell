@@ -44,7 +44,9 @@ class Message(mq.Message):
 
         self.mail = None
         self.mail_body = None
-        self.mail_subject = "IPSL {0} ({1}) :: ".format(props.app_id.upper(), props.headers['mode'].upper())
+        self.mail_subject = \
+            "IPSL {0} ({1}) :: ".format(props.app_id.upper(),
+                                        props.headers['mode'].upper())
         self.notification_type = None
         self.operator = None
         self.operator_id = None
@@ -59,7 +61,7 @@ def get_tasks():
         _set_operator,
         _set_templates,
         _set_mail,
-        # _dispatch
+        _dispatch
         )
 
 
@@ -70,10 +72,8 @@ def get_init_tasks():
 
 def _cache_templates():
     """Places templates in a memory cache."""
-    for fpath in os.listdir(_TEMPLATES_DIRPATH):
-        pass
-        # print fpath, fpath[-3:]
     # TODO:: cache templates.
+    pass
 
 
 def _unpack_content(ctx):
@@ -86,62 +86,25 @@ def _unpack_content(ctx):
 
 
 def _set_operator(ctx):
-    """Sets information regarding operator."""
+    """Sets operator information loaded from dB."""
     ctx.operator = db.cache.get_item(db.types.ComputeNodeLogin, ctx.operator_id)
 
 
 def _set_templates(ctx):
     """Sets template of email to be dispatched."""
+    # TODO - load from local cache rather than file system
     ctx.template_body = _TEMPLATES.load(ctx.notification_type + "-body.txt")
     ctx.template_subject = _TEMPLATES.load(ctx.notification_type + "-subject.txt")
 
 
 def _set_mail(ctx):
     """Sets email to be dispatched."""
-    ctx.mail_body = ctx.template_body.generate()
-    ctx.mail_subject += \
-        ctx.template_subject.generate(simulation=ctx.simulation)
-    # TODO: interpolate email templates.
-    # print ctx.mail_body, ctx.mail_subject
-    return
-
-    mail_body = "{0} body goes here".format(ctx.notification_type)
-    mail_subject = "{0} subject goes here".format(ctx.notification_type)
-    mail_from = "momipsl@ipsl.jussieu.fr"
-    mail_to = "momipsl@ipsl.jussieu.fr"
-
-    mail = MIMEText(mail_body)
-    mail['Subject'] = mail_subject
-    mail['From'] = mail_from
-    mail['To'] = mail_to
-
-    ctx.mail = mail
+    # TODO: interpolate email templates
+    pass
 
 
 def _dispatch(ctx):
-    """Dispatches an email to an operator."""
-    # TODO: dispatch email ...", ctx.mail
-    return
+    """Dispatch email to operator."""
+    # TODO: dispatch email
+    pass
 
-    # server = smtplib.SMTP('smtp.ipsl.jussieu.fr')
-    server = smtplib.SMTP('134.157.176.41', port=993)
-
-    print "server created ..."
-    try:
-        server.set_debuglevel(True)
-        server.ehlo()
-        if server.has_extn('STARTTLS'):
-            server.starttls()
-            print "ssl session started"
-        print "connected to ", server
-        server.login("momipsl@ipsl,jussieu.fr", "N@ture93!")
-        print "logged in"
-        response = server.sendmail("momipsl@ipsl.jussieu.fr",
-                                   "momipsl@ipsl.jussieu.fr",
-                                   ctx.mail.as_string())
-        print "mail sent", response
-    except Exception as err:
-        print err
-    finally:
-        server.quit()
-        print "logged out of server ..."

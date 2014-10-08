@@ -25,17 +25,17 @@
         "write": ".*",
         "read": ".*"
     }, {
-        "user": "libigcm-mq-user",
-        "vhost": "prodiguer",
-        "configure": "",
-        "write": ".*",
-        "read": ""
-    }, {
         "user": "prodiguer-mq-admin",
         "vhost": "prodiguer",
         "configure": ".*",
         "write": ".*",
         "read": ".*"
+    }, {
+        "user": "libigcm-mq-user",
+        "vhost": "prodiguer",
+        "configure": "",
+        "write": ".*",
+        "read": ""
     }],
     "parameters": [],
     "policies": [],
@@ -52,7 +52,13 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "q-in-log",
+        "name": "q-internal-sms",
+        "vhost": "prodiguer",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+    }, {
+        "name": "q-in-monitoring",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -101,12 +107,6 @@
         "arguments": {}
     }, {
         "name": "q-internal-api",
-        "vhost": "prodiguer",
-        "durable": true,
-        "auto_delete": false,
-        "arguments": {}
-    }, {
-        "name": "q-ext-log",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -166,23 +166,9 @@
     "bindings": [{
         "source": "x-ext",
         "vhost": "prodiguer",
-        "destination": "q-ext-log",
-        "destination_type": "queue",
-        "routing_key": "*.*.*.*.*",
-        "arguments": {}
-    }, {
-        "source": "x-ext",
-        "vhost": "prodiguer",
         "destination": "q-ext-smtp",
         "destination_type": "queue",
         "routing_key": "*.*.*.*.-1000",
-        "arguments": {}
-    }, {
-        "source": "x-ext",
-        "vhost": "prodiguer",
-        "destination": "q-ext-log",
-        "destination_type": "queue",
-        "routing_key": "q-ext-log",
         "arguments": {}
     }, {
         "source": "x-ext",
@@ -194,9 +180,9 @@
     }, {
         "source": "x-in",
         "vhost": "prodiguer",
-        "destination": "q-in-log",
+        "destination": "q-in-monitoring",
         "destination_type": "queue",
-        "routing_key": "*.*.*.*.*",
+        "routing_key": "*.*.*.monitoring.*",
         "arguments": {}
     }, {
         "source": "x-in",
@@ -267,13 +253,6 @@
         "destination": "q-in-monitoring-9999",
         "destination_type": "queue",
         "routing_key": "*.*.*.monitoring.9999",
-        "arguments": {}
-    }, {
-        "source": "x-in",
-        "vhost": "prodiguer",
-        "destination": "q-in-log",
-        "destination_type": "queue",
-        "routing_key": "q-in-log",
         "arguments": {}
     }, {
         "source": "x-in",
@@ -358,6 +337,13 @@
         "destination": "q-internal-api",
         "destination_type": "queue",
         "routing_key": "*.*.*.*.-2000",
+        "arguments": {}
+    }, {
+        "source": "x-internal",
+        "vhost": "prodiguer",
+        "destination": "q-internal-sms",
+        "destination_type": "queue",
+        "routing_key": "*.*.*.*.-3000",
         "arguments": {}
     }, {
         "source": "x-internal",

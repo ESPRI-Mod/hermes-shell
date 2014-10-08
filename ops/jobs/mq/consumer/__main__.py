@@ -17,10 +17,9 @@ from prodiguer import config, db, mq, rt
 
 # External queue consumers.
 import ext_smtp
-import ext_log
 
 # Input queue queue consumers.
-import in_log
+import in_monitoring
 import in_monitoring_0000
 import in_monitoring_0100
 import in_monitoring_1000
@@ -41,12 +40,11 @@ import internal_sms
 
 # Map of consumer types to consumers.
 _CONSUMERS = {
-    'ext-log': ext_log,
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
     'internal-smtp': internal_smtp,
     'internal-sms': internal_sms,
-    'in-log': in_log,
+    'in-monitoring': in_monitoring,
     'in-monitoring-0000': in_monitoring_0000,
     'in-monitoring-0100': in_monitoring_0100,
     'in-monitoring-1000': in_monitoring_1000,
@@ -84,19 +82,14 @@ def _initialize_consumer(consumer):
 
 def _process_message(msg, consumer):
     """Processes a message being consumed from a queue."""
-    # Set collection of message processing tasks.
+    # Set tasks to be invoked.
     tasks = consumer.get_tasks()
-
-    # Convert to iterable (if necessary).
     try:
-        iter(tasks)
-    except TypeError:
-        tasks = (tasks, )
+        error_tasks = consumer.get_error_tasks()
+    except AttributeError:
+        error_tasks = None
 
-    # Execute tasks.
-    # TODO error handling
-    for task in tasks:
-        task(msg)
+    rt.invoke1(tasks, error_tasks=error_tasks, ctx=msg, module="MQ")
 
 
 # Set consumer to be launched.
@@ -119,12 +112,16 @@ except ValueError:
     raise ValueError("Invalid consume limit - it must be an integer >= 0")
 
 
-# Set helper vars.
+# Set flag indicating whether consumer require db session.
 _is_db_bound = _consumer_type not in _NON_DB_BOUND_CONSUMERS
+
+# Set flag indicating whether message will be presisted to db.
 try:
     _auto_persist = consumer.PERSIST_MESSAGE
 except AttributeError:
     _auto_persist = True
+
+# Set processing context information type.
 try:
     _context_type = consumer.Message
 except AttributeError:
@@ -142,14 +139,15 @@ _initialize_consumer(consumer)
 rt.log_mq("launched consumer: {0}".format(_consumer_type))
 
 # Consume messages.
-mq.utils.consume(consumer.MQ_EXCHANGE,
-                 consumer.MQ_QUEUE,
-                 lambda ctx: _process_message(ctx, consumer),
-                 auto_persist=_auto_persist,
-                 consume_limit=_consume_limit,
-                 context_type=_context_type,
-                 verbose=_consume_limit > 0)
-
-# Disconnect from db.
-if _is_db_bound:
-    db.session.end()
+try:
+    mq.utils.consume(consumer.MQ_EXCHANGE,
+                     consumer.MQ_QUEUE,
+                     lambda ctx: _process_message(ctx, consumer),
+                     auto_persist=_auto_persist,
+                     consume_limit=_consume_limit,
+                     context_type=_context_type,
+                     verbose=_consume_limit > 0)
+except:
+    # Disconnect from db.
+    if _is_db_bound:
+        db.session.end()

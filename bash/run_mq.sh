@@ -25,9 +25,8 @@ declare -a MQ_USERS=(
 
 # Set of supported MQ queues.
 declare -a MQ_QUEUES=(
-	'ext-log'
 	'ext-smtp'
-	'in-log'
+	'in-monitoring'
 	'in-monitoring-0000'
 	'in-monitoring-0100'
 	'in-monitoring-1000'
@@ -41,6 +40,21 @@ declare -a MQ_QUEUES=(
 	'internal-api'
 	'internal-sms'
 	'internal-smtp'
+)
+
+# Set of supported production MQ queues.
+declare -a MQ_QUEUES_PROD=(
+	'ext-smtp'
+	'in-monitoring'
+	'internal-api'
+	'internal-sms'
+	'internal-smtp'
+)
+
+# Set of dead MQ queues.
+declare -a MQ_DEAD_QUEUES=(
+	'ext-log'
+	'in-log'
 )
 
 _run_mq_agent()
@@ -78,7 +92,7 @@ run_mq_consume_all()
 {
 	log "MQ : launching all consumers ..."
 
-	for queue in "${MQ_QUEUES[@]}"
+	for queue in "${MQ_QUEUES_PROD[@]}"
 	do
 		run_mq_consume $queue &
 	done
@@ -112,6 +126,11 @@ run_mq_reset()
 {
 	log "MQ : resetting server ..."
 
+	# Drop existing.
+	for queue in "${MQ_DEAD_QUEUES[@]}"
+	do
+		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete queue name=q-$queue
+	done
 	for queue in "${MQ_QUEUES[@]}"
 	do
 		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete queue name=q-$queue
@@ -128,6 +147,9 @@ run_mq_reset()
 	do
 		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete vhost name=$vhost
 	done
+
+	# Reconfigure.
+	run_mq_configure $1 $2
 
 	log "MQ : reset server ..."
 }

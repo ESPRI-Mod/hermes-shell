@@ -42,22 +42,26 @@ class _State(object):
         :param list new_stack: New stack of email uid's.
 
         """
-        self.lock.acquire()
-        self.email_stack = new_stack
-        self.lock.release()
+        with self.lock:
+            self.email_stack = new_stack
 
 
     def increment_produced(self):
         """Increments number of messages produced.
 
         """
-        self.lock.acquire()
-        self.produced += 1
-        self.lock.release()
+        with self.lock:
+            self.produced += 1
 
 
 # Module state bag instance.
 _STATE = _State()
+
+
+def _invoke_async(target, args):
+    """Helper function to invoke work upon a new thread."""
+    thread = threading.Thread(target=target, args=args)
+    thread.start()
 
 
 def _get_message(uid):
@@ -155,17 +159,17 @@ def execute(throttle=0):
         proxy = _init_proxy()
 
         # Dispatch mail stack.
-        handler = threading.Thread(target=_dispatch,
-                                   args=(_STATE.email_stack,))
-        handler.start()
+        _invoke_async(_dispatch, (_STATE.email_stack,))
 
         # Process imap notifications on new threads.
         proxy.idle()
         while True:
-            handler = threading.Thread(target=_on_imap_idle_event,
-                                       args=(proxy.idle_check(),))
-            handler.start()
+            _invoke_async(_on_imap_idle_event, (proxy.idle_check(),))
+
+    # Simply log errors.
     except Exception as err:
         rt.log_mq_error(err)
+
+    # Ensure imap proxy is closed.
     finally:
         email.close_imap_proxy(proxy)

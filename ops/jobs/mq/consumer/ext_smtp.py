@@ -35,14 +35,15 @@ def get_tasks():
         _set_messages_dict,
         _set_messages_ampq,
         _dispatch,
+        _log_stats,
         _delete_email,
-        _log_stats
+        _close_imap_proxy
         )
 
 
 def get_error_tasks():
     """Returns set of tasks to be executed when a message processing error occurs."""
-    return None
+    return _close_imap_proxy
 
 
 # Message information wrapper.
@@ -54,6 +55,7 @@ class Message(mq.Message):
 
         self.email = None
         self.email_uid = self.content['email_uid']
+        self.imap_proxy = None
         self.messages = []
         self.messages_b64 = []
         self.messages_json = []
@@ -102,16 +104,14 @@ def _encode_json(data):
 
 def _set_email(ctx):
     """Initializes email to be processed."""
-    proxy = email.get_imap_proxy()
-    try:
-        data = proxy.fetch(ctx.email_uid, ['BODY.PEEK[TEXT]'])
-    finally:
-        email.close_imap_proxy(proxy)
+    # Pull data from IMAP server.
+    ctx.imap_proxy = email.get_imap_proxy()
+    data = ctx.imap_proxy.fetch(ctx.email_uid, ['BODY.PEEK[TEXT]'])
 
     # Validate imap response.
     if ctx.email_uid not in data or \
        u'BODY[TEXT]' not in data[ctx.email_uid]:
-       raise ValueError("Email {0} not found.".format(ctx.email_uid))
+       raise ValueError("WARNING :: Email {0} not found.".format(ctx.email_uid))
 
     # Set email payload to be processed.
     ctx.email = data[ctx.email_uid][u'BODY[TEXT]']
@@ -156,19 +156,25 @@ def _dispatch(ctx):
 
 def _delete_email(ctx):
     """Deletes email as it has already been."""
-    proxy = email.get_imap_proxy()
-    try:
-        proxy.delete_messages(ctx.email_uid)
-    finally:
-        email.close_imap_proxy(proxy)
+    ctx.imap_proxy.delete_messages(ctx.email_uid)
+
+
+def _close_imap_proxy(ctx):
+    """Closes imap proxy after use."""
+    email.close_imap_proxy(ctx.imap_proxy)
 
 
 def _log_stats(ctx):
     """Logs processing statistics."""
-    msg = "Incoming: {0};  "
-    msg += "Base64 decoding errors: {1};  "
-    msg += "JSON encoding errors: {2};  "
-    msg = "Outgoing: {3}."
-    msg = msg.format(len(ctx.messages_b64), len(ctx.messages_json_error), len(ctx.messages_dict_error), len(ctx.messages))
+    msg = "Email uid: {0};  "
+    msg += "Incoming: {1};  "
+    msg += "Base64 decoding errors: {2};  "
+    msg += "JSON encoding errors: {3};  "
+    msg += "Outgoing: {4}."
+    msg = msg.format(ctx.email_uid,
+                     len(ctx.messages_b64),
+                     len(ctx.messages_json_error),
+                     len(ctx.messages_dict_error),
+                     len(ctx.messages))
 
     rt.log_mq(msg)

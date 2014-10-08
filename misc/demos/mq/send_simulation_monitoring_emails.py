@@ -49,11 +49,8 @@ for msg in mails_out:
 server = smtplib.SMTP()
 # server.set_debuglevel(True)
 server.connect(config.mail.smtp.host, config.mail.smtp.port)
-server.ehlo()
 server.starttls()
-server.ehlo()
 server.login(config.mail.smtp.username, config.mail.smtp.password)
-server.ehlo()
 
 # Dispatch emails.
 for index, msg in enumerate(mails_out):

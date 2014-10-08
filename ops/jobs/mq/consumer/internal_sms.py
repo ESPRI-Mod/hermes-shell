@@ -55,8 +55,7 @@ def _unpack_content(ctx):
 
 def _set_operator(ctx):
     """Sets information regarding operator."""
-    # TODO: load operator details.
-    pass
+    ctx.operator = db.cache.get_item(db.types.ComputeNodeLogin, ctx.operator_id)
 
 
 def _set_template(ctx):
@@ -72,6 +71,6 @@ def _set_content(ctx):
 
 
 def _dispatch(ctx):
-    """Dispatches an sms to an operator."""
+    """Dispatch sms to operator."""
     # TODO: dispatch sms to operator.
     pass

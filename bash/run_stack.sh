@@ -171,10 +171,12 @@ _update_notice()
 {
 	log
 	log "IMPORTANT NOTICE"
-	log "The update process created a new config file:" 1
-	log "$HOME/.prodiguer" 2
+	log "The update process created new config files:" 1
+	log "$DIR_CONFIG/prodiguer.json" 2
+	log "$DIR_CONFIG/prodiguer.sh" 2
 	log "It also created a backup of your old config file:" 1
-	log "$HOME/.prodiguer-backup" 2
+	log "$DIR_CONFIG/prodiguer-backup.json" 2
+	log "$DIR_CONFIG/prodiguer-backup.sh" 2
 	log "Please verify your local configuration settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }

@@ -67,13 +67,30 @@ def _get_name(entity_type, entity_id):
     return db.cache.get_name(entity_type, entity_id)
 
 
+def _get_timestamp(timestamp):
+    """Returns formatted timestamp for insertion into db.
+
+    This is necessary due to nano-second to second precision errors.
+
+    """
+    try:
+        return arrow.get(timestamp).datetime
+    except arrow.parser.ParserError:
+        part1 = timestamp.split(".")[0]
+        part2 = timestamp.split(".")[1].split("+")[0][0:6]
+        part3 = timestamp.split(".")[1].split("+")[1]
+        timestamp = "{0}.{1}+{2}".format(part1, part2, part3)
+
+        return arrow.get(timestamp).datetime
+
+
 def _unpack_content(ctx):
     """Unpacks information from message content."""
     ctx.activity = ctx.content['activity']
     ctx.compute_node = ctx.content['centre']
     ctx.compute_node_login = ctx.content['login']
     ctx.compute_node_machine = "{0} - {1}".format(ctx.compute_node, ctx.content['machine'])
-    ctx.execution_start_date = arrow.get(ctx.content['msgTimestamp']).datetime
+    ctx.execution_start_date = _get_timestamp(ctx.content['msgTimestamp'])
     ctx.experiment = ctx.content['experiment']
     ctx.model = ctx.content['model']
     ctx.name = ctx.content['name']
