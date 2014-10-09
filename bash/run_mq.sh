@@ -160,4 +160,10 @@ run_mq_server()
 	rabbitmq-server
 }
 
+# Launches MQ daemons.
+run_mq_daemons()
+{
+    activate_venv server
 
+    supervisord -c $DIR_CONFIG/mq-supervisord.conf
+}

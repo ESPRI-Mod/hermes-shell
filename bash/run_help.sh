@@ -175,6 +175,9 @@ run_mq_help()
 	log "runs all message consumers in dedicated processes" 2
 	log
 
+	log "mq-daemons" 1
+	log "launches Prodiguer MQ daemons" 2
+
 	log "mq-produce TYPE [THROTTLE]" 1
 	log "runs a message producer" 2
 	log "TYPE = type of producer to be run" 2

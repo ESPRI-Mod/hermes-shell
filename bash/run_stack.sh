@@ -13,6 +13,7 @@ run_stack_bootstrap()
 	log "Creating ops directories"
 	mkdir -p $DIR_BACKUPS
 	mkdir -p $DIR_CONFIG
+	mkdir -p $DIR_DAEMONS
 	mkdir -p $DIR_DATA
 	mkdir -p $DIR_DATA/pgres
 	mkdir -p $DIR_DATA/mongo
@@ -25,8 +26,9 @@ run_stack_bootstrap()
 	mkdir -p $DIR_VENV
 
 	log "Initializing configuration"
-	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
+	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_RESOURCES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 
 	log "BOOTSTRAP ENDS"
 
@@ -224,10 +226,12 @@ _update_config()
 	# Create backups.
 	cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
 	cp $DIR_CONFIG/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
+	cp $DIR_CONFIG/mq-supervisord.conf $DIR_CONFIG/mq-supervisord-backup.conf
 
 	# Copy new config.
 	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
+	cp $DIR_RESOURCES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 }
 
 # Updates shell.

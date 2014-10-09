@@ -1,5 +1,6 @@
 ops/backups
 ops/config
+ops/daemons
 ops/data
 ops/logs
 ops/tmp

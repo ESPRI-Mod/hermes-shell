@@ -7,6 +7,7 @@
 declare DIR_BASH=$DIR/bash
 declare DIR_BACKUPS=$DIR/ops/backups
 declare DIR_CONFIG=$DIR/ops/config
+declare DIR_DAEMONS=$DIR/ops/daemons
 declare DIR_DATA=$DIR/ops/data
 declare DIR_DEMOS=$DIR/misc/demos
 declare DIR_DOCS=$DIR/repos/prodiguer-docs
