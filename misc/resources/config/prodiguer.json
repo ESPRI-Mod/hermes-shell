@@ -20,20 +20,28 @@
         }
     },
     "mail": {
-        "addresses": {
-            "prodiguer": "momipsl@ipsl.jussieu.fr",
-            "supervisor": "momipsl@ipsl.jussieu.fr"
+        "imap": {
+            "host": "courriel3.ipsl.jussieu.fr",
+            "mailbox": "AMPQ",
+            "password": "XXXXXXXXX",
+            "port": 993,
+            "username": "superviseur"
         },
-        "host": "smtp.ipsl.jussieu.fr",
-        "mailbox": "AMPQ",
-        "password": "Silence107!",
-        "port": 587,
-        "username": "momipsl"
+        "smtp": {
+            "addresses": {
+                "prodiguer": "superviseur@ipsl.jussieu.fr",
+                "supervisor": "superviseur@ipsl.jussieu.fr"
+            },
+            "host": "courriel3.ipsl.jussieu.fr",
+            "password": "XXXXXXXXX",
+            "port": 587,
+            "username": "superviseur"
+        }
     },
     "mq": {
         "connections": {
-            "libigcm": "amqp://libigcm-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600",
-            "main": "amqp://prodiguer-mq-user:N@ture93!@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600"
+            "libigcm": "amqp://libigcm-mq-user:XXXXXXXXX@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600",
+            "main": "amqp://prodiguer-mq-user:XXXXXXXXX@localhost:5672/prodiguer?connection_attempts=3&heartbeat_interval=3600"
         }
     }
 }
