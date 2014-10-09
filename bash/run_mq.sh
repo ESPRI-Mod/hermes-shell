@@ -104,7 +104,6 @@ run_mq_produce()
 	declare throttle=$2
 	declare misc=$3
 
-
 	log "MQ : launching producer: "$typeof
 
 	_run_mq_agent "producer" $typeof $throttle $misc
@@ -166,4 +165,15 @@ run_mq_daemons()
     activate_venv server
 
     supervisord -c $DIR_CONFIG/mq-supervisord.conf
+}
+
+# Dispatches test simulation emails to SMTP server.
+run_mq_demo_send_monitoring_emails()
+{
+	declare scenario=$1
+
+	activate_venv server
+	log "Monitoring scenario $scenario emails being dispatched ..."
+	log "Monitoring scenario $scenario folder: "$DIR_DOCS/mq/simulation_$scenario
+   	python $DIR_DEMOS/mq/send_simulation_monitoring_emails.py $DIR_DOCS/mq/simulation_$scenario
 }

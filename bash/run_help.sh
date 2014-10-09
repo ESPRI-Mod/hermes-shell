@@ -178,6 +178,10 @@ run_mq_help()
 	log "mq-daemons" 1
 	log "launches Prodiguer MQ daemons" 2
 
+	log "mq-demo-send-monitoring-emails SCENARIO" 1
+	log "dispatches test simulation monitoring emails" 2
+	log "SCENARIO = monitoring scenario to be launched" 2
+
 	log "mq-produce TYPE [THROTTLE]" 1
 	log "runs a message producer" 2
 	log "TYPE = type of producer to be run" 2
