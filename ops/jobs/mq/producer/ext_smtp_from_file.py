@@ -94,7 +94,7 @@ def _set_emails(ctx):
         if mail.is_multipart():
             mail, attachment = mail.get_payload()
             print "TODO: process attachment"
-        ctx.mails.append(mail.get_payload())
+        ctx.mails.append(mail.get_payload(decode=True))
 
 
 def _set_messages_b64(ctx):

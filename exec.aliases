@@ -1,5 +1,5 @@
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-alias prodiguer='$DIR/exec.sh'
+DIR_PRODIGUER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+alias prodiguer='$DIR_PRODIGUER/exec.sh'
 
 alias prodiguer-api='prodiguer api'
 alias prodiguer-api-heartbeat='prodiguer api-heartbeat'
