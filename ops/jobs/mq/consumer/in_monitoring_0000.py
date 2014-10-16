@@ -27,12 +27,25 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_0000
 
 
+def get_tasks():
+    """Returns set of tasks to be executed when processing a message."""
+    return (
+        _unpack_content,
+        _validate_content,
+        _persist_simulation,
+        _persist_simulation_message,
+        _set_simulation_info,
+        _notify_api,
+        _notify_operator
+        )
+
+
 # Message information wrapper.
 class Message(mq.Message):
     """Message information wrapper."""
-    def __init__(self, props, body):
+    def __init__(self, props, body, decode=True):
         """Constructor."""
-        super(Message, self).__init__(props, body, decode=True)
+        super(Message, self).__init__(props, body, decode=decode)
 
         self.simulation = None
         self.activity = None
@@ -49,17 +62,6 @@ class Message(mq.Message):
         self.output_start_date = None
         self.output_end_date = None
         self.uid = None
-
-
-def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
-    return (
-        _unpack_content,
-        _persist_simulation,
-        _set_simulation_info,
-        _notify_api,
-        lambda ctx: utils.notify_operator(ctx, "monitoring-0000")
-        )
 
 
 def _get_name(entity_type, entity_id):
@@ -100,6 +102,11 @@ def _unpack_content(ctx):
     ctx.uid = ctx.content['simuid']
 
 
+def _validate_content(ctx):
+    """Validates information from message content."""
+    # TODO
+
+
 def _persist_simulation(ctx):
     """Persists simulation information to db."""
     ctx.simulation = db.mq_hooks.create_simulation(
@@ -117,6 +124,11 @@ def _persist_simulation(ctx):
         ctx.space,
         ctx.uid
         )
+
+
+def _persist_simulation_message(ctx):
+    """Persists simulation message information to db."""
+    db.mq_hooks.create_simulation_message(ctx.simulation.id, ctx.msg.id)
 
 
 def _set_simulation_info(ctx):
@@ -144,7 +156,6 @@ def _set_simulation_info(ctx):
 
 def _notify_api(ctx):
     """Notifies web service API."""
-    # Set data to be dispatched to API message queue.
     data = {
         u"event_type": "new_simulation"
     }
@@ -152,3 +163,7 @@ def _notify_api(ctx):
 
     utils.notify_api(data)
 
+
+def _notify_operator(ctx):
+    """Notifies an operator that simulation has completed."""
+    utils.notify_operator(ctx, "monitoring-0000")

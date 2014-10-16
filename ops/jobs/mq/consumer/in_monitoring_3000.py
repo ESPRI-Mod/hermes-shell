@@ -13,6 +13,8 @@
 """
 from prodiguer import mq
 
+import in_monitoring_utils as utils
+
 
 
 # MQ exhange to bind to.
@@ -25,17 +27,19 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_3000
 # Message information wrapper.
 class Message(mq.Message):
     """Message information wrapper."""
-    def __init__(self, props, body):
+    def __init__(self, props, body, decode=True):
         """Constructor."""
-        super(Message, self).__init__(props, body, decode=True)
+        super(Message, self).__init__(props, body, decode=decode)
+
+        self.simulation_uid = self.content['simuid']
 
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
-    return _process_message
+    return _persist_simulation_message
 
 
-def _process_message(ctx):
-    # TODO: processs message type 3000
-    pass
+def _persist_simulation_message(ctx):
+    """Persists simulation message information to db."""
+    utils.create_simulation_message(ctx.simulation_uid, ctx.msg.id)
 

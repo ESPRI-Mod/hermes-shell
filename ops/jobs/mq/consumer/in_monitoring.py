@@ -49,29 +49,28 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING
 
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper."""
-    def __init__(self, props, body):
-        """Constructor."""
-        super(Message, self).__init__(props, body, decode=True)
-
-        self.sub_consumer = _SUB_CONSUMERS[self.content['msgCode']]
-        self.sub_message = self.sub_consumer.Message(props, body)
-
-
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
     return _process
 
 
 def _process(ctx):
-    """Dispatches an sms to an operator."""
+    """Processes a simulation monitoring message pulled from message queue."""
+    # Decode message content.
+    ctx.decode()
+
+    # Set sub-consumer.
+    sub_consumer = _SUB_CONSUMERS[ctx.content['msgCode']]
+
+    # Set sub-context.
+    sub_ctx = sub_consumer.Message(ctx.props, ctx.content, decode=False)
+    sub_ctx.msg = ctx.msg
+
     # Set tasks to be invoked.
-    tasks = ctx.sub_consumer.get_tasks()
+    tasks = sub_consumer.get_tasks()
     try:
-        error_tasks = ctx.sub_consumer.get_error_tasks()
+        error_tasks = sub_consumer.get_error_tasks()
     except AttributeError:
         error_tasks = None
 
-    rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx.sub_message, module="MQ")
+    rt.invoke1(tasks, error_tasks=error_tasks, ctx=sub_ctx, module="MQ")

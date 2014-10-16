@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import db, convert, mq
+from prodiguer import db, mq
 
 
 
@@ -49,8 +49,7 @@ def notify_api_of_simulation_state_change(simulation_id, simulation_state):
             producer_id = mq.constants.PRODUCER_PRODIGUER,
             app_id = mq.constants.APP_MONITORING,
             message_type = mq.constants.TYPE_GENERAL_API,
-            mode = mq.constants.MODE_TEST,
-            timestamp = convert.now_to_timestamp())
+            mode = mq.constants.MODE_TEST)
 
     def _get_msg_body():
         """Returns message body."""
@@ -82,8 +81,7 @@ def notify_api(event_info):
             producer_id = mq.constants.PRODUCER_PRODIGUER,
             app_id = mq.constants.APP_MONITORING,
             message_type = mq.constants.TYPE_GENERAL_API,
-            mode = mq.constants.MODE_TEST,
-            timestamp = convert.now_to_timestamp())
+            mode = mq.constants.MODE_TEST)
 
     def _get_message():
         """Dispatch message source."""
@@ -103,8 +101,7 @@ def _set_smtp_notification(operator_id, notification_type, simulation):
             producer_id = mq.constants.PRODUCER_PRODIGUER,
             app_id = mq.constants.APP_MONITORING,
             message_type = mq.constants.TYPE_GENERAL_SMTP,
-            mode = mq.constants.MODE_TEST,
-            timestamp = convert.now_to_timestamp())
+            mode = mq.constants.MODE_TEST)
 
     def _get_message_content():
         content = {
@@ -137,8 +134,7 @@ def _set_sms_notification(operator_id, notification_type, simulation):
             producer_id = mq.constants.PRODUCER_PRODIGUER,
             app_id = mq.constants.APP_MONITORING,
             message_type = mq.constants.TYPE_GENERAL_SMS,
-            mode = mq.constants.MODE_TEST,
-            timestamp = convert.now_to_timestamp())
+            mode = mq.constants.MODE_TEST)
 
     def _get_message_content():
         content = {
@@ -172,3 +168,11 @@ def notify_operator(ctx, notification_type):
     operator_id = ctx.simulation.compute_node_login_id
     _set_smtp_notification(operator_id, notification_type, ctx.simulation)
     _set_sms_notification(operator_id, notification_type, ctx.simulation)
+
+
+def create_simulation_message(uid, msg_id):
+    """Creates an entry in tbl_simulation_message.
+
+    """
+    simulation = db.mq_hooks.retrieve_simulation_by_uid(uid)
+    db.mq_hooks.create_simulation_message(simulation.id, msg_id)

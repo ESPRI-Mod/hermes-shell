@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import mq
+from prodiguer import db, mq
 
 
 

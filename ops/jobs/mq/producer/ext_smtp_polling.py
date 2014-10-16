@@ -11,8 +11,24 @@
 
 
 """
-from prodiguer import config, email, mq, rt
+from prodiguer import config, mail, mq, rt
 
+
+
+def get_tasks():
+    """Returns set of message processing tasks to be executed."""
+    return (
+        _init,
+        _close_imap_proxy,
+        _dispatch
+        )
+
+
+def get_error_tasks():
+    """Returns set of message processing tasks to be executed."""
+    return (
+        _close_imap_proxy
+        )
 
 
 class ProcessingContext(object):
@@ -48,15 +64,15 @@ def _get_message(uid):
 def _init(ctx):
     """Initialization routine."""
     # Initialize imap proxy.
-    ctx.proxy = email.get_imap_proxy()
+    ctx.proxy = mail.get_imap_proxy()
 
     # Initialize emails to be processed.
-    ctx.email_uid_list = email.get_email_uid_list(ctx.proxy)
+    ctx.email_uid_list = mail.get_email_uid_list(ctx.proxy)
 
 
 def _close_imap_proxy(ctx):
     """Closes imap client."""
-    email.close_imap_proxy(ctx.proxy)
+    mail.close_imap_proxy(ctx.proxy)
 
 
 def _dispatch(ctx):
@@ -73,13 +89,3 @@ def _dispatch(ctx):
     mq.produce(_get_messages,
                connection_url=config.mq.connections.libigcm)
 
-
-# Set of processing tasks.
-TASKS = (
-        _init,
-        _close_imap_proxy,
-        _dispatch
-    )
-
-# Set of processing error tasks.
-ERROR_TASKS = _close_imap_proxy

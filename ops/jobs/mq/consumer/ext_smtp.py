@@ -13,9 +13,7 @@
 """
 import base64, json
 
-import numpy as np
-
-from prodiguer import config, email, mq, rt
+from prodiguer import config, mail, mq, rt
 
 
 
@@ -36,7 +34,7 @@ def get_tasks():
         _set_messages_ampq,
         _dispatch,
         _log_stats,
-        _delete_email,
+        # _delete_email,
         _close_imap_proxy
         )
 
@@ -54,6 +52,7 @@ class Message(mq.Message):
         super(Message, self).__init__(props, body, decode=True)
 
         self.email = None
+        self.email_attachment = None
         self.email_uid = self.content['email_uid']
         self.imap_proxy = None
         self.messages = []
@@ -64,15 +63,11 @@ class Message(mq.Message):
         self.messages_dict_error = []
 
 
-def _get_timestamp(timestamp):
-    """Helper function: returns a formatted timestamp."""
-    timestamp = np.datetime64(timestamp, dtype="datetime64[ns]")
-
-    return timestamp.astype(long)
-
-
 def _get_msg_props(msg):
     """Returns an AMPQ basic properties instance, i.e. message header."""
+    # Decode nano-second precise timestamp.
+    timestamp = mq.Timestamp.from_ns(msg['msgTimestamp'])
+
     return mq.utils.create_ampq_message_properties(
         user_id = mq.constants.USER_IGCM,
         producer_id = mq.constants.PRODUCER_IGCM,
@@ -80,7 +75,11 @@ def _get_msg_props(msg):
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
         mode = mq.constants.MODE_TEST,
-        timestamp = _get_timestamp(msg['msgTimestamp']))
+        timestamp = timestamp.as_ms_int,
+        headers = {
+            "timestamp": unicode(timestamp.as_ns_raw),
+            "timestamp_precision": u'ns'
+        })
 
 
 def _decode_b64(data):
@@ -104,17 +103,15 @@ def _encode_json(data):
 
 def _set_email(ctx):
     """Initializes email to be processed."""
-    # Pull data from IMAP server.
-    ctx.imap_proxy = email.get_imap_proxy()
-    data = ctx.imap_proxy.fetch(ctx.email_uid, ['BODY.PEEK[TEXT]'])
+    # Connect to imap server.
+    ctx.imap_proxy = mail.get_imap_proxy()
 
-    # Validate imap response.
-    if ctx.email_uid not in data or \
-       u'BODY[TEXT]' not in data[ctx.email_uid]:
-       raise ValueError("WARNING :: Email {0} not found.".format(ctx.email_uid))
+    # Pull email.
+    body, attachment = mail.get_email(ctx.email_uid, ctx.imap_proxy)
 
-    # Set email payload to be processed.
-    ctx.email = data[ctx.email_uid][u'BODY[TEXT]']
+    # Decode email.
+    ctx.email = body.get_payload(decode=True)
+    ctx.email_attachment = attachment
 
 
 def _set_messages_b64(ctx):
@@ -161,7 +158,7 @@ def _delete_email(ctx):
 
 def _close_imap_proxy(ctx):
     """Closes imap proxy after use."""
-    email.close_imap_proxy(ctx.imap_proxy)
+    mail.close_imap_proxy(ctx.imap_proxy)
 
 
 def _log_stats(ctx):

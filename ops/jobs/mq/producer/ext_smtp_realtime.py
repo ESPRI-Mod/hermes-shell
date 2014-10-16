@@ -13,7 +13,7 @@
 """
 import threading
 
-from prodiguer import config, email, mq, rt
+from prodiguer import config, mail, mq, rt
 
 
 
@@ -119,7 +119,7 @@ def _on_imap_idle_event(idle_responses):
         return
 
     # Get mailbox mail uid stack.
-    email_stack = email.get_email_uid_list()
+    email_stack = mail.get_email_uid_list()
 
     # Caclulate mails requiring processing.
     diff = sorted(set(email_stack).difference(_STATE.email_stack))
@@ -136,13 +136,13 @@ def _init_proxy():
 
     """
     # Get imap server proxy.
-    proxy = email.get_imap_proxy()
+    proxy = mail.get_imap_proxy()
 
     # Clear items marked for deletion.
     proxy.expunge()
 
     # Initialize email uid list.
-    _STATE.email_stack = email.get_email_uid_list(proxy)
+    _STATE.email_stack = mail.get_email_uid_list(proxy)
 
     return proxy
 
@@ -172,4 +172,4 @@ def execute(throttle=0):
 
     # Ensure imap proxy is closed.
     finally:
-        email.close_imap_proxy(proxy)
+        mail.close_imap_proxy(proxy)

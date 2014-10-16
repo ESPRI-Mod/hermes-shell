@@ -76,9 +76,11 @@ else:
         ctx = _producer.ProcessingContext(_throttle)
 
     # Set tasks.
-    tasks = _producer.TASKS
+    tasks = _producer.get_tasks()
+
+    # Set error tasks.
     try:
-        error_tasks = _producer.ERROR_TASKS
+        error_tasks = _producer.get_error_tasks()
     except AttributeError:
         error_tasks = None
 

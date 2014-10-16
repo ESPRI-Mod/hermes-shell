@@ -13,13 +13,25 @@
 """
 import base64, email, json, os
 
-import numpy as np
 from prodiguer import config, mq
 
 
 
 # Email file extension.
 _EMAIL_FILE_EXTENSION = "eml"
+
+
+def get_tasks():
+    """Returns set of message processing tasks to be executed."""
+    return (
+        _set_files,
+        _set_emails,
+        _set_messages_b64,
+        _set_messages_json,
+        _set_messages_dict,
+        _set_messages_ampq,
+        _dispatch,
+        )
 
 
 class ProcessingContext(object):
@@ -37,14 +49,6 @@ class ProcessingContext(object):
         self.messages_dict_error = []
         self.produced = 0
         self.throttle = throttle
-
-
-
-def _get_timestamp(timestamp):
-    """Helper function: returns a formatted timestamp."""
-    timestamp = np.datetime64(timestamp, dtype="datetime64[ns]")
-
-    return timestamp.astype(long)
 
 
 def _decode_b64(data):
@@ -68,6 +72,9 @@ def _encode_json(data):
 
 def _get_msg_props(msg):
     """Returns an AMPQ basic properties instance, i.e. message header."""
+    # Decode nano-second precise timestamp.
+    timestamp = mq.Timestamp.from_ns(msg['msgTimestamp'])
+
     return mq.utils.create_ampq_message_properties(
         user_id = mq.constants.USER_IGCM,
         producer_id = mq.constants.PRODUCER_IGCM,
@@ -75,7 +82,11 @@ def _get_msg_props(msg):
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
         mode = mq.constants.MODE_TEST,
-        timestamp = _get_timestamp(msg['msgTimestamp']))
+        timestamp = timestamp.as_ms_int,
+        headers = {
+            "timestamp": unicode(timestamp.as_ns_raw),
+            "timestamp_precision": u'ns'
+        })
 
 
 def _set_files(ctx):
@@ -147,17 +158,5 @@ def _dispatch(ctx):
             if ctx.throttle and ctx.throttle == ctx.produced:
                 return
 
-    mq.produce(_get_messages,
-               connection_url=config.mq.connections.libigcm)
+    mq.produce(_get_messages, connection_url=config.mq.connections.libigcm)
 
-
-# Set of processing tasks.
-TASKS = (
-    _set_files,
-    _set_emails,
-    _set_messages_b64,
-    _set_messages_json,
-    _set_messages_dict,
-    _set_messages_ampq,
-    _dispatch,
-    )
