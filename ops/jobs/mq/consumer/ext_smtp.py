@@ -63,6 +63,17 @@ class Message(mq.Message):
         self.messages_dict_error = []
 
 
+def _get_correlation_id(msg):
+    """Returns correlation id from message body.
+
+    """
+    # TODO - also jobuid ?
+    if 'simuid' in msg:
+        return msg['simuid']
+    else:
+        return None
+
+
 def _get_msg_props(msg):
     """Returns an AMPQ basic properties instance, i.e. message header."""
     # Decode nano-second precise timestamp.
@@ -70,8 +81,9 @@ def _get_msg_props(msg):
 
     return mq.utils.create_ampq_message_properties(
         user_id = mq.constants.USER_IGCM,
-        producer_id = mq.constants.PRODUCER_IGCM,
-        app_id = mq.constants.APP_MONITORING,
+        producer_id = msg['msgProducer'],
+        app_id = msg['msgApplication'],
+        correlation_id=_get_correlation_id(msg),
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
         mode = mq.constants.MODE_TEST,
@@ -80,6 +92,12 @@ def _get_msg_props(msg):
             "timestamp": unicode(timestamp.as_ns_raw),
             "timestamp_precision": u'ns'
         })
+
+
+def _get_msg_payload(msg):
+    """Formats message payload."""
+    # Strip out platform related attributes as these are no longer required.
+    return { k: msg[k] for k in msg.keys() if not k.startswith("msg") }
 
 
 def _decode_b64(data):
@@ -141,7 +159,7 @@ def _set_messages_ampq(ctx):
     """Set AMPQ messages to be dispatched."""
     for msg in ctx.messages_dict:
         ctx.messages.append(mq.Message(_get_msg_props(msg),
-                                       msg,
+                                       _get_msg_payload(msg),
                                        mq.constants.EXCHANGE_PRODIGUER_IN))
 
 

@@ -168,11 +168,3 @@ def notify_operator(ctx, notification_type):
     operator_id = ctx.simulation.compute_node_login_id
     _set_smtp_notification(operator_id, notification_type, ctx.simulation)
     _set_sms_notification(operator_id, notification_type, ctx.simulation)
-
-
-def create_simulation_message(uid, msg_id):
-    """Creates an entry in tbl_simulation_message.
-
-    """
-    simulation = db.mq_hooks.retrieve_simulation_by_uid(uid)
-    db.mq_hooks.create_simulation_message(simulation.id, msg_id)

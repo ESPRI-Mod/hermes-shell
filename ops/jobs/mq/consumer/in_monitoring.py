@@ -60,7 +60,7 @@ def _process(ctx):
     ctx.decode()
 
     # Set sub-consumer.
-    sub_consumer = _SUB_CONSUMERS[ctx.content['msgCode']]
+    sub_consumer = _SUB_CONSUMERS[ctx.props.type]
 
     # Set sub-context.
     sub_ctx = sub_consumer.Message(ctx.props, ctx.content, decode=False)

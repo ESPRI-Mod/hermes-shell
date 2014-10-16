@@ -22,7 +22,9 @@ _EMAIL_FILE_EXTENSION = "eml"
 
 
 def get_tasks():
-    """Returns set of message processing tasks to be executed."""
+    """Returns set of message processing tasks to be executed.
+
+    """
     return (
         _set_files,
         _set_emails,
@@ -35,7 +37,9 @@ def get_tasks():
 
 
 class ProcessingContext(object):
-    """Processing context information wrapper."""
+    """Processing context information wrapper.
+
+    """
     def __init__(self, throttle, dirpath):
         """Constructor."""
         self.dirpath = dirpath
@@ -52,7 +56,9 @@ class ProcessingContext(object):
 
 
 def _decode_b64(data):
-    """Helper function: decodes base64 encoded text."""
+    """Helper function: decodes base64 encoded text.
+
+    """
     try:
         return base64.b64decode(data)
     except Exception as err:
@@ -60,7 +66,9 @@ def _decode_b64(data):
 
 
 def _encode_json(data):
-    """Helper function: encodes json encoded text."""
+    """Helper function: encodes json encoded text.
+
+    """
     try:
         return json.loads(data)
     except Exception as err:
@@ -70,15 +78,29 @@ def _encode_json(data):
             return data, err
 
 
-def _get_msg_props(msg):
-    """Returns an AMPQ basic properties instance, i.e. message header."""
+def _get_correlation_id(msg):
+    """Returns correlation id from message body.
+
+    """
+    # TODO - also jobuid ?
+    if 'simuid' in msg:
+        return msg['simuid']
+    else:
+        return None
+
+
+def _get_msg_basic_props(msg):
+    """Returns an AMPQ basic properties instance, i.e. message header.
+
+    """
     # Decode nano-second precise timestamp.
     timestamp = mq.Timestamp.from_ns(msg['msgTimestamp'])
 
     return mq.utils.create_ampq_message_properties(
         user_id = mq.constants.USER_IGCM,
-        producer_id = mq.constants.PRODUCER_IGCM,
-        app_id = mq.constants.APP_MONITORING,
+        producer_id = msg['msgProducer'],
+        app_id = msg['msgApplication'],
+        correlation_id=_get_correlation_id(msg),
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
         mode = mq.constants.MODE_TEST,
@@ -87,6 +109,12 @@ def _get_msg_props(msg):
             "timestamp": unicode(timestamp.as_ns_raw),
             "timestamp_precision": u'ns'
         })
+
+
+def _get_msg_payload(msg):
+    """Formats message payload."""
+    # Strip out platform related attributes as these are no longer required.
+    return { k: msg[k] for k in msg.keys() if not k.startswith("msg") }
 
 
 def _set_files(ctx):
@@ -141,8 +169,8 @@ def _set_messages_dict(ctx):
 def _set_messages_ampq(ctx):
     """Set AMPQ messages to be dispatched."""
     for msg in ctx.messages_dict:
-        ctx.messages.append(mq.Message(_get_msg_props(msg),
-                                       msg,
+        ctx.messages.append(mq.Message(_get_msg_basic_props(msg),
+                                       _get_msg_payload(msg),
                                        mq.constants.EXCHANGE_PRODIGUER_IN))
 
     print "AMPQ messages for dispatch to MQ server: ", len(ctx.messages)

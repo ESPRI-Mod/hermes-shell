@@ -24,6 +24,11 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_1100
 
 
+def get_tasks():
+    """Returns set of tasks to be executed when processing a message."""
+    return _update_job_state
+
+
 # Message information wrapper.
 class Message(mq.Message):
     """Message information wrapper."""
@@ -34,11 +39,7 @@ class Message(mq.Message):
         self.simulation_uid = self.content['simuid']
 
 
-def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
-    return _persist_simulation_message
-
-
-def _persist_simulation_message(ctx):
-    """Persists simulation message information to db."""
-    utils.create_simulation_message(ctx.simulation_uid, ctx.msg.id)
+def _update_job_state(ctx):
+    """Updates job status."""
+    # TODO - update job table.
+    pass

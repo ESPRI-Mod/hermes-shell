@@ -33,7 +33,6 @@ def get_tasks():
         _unpack_content,
         _validate_content,
         _persist_simulation,
-        _persist_simulation_message,
         _set_simulation_info,
         _notify_api,
         _notify_operator
@@ -83,7 +82,7 @@ def _get_timestamp(timestamp):
         part3 = timestamp.split(".")[1].split("+")[1]
         timestamp = "{0}.{1}+{2}".format(part1, part2, part3)
 
-        return arrow.get(timestamp).datetime
+        return arrow.get(timestamp).to('Europe/Paris').datetime
 
 
 def _unpack_content(ctx):
@@ -92,7 +91,7 @@ def _unpack_content(ctx):
     ctx.compute_node = ctx.content['centre']
     ctx.compute_node_login = ctx.content['login']
     ctx.compute_node_machine = "{0} - {1}".format(ctx.compute_node, ctx.content['machine'])
-    ctx.execution_start_date = _get_timestamp(ctx.content['msgTimestamp'])
+    ctx.execution_start_date = _get_timestamp(ctx.props.headers['timestamp'])
     ctx.experiment = ctx.content['experiment']
     ctx.model = ctx.content['model']
     ctx.name = ctx.content['name']
@@ -124,11 +123,6 @@ def _persist_simulation(ctx):
         ctx.space,
         ctx.uid
         )
-
-
-def _persist_simulation_message(ctx):
-    """Persists simulation message information to db."""
-    db.mq_hooks.create_simulation_message(ctx.simulation.id, ctx.msg.id)
 
 
 def _set_simulation_info(ctx):

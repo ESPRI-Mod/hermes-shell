@@ -25,6 +25,14 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_9000
 
 
+def get_tasks():
+    """Returns set of tasks to be executed when processing a message."""
+    return (
+        _update_simulation_state,
+        _notify_operator
+        )
+
+
 # Message information wrapper.
 class Message(mq.Message):
     """Message information wrapper."""
@@ -36,23 +44,9 @@ class Message(mq.Message):
         self.simulation_uid = self.content['simuid']
 
 
-def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
-    return (
-        _update_simulation_state,
-        _persist_simulation_message,
-        _notify_operator
-        )
-
-
 def _update_simulation_state(ctx):
     """Updates simulation status."""
     utils.update_simulation_state(ctx, EXECUTION_STATE_ROLLBACK)
-
-
-def _persist_simulation_message(ctx):
-    """Persists simulation message information to db."""
-    db.mq_hooks.create_simulation_message(ctx.simulation.id, ctx.msg.id)
 
 
 def _notify_operator(ctx):
