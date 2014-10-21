@@ -28,7 +28,7 @@ def update_simulation_state(ctx, simulation_state):
 
     """
     # Update state in db & cache simulation info.
-    ctx.simulation = db.mq_hooks.update_simulation_status(
+    ctx.simulation = mq.db_hooks.update_simulation_status(
         ctx.simulation_uid, simulation_state)
 
     # Notify api.

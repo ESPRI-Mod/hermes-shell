@@ -108,7 +108,7 @@ def _validate_content(ctx):
 
 def _persist_simulation(ctx):
     """Persists simulation information to db."""
-    ctx.simulation = db.mq_hooks.create_simulation(
+    ctx.simulation = mq.db_hooks.create_simulation(
         ctx.activity,
         ctx.compute_node,
         ctx.compute_node_login,

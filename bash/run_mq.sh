@@ -82,10 +82,10 @@ run_mq_consume()
 	declare typeof=$1
 	declare throttle=$2
 
-
 	log "MQ : launching consumer: "$typeof
 
-	_run_mq_agent "consumer" $typeof $throttle
+    activate_venv server
+	python $DIR_JOBS"/mq/consumer" --agent-type=$typeof --agent-limit=$throttle
 }
 
 run_mq_consume_all()
@@ -106,7 +106,8 @@ run_mq_produce()
 
 	log "MQ : launching producer: "$typeof
 
-	_run_mq_agent "producer" $typeof $throttle $misc
+    activate_venv server
+	python $DIR_JOBS"/mq/producer" --agent-type=$typeof --agent-limit=$throttle --agent-arg=$misc
 }
 
 run_mq_purge()

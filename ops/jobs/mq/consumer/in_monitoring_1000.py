@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import db, mq
+from prodiguer import mq
 from prodiguer.db.constants import EXECUTION_STATE_RUNNING
 
 import in_monitoring_utils as utils

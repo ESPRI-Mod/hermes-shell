@@ -13,6 +13,8 @@
 """
 import sys
 
+from tornado.options import define, options
+
 from prodiguer import config, db, mq, rt
 
 # External queue consumers.
@@ -92,28 +94,25 @@ def _process_message(msg, consumer):
     rt.invoke1(tasks, error_tasks=error_tasks, ctx=msg, module="MQ")
 
 
+
+# Set command line options.
+define("agent_type",
+       help="Type of message consumer to lanuch")
+define("agent_limit",
+       default=0,
+       help="Consumption limit (0 = unlimited)",
+       type=int)
+options.parse_command_line()
+
+
 # Set consumer to be launched.
 try:
-    _consumer_type = sys.argv[1]
-except IndexError:
-    raise ValueError("Consumer type is mandatory")
-else:
-    try:
-        consumer = _CONSUMERS[_consumer_type]
-    except KeyError:
-        raise ValueError("Invalid consumer type: {0}".format(_consumer_type))
-
-# Limit on number of message to consumer (0 = no limit).
-try:
-    _consume_limit = int(sys.argv[2])
-except IndexError:
-    _consume_limit = 0
-except ValueError:
-    raise ValueError("Invalid consume limit - it must be an integer >= 0")
-
+    consumer = _CONSUMERS[options.agent_type]
+except KeyError:
+    raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
 
 # Set flag indicating whether consumer require db session.
-_is_db_bound = _consumer_type not in _NON_DB_BOUND_CONSUMERS
+_is_db_bound = options.agent_type not in _NON_DB_BOUND_CONSUMERS
 
 # Set flag indicating whether message will be presisted to db.
 try:
@@ -136,7 +135,7 @@ if _is_db_bound:
 _initialize_consumer(consumer)
 
 # Log.
-rt.log_mq("launched consumer: {0}".format(_consumer_type))
+rt.log_mq("launched consumer: {0}".format(options.agent_type))
 
 # Consume messages.
 try:
@@ -144,9 +143,9 @@ try:
                      consumer.MQ_QUEUE,
                      lambda ctx: _process_message(ctx, consumer),
                      auto_persist=_auto_persist,
-                     consume_limit=_consume_limit,
+                     consume_limit=options.agent_limit,
                      context_type=_context_type,
-                     verbose=_consume_limit > 0)
+                     verbose=options.agent_limit > 0)
 except:
     # Disconnect from db.
     if _is_db_bound:
