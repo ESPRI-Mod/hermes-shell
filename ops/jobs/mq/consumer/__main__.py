@@ -40,6 +40,14 @@ import internal_sms
 
 
 
+# Define command line options.
+define("agent_type",
+       help="Type of message consumer to lanuch")
+define("agent_limit",
+       default=0,
+       help="Consumption limit (0 = unlimited)",
+       type=int)
+
 # Map of consumer types to consumers.
 _CONSUMERS = {
     'ext-smtp': ext_smtp,
@@ -64,7 +72,9 @@ _NON_DB_BOUND_CONSUMERS = {}
 
 
 def _initialize_consumer(consumer):
-    """Initializes a consumer prior to message consumption."""
+    """Initializes a consumer prior to message consumption.
+
+    """
     # Set collection of initialization tasks.
     try:
         tasks = consumer.get_init_tasks()
@@ -83,7 +93,9 @@ def _initialize_consumer(consumer):
 
 
 def _process_message(msg, consumer):
-    """Processes a message being consumed from a queue."""
+    """Processes a message being consumed from a queue.
+
+    """
     # Set tasks to be invoked.
     tasks = consumer.get_tasks()
     try:
@@ -94,59 +106,83 @@ def _process_message(msg, consumer):
     rt.invoke1(tasks, error_tasks=error_tasks, ctx=msg, module="MQ")
 
 
+class _ConsumerExecutionInfo(object):
+    """Encapsulates information required to runa consumer.
 
-# Set command line options.
-define("agent_type",
-       help="Type of message consumer to lanuch")
-define("agent_limit",
-       default=0,
-       help="Consumption limit (0 = unlimited)",
-       type=int)
+    """
+    def __init__(self, consumer_type):
+        self.consumer = None
+        self.consumer_type = consumer_type
+        self.is_db_bound = consumer_type not in _NON_DB_BOUND_CONSUMERS
+        self.auto_persist = True
+        self.context_type = mq.Message
+
+
+    @staticmethod
+    def create(consumer_type):
+        """Creates an instance.
+
+        :param str consumer_type: Type of consumer being executed.
+
+        :returns: Consumer execution information.
+        :rtype: _ConsumerExecutionInfo
+
+        """
+        instance = _ConsumerExecutionInfo(consumer_type)
+
+        # Set consumer to be launched.
+        try:
+            instance.consumer = _CONSUMERS[options.agent_type]
+        except KeyError:
+            raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
+
+        # Override default flag indicating whether message will be presisted to db.
+        try:
+            instance.auto_persist = consumer.PERSIST_MESSAGE
+        except AttributeError:
+            pass
+
+        # Override default processing context information type.
+        try:
+            instance.context_type = consumer.Message
+        except AttributeError:
+            pass
+
+        return instance
+
+
+def _execute():
+    """Executes message consumer.
+
+    """
+    # Get execution info.
+    exec_info = _ConsumerExecutionInfo.create(options.agent_type)
+
+    # Connect to db.
+    if exec_info.is_db_bound:
+        db.session.start(config.db.pgres.main)
+        db.cache.load()
+
+    # Initialise.
+    _initialize_consumer(exec_info.consumer)
+
+    # Log.
+    rt.log_mq("launched consumer: {0}".format(options.agent_type))
+
+    # Consume messages.
+    try:
+        mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,
+                         exec_info.consumer.MQ_QUEUE,
+                         lambda ctx: _process_message(ctx, exec_info.consumer),
+                         auto_persist=exec_info.auto_persist,
+                         consume_limit=options.agent_limit,
+                         context_type=exec_info.context_type,
+                         verbose=options.agent_limit > 0)
+    except:
+        if exec_info.is_db_bound:
+            db.session.end()
+
+
+# Main entry point.
 options.parse_command_line()
-
-
-# Set consumer to be launched.
-try:
-    consumer = _CONSUMERS[options.agent_type]
-except KeyError:
-    raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
-
-# Set flag indicating whether consumer require db session.
-_is_db_bound = options.agent_type not in _NON_DB_BOUND_CONSUMERS
-
-# Set flag indicating whether message will be presisted to db.
-try:
-    _auto_persist = consumer.PERSIST_MESSAGE
-except AttributeError:
-    _auto_persist = True
-
-# Set processing context information type.
-try:
-    _context_type = consumer.Message
-except AttributeError:
-    _context_type = mq.Message
-
-# Connect to db.
-if _is_db_bound:
-    db.session.start(config.db.pgres.main)
-    db.cache.load()
-
-# Initialise.
-_initialize_consumer(consumer)
-
-# Log.
-rt.log_mq("launched consumer: {0}".format(options.agent_type))
-
-# Consume messages.
-try:
-    mq.utils.consume(consumer.MQ_EXCHANGE,
-                     consumer.MQ_QUEUE,
-                     lambda ctx: _process_message(ctx, consumer),
-                     auto_persist=_auto_persist,
-                     consume_limit=options.agent_limit,
-                     context_type=_context_type,
-                     verbose=options.agent_limit > 0)
-except:
-    # Disconnect from db.
-    if _is_db_bound:
-        db.session.end()
+_execute()

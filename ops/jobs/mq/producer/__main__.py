@@ -21,6 +21,17 @@ import ext_smtp_realtime
 
 
 
+# Define command line arguments.
+define("agent_type",
+       help="Type of message producer to launch")
+define("agent_limit",
+       default=0,
+       help="Production limit (0 = unlimited)",
+       type=int)
+define("agent_arg",
+       default=None,
+       help="Miscellaneous argument to be passed to producer")
+
 # Map of producer types to producers.
 _PRODUCERS = {
     'ext-smtp-from-file': ext_smtp_from_file,
@@ -37,16 +48,16 @@ _WITH_ARG = {
 _NON_STANDARD = [ext_smtp_realtime]
 
 
-def _execute_standard(producer, opts):
+def _execute_standard(producer):
     """Executes a standard producer.
 
     """
     # Create context.
-    if opts.agent_arg:
-        ctx = producer.ProcessingContext(opts.agent_limit,
-                                         opts.agent_arg)
+    if options.agent_arg:
+        ctx = producer.ProcessingContext(options.agent_limit,
+                                         options.agent_arg)
     else:
-        ctx = producer.ProcessingContext(opts.agent_limit)
+        ctx = producer.ProcessingContext(options.agent_limit)
 
     # Set tasks.
     tasks = producer.get_tasks()
@@ -61,48 +72,41 @@ def _execute_standard(producer, opts):
     rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx, module="MQ")
 
 
-def _execute_non_standard(producer, opts):
+def _execute_non_standard(producer):
     """Executes a non-standard producer.
 
     """
-    if opts.agent_arg:
-        producer.execute(opts.agent_limit, opts.agent_arg)
+    if options.agent_arg:
+        producer.execute(options.agent_limit, options.agent_arg)
     else:
-        producer.execute(opts.agent_limit)
+        producer.execute(options.agent_limit)
 
 
-def _execute(opts):
+def _execute():
+    """Executes message producer.
+
+    """
     # Set producer to be launched.
     try:
-        producer = _PRODUCERS[opts.agent_type]
+        producer = _PRODUCERS[options.agent_type]
     except KeyError:
-        raise ValueError("Invalid producer type: {0}".format(opts.agent_type))
+        raise ValueError("Invalid producer type: {0}".format(options.agent_type))
 
     # Parse producer argument.
-    if producer in _WITH_ARG and not opts.agent_arg:
+    if producer in _WITH_ARG and not options.agent_arg:
         raise ValueError(_WITH_ARG[producer])
 
     # Log.
-    rt.log_mq("Message producer launched: {0}".format(opts.agent_type))
+    rt.log_mq("Message producer launched: {0}".format(options.agent_type))
 
     # Execute producer.
     if producer in _NON_STANDARD:
-        _execute_non_standard(producer, opts)
+        _execute_non_standard(producer)
     else:
-        _execute_standard(producer, opts)
+        _execute_standard(producer)
 
 
-# Parse command line options.
-define("agent_type",
-       help="Type of message producer to launch")
-define("agent_limit",
-       default=0,
-       help="Production limit (0 = unlimited)",
-       type=int)
-define("agent_arg",
-       default=None,
-       help="Miscellaneous argument to be passed to producer")
+
+# Main entry point.
 options.parse_command_line()
-
-# Execute producer.
-_execute(options)
+_execute()
