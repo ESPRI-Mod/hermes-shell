@@ -3,25 +3,33 @@
 import sys
 
 import requests
+from tornado.options import define, options
+
 from prodiguer.utils import convert
 
 import utils
 
 
 
+# Define command line options.
+define("group",
+       help="ID of a metrics group")
+define("filter",
+       default=None,
+       help="Path to a metrics filter to be applied prior to deletion")
+
 # Metric API endpoint.
 _EP = r"/api/1/metric/delete?group={0}"
 
 
-def _main(group_id, filepath=None):
+def _main():
     """Main entry point."""
     # Parse params.
-    group_id = utils.parse_group_id(group_id)
-    if filepath:
-        filepath = utils.parse_filepath(filepath)
+    group_id = utils.parse_group_id(options.group)
+    filepath = utils.parse_filepath(options.filter) if options.filter else None
 
     # Set payload.
-    payload = convert.json_file_to_dict(filepath) if filepath else None
+    payload = convert.json_file_to_dict(filepath) if options.filter else None
 
     # Invoke api.
     endpoint = utils.get_endpoint(_EP.format(group_id))
@@ -37,14 +45,8 @@ def _main(group_id, filepath=None):
             utils.log("delete", "Group {0} sucessfully deleted".format(group_id))
 
 
+
 # Main entry point.
 if __name__ == '__main__':
-    # Unpack args.
-    group_id = sys.argv[1]
-    try:
-        filepath = sys.argv[2]
-    except IndexError:
-        filepath = None
-
-    # Invoke entry point.
-    _main(group_id, filepath)
+    options.parse_command_line()
+    _main()

@@ -101,43 +101,44 @@ run_metric_help()
 	log "Metric web API commands :"
 	log
 
-	log "metric-add FILEPATH" 1
+	log "metric-add METRICS" 1
 	log "adds a group of metrics from a json file" 2
-	log "FILEPATH: path to a metrics file" 2
+	log "METRICS: path to a metrics file" 2
 	log
 
-	log "metric-delete GROUP-ID [FILTER-FILEPATH]" 1
+	log "metric-delete GROUP [FILTER]" 1
 	log "deletes a group of metrics" 2
-	log "GROUP-ID: group identifier" 2
-	log "FILTER-FILEPATH: path to a metrics query filter file" 2
+	log "GROUP: group identifier" 2
+	log "FILTER: path to a metrics query filter file" 2
 	log
 
-	log "metric-fetch GROUP-ID INCLUDE-DB-FIELDS [FILTER-FILEPATH]" 1
+	log "metric-fetch GROUP INCLUDE-DB-FIELDS [FILTER]" 1
 	log "fetches a group of metrics" 2
-	log "GROUP-ID: group identifier" 2
+	log "GROUP: group identifier" 2
 	log "INCLUDE-DB-FIELDS: flag indicating whether db injected fields are to be returned" 2
-	log "FILTER-FILEPATH: path to a metrics query filter file" 2
+	log "FILTER: path to a metrics query filter file" 2
 	log
 
-	log "metric-fetch-columns GROUP-ID" 1
+	log "metric-fetch-columns GROUP [INCLUDE-DB-FIELDS]" 1
 	log "fetches list of metric group columns" 2
-	log "GROUP-ID: group identifier" 2
+	log "GROUP: group identifier" 2
+	log "INCLUDE-DB-FIELDS: flag indicating whether db injected columns are to be returned" 2
 	log
 
-	log "metric-fetch-count GROUP-ID [FILTER-FILEPATH]" 1
+	log "metric-fetch-count GROUP [FILTER]" 1
 	log "fetches number of lines within a metric group" 2
-	log "GROUP-ID: group identifier" 2
-	log "FILTER-FILEPATH: path to a metrics query filter file" 2
+	log "GROUP: group identifier" 2
+	log "FILTER: path to a metrics query filter file" 2
 	log
 
 	log "metric-fetch-list" 1
 	log "lists all metric group names" 2
 	log
 
-	log "metric-fetch-setup GROUP-ID [FILTER-FILEPATH]" 1
+	log "metric-fetch-setup GROUP [FILTER]" 1
 	log "fetches a metric group's distinct column values" 2
-	log "GROUP-ID: group identifier" 2
-	log "FILTER-FILEPATH: path to a metrics query filter file" 2
+	log "GROUP: group identifier" 2
+	log "FILTER: path to a metrics query filter file" 2
 	log
 }
 

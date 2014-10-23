@@ -2,52 +2,51 @@
 # SECTION: API METRIC
 # ###############################################################
 
-_exec_metric_api()
-{
-	declare action=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
-
-	activate_venv server
-	python $DIR_JOBS/api/metric/run_$action.py $2 $3 $4
-}
-
 # Add metrics.
 run_metric_add()
 {
-	_exec_metric_api "add" $1
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_add.py --file=$1
 }
 
 # Delete metric.
 run_metric_delete()
 {
-	_exec_metric_api "delete" $1 $2
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_delete.py --group=$1 --filter=$2
 }
 
 # Fetch metric group.
 run_metric_fetch()
 {
-	_exec_metric_api "fetch" $1 $2 $3
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch.py --group=$1 --include-db-id=$2 --filter=$3
 }
 
 # Fetch metric group columns.
 run_metric_fetch_columns()
 {
-	_exec_metric_api "fetch-columns" $1 $2
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch_columns.py --group=$1 --include-db-id=$2
 }
 
 # Fetch metric count.
 run_metric_fetch_count()
 {
-	_exec_metric_api "fetch-count" $1 $2
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch_count.py --group=$1 --filter=$2
 }
 
 # List groups.
 run_metric_fetch_list()
 {
-	_exec_metric_api "fetch-list"
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch_list.py
 }
 
 # Fetch metric group line count.
 run_metric_fetch_setup()
 {
-	_exec_metric_api "fetch-setup" $1 $2
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch_setup.py --group=$1 --filter=$2
 }

@@ -4,6 +4,7 @@
 import os, sys
 
 import requests
+from tornado.options import define, options
 
 from prodiguer.utils import convert
 
@@ -11,13 +12,16 @@ import utils
 
 
 
+# Define command line options.
+define("file",
+       help="Path to a metrics file to be uploaded to server")
+
 # Metric API endpoints.
 _EP = r"/api/1/metric/add"
 
 # Supported file extensions.
 _ENCODING_CSV = "csv"
 _ENCODING_JSON = "json"
-
 
 
 def _get_group_from_csv_file(filepath):
@@ -49,10 +53,10 @@ _GROUP_FACTORIES = {
 }
 
 
-def _main(filepath):
+def _main():
     """Main entry point."""
     # Parse params.
-    filepath = utils.parse_filepath(filepath)
+    filepath = utils.parse_filepath(options.file)
 
     # Set payload.
     encoding = utils.parse_encoding(os.path.splitext(filepath)[1][1:])
@@ -69,6 +73,9 @@ def _main(filepath):
         utils.log("add", "{0} metrics group was sucessfully added".format(response['group']))
 
 
+
+
 # Main entry point.
 if __name__ == '__main__':
-    _main(sys.argv[1])
+    options.parse_command_line()
+    _main()

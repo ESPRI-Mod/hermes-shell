@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-
-import os, json
+import logging, os, json
 
 import requests
 
 from prodiguer.utils import config, rt
 
 
+
+# Reduce requests logging to warnings + errors only.
+logging.getLogger("requests").setLevel(logging.WARNING)
 
 # API base endpoint.
 _API = {
