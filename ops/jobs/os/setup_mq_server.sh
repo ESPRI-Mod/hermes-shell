@@ -21,7 +21,7 @@ setup_rabbitmq()
 	rm -rf /opt/prodiguer/ops/tmp/rabbitmqadmin
 
 	# Import RabbitMQ config.
-	rabbitmqadmin -q import $DIR_RESOURCES/config/rabbitmq.json
+	rabbitmqadmin -q import $DIR_TEMPLATES/config/rabbitmq.json
 
 	# Delete obsolete MQ server resources.
 	rabbitmqctl delete_user guest
@@ -36,7 +36,7 @@ main()
 	git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
 
 	# Set vars.
-	declare DIR_RESOURCES=./prodiguer/misc/resources
+	declare DIR_TEMPLATES=./prodiguer/templates
 
 	# Install common libraries.
 	setup_common

@@ -26,9 +26,9 @@ run_stack_bootstrap()
 	mkdir -p $DIR_VENV
 
 	log "Initializing configuration"
-	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
-	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
-	cp $DIR_RESOURCES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
+	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
+	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 
 	log "BOOTSTRAP ENDS"
 
@@ -77,7 +77,7 @@ run_install_venv()
 
     # Build dependencies.
     source $TARGET_VENV/bin/activate
-	declare TARGET_REQUIREMENTS=$DIR_RESOURCES/venv/requirements-$1.txt
+	declare TARGET_REQUIREMENTS=$DIR_TEMPLATES/venv/requirements-$1.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -229,9 +229,9 @@ _update_config()
 	cp $DIR_CONFIG/mq-supervisord.conf $DIR_CONFIG/mq-supervisord-backup.conf
 
 	# Copy new config.
-	cp $DIR_RESOURCES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
-	cp $DIR_RESOURCES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
-	cp $DIR_RESOURCES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
+	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
+	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 }
 
 # Updates shell.

@@ -56,7 +56,7 @@ setup_db_server_install_postgres()
 
 	# Copy pg_hba.conf template.
 	rm /var/lib/pgsql/9.3/data/pg_hba.conf
-	cp $DIR_RESOURCES/config/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
+	cp $DIR_TEMPLATES/config/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
 
 	# Start PostgreSQL service using following command.
 	log "Starting PostgreSQL server"
@@ -67,7 +67,7 @@ setup_db_server_install_postgres()
 setup_db_server_install_mongodb()
 {
 	# Configure the package management system (YUM).
-	cp $DIR_RESOURCES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
+	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 	# Install latest stable version of mongodb.
 	yum install -y mongodb-org
@@ -112,7 +112,7 @@ setup_mq_server_install_rabbitmq()
 	rm -rf /opt/prodiguer/ops/tmp/rabbitmqadmin
 
 	# Import RabbitMQ config.
-	rabbitmqadmin -q import $DIR_RESOURCES/config/rabbitmq.json
+	rabbitmqadmin -q import $DIR_TEMPLATES/config/rabbitmq.json
 
 	# Delete obsolete MQ server resources.
 	rabbitmqctl delete_user guest
@@ -136,11 +136,11 @@ setup_web_server()
 setup_web_server_install_nginx()
 {
 	# Install nginx.
-	rpm -i $DIR_RESOURCES/other/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	rpm -i $DIR_TEMPLATES/other/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum install nginx
 
 	# Update nginx configuration.
-	cp $DIR_RESOURCES/config/nginx.conf /etc/nginx/nginx.conf
+	cp $DIR_TEMPLATES/config/nginx.conf /etc/nginx/nginx.conf
 }
 
 
@@ -156,7 +156,7 @@ cd /opt
 
 # Set paths.
 declare DIR=./prodiguer
-declare DIR_RESOURCES=$DIR/misc/resources
+declare DIR_TEMPLATES=$DIR/templates
 
 
 # Declare helper vars.

@@ -80,8 +80,8 @@ _db_grant_permissions()
 {
 	log "Granting DB permissions"
 
-	psql -U prodiguer_db_admin -d prodiguer -a -f $DIR_BASH/run_db_grant_permissions.sql
-	psql -U prodiguer_db_admin -d prodiguer_test -a -f $DIR_BASH/run_db_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer -a -f $DIR_BASH/run_db_pgres_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer_test -a -f $DIR_BASH/run_db_pgres_grant_permissions.sql
 }
 
 # Create db users.

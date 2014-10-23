@@ -19,7 +19,7 @@ setup_postgres()
 
 	# Copy pg_hba.conf template.
 	rm /var/lib/pgsql/9.3/data/pg_hba.conf
-	cp $DIR_RESOURCES/config/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
+	cp $DIR_TEMPLATES/config/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
 
 	# Start PostgreSQL service using following command.
 	log "Starting PostgreSQL server"
@@ -30,7 +30,7 @@ setup_postgres()
 setup_mongodb()
 {
 	# Configure the package management system (YUM).
-	cp $DIR_RESOURCES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
+	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 	# Install latest stable version of mongodb.
 	yum install -y mongodb-org
@@ -45,7 +45,7 @@ main()
 	git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
 
 	# Set vars.
-	declare DIR_RESOURCES=./prodiguer/misc/resources
+	declare DIR_TEMPLATES=./prodiguer/templates
 
 	# Install common libraries.
 	setup_common

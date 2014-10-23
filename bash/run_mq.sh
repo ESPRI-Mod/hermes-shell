@@ -72,7 +72,7 @@ run_mq_configure()
 {
 	log "MQ : configuring mq server ..."
 
-	rabbitmqadmin -q -u $1 -p $2 import $DIR_RESOURCES/config/rabbitmq.json
+	rabbitmqadmin -q -u $1 -p $2 import $DIR_TEMPLATES/config/rabbitmq.json
 
 	log "MQ : mq server configured ..."
 }
@@ -166,15 +166,4 @@ run_mq_daemons()
     activate_venv server
 
     supervisord -c $DIR_CONFIG/mq-supervisord.conf
-}
-
-# Dispatches test simulation emails to SMTP server.
-run_mq_demo_send_monitoring_emails()
-{
-	declare scenario=$1
-
-	activate_venv server
-	log "Monitoring scenario $scenario emails being dispatched ..."
-	log "Monitoring scenario $scenario folder: "$DIR_DOCS/mq/simulation_$scenario
-   	python $DIR_DEMOS/mq/send_simulation_monitoring_emails.py $DIR_DOCS/mq/simulation_$scenario
 }
