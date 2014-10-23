@@ -72,5 +72,6 @@ def _dispatch_notifications(ctx):
 
 def _notify_operator(ctx):
     """Notifies an operator that simulation has completed."""
-    utils.notify_operator("monitoring-9000", ctx)
-
+    utils.notify_api_of_simulation_state_change(
+        ctx.simulation_uid, db.constants.EXECUTION_STATE_ROLLBACK)
+    utils.notify_operator(ctx.simulation_uid, "monitoring-9000")

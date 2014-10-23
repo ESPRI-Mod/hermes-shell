@@ -31,9 +31,6 @@ class Message(mq.Message):
         super(Message, self).__init__(props, body, decode=True)
 
         self.notification_type = None
-        self.operator_id = None
-        self.operator = None
-        self.template = None
 
 
 def get_tasks():
@@ -42,7 +39,7 @@ def get_tasks():
         _unpack_content,
         _set_operator,
         _set_template,
-        _set_content,
+        _interpolate_template,
         _dispatch
         )
 
@@ -50,27 +47,23 @@ def get_tasks():
 def _unpack_content(ctx):
     """Unpacks information from message content."""
     ctx.notification_type = ctx.content['notificationType']
-    ctx.operator_id = ctx.content['operatorID']
 
 
 def _set_operator(ctx):
     """Sets information regarding operator."""
-    ctx.operator = db.cache.get_item(db.types.ComputeNodeLogin, ctx.operator_id)
+    pass
 
 
 def _set_template(ctx):
     """Sets template of sms to be dispatched."""
-    # TODO: load sms template.
     pass
 
 
-def _set_content(ctx):
+def _interpolate_template(ctx):
     """Sets content of sms to be dispatched."""
-    # TODO: interpolate sms template.
     pass
 
 
 def _dispatch(ctx):
     """Dispatch sms to operator."""
-    # TODO: dispatch sms to operator.
     pass

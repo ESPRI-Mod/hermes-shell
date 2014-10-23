@@ -9,7 +9,6 @@
 
 .. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
 
-
 """
 from prodiguer import db, mq
 
@@ -41,6 +40,7 @@ class Message(mq.Message):
         """Constructor."""
         super(Message, self).__init__(props, body, decode=decode)
 
+        self.simulation = None
         self.simulation_uid = None
         self.execution_state_timestamp = None
 
@@ -58,7 +58,10 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    pass
+    ctx.simulation = mq.db_hooks.retrieve_simulation(ctx.simulation_uid)
+    ctx.simulation.execution_end_date = ctx.execution_end_date
+
+    db.session.update(ctx.simulation)
 
 
 def _persist_simulation_state(ctx):
@@ -77,4 +80,6 @@ def _dispatch_notifications(ctx):
     """Dispatches notifications to various internal services.
 
     """
-    pass
+    utils.notify_api_of_simulation_state_change(
+        ctx.simulation_uid, db.constants.EXECUTION_STATE_COMPLETE)
+    utils.notify_operator(ctx.simulation_uid, "monitoring-0100")

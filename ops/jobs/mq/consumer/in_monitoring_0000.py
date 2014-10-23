@@ -124,28 +124,35 @@ def _dispatch_notifications(ctx):
     """Dispatches notifications to various internal services.
 
     """
-    # Set notification data.
+    # Notify API.
     data = db.types.Convertor.to_dict(ctx.simulation, True)
     data.update({
-        u"event_type": "new_simulation",
-        u"activity": utils.get_name(db.types.Activity,
-                                    ctx.simulation.activity_id),
-        u"compute_node": utils.get_name(db.types.ComputeNode,
-                                        ctx.simulation.compute_node_id),
-        u"compute_node_login": utils.get_name(db.types.ComputeNodeLogin,
-                                              ctx.simulation.compute_node_login_id),
-        u"compute_node_machine": utils.get_name(db.types.ComputeNodeMachine,
-                                                ctx.simulation.compute_node_machine_id),
-        u"execution_state": utils.get_name(db.types.SimulationState,
-                                           ctx.simulation.execution_state_id),
-        u"experiment": utils.get_name(db.types.Experiment,
-                                      ctx.simulation.experiment_id),
-        u"model": utils.get_name(db.types.Model,
-                                 ctx.simulation.model_id),
-        u"space": utils.get_name(db.types.SimulationSpace,
-                                 ctx.simulation.space_id)
+        u"activity":
+            utils.get_name(db.types.Activity,
+                           ctx.simulation.activity_id),
+        u"compute_node":
+            utils.get_name(db.types.ComputeNode,
+                           ctx.simulation.compute_node_id),
+        u"compute_node_login":
+            utils.get_name(db.types.ComputeNodeLogin,
+                           ctx.simulation.compute_node_login_id),
+        u"compute_node_machine":
+            utils.get_name(db.types.ComputeNodeMachine,
+                           ctx.simulation.compute_node_machine_id),
+        u"execution_state":
+            utils.get_name(db.types.SimulationState,
+                           ctx.simulation.execution_state_id),
+        u"experiment":
+            utils.get_name(db.types.Experiment,
+                           ctx.simulation.experiment_id),
+        u"model":
+            utils.get_name(db.types.Model,
+                           ctx.simulation.model_id),
+        u"space":
+            utils.get_name(db.types.SimulationSpace,
+                           ctx.simulation.space_id)
         })
+    utils.notify_api_of_new_simulation(data)
 
-    # Dispatch notifications.
-    utils.notify_api(data)
-    utils.notify_operator("monitoring-0000", data)
+    # Notify operator.
+    utils.notify_operator(ctx.uid, "monitoring-0000")

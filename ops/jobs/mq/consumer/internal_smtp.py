@@ -42,16 +42,7 @@ class Message(mq.Message):
         """Constructor."""
         super(Message, self).__init__(props, body, decode=True)
 
-        self.mail = None
-        self.mail_body = None
-        self.mail_subject = \
-            "IPSL {0} ({1}) :: ".format(props.app_id.upper(),
-                                        props.headers['mode'].upper())
         self.notification_type = None
-        self.operator = None
-        self.operator_id = None
-        self.template_body = None
-        self.template_subject = None
 
 
 def get_tasks():
@@ -72,30 +63,24 @@ def get_init_tasks():
 
 def _cache_templates():
     """Places templates in a memory cache."""
-    # TODO:: cache templates.
     pass
 
 
 def _unpack_content(ctx):
     """Unpacks information from message content."""
     ctx.notification_type = ctx.content['notificationType']
-    ctx.operator_id = ctx.content['operatorID']
-    ctx.simulation = ctx.content['simulation']
-    ctx.simulation_uid = ctx.content['simulation']['uid']
-    ctx.simulation_name = ctx.content['simulation']['name']
 
 
 def _set_operator(ctx):
     """Sets operator information loaded from dB."""
-    ctx.operator = db.cache.get_item(db.types.ComputeNodeLogin, ctx.operator_id)
+    pass
 
 
 def _set_templates(ctx):
     """Sets template of email to be dispatched."""
-    # TODO - load from local cache rather than file system
-    ctx.template_body = _TEMPLATES.load(ctx.notification_type + "-body.txt")
-    ctx.template_subject = _TEMPLATES.load(ctx.notification_type + "-subject.txt")
-
+    # ctx.template_body = _TEMPLATES.load(ctx.notification_type + "-body.txt")
+    # ctx.template_subject = _TEMPLATES.load(ctx.notification_type + "-subject.txt")
+    pass
 
 def _set_mail(ctx):
     """Sets email to be dispatched."""
@@ -107,4 +92,3 @@ def _dispatch(ctx):
     """Dispatch email to operator."""
     # TODO: dispatch email
     pass
-

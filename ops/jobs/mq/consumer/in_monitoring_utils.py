@@ -17,13 +17,38 @@ from prodiguer import db, mq
 
 
 
-def _get_entity(entity_type, entity_id):
-    """Helper function: return a cached db entity mapped by type and id."""
-    return db.cache.get_item(entity_type, entity_id)
+def _dispatch_message(data, message_type):
+    """Dispatches message to MQ server for subsequent processing.
+
+    """
+    def _get_msg_props():
+        """Message properties factory.
+
+        """
+        return mq.utils.create_ampq_message_properties(
+            user_id = mq.constants.USER_PRODIGUER,
+            producer_id = mq.constants.PRODUCER_PRODIGUER,
+            app_id = mq.constants.APP_MONITORING,
+            message_type = message_type,
+            mode = mq.constants.MODE_TEST)
+
+
+    def _get_message():
+        """Message factory.
+
+        """
+        yield mq.Message(_get_msg_props(),
+                         data,
+                         mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
+
+
+    mq.produce(_get_message)
 
 
 def get_name(entity_type, entity_id):
-    """Utility function to map a db entity id to an entity name."""
+    """Utility function to map a db entity id to an entity name.
+
+    """
     return db.cache.get_name(entity_type, entity_id)
 
 
@@ -44,170 +69,47 @@ def get_timestamp(timestamp):
         return arrow.get(timestamp).to('Europe/Paris').datetime
 
 
-def update_simulation_state(ctx, simulation_state):
-    """Updates state of a simulation.
-
-    :param object ctx: Message processing context information wrapper.
-    :param str simulation_state: New state of simulation being processed.
-
-    """
-    # Update state in db & cache simulation info.
-    ctx.simulation = mq.db_hooks.update_simulation_status(
-        ctx.simulation_uid, simulation_state)
-
-    # Notify api.
-    notify_api_of_simulation_state_change(ctx.simulation_uid, simulation_state)
-
-
-def notify_api_of_simulation_state_change(simulation_uid, simulation_state):
+def notify_api_of_simulation_state_change(uid, state):
     """Notifies web API of a simulation state change event.
 
-    :param str simulation_uid: UID of simulation being processed.
-    :param str simulation_state: New state of simulation being processed.
+    :param str uid: UID of simulation being processed.
+    :param str state: New state of simulation being processed.
 
     """
-    def _get_msg_props():
-        """Returns an AMPQ basic properties instance, i.e. message header."""
-        return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_PRODIGUER,
-            producer_id = mq.constants.PRODUCER_PRODIGUER,
-            app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_API,
-            mode = mq.constants.MODE_TEST)
+    data = {
+        u"event_type": "simulation_state_change",
+        u"uid": unicode(uid),
+        u"state": state
+    }
 
-    def _get_msg_body():
-        """Returns message body."""
-        return {
-            u"event_type": "simulation_state_change",
-            u"uid": unicode(simulation_uid),
-            u"state": simulation_state
-            }
-
-    def _get_message():
-        """Dispatch message source."""
-        yield mq.Message(_get_msg_props(),
-                         _get_msg_body(),
-                         mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
-
-    mq.produce(_get_message)
+    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 
-def notify_api(event_info):
-    """Notifies web API of an event of interest.
+def notify_api_of_new_simulation(simulation):
+    """Notifies web API of a new simulation event.
 
-    :param str body: Event information.
+    :param dict simulation: Simulation information.
 
     """
-    def _get_msg_props():
-        """Returns an AMPQ basic properties instance, i.e. message header."""
-        return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_PRODIGUER,
-            producer_id = mq.constants.PRODUCER_PRODIGUER,
-            app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_API,
-            mode = mq.constants.MODE_TEST)
+    data = {
+        u"event_type": "new_simulation"
+    }
+    data.update(simulation)
 
-    def _get_message():
-        """Dispatch message source."""
-        yield mq.Message(_get_msg_props(),
-                         event_info,
-                         mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
-
-    mq.produce(_get_message)
+    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 
-def _set_smtp_notification(notification_type, data):
-    """Adds an smtp notification to internal-smtp message queue.
+def notify_operator(uid, notification_type):
+    """Notifies operator of a simulation event of interest.
 
-    """
-    def _get_msg_props():
-        """Message properties factory.
-
-        """
-        return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_PRODIGUER,
-            producer_id = mq.constants.PRODUCER_PRODIGUER,
-            app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_SMTP,
-            mode = mq.constants.MODE_TEST)
-
-
-    def _get_message_content():
-        """Message content factory.
-
-        """
-        return {
-            'notificationType': notification_type,
-            'operatorID': data['compute_node_login_id'],
-            'simulation': {
-                'name': data['name'],
-                'uid': data['uid'],
-                'id': data['id']
-            }
-        }
-
-
-    def _get_message():
-        """Message factory.
-
-        """
-        yield mq.Message(_get_msg_props(),
-                         _get_message_content(),
-                         mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
-
-
-    mq.produce(_get_message)
-
-
-def _set_sms_notification(notification_type, data):
-    """Adds an sms notification to internal-sms message queue.
-
-    """
-    def _get_msg_props():
-        """Message properties factory.
-
-        """
-        return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_PRODIGUER,
-            producer_id = mq.constants.PRODUCER_PRODIGUER,
-            app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_SMS,
-            mode = mq.constants.MODE_TEST)
-
-
-    def _get_message_content():
-        """Message content factory.
-
-        """
-        return {
-            'notificationType': notification_type,
-            'operatorID': data['compute_node_login_id'],
-            'simulation': {
-                'name': data['name'],
-                'uid': data['uid'],
-                'id': data['id']
-            }
-        }
-
-
-    def _get_message():
-        """Message factory.
-
-        """
-        yield mq.Message(_get_msg_props(),
-                         _get_message_content(),
-                         mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
-
-
-    mq.produce(_get_message)
-
-
-def notify_operator(notification_type, data):
-    """Notifies operator of an event of interest.
-
-    :param object data: Notification data.
+    :param str uid: UID of simulation being processed.
     :param dict notification_info: Notification information.
 
     """
-    _set_smtp_notification(notification_type, data)
-    _set_sms_notification(notification_type, data)
+    data = {
+        'notificationType': notification_type,
+        'simulation_uid': uid
+    }
+
+    _dispatch_message(data, mq.constants.TYPE_GENERAL_SMTP)
+    _dispatch_message(data, mq.constants.TYPE_GENERAL_SMS)

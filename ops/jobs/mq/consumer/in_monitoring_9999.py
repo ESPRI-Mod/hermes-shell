@@ -67,4 +67,6 @@ def _dispatch_notifications(ctx):
     """Dispatches notifications to various internal services.
 
     """
-    pass
+    utils.notify_api_of_simulation_state_change(
+        ctx.simulation_uid, db.constants.EXECUTION_STATE_ERROR)
+    utils.notify_operator(ctx.simulation_uid, "monitoring-9999")
