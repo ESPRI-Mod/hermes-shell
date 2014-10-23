@@ -24,20 +24,27 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_0100
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
         _unpack_message,
         _persist_simulation_updates,
         _persist_simulation_state,
-        _dispatch_notifications
+        _notify_api,
+        _notify_operator
     )
 
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body, decode=True):
-        """Constructor."""
+        """Object constructor.
+
+        """
         super(Message, self).__init__(props, body, decode=decode)
 
         self.simulation = None
@@ -76,10 +83,16 @@ def _persist_simulation_state(ctx):
         )
 
 
-def _dispatch_notifications(ctx):
-    """Dispatches notifications to various internal services.
+def _notify_api(ctx):
+    """Dispatches API notification.
 
     """
     utils.notify_api_of_simulation_state_change(
         ctx.simulation_uid, db.constants.EXECUTION_STATE_COMPLETE)
+
+
+def _notify_operator(ctx):
+    """Dispatches operator notification.
+
+    """
     utils.notify_operator(ctx.simulation_uid, "monitoring-0100")

@@ -31,12 +31,16 @@ _ERR_API_NOT_RUNNING = "API service needs to be started."
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
-    return _notify_api
+    """Returns set of tasks to be executed when processing a message.
+
+    """
+    return _invoke_endpoint
 
 
-def _notify_api(ctx):
-    """Message handler callback."""
+def _invoke_endpoint(ctx):
+    """Invokes API endpoint.
+
+    """
     rt.log_mq("API notification: {0}".format(ctx.content))
 
     # Set API endpoint.

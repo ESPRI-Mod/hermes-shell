@@ -25,7 +25,9 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_7000
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
       _unpack_message,
       _persist_metrics
@@ -34,9 +36,13 @@ def get_tasks():
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body, decode=True):
-        """Constructor."""
+        """Object constructor.
+
+        """
         super(Message, self).__init__(props, body, decode=decode)
 
         self.simulation_uid = None
@@ -50,5 +56,7 @@ def _unpack_message(ctx):
 
 
 def _persist_metrics(ctx):
-    """Persists environment metrics information to db."""
+    """Persists environment metrics information to db.
+
+    """
     pass

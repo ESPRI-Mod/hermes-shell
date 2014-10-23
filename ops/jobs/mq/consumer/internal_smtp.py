@@ -37,16 +37,22 @@ _TEMPLATES = template.Loader(_TEMPLATES_DIRPATH)
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body):
-        """Constructor."""
+        """Object constructor.
+
+        """
         super(Message, self).__init__(props, body, decode=True)
 
         self.notification_type = None
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
         _unpack_content,
         _set_operator,
@@ -57,38 +63,52 @@ def get_tasks():
 
 
 def get_init_tasks():
-    """Returns set of consumer initialization tasks."""
+    """Returns set of consumer initialization tasks.
+
+    """
     return _cache_templates
 
 
 def _cache_templates():
-    """Places templates in a memory cache."""
+    """Places templates in a memory cache.
+
+    """
     pass
 
 
 def _unpack_content(ctx):
-    """Unpacks information from message content."""
+    """Unpacks information from message content.
+
+    """
     ctx.notification_type = ctx.content['notificationType']
 
 
 def _set_operator(ctx):
-    """Sets operator information loaded from dB."""
+    """Sets operator information loaded from dB.
+
+    """
     pass
 
 
 def _set_templates(ctx):
-    """Sets template of email to be dispatched."""
+    """Sets template of email to be dispatched.
+
+    """
     # ctx.template_body = _TEMPLATES.load(ctx.notification_type + "-body.txt")
     # ctx.template_subject = _TEMPLATES.load(ctx.notification_type + "-subject.txt")
     pass
 
 def _set_mail(ctx):
-    """Sets email to be dispatched."""
+    """Sets email to be dispatched.
+
+    """
     # TODO: interpolate email templates
     pass
 
 
 def _dispatch(ctx):
-    """Dispatch email to operator."""
+    """Dispatch email to operator.
+
+    """
     # TODO: dispatch email
     pass

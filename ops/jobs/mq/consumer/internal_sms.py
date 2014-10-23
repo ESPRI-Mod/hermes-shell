@@ -25,16 +25,20 @@ MQ_QUEUE = mq.constants.QUEUE_INTERNAL_SMS
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body):
-        """Constructor."""
+        """Object constructor."""
         super(Message, self).__init__(props, body, decode=True)
 
         self.notification_type = None
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
         _unpack_content,
         _set_operator,
@@ -45,25 +49,35 @@ def get_tasks():
 
 
 def _unpack_content(ctx):
-    """Unpacks information from message content."""
+    """Unpacks information from message content.
+
+    """
     ctx.notification_type = ctx.content['notificationType']
 
 
 def _set_operator(ctx):
-    """Sets information regarding operator."""
+    """Sets information regarding operator.
+
+    """
     pass
 
 
 def _set_template(ctx):
-    """Sets template of sms to be dispatched."""
+    """Sets template of sms to be dispatched.
+
+    """
     pass
 
 
 def _interpolate_template(ctx):
-    """Sets content of sms to be dispatched."""
+    """Sets content of sms to be dispatched.
+
+    """
     pass
 
 
 def _dispatch(ctx):
-    """Dispatch sms to operator."""
+    """Dispatch sms to operator.
+
+    """
     pass

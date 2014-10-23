@@ -41,7 +41,7 @@ class ProcessingContext(object):
 
     """
     def __init__(self, throttle, dirpath):
-        """Constructor."""
+        """Object constructor."""
         self.dirpath = dirpath
         self.files = []
         self.mails = []
@@ -112,13 +112,17 @@ def _get_msg_basic_props(msg):
 
 
 def _get_msg_payload(msg):
-    """Formats message payload."""
+    """Formats message payload.
+
+    """
     # Strip out platform related attributes as these are no longer required.
     return { k: msg[k] for k in msg.keys() if not k.startswith("msg") }
 
 
 def _set_files(ctx):
-    """Sets files to be processed."""
+    """Sets files to be processed.
+
+    """
     if not os.path.exists(ctx.dirpath):
         raise ValueError("Invalid directory: {0}.".format(ctx.dirpath))
     ctx.files = [os.path.join(ctx.dirpath, f) for f in os.listdir(ctx.dirpath) \
@@ -128,7 +132,9 @@ def _set_files(ctx):
 
 
 def _set_emails(ctx):
-    """Sets emails to be processed."""
+    """Sets emails to be processed.
+
+    """
     for mail in [email.message_from_file(open(f, 'r')) for f in ctx.files]:
         if mail.is_multipart():
             mail, attachment = mail.get_payload()
@@ -137,7 +143,9 @@ def _set_emails(ctx):
 
 
 def _set_messages_b64(ctx):
-    """Sets base64 encoded messages to be processed."""
+    """Sets base64 encoded messages to be processed.
+
+    """
     for mail in ctx.mails:
         ctx.messages_b64 += [l for l in mail.splitlines() if l]
 
@@ -145,7 +153,9 @@ def _set_messages_b64(ctx):
 
 
 def _set_messages_json(ctx):
-    """Decode json encoded strings from base64 encoded string."""
+    """Decode json encoded strings from base64 encoded string.
+
+    """
     for msg in [_decode_b64(m) for m in ctx.messages_b64]:
         if isinstance(msg, tuple):
             ctx.messages_json_error.append(msg)
@@ -156,7 +166,9 @@ def _set_messages_json(ctx):
 
 
 def _set_messages_dict(ctx):
-    """Encode json encoded strings to dictionaries."""
+    """Encode json encoded strings to dictionaries.
+
+    """
     for msg in [_encode_json(m) for m in ctx.messages_json]:
         if isinstance(msg, tuple):
             ctx.messages_dict_error.append(msg)
@@ -167,7 +179,9 @@ def _set_messages_dict(ctx):
 
 
 def _set_messages_ampq(ctx):
-    """Set AMPQ messages to be dispatched."""
+    """Set AMPQ messages to be dispatched.
+
+    """
     for msg in ctx.messages_dict:
         ctx.messages.append(mq.Message(_get_msg_basic_props(msg),
                                        _get_msg_payload(msg),
@@ -177,9 +191,13 @@ def _set_messages_ampq(ctx):
 
 
 def _dispatch(ctx):
-    """Dispatches messages to MQ server."""
+    """Dispatches messages to MQ server.
+
+    """
     def _get_messages():
-        """Dispatch message source."""
+        """Message source.
+
+        """
         for msg in ctx.messages:
             yield msg
             ctx.produced += 1

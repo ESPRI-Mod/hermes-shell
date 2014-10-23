@@ -50,12 +50,16 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return _process
 
 
 def _process(ctx):
-    """Processes a simulation monitoring message pulled from message queue."""
+    """Processes a simulation monitoring message pulled from message queue.
+
+    """
     # Decode message content.
     ctx.decode()
 

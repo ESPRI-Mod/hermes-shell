@@ -16,7 +16,9 @@ from prodiguer import config, mail, mq, rt
 
 
 def get_tasks():
-    """Returns set of message processing tasks to be executed."""
+    """Returns set of message processing tasks to be executed.
+
+    """
     return (
         _init,
         _close_imap_proxy,
@@ -25,16 +27,22 @@ def get_tasks():
 
 
 def get_error_tasks():
-    """Returns set of message processing tasks to be executed."""
+    """Returns set of message processing tasks to be executed.
+
+    """
     return (
         _close_imap_proxy
         )
 
 
 class ProcessingContext(object):
-    """Processing context information wrapper."""
+    """Processing context information wrapper.
+
+    """
     def __init__(self, throttle):
-        """Constructor."""
+        """Object constructor.
+
+        """
         self.proxy = None
         self.email_uid_list = None
         self.throttle = throttle
@@ -42,9 +50,13 @@ class ProcessingContext(object):
 
 
 def _get_message(uid):
-    """Returns a message for dispatch to MQ server."""
+    """Returns a message for dispatch to MQ server.
+
+    """
     def _get_props():
-        """Returns an AMPQ basic properties instance, i.e. message header."""
+        """Message properties factory.
+
+        """
         return mq.create_ampq_message_properties(
             user_id = mq.constants.USER_IGCM,
             producer_id = mq.constants.PRODUCER_IGCM,
@@ -52,9 +64,13 @@ def _get_message(uid):
             message_type = mq.constants.TYPE_GENERAL_SMTP,
             mode = mq.constants.MODE_TEST)
 
+
     def _get_body(uid):
-        """Returns message body."""
+        """Message body factory.
+
+        """
         return {u"email_uid": uid}
+
 
     return mq.Message(_get_props(),
                       _get_body(uid),
@@ -62,7 +78,9 @@ def _get_message(uid):
 
 
 def _init(ctx):
-    """Initialization routine."""
+    """Initialization routine.
+
+    """
     # Initialize imap proxy.
     ctx.proxy = mail.get_imap_proxy()
 
@@ -71,14 +89,20 @@ def _init(ctx):
 
 
 def _close_imap_proxy(ctx):
-    """Closes imap client."""
+    """Closes imap client.
+
+    """
     mail.close_imap_proxy(ctx.proxy)
 
 
 def _dispatch(ctx):
-    """Dispatches messages to MQ server."""
+    """Dispatches messages to MQ server.
+
+    """
     def _get_messages():
-        """Dispatch message source."""
+        """Dispatch message source.
+
+        """
         for uid in ctx.email_uid_list:
             yield _get_message(uid)
             ctx.produced += 1

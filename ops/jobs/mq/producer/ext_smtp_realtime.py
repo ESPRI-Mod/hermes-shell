@@ -22,7 +22,7 @@ class _State(object):
 
     """
     def __init__(self):
-        """Constructor.
+        """Object constructor.
 
         """
         # List of email uid's within AMPQ folder.
@@ -59,7 +59,9 @@ _STATE = _State()
 
 
 def _invoke_async(target, args):
-    """Helper function to invoke work upon a new thread."""
+    """Helper function to invoke work upon a new thread.
+
+    """
     thread = threading.Thread(target=target, args=args)
     thread.start()
 

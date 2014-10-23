@@ -36,7 +36,8 @@ def get_tasks():
         _unpack_message,
         _persist_simulation,
         _persist_simulation_state,
-        _dispatch_notifications
+        _notify_api,
+        _notify_operator
         )
 
 
@@ -120,11 +121,10 @@ def _persist_simulation_state(ctx):
         )
 
 
-def _dispatch_notifications(ctx):
-    """Dispatches notifications to various internal services.
+def _notify_api(ctx):
+    """Dispatches API notification.
 
     """
-    # Notify API.
     data = db.types.Convertor.to_dict(ctx.simulation, True)
     data.update({
         u"activity":
@@ -152,7 +152,12 @@ def _dispatch_notifications(ctx):
             utils.get_name(db.types.SimulationSpace,
                            ctx.simulation.space_id)
         })
+
     utils.notify_api_of_new_simulation(data)
 
-    # Notify operator.
+
+def _notify_operator(ctx):
+    """Dispatches operator notification.
+
+    """
     utils.notify_operator(ctx.uid, "monitoring-0000")

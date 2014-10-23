@@ -25,19 +25,26 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_9000
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
         _unpack_message,
         _persist_simulation_state,
-        _dispatch_notifications
+        _notify_api,
+        _notify_operator
         )
 
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body, decode=True):
-        """Constructor."""
+        """Object constructor.
+
+        """
         super(Message, self).__init__(props, body, decode=decode)
 
         self.simulation = None
@@ -54,7 +61,9 @@ def _unpack_message(ctx):
 
 
 def _persist_simulation_state(ctx):
-    """Persists simulation state to db."""
+    """Persists simulation state to db.
+
+    """
     mq.db_hooks.create_simulation_state(
         ctx.simulation_uid,
         db.constants.EXECUTION_STATE_ROLLBACK,
@@ -63,15 +72,16 @@ def _persist_simulation_state(ctx):
         )
 
 
-def _dispatch_notifications(ctx):
-    """Dispatches notifications to various internal services.
+def _notify_api(ctx):
+    """Dispatches API notification.
 
     """
-    pass
+    utils.notify_api_of_simulation_state_change(
+        ctx.simulation_uid, db.constants.EXECUTION_STATE_ROLLBACK)
 
 
 def _notify_operator(ctx):
-    """Notifies an operator that simulation has completed."""
-    utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, db.constants.EXECUTION_STATE_ROLLBACK)
+    """Dispatches operator notification.
+
+    """
     utils.notify_operator(ctx.simulation_uid, "monitoring-9000")

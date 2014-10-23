@@ -25,7 +25,9 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_1100
 
 
 def get_tasks():
-    """Returns set of tasks to be executed when processing a message."""
+    """Returns set of tasks to be executed when processing a message.
+
+    """
     return (
       _unpack_message,
       _persist_job_updates,
@@ -35,9 +37,13 @@ def get_tasks():
 
 # Message information wrapper.
 class Message(mq.Message):
-    """Message information wrapper."""
+    """Message information wrapper.
+
+    """
     def __init__(self, props, body, decode=True):
-        """Constructor."""
+        """Object constructor.
+
+        """
         super(Message, self).__init__(props, body, decode=decode)
 
         self.simulation_uid = None
@@ -53,10 +59,14 @@ def _unpack_message(ctx):
 
 
 def _persist_job_updates(ctx):
-    """Persists job updates to db."""
+    """Persists job updates to db.
+
+    """
     pass
 
 
 def _persist_job_state(ctx):
-    """Persists job status to db."""
+    """Persists job status to db.
+
+    """
     pass
