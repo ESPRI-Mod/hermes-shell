@@ -11,8 +11,7 @@
 
 
 """
-from prodiguer import convert, db, mq
-from prodiguer.db.constants import EXECUTION_STATE_COMPLETE
+from prodiguer import db, mq
 
 import in_monitoring_utils as utils
 
@@ -28,9 +27,11 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_0100
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
     return (
-        _update_simulation_state,
-        _notify_operator
-        )
+        _unpack_message,
+        _persist_simulation_updates,
+        _persist_simulation_state,
+        _dispatch_notifications
+    )
 
 
 # Message information wrapper.
@@ -40,15 +41,40 @@ class Message(mq.Message):
         """Constructor."""
         super(Message, self).__init__(props, body, decode=decode)
 
-        self.simulation = None
-        self.simulation_uid = self.content['simuid']
+        self.simulation_uid = None
+        self.execution_state_timestamp = None
 
 
-def _update_simulation_state(ctx):
-    """Updates simulation status."""
-    utils.update_simulation_state(ctx, EXECUTION_STATE_COMPLETE)
+def _unpack_message(ctx):
+    """Unpacks message being processed.
+
+    """
+    ctx.simulation_uid = ctx.content['simuid']
+    ctx.execution_end_date = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
 
 
-def _notify_operator(ctx):
-    """Notifies an operator that simulation has completed."""
-    utils.notify_operator(ctx, "monitoring-0100")
+def _persist_simulation_updates(ctx):
+    """Persists simulation updates to db.
+
+    """
+    pass
+
+
+def _persist_simulation_state(ctx):
+    """Persists simulation state to db.
+
+    """
+    mq.db_hooks.create_simulation_state(
+        ctx.simulation_uid,
+        db.constants.EXECUTION_STATE_COMPLETE,
+        ctx.execution_state_timestamp,
+        MQ_QUEUE
+        )
+
+
+def _dispatch_notifications(ctx):
+    """Dispatches notifications to various internal services.
+
+    """
+    pass

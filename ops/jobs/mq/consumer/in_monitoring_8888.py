@@ -26,7 +26,10 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_8888
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message."""
-    return _process_message
+    return (
+      _unpack_message,
+      _process_message
+      )
 
 
 # Message information wrapper.
@@ -36,10 +39,16 @@ class Message(mq.Message):
         """Constructor."""
         super(Message, self).__init__(props, body, decode=decode)
 
-        self.simulation_uid = self.content['simuid']
+        self.simulation_uid = None
+
+
+def _unpack_message(ctx):
+    """Unpacks message being processed.
+
+    """
+    ctx.simulation_uid = ctx.content['simuid']
 
 
 def _process_message(ctx):
     """Processes message."""
-    # TODO ?
     pass

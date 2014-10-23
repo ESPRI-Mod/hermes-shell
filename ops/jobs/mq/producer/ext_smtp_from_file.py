@@ -13,7 +13,7 @@
 """
 import base64, email, json, os
 
-from prodiguer import config, mq
+from prodiguer import config, mq, rt
 
 
 
@@ -141,7 +141,7 @@ def _set_messages_b64(ctx):
     for mail in ctx.mails:
         ctx.messages_b64 += [l for l in mail.splitlines() if l]
 
-    print "Raw messages:", len(ctx.messages_b64)
+    rt.log_mq("Raw messages:", len(ctx.messages_b64))
 
 
 def _set_messages_json(ctx):
@@ -152,7 +152,7 @@ def _set_messages_json(ctx):
         else:
             ctx.messages_json.append(msg)
 
-    print "Base64 decoding errors: ", len(ctx.messages_json_error)
+    rt.log_mq("Base64 decoding errors: ", len(ctx.messages_json_error))
 
 
 def _set_messages_dict(ctx):
@@ -163,7 +163,7 @@ def _set_messages_dict(ctx):
         else:
             ctx.messages_dict.append(msg)
 
-    print "Json encoding errors: ", len(ctx.messages_dict_error)
+    rt.log_mq("Json encoding errors: ", len(ctx.messages_dict_error))
 
 
 def _set_messages_ampq(ctx):
@@ -173,7 +173,7 @@ def _set_messages_ampq(ctx):
                                        _get_msg_payload(msg),
                                        mq.constants.EXCHANGE_PRODIGUER_IN))
 
-    print "AMPQ messages for dispatch to MQ server: ", len(ctx.messages)
+    rt.log_mq("AMPQ messages for dispatch to MQ server: ", len(ctx.messages))
 
 
 def _dispatch(ctx):
