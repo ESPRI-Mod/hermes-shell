@@ -138,13 +138,13 @@ class _ConsumerExecutionInfo(object):
 
         # Override default flag indicating whether message will be presisted to db.
         try:
-            instance.auto_persist = consumer.PERSIST_MESSAGE
+            instance.auto_persist = instance.consumer.PERSIST_MESSAGE
         except AttributeError:
             pass
 
         # Override default processing context information type.
         try:
-            instance.context_type = consumer.Message
+            instance.context_type = instance.consumer.Message
         except AttributeError:
             pass
 
