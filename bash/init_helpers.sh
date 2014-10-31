@@ -45,3 +45,9 @@ activate_venv()
 	export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-$1/src
 	source $DIR_VENV/$1/bin/activate
 }
+
+# Removes all files of passed type in current working directory.
+remove_files()
+{
+	find . -name $1 -exec rm -rf {} \;
+}
