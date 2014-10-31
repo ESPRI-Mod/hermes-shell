@@ -83,6 +83,8 @@ def _get_message(uid):
         """Returns message body."""
         return {u"email_uid": uid}
 
+    rt.log_mq("Dispatching email {0} to MQ server".format(uid))
+
     return mq.Message(_get_props(),
                       _get_body(uid),
                       mq.constants.EXCHANGE_PRODIGUER_EXT)
