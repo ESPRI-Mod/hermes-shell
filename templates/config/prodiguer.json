@@ -1,4 +1,5 @@
 {
+    "configSchemaVersion": "1.0.0",
     "api": {
         "cookie_secret": "p2FAdrUN3tac",
         "host": "localhost",

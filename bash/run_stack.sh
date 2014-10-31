@@ -52,8 +52,7 @@ _install_notice()
 	log
 	log "IMPORTANT NOTICE"
 	log "To prodiguer shell command aliases add the following line to your .bash_profile file:" 1
-	log "test -f $DIR/exec.aliases && source $DIR/exec.aliases
-" 2
+	log "test -f $DIR/exec.aliases && source $DIR/exec.aliases" 2
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -173,13 +172,9 @@ _update_notice()
 {
 	log
 	log "IMPORTANT NOTICE"
-	log "The update process created new config files:" 1
-	log "$DIR_CONFIG/prodiguer.json" 2
-	log "$DIR_CONFIG/prodiguer.sh" 2
-	log "It also created a backup of your old config file:" 1
-	log "$DIR_CONFIG/prodiguer-backup.json" 2
-	log "$DIR_CONFIG/prodiguer-backup.sh" 2
-	log "Please verify your local configuration settings accordingly." 1
+	log "The update process installed a new config file:" 1
+	log "$DIR_CONFIG/new-prodiguer.json" 2
+	log "If the config schema version of the new and existing config files is different then you will need to update your local configuration settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -223,13 +218,7 @@ _update_config()
 {
 	log "Updating configuration"
 
-	# Create backups.
-	cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
-	cp $DIR_CONFIG/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
-	cp $DIR_CONFIG/mq-supervisord.conf $DIR_CONFIG/mq-supervisord-backup.conf
-
-	# Copy new config.
-	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
+	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/new-prodiguer.json
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 }
