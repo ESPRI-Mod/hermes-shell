@@ -11,6 +11,8 @@
 
 
 """
+import logging
+
 from tornado.options import define, options
 
 from prodiguer import rt
@@ -19,6 +21,10 @@ import ext_smtp_from_file
 import ext_smtp_polling
 import ext_smtp_realtime
 
+
+
+# Set logging options.
+logging.getLogger("pika").setLevel(logging.ERROR)
 
 
 # Define command line arguments.

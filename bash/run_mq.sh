@@ -42,15 +42,6 @@ declare -a MQ_QUEUES=(
 	'internal-smtp'
 )
 
-# Set of supported production MQ queues.
-declare -a MQ_QUEUES_PROD=(
-	'ext-smtp'
-	'in-monitoring'
-	'internal-api'
-	'internal-sms'
-	'internal-smtp'
-)
-
 # Set of dead MQ queues.
 declare -a MQ_DEAD_QUEUES=(
 	'ext-log'
@@ -86,16 +77,6 @@ run_mq_consume()
 
     activate_venv server
 	python $DIR_JOBS"/mq/consumer" --agent-type=$typeof --agent-limit=$throttle
-}
-
-run_mq_consume_all()
-{
-	log "MQ : launching all consumers ..."
-
-	for queue in "${MQ_QUEUES_PROD[@]}"
-	do
-		run_mq_consume $queue &
-	done
 }
 
 run_mq_produce()
@@ -154,16 +135,53 @@ run_mq_reset()
 	log "MQ : reset server ..."
 }
 
-# Launch server.
-run_mq_server()
-{
-	rabbitmq-server
-}
-
-# Launches MQ daemons.
-run_mq_daemons()
+# Initializes MQ daemons.
+run_mq_daemons_init()
 {
     activate_venv server
 
     supervisord -c $DIR_CONFIG/mq-supervisord.conf
+}
+
+# Restarts MQ daemons.
+run_mq_daemons_refresh()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf update all
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+}
+
+# Restarts MQ daemons.
+run_mq_daemons_restart()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+}
+
+# Launches MQ daemons.
+run_mq_daemons_start()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+}
+
+# Launches MQ daemons.
+run_mq_daemons_status()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf status all
+}
+
+# Launches MQ daemons.
+run_mq_daemons_stop()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
 }

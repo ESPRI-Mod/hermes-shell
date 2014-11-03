@@ -11,16 +11,13 @@
 
 
 """
-import sys
+import logging
 
 from tornado.options import define, options
 
 from prodiguer import config, db, mq, rt
 
-# External queue consumers.
 import ext_smtp
-
-# Input queue queue consumers.
 import in_monitoring
 import in_monitoring_0000
 import in_monitoring_0100
@@ -32,12 +29,14 @@ import in_monitoring_7000
 import in_monitoring_8888
 import in_monitoring_9000
 import in_monitoring_9999
-
-# Internal queue consumers.
 import internal_api
 import internal_smtp
 import internal_sms
 
+
+
+# Set logging options.
+logging.getLogger("pika").setLevel(logging.ERROR)
 
 
 # Define command line options.
@@ -55,6 +54,9 @@ _CONSUMERS = {
     'internal-smtp': internal_smtp,
     'internal-sms': internal_sms,
     'in-monitoring': in_monitoring,
+    'in-monitoring-p1': in_monitoring,
+    'in-monitoring-p2': in_monitoring,
+    'in-monitoring-p3': in_monitoring,
     'in-monitoring-0000': in_monitoring_0000,
     'in-monitoring-0100': in_monitoring_0100,
     'in-monitoring-1000': in_monitoring_1000,
@@ -96,6 +98,7 @@ def _process_message(msg, consumer):
     """Processes a message being consumed from a queue.
 
     """
+    print msg.props
     # Set tasks to be invoked.
     tasks = consumer.get_tasks()
     try:
@@ -167,18 +170,17 @@ def _execute():
     _initialize_consumer(exec_info.consumer)
 
     # Log.
-    rt.log_mq("launched consumer: {0}".format(options.agent_type))
+    rt.log_mq("launching consumer: {0}".format(options.agent_type))
 
-    # Consume messages.
     try:
         mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,
-                         exec_info.consumer.MQ_QUEUE,
+                         "q-{0}".format(options.agent_type),
                          lambda ctx: _process_message(ctx, exec_info.consumer),
                          auto_persist=exec_info.auto_persist,
                          consume_limit=options.agent_limit,
                          context_type=exec_info.context_type,
                          verbose=options.agent_limit > 0)
-    except:
+    finally:
         if exec_info.is_db_bound:
             db.session.end()
 

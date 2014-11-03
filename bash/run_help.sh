@@ -8,7 +8,7 @@
 run_help()
 {
 	helpers=(
-		run_api_help
+		run_web_help
 		run_db_help
 		run_metric_help
 		run_monitor_help
@@ -25,9 +25,9 @@ run_help()
 	done
 }
 
-run_api_help()
+run_web_help()
 {
-	log "Web API commands :"
+	log "Web commands :"
 	log "api" 1
 	log "launches API" 2
 	log
@@ -40,9 +40,9 @@ run_api_help()
 	log "displays list of endpoints supported by API" 2
 }
 
-run_help_api()
+run_help_web()
 {
-	run_api_help
+	run_web_help
 }
 
 run_db_mongo_help()
@@ -172,16 +172,19 @@ run_mq_help()
 	log "THROTTLE = optional limit of number of messages to consume" 2
 	log
 
-	log "mq-consume-all" 1
-	log "runs all message consumers in dedicated processes" 2
+	log "mq-daemons-init" 1
+	log "initializes Prodiguer daemon process controller" 2
+	log "mq-daemons-refresh" 1
+	log "refreshes Prodiguer MQ daemons - i.e. reloads mq-supervisor.conf & restarts" 2
+	log "mq-daemons-restart" 1
+	log "restarts Prodiguer MQ daemons" 2
+	log "mq-daemons-start" 1
+	log "starts Prodiguer MQ daemons" 2
+	log "mq-daemons-status" 1
+	log "displays status of active Prodiguer MQ daemons" 2
+	log "mq-daemons-stop" 1
+	log "stops Prodiguer MQ daemons" 2
 	log
-
-	log "mq-daemons" 1
-	log "launches Prodiguer MQ daemons" 2
-
-	log "mq-demo-send-monitoring-emails SCENARIO" 1
-	log "dispatches test simulation monitoring emails" 2
-	log "SCENARIO = monitoring scenario to be launched" 2
 
 	log "mq-produce TYPE [THROTTLE]" 1
 	log "runs a message producer" 2
@@ -195,10 +198,6 @@ run_mq_help()
 
 	log "mq-reset" 1
 	log "deletes all vhosts, exhanges, queues and users from RabbitMQ server" 2
-	log
-
-	log "mq-server" 1
-	log "launches RabbitMq server" 2
 }
 
 run_help_mq()

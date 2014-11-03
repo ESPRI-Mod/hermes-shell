@@ -27,10 +27,10 @@ alias prodiguer-metric-fetch-list='prodiguer metric-fetch-list'
 
 # Help.
 alias prodiguer-help='prodiguer help'
-alias prodiguer-help-api='prodiguer help-api'
 alias prodiguer-help-db='prodiguer help-db'
-alias prodiguer-help-metric='prodiguer help-metric'
 alias prodiguer-help-mq='prodiguer help-mq'
+alias prodiguer-help-web='prodiguer help-web'
+alias prodiguer-help-metric='prodiguer help-metric'
 alias prodiguer-help-stack='prodiguer help-stack'
 
 # Simulation monitoring.
@@ -38,7 +38,12 @@ alias prodiguer-monitor-simulation='prodiguer monitor-simulation'
 
 # MQ admin.
 alias prodiguer-mq-configure='prodiguer mq-configure'
-alias prodiguer-mq-daemons='prodiguer mq-daemons'
+alias prodiguer-mq-daemons-init='prodiguer mq-daemons-init'
+alias prodiguer-mq-daemons-refresh='prodiguer mq-daemons-refresh'
+alias prodiguer-mq-daemons-restart='prodiguer mq-daemons-restart'
+alias prodiguer-mq-daemons-start='prodiguer mq-daemons-start'
+alias prodiguer-mq-daemons-status='prodiguer mq-daemons-status'
+alias prodiguer-mq-daemons-stop='prodiguer mq-daemons-stop'
 alias prodiguer-mq-purge='prodiguer mq-purge'
 alias prodiguer-mq-reset='prodiguer mq-reset'
 alias prodiguer-mq-server='prodiguer mq-server'
@@ -51,7 +56,6 @@ alias prodiguer-mq-produce-ext-smtp-realtime='prodiguer-mq-produce ext-smtp-real
 
 # MQ consumers.
 alias prodiguer-mq-consume='prodiguer mq-consume'
-alias prodiguer-mq-consume-all='prodiguer mq-consume-all'
 alias prodiguer-mq-consume-ext-smtp='prodiguer-mq-consume ext-smtp'
 alias prodiguer-mq-consume-in-monitoring='prodiguer-mq-consume in-monitoring'
 alias prodiguer-mq-consume-internal-api='prodiguer-mq-consume internal-api'
