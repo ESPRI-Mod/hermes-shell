@@ -85,17 +85,31 @@ def notify_api_of_simulation_state_change(uid, state):
     _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 
-def notify_api_of_new_simulation(simulation):
+def notify_api_of_new_simulation(data):
     """Notifies web API of a new simulation event.
 
-    :param dict simulation: Simulation information.
+    :param dict data: Simulation information to be sent to API.
+
+    """
+    data[u"event_type"] = "new_simulation"
+
+    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
+
+
+def notify_api_of_simulation_terminated(uid, state, ended):
+    """Notifies web API of a simulation termination event.
+
+    :param str uid: UID of simulation being processed.
+    :param str state: New state of simulation being processed.
+    :param datetime ended: Datetime when simulation was terminated.
 
     """
     data = {
-        u"event_type": "new_simulation"
+        u"ended": unicode(ended),
+        u"event_type": "simulation_termination",
+        u"uid": unicode(uid),
+        u"state": state
     }
-    data.update(simulation)
-
     _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 

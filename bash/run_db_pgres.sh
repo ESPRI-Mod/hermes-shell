@@ -17,7 +17,7 @@ _db_verify_backup()
 # Initialises the db backup dir.
 _db_init_backup_dir()
 {
-	FINAL_DB_BACKUP_DIR=$DB_BACKUP_DIR"`date +\%Y-\%m-\%d`/"
+	FINAL_DB_BACKUP_DIR=$DB_BACKUP_DIR"/""`date +\%Y-\%m-\%d`/"
 
 	log "Making backup directory @ $FINAL_DB_BACKUP_DIR"
 
@@ -29,7 +29,7 @@ _db_init_backup_dir()
 
 _db_backup()
 {
-	log "db = $1 :: back up begins"
+	log "db = $1 :: back up begins "
 
 	if ! pg_dump -Fp -h localhost -U prodiguer_db_admin "$1" | gzip > $FINAL_DB_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
 		log "[!!ERROR!!] Failed to produce plain backup database $1"
@@ -80,8 +80,8 @@ _db_grant_permissions()
 {
 	log "Granting DB permissions"
 
-	psql -U prodiguer_db_admin -d prodiguer -a -f $DIR_BASH/run_db_pgres_grant_permissions.sql
-	psql -U prodiguer_db_admin -d prodiguer_test -a -f $DIR_BASH/run_db_pgres_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_grant_permissions.sql
 }
 
 # Create db users.
@@ -109,6 +109,12 @@ _db_setup()
 
 	activate_venv server
 	python $DIR_JOBS/db/run_setup.py
+}
+
+run_get_simulation_state_change()
+{
+	activate_venv server
+	python $DIR_JOBS/db/run_get_simulation_state.py
 }
 
 # Backup db.

@@ -53,6 +53,7 @@ def _unpack_message(ctx):
 
     """
     ctx.simulation_uid = ctx.content['simuid']
+    ctx.execution_end_date = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
 
 
@@ -70,8 +71,10 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, db.constants.EXECUTION_STATE_ERROR)
+    utils.notify_api_of_simulation_terminated(
+        ctx.simulation_uid,
+        db.constants.EXECUTION_STATE_ERROR,
+        ctx.execution_end_date)
 
 
 def _notify_operator(ctx):

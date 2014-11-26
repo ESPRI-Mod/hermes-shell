@@ -13,6 +13,8 @@
 """
 import sys
 
+import sqlalchemy
+
 import prodiguer
 from prodiguer import db
 from prodiguer.utils import (
@@ -48,9 +50,12 @@ def main():
     connection = cfg.db.pgres.main
     targets = [connection, connection + '_test']
     targets = [c.replace(_DB_USER, _DB_USER_ADMIN) for c in targets]
-    for target in targets:
-        setup(target)
 
+    try:
+        for target in targets:
+            setup(target)
+    except sqlalchemy.exc.ProgrammingError as err:
+        rt.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(target))
 
 if __name__ == '__main__':
     main()

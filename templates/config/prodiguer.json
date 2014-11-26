@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.0",
+    "configSchemaVersion": "1.0.1",
     "api": {
         "cookie_secret": "p2FAdrUN3tac",
         "host": "localhost",
@@ -10,7 +10,8 @@
         },
         "mode": "dev",
         "port": 8888,
-        "ssl": false
+        "ssl": false,
+        "websocketKeepAliveDelayInSeconds": 0
     },
     "db": {
         "mongodb": {

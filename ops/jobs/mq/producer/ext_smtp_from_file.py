@@ -11,7 +11,7 @@
 
 
 """
-import base64, email, json, os
+import base64, email, json, os, uuid
 
 from prodiguer import config, mq, rt
 
@@ -31,6 +31,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
+        _update_messages_dict,
         _set_messages_ampq,
         _dispatch,
         )
@@ -53,6 +54,7 @@ class ProcessingContext(object):
         self.messages_dict_error = []
         self.produced = 0
         self.throttle = throttle
+        self.uid_map = {}
 
 
 def _decode_b64(data):
@@ -176,6 +178,30 @@ def _set_messages_dict(ctx):
             ctx.messages_dict.append(msg)
 
     rt.log_mq("Json encoding errors: ", len(ctx.messages_dict_error))
+
+
+def _update_messages_dict(ctx):
+    """Updates message dictionaries to ensure message uniqueness constraints pass.
+
+    """
+    def _set_new_uid(msg, key):
+        """Sets new universally unique identifier.
+
+        """
+        if key in msg:
+            if msg[key] not in ctx.uid_map:
+                ctx.uid_map[msg[key]] = unicode(uuid.uuid4())
+            msg[key] = ctx.uid_map[msg[key]]
+
+    for msg in ctx.messages_dict:
+        if 'msgUID' in msg:
+            msg['msgUID'] = unicode(uuid.uuid4())
+        if 'simuid' in msg:
+            _set_new_uid(msg, 'simuid')
+            if 'name' in msg:
+                msg['name'] = "{0} - {1}".format(msg['name'], unicode(uuid.uuid4()))
+        if 'jobuid' in msg:
+            _set_new_uid(msg, 'jobuid')
 
 
 def _set_messages_ampq(ctx):

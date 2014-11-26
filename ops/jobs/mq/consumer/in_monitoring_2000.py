@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import mq
+from prodiguer import db, mq
 
 import in_monitoring_utils as utils
 
@@ -60,3 +60,4 @@ def _persist_job_command(ctx):
 
     """
     pass
+

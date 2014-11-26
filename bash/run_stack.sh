@@ -4,13 +4,10 @@
 # SECTION: BOOTSTRAP
 # ###############################################################
 
-# Run stack bootstrapper.
-run_stack_bootstrap()
+run_init_ops_directories()
 {
-	log "BOOTSTRAP STARTS"
+	log "Initializing ops directories"
 	set_working_dir
-
-	log "Creating ops directories"
 	mkdir -p $DIR_BACKUPS
 	mkdir -p $DIR_CONFIG
 	mkdir -p $DIR_DAEMONS
@@ -24,6 +21,15 @@ run_stack_bootstrap()
 	mkdir -p $DIR_PYTHON
 	mkdir -p $DIR_TMP
 	mkdir -p $DIR_VENV
+}
+
+# Run stack bootstrapper.
+run_stack_bootstrap()
+{
+	log "BOOTSTRAP STARTS"
+	set_working_dir
+
+	run_init_ops_directories
 
 	log "Initializing configuration"
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh

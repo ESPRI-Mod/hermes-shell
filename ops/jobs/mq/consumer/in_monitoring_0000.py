@@ -36,6 +36,7 @@ def get_tasks():
         _unpack_message,
         _persist_simulation,
         _persist_simulation_state,
+        _set_new_cv_terms,
         _notify_api,
         _notify_operator
         )
@@ -57,6 +58,8 @@ class Message(mq.Message):
         self.compute_node = None
         self.compute_node_login = None
         self.compute_node_machine = None
+        self.cv_terms = set(db.cache.get_items())
+        self.new_cv_terms = None
         self.execution_state = db.constants.EXECUTION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
         self.experiment = None
@@ -121,37 +124,29 @@ def _persist_simulation_state(ctx):
         )
 
 
+def _set_new_cv_terms(ctx):
+    """Sets collection of new cv terms.
+
+    """
+    terms = set(db.cache.get_items()) - ctx.cv_terms
+    terms = [(type(t).__name__, t.id) for t in terms]
+
+    print "ZZZ", terms
+
+    ctx.new_cv_terms = terms
+
+
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    data = db.types.Convertor.to_dict(ctx.simulation, True)
-    data.update({
-        u"activity":
-            utils.get_name(db.types.Activity,
-                           ctx.simulation.activity_id),
-        u"compute_node":
-            utils.get_name(db.types.ComputeNode,
-                           ctx.simulation.compute_node_id),
-        u"compute_node_login":
-            utils.get_name(db.types.ComputeNodeLogin,
-                           ctx.simulation.compute_node_login_id),
-        u"compute_node_machine":
-            utils.get_name(db.types.ComputeNodeMachine,
-                           ctx.simulation.compute_node_machine_id),
-        u"execution_state":
-            utils.get_name(db.types.SimulationState,
-                           ctx.simulation.execution_state_id),
-        u"experiment":
-            utils.get_name(db.types.Experiment,
-                           ctx.simulation.experiment_id),
-        u"model":
-            utils.get_name(db.types.Model,
-                           ctx.simulation.model_id),
-        u"space":
-            utils.get_name(db.types.SimulationSpace,
-                           ctx.simulation.space_id)
-        })
+    data = {
+        "id": ctx.simulation.id
+    }
+    if ctx.new_cv_terms:
+        data.update({
+            "new_cv_terms": ctx.new_cv_terms
+            })
 
     utils.notify_api_of_new_simulation(data)
 

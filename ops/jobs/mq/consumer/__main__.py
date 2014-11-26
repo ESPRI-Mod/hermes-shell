@@ -37,6 +37,7 @@ import internal_sms
 
 # Set logging options.
 logging.getLogger("pika").setLevel(logging.ERROR)
+logging.getLogger("requests").setLevel(logging.ERROR)
 
 
 # Define command line options.
@@ -54,9 +55,6 @@ _CONSUMERS = {
     'internal-smtp': internal_smtp,
     'internal-sms': internal_sms,
     'in-monitoring': in_monitoring,
-    'in-monitoring-p1': in_monitoring,
-    'in-monitoring-p2': in_monitoring,
-    'in-monitoring-p3': in_monitoring,
     'in-monitoring-0000': in_monitoring_0000,
     'in-monitoring-0100': in_monitoring_0100,
     'in-monitoring-1000': in_monitoring_1000,
@@ -98,7 +96,6 @@ def _process_message(msg, consumer):
     """Processes a message being consumed from a queue.
 
     """
-    print msg.props
     # Set tasks to be invoked.
     tasks = consumer.get_tasks()
     try:

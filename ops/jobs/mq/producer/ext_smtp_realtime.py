@@ -155,6 +155,8 @@ def execute(throttle=0):
     """Executes realtime SMTP sourced message production.
 
     """
+    proxy = None
+
     try:
         # Initialize state.
         _State.throttle = throttle
@@ -166,14 +168,18 @@ def execute(throttle=0):
         _invoke_async(_dispatch, (_STATE.email_stack,))
 
         # Process imap notifications on new threads.
+        # N.B. call to proxy.idle_check is blocking.
         proxy.idle()
         while True:
+            # _on_imap_idle_event(proxy.idle_check())
             _invoke_async(_on_imap_idle_event, (proxy.idle_check(),))
 
-    # Simply log errors.
-    except Exception as err:
-        rt.log_mq_error(err)
+    # # Simply log errors.
+    # except Exception as err:
+    #     rt.log_mq_error(err)
 
     # Ensure imap proxy is closed.
     finally:
-        mail.close_imap_proxy(proxy)
+        if proxy:
+            proxy.idle_done()
+            mail.close_imap_proxy(proxy)

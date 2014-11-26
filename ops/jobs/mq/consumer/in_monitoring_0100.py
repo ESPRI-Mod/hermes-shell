@@ -68,7 +68,7 @@ def _persist_simulation_updates(ctx):
     ctx.simulation = mq.db_hooks.retrieve_simulation(ctx.simulation_uid)
     ctx.simulation.execution_end_date = ctx.execution_end_date
 
-    db.session.update(ctx.simulation)
+    db.session.update(ctx.simulation, False)
 
 
 def _persist_simulation_state(ctx):
@@ -87,8 +87,10 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, db.constants.EXECUTION_STATE_COMPLETE)
+    utils.notify_api_of_simulation_terminated(
+        ctx.simulation_uid,
+        db.constants.EXECUTION_STATE_COMPLETE,
+        ctx.execution_end_date)
 
 
 def _notify_operator(ctx):
