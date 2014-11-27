@@ -198,7 +198,7 @@ def _dispatch(ctx):
 
 
 def _delete_email(ctx):
-    """Deletes email as it has already been.
+    """Deletes email as it has already been processed.
 
     """
     ctx.imap_proxy.delete_messages(ctx.email_uid)
