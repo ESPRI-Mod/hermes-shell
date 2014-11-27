@@ -128,12 +128,7 @@ def _set_new_cv_terms(ctx):
     """Sets collection of new cv terms.
 
     """
-    terms = set(db.cache.get_items()) - ctx.cv_terms
-    terms = [(type(t).__name__, t.id) for t in terms]
-
-    print "ZZZ", terms
-
-    ctx.new_cv_terms = terms
+    ctx.new_cv_terms = set(db.cache.get_items()) - ctx.cv_terms
 
 
 def _notify_api(ctx):
@@ -141,12 +136,9 @@ def _notify_api(ctx):
 
     """
     data = {
-        "id": ctx.simulation.id
+        "id": ctx.simulation.id,
+        "has_new_cv_terms": len(ctx.new_cv_terms) > 0
     }
-    if ctx.new_cv_terms:
-        data.update({
-            "new_cv_terms": ctx.new_cv_terms
-            })
 
     utils.notify_api_of_new_simulation(data)
 
