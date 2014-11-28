@@ -31,7 +31,11 @@ def get_endpoint(route):
 	return r"{0}{1}".format(_API[config.api.mode] , route)
 
 
-def invoke_api(endpoint, verb=requests.get, payload=None, expecting_json=True):
+def invoke_api(
+    endpoint,
+    verb=requests.get,
+    payload=None,
+    expecting_json=True):
     """Invokes api endpoint.
 
     :param str endpoint: API endpoint to invoke.
@@ -99,6 +103,8 @@ def parse_boolean(val):
     :rtype: str
 
     """
+    if type(val) == bool:
+        return str(val).lower()
     val = str(val).strip()
     if val in ['', 'f', 'false', 'False', '0']:
         return 'false'

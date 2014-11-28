@@ -20,7 +20,7 @@ run_metric_delete()
 run_metric_fetch()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_fetch.py --group=$1 --include-db-id=$2 --filter=$3
+	python $DIR_JOBS/api/metric/run_fetch.py --group=$1 --include-db-id=$2 --filter=$3 --encoding=json
 }
 
 # Fetch metric group columns.
