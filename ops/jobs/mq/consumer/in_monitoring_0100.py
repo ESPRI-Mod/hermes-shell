@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Consumes monitoring 0100 messages.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 """
 from prodiguer import db, mq

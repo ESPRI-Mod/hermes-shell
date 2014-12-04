@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Monitoring message consumer utility functions.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

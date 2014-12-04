@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Realtime IMAP client that places email uid upon MQ server for futher processing.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

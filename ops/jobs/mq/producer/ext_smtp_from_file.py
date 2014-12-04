@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Pulls emails saved to a file system and forwards them to the MQ server.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

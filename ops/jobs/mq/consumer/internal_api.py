@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Sends event notifications to Prodiguer web API.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

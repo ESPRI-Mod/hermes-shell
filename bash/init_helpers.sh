@@ -51,3 +51,9 @@ remove_files()
 {
 	find . -name $1 -exec rm -rf {} \;
 }
+
+run_load_cv()
+{
+	activate_venv server
+	python $DIR_JOBS/cv/run_load.py
+}

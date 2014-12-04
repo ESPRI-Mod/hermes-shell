@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Pulls messages from MQ server and persists them to db.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

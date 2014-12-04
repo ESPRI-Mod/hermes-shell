@@ -7,7 +7,7 @@
    :platform: Unix
    :synopsis: Pulls messages from an SMTP server and forwards them to the MQ server.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
