@@ -29,7 +29,7 @@ def get_tasks():
 
     """
     return (
-      _unpack_message,
+      _unpack_message_content,
       _persist_job_command
       )
 
@@ -46,7 +46,7 @@ class Message(mq.Message):
         self.simulation_uid = None
 
 
-def _unpack_message(ctx):
+def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """

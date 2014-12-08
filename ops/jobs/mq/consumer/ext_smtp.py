@@ -17,7 +17,7 @@ from prodiguer import config, mail, mq, rt
 
 
 
-# MQ exhange to bind to.
+# MQ exchange to bind to.
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_EXT
 
 # MQ queue to bind to.
@@ -48,16 +48,15 @@ def get_error_tasks():
     return _close_imap_proxy
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper.
+class ProcessingContextInfo(mq.Message):
+    """Message processing context information.
 
     """
     def __init__(self, props, body):
         """Object constructor.
 
         """
-        super(Message, self).__init__(props, body, decode=True)
+        super(ProcessingContextInfo, self).__init__(props, body, decode=True)
 
         self.email = None
         self.email_attachment = None
@@ -71,15 +70,18 @@ class Message(mq.Message):
         self.messages_dict_error = []
 
 
-def _get_correlation_id(msg):
-    """Returns correlation id from message body.
+def _get_correlation_id_1(msg):
+    """Returns a correlation id from message body.
 
     """
-    # TODO - also jobuid ?
-    if 'simuid' in msg:
-        return msg['simuid']
-    else:
-        return None
+    return msg['simuid'] if 'simuid' in msg else None
+
+
+def _get_correlation_id_2(msg):
+    """Returns a correlation id from message body.
+
+    """
+    return msg['jobuid'] if 'jobuid' in msg else None
 
 
 def _get_msg_props(msg):
@@ -93,14 +95,15 @@ def _get_msg_props(msg):
         user_id = mq.constants.USER_IGCM,
         producer_id = msg['msgProducer'],
         app_id = msg['msgApplication'],
-        correlation_id=_get_correlation_id(msg),
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
         mode = mq.constants.MODE_TEST,
         timestamp = timestamp.as_ms_int,
         headers = {
-            "timestamp": unicode(timestamp.as_ns_raw),
-            "timestamp_precision": u'ns'
+            'timestamp': unicode(timestamp.as_ns_raw),
+            'timestamp_precision': u'ns',
+            'correlation_id_1': _get_correlation_id_1(msg),
+            'correlation_id_2': _get_correlation_id_2(msg),
         })
 
 

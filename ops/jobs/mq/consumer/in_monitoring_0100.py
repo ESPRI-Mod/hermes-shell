@@ -28,7 +28,7 @@ def get_tasks():
 
     """
     return (
-        _unpack_message,
+        _unpack_message_content,
         _persist_simulation_updates,
         _persist_simulation_state,
         _notify_api,
@@ -52,7 +52,7 @@ class Message(mq.Message):
         self.execution_state_timestamp = None
 
 
-def _unpack_message(ctx):
+def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """

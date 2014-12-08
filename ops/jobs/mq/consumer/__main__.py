@@ -67,27 +67,24 @@ _CONSUMERS = {
     'in-monitoring-9999': in_monitoring_9999,
 }
 
-# Map of consumer types to consumers that do not require binding to backend database.
-_NON_DB_BOUND_CONSUMERS = {}
-
 
 def _initialize_consumer(consumer):
     """Initializes a consumer prior to message consumption.
 
     """
-    # Set collection of initialization tasks.
+    # Set initialization tasks.
     try:
         tasks = consumer.get_init_tasks()
     except AttributeError:
         return
 
-    # Convert to iterable (if necessary).
+    # Convert to iterable.
     try:
         iter(tasks)
     except TypeError:
         tasks = (tasks, )
 
-    # Execute initialization tasks.
+    # Execute.
     for task in tasks:
         task()
 
@@ -96,13 +93,16 @@ def _process_message(msg, consumer):
     """Processes a message being consumed from a queue.
 
     """
-    # Set tasks to be invoked.
+    # Set tasks.
     tasks = consumer.get_tasks()
+
+    # Set error tasks.
     try:
         error_tasks = consumer.get_error_tasks()
     except AttributeError:
         error_tasks = None
 
+    # Execute.
     rt.invoke1(tasks, error_tasks=error_tasks, ctx=msg, module="MQ")
 
 
@@ -111,9 +111,11 @@ class _ConsumerExecutionInfo(object):
 
     """
     def __init__(self, consumer_type):
+        """Object constructor.
+
+        """
         self.consumer = None
         self.consumer_type = consumer_type
-        self.is_db_bound = consumer_type not in _NON_DB_BOUND_CONSUMERS
         self.auto_persist = True
         self.context_type = mq.Message
 
@@ -128,6 +130,7 @@ class _ConsumerExecutionInfo(object):
         :rtype: _ConsumerExecutionInfo
 
         """
+        # Instantiate.
         instance = _ConsumerExecutionInfo(consumer_type)
 
         # Set consumer to be launched.
@@ -136,17 +139,20 @@ class _ConsumerExecutionInfo(object):
         except KeyError:
             raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
 
-        # Override default flag indicating whether message will be presisted to db.
+        # Set flag indicating whether message will be presisted to db.
         try:
             instance.auto_persist = instance.consumer.PERSIST_MESSAGE
         except AttributeError:
             pass
 
-        # Override default processing context information type.
+        # Set processing context information type.
         try:
             instance.context_type = instance.consumer.Message
         except AttributeError:
-            pass
+            try:
+                instance.context_type = instance.consumer.ProcessingContextInfo
+            except AttributeError:
+                pass
 
         return instance
 
@@ -155,13 +161,17 @@ def _execute():
     """Executes message consumer.
 
     """
+    # Parse command line options.
+    options.parse_command_line()
+
     # Get execution info.
     exec_info = _ConsumerExecutionInfo.create(options.agent_type)
 
     # Connect to db.
-    if exec_info.is_db_bound:
-        db.session.start(config.db.pgres.main)
-        db.cache.load()
+    db.session.start(config.db.pgres.main)
+
+    # Ensure db cache is loaded.
+    db.cache.load()
 
     # Initialise.
     _initialize_consumer(exec_info.consumer)
@@ -178,10 +188,8 @@ def _execute():
                          context_type=exec_info.context_type,
                          verbose=options.agent_limit > 0)
     finally:
-        if exec_info.is_db_bound:
-            db.session.end()
+        db.session.end()
 
 
 # Main entry point.
-options.parse_command_line()
 _execute()

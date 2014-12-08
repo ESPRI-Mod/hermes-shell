@@ -17,7 +17,7 @@ from prodiguer import db, mq
 
 
 
-def _dispatch_message(data, message_type):
+def dispatch_message(data, message_type):
     """Dispatches message to MQ server for subsequent processing.
 
     """
@@ -82,18 +82,7 @@ def notify_api_of_simulation_state_change(uid, state):
         u"state": state
     }
 
-    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-
-
-def notify_api_of_new_simulation(data):
-    """Notifies web API of a new simulation event.
-
-    :param dict data: Simulation information to be sent to API.
-
-    """
-    data[u"event_type"] = "new_simulation"
-
-    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
+    dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 
 def notify_api_of_simulation_terminated(uid, state, ended):
@@ -110,7 +99,8 @@ def notify_api_of_simulation_terminated(uid, state, ended):
         u"uid": unicode(uid),
         u"state": state
     }
-    _dispatch_message(data, mq.constants.TYPE_GENERAL_API)
+
+    dispatch_message(data, mq.constants.TYPE_GENERAL_API)
 
 
 def notify_operator(uid, notification_type):
@@ -125,5 +115,5 @@ def notify_operator(uid, notification_type):
         'simulation_uid': uid
     }
 
-    _dispatch_message(data, mq.constants.TYPE_GENERAL_SMTP)
-    _dispatch_message(data, mq.constants.TYPE_GENERAL_SMS)
+    dispatch_message(data, mq.constants.TYPE_GENERAL_SMTP)
+    dispatch_message(data, mq.constants.TYPE_GENERAL_SMS)
