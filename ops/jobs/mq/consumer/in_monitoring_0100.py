@@ -65,7 +65,7 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    ctx.simulation = mq.db_hooks.retrieve_simulation(ctx.simulation_uid)
+    ctx.simulation = db.dao_mq.retrieve_simulation(ctx.simulation_uid)
     ctx.simulation.execution_end_date = ctx.execution_end_date
 
     db.session.update(ctx.simulation, False)
@@ -75,9 +75,9 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    mq.db_hooks.create_simulation_state(
+    db.dao_mq.create_simulation_state(
         ctx.simulation_uid,
-        db.constants.EXECUTION_STATE_COMPLETE,
+        db.constants.SIMULATION_STATE_COMPLETE,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -89,7 +89,7 @@ def _notify_api(ctx):
     """
     utils.notify_api_of_simulation_terminated(
         ctx.simulation_uid,
-        db.constants.EXECUTION_STATE_COMPLETE,
+        db.constants.SIMULATION_STATE_COMPLETE,
         ctx.execution_end_date)
 
 

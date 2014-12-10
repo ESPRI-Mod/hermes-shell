@@ -63,9 +63,9 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    mq.db_hooks.create_simulation_state(
+    db.dao_mq.create_simulation_state(
         ctx.simulation_uid,
-        db.constants.EXECUTION_STATE_RUNNING,
+        db.constants.SIMULATION_STATE_RUNNING,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -83,4 +83,4 @@ def _notify_api(ctx):
 
     """
     utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, db.constants.EXECUTION_STATE_RUNNING)
+        ctx.simulation_uid, db.constants.SIMULATION_STATE_RUNNING)

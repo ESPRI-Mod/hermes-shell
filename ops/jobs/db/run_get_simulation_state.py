@@ -12,7 +12,7 @@
 
 """
 from prodiguer import db
-from prodiguer.utils import config, runtime as rt
+from prodiguer.utils import config, rt
 
 
 

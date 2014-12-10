@@ -60,7 +60,7 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node_login = None
         self.compute_node_machine = None
         self.new_cv_terms = []
-        self.execution_state = db.constants.EXECUTION_STATE_QUEUED
+        self.execution_state = db.constants.SIMULATION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
         self.experiment = None
         self.simulation_space = None
@@ -170,7 +170,7 @@ def _persist_simulation(ctx):
     """Persists simulation information to db.
 
     """
-    mq.db_hooks.create_simulation(
+    db.dao_mq.create_simulation(
         ctx.activity,
         ctx.compute_node,
         ctx.compute_node_login,
@@ -191,7 +191,7 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    mq.db_hooks.create_simulation_state(
+    db.dao_mq.create_simulation_state(
         ctx.uid,
         ctx.execution_state,
         ctx.execution_state_timestamp,
