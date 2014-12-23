@@ -15,7 +15,7 @@ import datetime
 
 import arrow
 import sqlalchemy
-from prodiguer import db, mq, cv, rt
+from prodiguer import cv, db, mq, rt
 
 import in_monitoring_utils as utils
 
@@ -53,14 +53,15 @@ class ProcessingContextInfo(mq.Message):
         """Object constructor.
 
         """
-        super(ProcessingContextInfo, self).__init__(props, body, decode=decode)
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
         self.activity = None
         self.compute_node = None
         self.compute_node_login = None
         self.compute_node_machine = None
         self.new_cv_terms = []
-        self.execution_state = db.constants.SIMULATION_STATE_QUEUED
+        self.execution_state = cv.constants.SIMULATION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
         self.experiment = None
         self.simulation_space = None
@@ -72,8 +73,8 @@ class ProcessingContextInfo(mq.Message):
 
 
     @property
-    def cv_fields(self):
-        """Gets set of cv related fields.
+    def cv_term_fields(self):
+        """Gets set of cv term related fields.
 
         """
         return [
@@ -134,17 +135,17 @@ def _parse_cv_terms(ctx):
     """Parses cv terms contained within message content.
 
     """
-    for field in ctx.cv_fields:
-        existing = getattr(ctx, field)
+    for term_type in ctx.cv_term_fields:
+        term_name = getattr(ctx, term_type)
         try:
-            parsed = cv.parse(field, existing)
+            term_name_parsed = cv.parser.parse_term_name(term_type, term_name)
         except ValueError:
-            ctx.new_cv_terms.append((field, existing))
+            ctx.new_cv_terms.append((term_type, term_name))
         else:
-            if existing != parsed:
-                setattr(ctx, field, parsed)
+            if term_name != term_name_parsed:
+                setattr(ctx, term_type, term_name_parsed)
                 msg = "CV term subsitution: {0}.{1} --> {0}.{2}"
-                msg = msg.format(field, existing, parsed)
+                msg = msg.format(term_type, term_name, term_name_parsed)
                 rt.log_mq(msg)
 
 
@@ -155,22 +156,20 @@ def _persist_cv_terms(ctx):
     if not ctx.new_cv_terms:
         return
 
-    # Create new cv terms.
+    # Insert new CV terms.
     for term_type, term_name in ctx.new_cv_terms:
-        try:
-            db.session.insert(cv.create(term_type, term_name))
-        except sqlalchemy.exc.IntegrityError:
-            db.session.rollback()
+        cv.session.insert(term_type, term_name)
+    cv.session.commit()
 
-    # Reload db cache.
-    db.cache.reload()
+    # Reparse.
+    _parse_cv_terms(ctx)
 
 
 def _persist_simulation(ctx):
     """Persists simulation information to db.
 
     """
-    db.dao_mq.create_simulation(
+    db.dao_monitoring.create_simulation(
         ctx.activity,
         ctx.compute_node,
         ctx.compute_node_login,
@@ -191,7 +190,7 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    db.dao_mq.create_simulation_state(
+    db.dao_monitoring.create_simulation_state(
         ctx.uid,
         ctx.execution_state,
         ctx.execution_state_timestamp,
@@ -205,8 +204,7 @@ def _notify_api(ctx):
     """
     data = {
         "event_type": "new_simulation",
-        "uid": ctx.uid,
-        "new_cv_terms": ctx.new_cv_terms
+        "uid": unicode(ctx.uid)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)

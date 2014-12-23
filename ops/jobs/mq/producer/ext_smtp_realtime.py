@@ -174,9 +174,9 @@ def execute(throttle=0):
             # _on_imap_idle_event(proxy.idle_check())
             _invoke_async(_on_imap_idle_event, (proxy.idle_check(),))
 
-    # # Simply log errors.
-    # except Exception as err:
-    #     rt.log_mq_error(err)
+    # Simply log errors.
+    except Exception as err:
+        rt.log_mq_error(err)
 
     # Ensure imap proxy is closed.
     finally:

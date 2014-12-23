@@ -15,7 +15,7 @@ import logging
 
 from tornado.options import define, options
 
-from prodiguer import config, db, mq, rt
+from prodiguer import config, cv, db, mq, rt
 
 import ext_smtp
 import in_monitoring
@@ -167,11 +167,11 @@ def _execute():
     # Get execution info.
     exec_info = _ConsumerExecutionInfo.create(options.agent_type)
 
-    # Connect to db.
+    # Start db session.
     db.session.start(config.db.pgres.main)
 
-    # Ensure db cache is loaded.
-    db.cache.load()
+    # Initialise cv session.
+    cv.session.init()
 
     # Initialise.
     _initialize_consumer(exec_info.consumer)

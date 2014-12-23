@@ -10,7 +10,7 @@
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 """
-from prodiguer import db, mq
+from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
 
@@ -65,7 +65,7 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    ctx.simulation = db.dao_mq.retrieve_simulation(ctx.simulation_uid)
+    ctx.simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
     ctx.simulation.execution_end_date = ctx.execution_end_date
 
     db.session.update(ctx.simulation, False)
@@ -75,9 +75,9 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    db.dao_mq.create_simulation_state(
+    db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
-        db.constants.SIMULATION_STATE_COMPLETE,
+        cv.constants.SIMULATION_STATE_COMPLETE,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -89,7 +89,7 @@ def _notify_api(ctx):
     """
     utils.notify_api_of_simulation_terminated(
         ctx.simulation_uid,
-        db.constants.SIMULATION_STATE_COMPLETE,
+        cv.constants.SIMULATION_STATE_COMPLETE,
         ctx.execution_end_date)
 
 

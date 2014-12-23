@@ -29,7 +29,7 @@ _DB_USER_ADMIN = "prodiguer_db_admin"
 def main():
     """Main entry point."""
     def setup(connection):
-        rt.log_db("SETUP BEGINS : db = {0}".format(connection))
+        rt.log_db("Seeding begins : db = {0}".format(connection))
 
         # Start session.
         db.session.start(connection)
@@ -40,7 +40,7 @@ def main():
         # End session.
         db.session.end()
 
-        rt.log_db("SETUP ENDS : db = {0}".format(connection))
+        rt.log_db("Seeding ends : db = {0}".format(connection))
         rt.log()
 
     # Setup each target db.

@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import db, mq
+from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
 
@@ -59,9 +59,9 @@ def _unpack_message_content(ctx):
 
 def _persist_simulation_state(ctx):
     """Persists simulation state to db."""
-    db.dao_mq.create_simulation_state(
+    db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
-        db.constants.SIMULATION_STATE_ERROR,
+        cv.constants.SIMULATION_STATE_ERROR,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -73,7 +73,7 @@ def _notify_api(ctx):
     """
     utils.notify_api_of_simulation_terminated(
         ctx.simulation_uid,
-        db.constants.SIMULATION_STATE_ERROR,
+        cv.constants.SIMULATION_STATE_ERROR,
         ctx.execution_end_date)
 
 

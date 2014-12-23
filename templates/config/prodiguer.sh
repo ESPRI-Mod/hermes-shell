@@ -5,7 +5,7 @@
 # ###############################################################
 
 # Version of python used by stack.
-declare PYTHON_VERSION=2.7.6
+declare PYTHON_VERSION=2.7.9
 
 # Optional system user to run backups as.  If the user the script is running as doesn't match this the script terminates.  Leave blank to skip check.
 declare DB_BACKUP_USER=

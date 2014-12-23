@@ -45,12 +45,6 @@ def dispatch_message(data, message_type):
     mq.produce(_get_message)
 
 
-def get_name(entity_type, entity_id):
-    """Utility function to map a db entity id to an entity name.
-
-    """
-    return db.cache.get_name(entity_type, entity_id)
-
 
 def get_timestamp(timestamp):
     """Returns formatted timestamp for insertion into db.

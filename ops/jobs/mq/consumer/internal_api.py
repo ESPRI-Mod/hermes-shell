@@ -41,13 +41,13 @@ def _invoke_endpoint(ctx):
     """Invokes API endpoint.
 
     """
-    rt.log_mq("API notification: {0}".format(ctx.content))
+    rt.log_mq("Dispatching API notification: {0}".format(ctx.content))
 
     # Set API endpoint.
-    endpoint = api.handlers.utils.get_endpoint(_API_EP)
+    endpoint = api.utils.handler.get_endpoint(_API_EP)
 
     # Send event info via an HTTP GET to API endpoint.
     try:
         requests.get(endpoint, params=ctx.content, timeout=2.0)
     except requests.exceptions.ConnectionError:
-        rt.log_api(_ERR_API_NOT_RUNNING, level=rt.LOG_LEVEL_WARNING)
+        rt.log_api_warning(_ERR_API_NOT_RUNNING)
