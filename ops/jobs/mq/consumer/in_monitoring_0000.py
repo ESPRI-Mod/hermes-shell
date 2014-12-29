@@ -39,6 +39,7 @@ def get_tasks():
         _parse_cv_terms,
         _persist_cv_terms,
         _persist_simulation,
+        _persist_simulation_configuration,
         _persist_simulation_state,
         _notify_api,
         _notify_operator
@@ -60,6 +61,7 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node = None
         self.compute_node_login = None
         self.compute_node_machine = None
+        self.configuration = None
         self.new_cv_terms = []
         self.execution_state = cv.constants.SIMULATION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
@@ -110,6 +112,7 @@ def _unpack_message_content(ctx):
     ctx.compute_node_login = ctx.content['login']
     ctx.compute_node_machine = \
         "{0}-{1}".format(ctx.compute_node, ctx.content['machine'])
+    ctx.configuration = ctx.content.get('configuration')
     ctx.execution_start_date = \
         utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.execution_state_timestamp = \
@@ -183,6 +186,19 @@ def _persist_simulation(ctx):
         ctx.output_end_date,
         ctx.simulation_space,
         ctx.uid
+        )
+
+
+def _persist_simulation_configuration(ctx):
+    """Persists simulation configuration to db.
+
+    """
+    if not ctx.configuration:
+        return
+
+    db.dao_monitoring.create_simulation_configuration(
+        ctx.uid,
+        ctx.configuration
         )
 
 

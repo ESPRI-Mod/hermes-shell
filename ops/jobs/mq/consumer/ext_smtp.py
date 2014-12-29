@@ -23,6 +23,11 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_EXT
 # MQ queue to bind to.
 MQ_QUEUE = mq.constants.QUEUE_EXT_SMTP
 
+# Map of message types to attachment fields.
+_ATTACHMENT_FIELD_MAP = {
+    '0000': u'configuration'
+}
+
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message.
@@ -33,6 +38,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
+        _process_attachment,
         _set_messages_ampq,
         _dispatch,
         _log_stats,
@@ -150,7 +156,8 @@ def _set_email(ctx):
 
     # Decode email.
     ctx.email = body.get_payload(decode=True)
-    ctx.email_attachment = attachment
+    if attachment:
+        ctx.email_attachment = attachment.get_payload(decode=True)
 
 
 def _set_messages_b64(ctx):
@@ -180,6 +187,31 @@ def _set_messages_dict(ctx):
             ctx.messages_dict_error.append(msg)
         else:
             ctx.messages_dict.append(msg)
+
+
+def _process_attachment(ctx):
+    """Processes an email attchment.
+
+    """
+    # Escape if there is no attachment to process.
+    if not ctx.email_attachment:
+        return
+
+    # Escape if the attachment is not associated with a single message.
+    if len(ctx.messages_dict) != 1:
+        return
+
+    # Escape if the message code is not mapped.
+    msg = ctx.messages_dict[0]
+    msg_type = msg['msgCode']
+    if msg_type not in _ATTACHMENT_FIELD_MAP:
+        return
+
+    # Set attachment message field.
+    msg_field = _ATTACHMENT_FIELD_MAP[msg_type]
+
+    # Set message attachment field.
+    msg[msg_field] = ctx.email_attachment
 
 
 def _set_messages_ampq(ctx):
