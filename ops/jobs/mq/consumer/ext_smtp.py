@@ -36,7 +36,7 @@ def get_tasks():
         _set_messages_ampq,
         _dispatch,
         _log_stats,
-        # _delete_email,
+        _move_email,
         _close_imap_proxy
         )
 
@@ -146,7 +146,7 @@ def _set_email(ctx):
     ctx.imap_proxy = mail.get_imap_proxy()
 
     # Pull email.
-    body, attachment = mail.get_email(ctx.email_uid, ctx.imap_proxy)
+    body, attachment = mail.get_email(ctx.email_uid, proxy=ctx.imap_proxy)
 
     # Decode email.
     ctx.email = body.get_payload(decode=True)
@@ -200,11 +200,11 @@ def _dispatch(ctx):
                connection_url=config.mq.connections.libigcm)
 
 
-def _delete_email(ctx):
-    """Deletes email as it has already been processed.
+def _move_email(ctx):
+    """Moves email after processing.
 
     """
-    ctx.imap_proxy.delete_messages(ctx.email_uid)
+    mail.move_email(ctx.email_uid, proxy=ctx.imap_proxy)
 
 
 def _close_imap_proxy(ctx):

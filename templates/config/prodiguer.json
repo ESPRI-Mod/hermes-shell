@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.1",
+    "configSchemaVersion": "1.0.2",
     "api": {
         "cookie_secret": "p2FAdrUN3tac",
         "host": "localhost",
@@ -24,7 +24,8 @@
     "mail": {
         "imap": {
             "host": "courriel3.ipsl.jussieu.fr",
-            "mailbox": "AMPQ",
+            "mailbox": "AMPQ-PROD",
+            "mailbox_processed": "AMPQ-PROD-PROCESSED",
             "password": "XXXXXXXXX",
             "port": 993,
             "username": "superviseur"
