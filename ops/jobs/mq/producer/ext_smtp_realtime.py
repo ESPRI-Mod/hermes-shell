@@ -13,7 +13,8 @@
 """
 import threading
 
-from prodiguer import config, mail, mq, rt
+from prodiguer import mail, rt
+import ext_smtp_utils as utils
 
 
 
@@ -22,164 +23,102 @@ class _State(object):
 
     """
     def __init__(self):
+        self.throttle = 0
+        self.emails = set([])
+
+
+# Module state bag.
+_STATE = _State()
+
+# Thread synchronization lock.
+_LOCK = threading.Lock()
+
+
+class Thread(threading.Thread):
+    """Wrapper around a runtime thread.
+
+    """
+    def __init__(self, t, *args):
         """Object constructor.
 
         """
-        # List of email uid's within AMPQ folder.
-        self.email_stack = []
-
-        # Message production throttling.
-        self.throttle = 0
-        self.produced = 0
-
-        # Thread synchronization lock.
-        self.lock = threading.Lock()
+        threading.Thread.__init__(self, target=t, args=args)
+        self.start()
 
 
-    def update_email_stack(self, new_stack):
-        """Thread safe update of email uid stack.
-
-        :param list new_stack: New stack of email uid's.
-
-        """
-        with self.lock:
-            self.email_stack = new_stack
-
-
-    def increment_produced(self):
-        """Increments number of messages produced.
-
-        """
-        with self.lock:
-            self.produced += 1
-
-
-# Module state bag instance.
-_STATE = _State()
-
-
-def _invoke_async(target, args):
-    """Helper function to invoke work upon a new thread.
-
-    """
-    thread = threading.Thread(target=target, args=args)
-    thread.start()
-
-
-def _get_message(uid):
-    """Returns a message for dispatch to MQ server.
-
-    """
-    def _get_props():
-        """Returns an AMPQ basic properties instance, i.e. message header."""
-        return mq.create_ampq_message_properties(
-            user_id = mq.constants.USER_IGCM,
-            producer_id = mq.constants.PRODUCER_IGCM,
-            app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_SMTP,
-            mode = mq.constants.MODE_TEST)
-
-    def _get_body(uid):
-        """Returns message body."""
-        return {u"email_uid": uid}
-
-    rt.log_mq("Dispatching email {0} to MQ server".format(uid))
-
-    return mq.Message(_get_props(),
-                      _get_body(uid),
-                      mq.constants.EXCHANGE_PRODIGUER_EXT)
-
-
-def _dispatch(uid_list):
-    """Dispatches messages to MQ server.
-
-    """
-    def _get_messsages():
-        """Dispatch message source."""
-        for uid in uid_list:
-            yield _get_message(uid)
-
-    rt.log_mq("{0} new messages for dispatch: {1}".format(len(uid_list), uid_list))
-    mq.produce(_get_messsages,
-               connection_url=config.mq.connections.libigcm)
-
-
-def _has_new_email_notification(idle_responses):
+def _has_new_email_notification(idle_event_data):
     """Returns flag indicating whether IMAP IDLE response contains new email notifications.
 
     """
-    for idle_response in idle_responses:
+    for idle_response in idle_event_data:
         if len(idle_response) == 2 and idle_response[1] == u'EXISTS':
             return True
+
     return False
 
 
-def _on_imap_idle_event(idle_responses):
+def _on_imap_idle_event(idle_event_data):
     """IMAP IDLE event handler.
 
     """
     # Escape if no need to process event.
-    if not _has_new_email_notification(idle_responses):
+    if not _has_new_email_notification(idle_event_data):
         return
 
-    # Get mailbox mail uid stack.
-    email_stack = mail.get_email_uid_list()
+    # Caclulate new emails.
+    emails = mail.get_email_uid_list()
+    new_emails = sorted(set(emails).difference(_STATE.emails))
 
-    # Caclulate mails requiring processing.
-    diff = sorted(set(email_stack).difference(_STATE.email_stack))
-
-    # Update stack.
-    _STATE.update_email_stack(email_stack)
-
-    # Dispatch mail uid's to MQ server for further processing.
-    _dispatch(diff)
+    # Dispatch new emails to MQ server.
+    if new_emails:
+        with _LOCK:
+            _STATE.emails.update(new_emails)
+        utils.dispatch(new_emails)
 
 
-def _init_proxy():
-    """IMAP server proxy initializer.
+def _init(throttle):
+    """Initializes module state.
 
     """
-    # Get imap server proxy.
-    proxy = mail.get_imap_proxy()
+    # Set throttle.
+    _State.throttle = throttle
+
+    # Get imap client.
+    imap_client = mail.connect()
 
     # Clear items marked for deletion.
-    proxy.expunge()
+    imap_client.expunge()
 
-    # Initialize email uid list.
-    _STATE.email_stack = mail.get_email_uid_list(proxy)
+    # Set initial email stack.
+    _STATE.emails.update(mail.get_email_uid_list(imap_client))
 
-    return proxy
+    # Dispatch initial email stack on new thread.
+    Thread(utils.dispatch, list(_STATE.emails))
+
+    return imap_client
 
 
 def execute(throttle=0):
     """Executes realtime SMTP sourced message production.
 
+    :param int throttle: Limit upon number of emails to process.
+
     """
-    proxy = None
-
     try:
-        # Initialize state.
-        _State.throttle = throttle
+        # Initialize.
+        imap_client = _init(throttle)
 
-        # Initialize IMAP server proxy.
-        proxy = _init_proxy()
-
-        # Dispatch mail stack.
-        _invoke_async(_dispatch, (_STATE.email_stack,))
-
-        # Process imap notifications on new threads.
-        # N.B. call to proxy.idle_check is blocking.
-        proxy.idle()
+        # Process IMAP idle events on new thread.
+        imap_client.idle()
         while True:
-            # _on_imap_idle_event(proxy.idle_check())
-            _invoke_async(_on_imap_idle_event, (proxy.idle_check(),))
+            Thread(_on_imap_idle_event, imap_client.idle_check())
 
-    # Simply log errors.
+    # Log errors.
     except Exception as err:
         rt.log_mq_error(err)
 
-    # Ensure imap proxy is closed.
+    # Close imap client.
     finally:
-        if proxy:
-            proxy.idle_done()
-            mail.close_imap_proxy(proxy)
+        rt.log_mq("Closing ext-smtp-realtime message producer")
+        if imap_client:
+            mail.disconnect(imap_client)

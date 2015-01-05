@@ -43,7 +43,7 @@ def get_tasks():
         _dispatch,
         _log_stats,
         _move_email,
-        _close_imap_proxy
+        _close_imap_client
         )
 
 
@@ -51,7 +51,7 @@ def get_error_tasks():
     """Returns set of tasks to be executed when a message processing error occurs.
 
     """
-    return _close_imap_proxy
+    return _close_imap_client
 
 
 class ProcessingContextInfo(mq.Message):
@@ -67,7 +67,7 @@ class ProcessingContextInfo(mq.Message):
         self.email = None
         self.email_attachment = None
         self.email_uid = self.content['email_uid']
-        self.imap_proxy = None
+        self.imap_client = None
         self.messages = []
         self.messages_b64 = []
         self.messages_json = []
@@ -149,10 +149,10 @@ def _set_email(ctx):
 
     """
     # Connect to imap server.
-    ctx.imap_proxy = mail.get_imap_proxy()
+    ctx.imap_client = mail.connect()
 
     # Pull email.
-    body, attachment = mail.get_email(ctx.email_uid, proxy=ctx.imap_proxy)
+    body, attachment = mail.get_email(ctx.email_uid, ctx.imap_client)
 
     # Decode email.
     ctx.email = body.get_payload(decode=True)
@@ -236,14 +236,14 @@ def _move_email(ctx):
     """Moves email after processing.
 
     """
-    mail.move_email(ctx.email_uid, proxy=ctx.imap_proxy)
+    mail.move_email(ctx.email_uid, client=ctx.imap_client)
 
 
-def _close_imap_proxy(ctx):
-    """Closes imap proxy after use.
+def _close_imap_client(ctx):
+    """Closes imap client after use.
 
     """
-    mail.close_imap_proxy(ctx.imap_proxy)
+    mail.disconnect(ctx.imap_client)
 
 
 def _log_stats(ctx):
