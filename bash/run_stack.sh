@@ -223,7 +223,7 @@ run_stack_update_repos()
 }
 
 # Updates configuration.
-_update_config()
+run_update_config()
 {
 	log "Updating configuration"
 
@@ -248,7 +248,7 @@ run_stack_update()
 	log "UPDATING STACK"
 
 	run_stack_update_shell
-	_update_config
+	run_update_config
 	run_stack_update_repos
 	run_stack_update_venvs
 
