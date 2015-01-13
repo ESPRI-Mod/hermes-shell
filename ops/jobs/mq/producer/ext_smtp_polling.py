@@ -44,6 +44,8 @@ def _init(ctx):
 
     """
     ctx.email_uid_list = mail.get_email_uid_list()
+    rt.log_mq("{0} Messages for dispatch: {1}".format(len(ctx.email_uid_list),
+                                                      ctx.email_uid_list))
 
 
 def _dispatch(ctx):
@@ -60,7 +62,5 @@ def _dispatch(ctx):
             if ctx.throttle and ctx.throttle == ctx.produced:
                 return
 
-    rt.log_mq("Messages for dispatch: {0}".format(ctx.email_uid_list))
     mq.produce(_get_messages,
                connection_url=config.mq.connections.libigcm)
-

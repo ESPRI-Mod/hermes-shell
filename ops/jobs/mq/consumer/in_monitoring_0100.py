@@ -36,16 +36,16 @@ def get_tasks():
     )
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper.
+class ProcessingContextInfo(mq.Message):
+    """Message processing context information.
 
     """
     def __init__(self, props, body, decode=True):
         """Object constructor.
 
         """
-        super(Message, self).__init__(props, body, decode=decode)
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
         self.simulation = None
         self.simulation_uid = None
@@ -65,10 +65,12 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    ctx.simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
-    ctx.simulation.execution_end_date = ctx.execution_end_date
-
-    db.session.update(ctx.simulation, False)
+    simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
+    if not simulation:
+        ctx.abort = True
+    else:
+        simulation.execution_end_date = ctx.execution_end_date
+        db.session.update(simulation, False)
 
 
 def _persist_simulation_state(ctx):

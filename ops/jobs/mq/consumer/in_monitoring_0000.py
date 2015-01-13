@@ -14,7 +14,8 @@
 import datetime
 
 import arrow
-import sqlalchemy
+from sqlalchemy.exc import IntegrityError
+
 from prodiguer import cv, db, mq, rt
 
 import in_monitoring_utils as utils
@@ -57,6 +58,7 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
+        self.abort = False
         self.activity = None
         self.compute_node = None
         self.compute_node_login = None
@@ -172,21 +174,25 @@ def _persist_simulation(ctx):
     """Persists simulation information to db.
 
     """
-    db.dao_monitoring.create_simulation(
-        ctx.activity,
-        ctx.compute_node,
-        ctx.compute_node_login,
-        ctx.compute_node_machine,
-        ctx.execution_start_date,
-        ctx.execution_state,
-        ctx.experiment,
-        ctx.model,
-        ctx.name,
-        ctx.output_start_date,
-        ctx.output_end_date,
-        ctx.simulation_space,
-        ctx.uid
-        )
+    try:
+        db.dao_monitoring.create_simulation(
+            ctx.activity,
+            ctx.compute_node,
+            ctx.compute_node_login,
+            ctx.compute_node_machine,
+            ctx.execution_start_date,
+            ctx.execution_state,
+            ctx.experiment,
+            ctx.model,
+            ctx.name,
+            ctx.output_start_date,
+            ctx.output_end_date,
+            ctx.simulation_space,
+            ctx.uid
+            )
+    except IntegrityError:
+        db.session.rollback()
+        ctx.abort = True
 
 
 def _persist_simulation_configuration(ctx):

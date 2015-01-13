@@ -147,12 +147,9 @@ class _ConsumerExecutionInfo(object):
 
         # Set processing context information type.
         try:
-            instance.context_type = instance.consumer.Message
+            instance.context_type = instance.consumer.ProcessingContextInfo
         except AttributeError:
-            try:
-                instance.context_type = instance.consumer.ProcessingContextInfo
-            except AttributeError:
-                pass
+            pass
 
         return instance
 

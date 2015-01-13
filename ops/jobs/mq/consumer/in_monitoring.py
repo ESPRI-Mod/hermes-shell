@@ -40,6 +40,16 @@ _SUB_CONSUMERS = {
     '9999': in_monitoring_9999,
 }
 
+# Set of auotmatically loggable consumers.
+_LOGGABLE_CONSUMERS = {
+    '0000',
+    '0100',
+    '1000',
+    '1100',
+    '9000',
+    '9999'
+    }
+
 
 # MQ exhange to bind to.
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
@@ -63,11 +73,16 @@ def _process(ctx):
     # Decode message content.
     ctx.decode()
 
+    # Log significant messages.
+    if ctx.props.type in _LOGGABLE_CONSUMERS:
+        msg = "Processing message of type {}".format(ctx.props.type)
+        rt.log_mq(msg)
+
     # Set sub-consumer.
     sub_consumer = _SUB_CONSUMERS[ctx.props.type]
 
     # Set sub-context.
-    sub_ctx = sub_consumer.Message(ctx.props, ctx.content, decode=False)
+    sub_ctx = sub_consumer.ProcessingContextInfo(ctx.props, ctx.content, decode=False)
     sub_ctx.msg = ctx.msg
 
     # Set tasks to be invoked.

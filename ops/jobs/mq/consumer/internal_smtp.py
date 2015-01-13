@@ -35,16 +35,16 @@ _TEMPLATES = {}
 _TEMPLATES = template.Loader(_TEMPLATES_DIRPATH)
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper.
+class ProcessingContextInfo(mq.Message):
+    """Message processing context information.
 
     """
-    def __init__(self, props, body):
+    def __init__(self, props, body, decode=True):
         """Object constructor.
 
         """
-        super(Message, self).__init__(props, body, decode=True)
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
         self.notification_type = None
 

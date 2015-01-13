@@ -38,7 +38,6 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-9000'
 	'in-monitoring-9999'
 	'internal-api'
-	'internal-api-copy'
 	'internal-sms'
 	'internal-smtp'
 )

@@ -23,14 +23,16 @@ MQ_QUEUE = mq.constants.QUEUE_INTERNAL_SMS
 
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper.
+class ProcessingContextInfo(mq.Message):
+    """Message processing context information.
 
     """
-    def __init__(self, props, body):
-        """Object constructor."""
-        super(Message, self).__init__(props, body, decode=True)
+    def __init__(self, props, body, decode=True):
+        """Object constructor.
+
+        """
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
         self.notification_type = None
 

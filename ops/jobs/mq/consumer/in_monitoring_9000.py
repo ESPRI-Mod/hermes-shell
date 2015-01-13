@@ -36,16 +36,16 @@ def get_tasks():
         )
 
 
-# Message information wrapper.
-class Message(mq.Message):
-    """Message information wrapper.
+class ProcessingContextInfo(mq.Message):
+    """Message processing context information.
 
     """
     def __init__(self, props, body, decode=True):
         """Object constructor.
 
         """
-        super(Message, self).__init__(props, body, decode=decode)
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
         self.simulation = None
         self.simulation_uid = None
