@@ -224,6 +224,10 @@ run_stack_help()
 	log "updates shell" 2
 	log
 
+	log "stack-update-source" 1
+	log "updates shell and git repos" 2
+	log
+
 	log "stack-update-repos" 1
 	log "updates git repos" 2
 	log

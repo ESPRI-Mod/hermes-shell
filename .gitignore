@@ -7,3 +7,5 @@ ops/tmp
 ops/venv
 repos
 tmp
+ops/config copy
+dev-web.tar.encrypted

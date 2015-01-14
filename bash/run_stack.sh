@@ -322,3 +322,64 @@ run_stack_uninstall()
 
 	log "UNINSTALLED STACK"
 }
+
+# ###############################################################
+# SECTION: CONFIGURATION
+# ###############################################################
+
+# Encrypts configuration files and saves them as template.
+run_stack_config_encrypt()
+{
+	log "ENCRYPTING CONFIG FILES"
+
+	# Initialise file paths.
+	declare COMPRESSED=$DIR_TEMPLATES/config/$1-$2.tar
+	declare ENCRYPTED=$COMPRESSED.encrypted
+
+	# Compress.
+	set_working_dir $DIR_CONFIG
+	tar cvf $COMPRESSED ./*
+
+	# Encrypt.
+	openssl aes-128-cbc -salt -in $COMPRESSED -out $ENCRYPTED
+
+	# Clean up.
+	rm $COMPRESSED
+	set_working_dir
+
+	log "ENCRYPTED CONFIG FILES"
+}
+
+# Decrypts configuration files and saves them as template.
+run_stack_config_decrypt()
+{
+	log "DECRYPTING CONFIG FILES"
+
+	# Set paths.
+	declare COMPRESSED=$DIR_TEMPLATES/config/$1-$2.tar
+	declare ENCRYPTED=$COMPRESSED.encrypted
+
+	# Decrypt files.
+	openssl aes-128-cbc -d -salt -in $ENCRYPTED -out $COMPRESSED
+
+	# Clear current configuration.
+	rm -rf $DIR_CONFIG/*.*
+
+	# Decompress files.
+	tar xpvf $COMPRESSED -C $DIR_CONFIG
+
+	# Clean up.
+	rm $COMPRESSED
+
+	log "DECRYPTED CONFIG FILES"
+}
+
+# Commits updates to configuration template files.
+run_stack_config_commit()
+{
+	log "COMMITTING CONFIG FILES"
+
+
+
+	log "COMMITTED CONFIG FILES"
+}

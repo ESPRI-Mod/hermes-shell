@@ -71,4 +71,6 @@ alias prodiguer-stack-update-repos='prodiguer stack-update-repos'
 alias prodiguer-stack-update-venvs='prodiguer stack-update-venvs'
 alias prodiguer-stack-update-source='prodiguer stack-update-shell && prodiguer stack-update-repos'
 alias prodiguer-stack-uninstall='prodiguer stack-uninstall'
-
+alias prodiguer-stack-config-commit='prodiguer stack-config-commit'
+alias prodiguer-stack-config-encrypt='prodiguer stack-config-encrypt'
+alias prodiguer-stack-config-decrypt='prodiguer stack-config-decrypt'
