@@ -212,12 +212,41 @@ run_stack_help()
 	log "prepares system for install " 2
 	log
 
+	log "stack-config-commit" 1
+	log "commits local changes to configuration templates" 2
+	log
+
+	log "stack-config-decrypt" 1
+	log "decrypts & extracts configuration files" 2
+	log "MODE = deployment mode [test | prod]" 2
+	log "SERVER-TYPE = type of server [web | mq | db]" 2
+	log
+
+	log "stack-config-encrypt" 1
+	log "compresses & encrypts configuration files" 2
+	log "MODE = deployment mode [test | prod]" 2
+	log "SERVER-TYPE = type of server [web | mq | db]" 2
+	log
+
 	log "stack-install" 1
-	log "installs stack & virtual environments" 2
+	log "installs complete stack" 2
+	log
+
+	log "stack-install-repo" 1
+	log "installs a prodiguer github repo" 2
+	log "NAME = name of repo to be installed" 2
+	log
+
+	log "stack-install-repos" 1
+	log "installs all prodiguer github repo" 2
 	log
 
 	log "stack-update" 1
-	log "updates full stack (i.e. repos, config and virtual environments)" 2
+	log "updates full stack (i.e. shell, repos, config and virtual environments)" 2
+	log
+
+	log "stack-update-config" 1
+	log "updates local configuration files" 2
 	log
 
 	log "stack-update-shell" 1
