@@ -21,7 +21,10 @@ define("input_format",
        help="Format of metrics input files (defaults to pcmdi).")
 define("input_dir",
        type=str,
-       help="Path to either a directory containing metrics files.")
+       help="Path to a directory containing unformatted metrics files.")
+define("output_dir",
+       type=str,
+       help="Path to which reformatted metrics files will be written.")
 
 
 def _main():
@@ -33,7 +36,8 @@ def _main():
 
     formatter.execute(options.group,
                       options.input_dir,
-                      options.input_format)
+                      options.input_format,
+                      options.output_dir)
 
 
 # Main entry point.
