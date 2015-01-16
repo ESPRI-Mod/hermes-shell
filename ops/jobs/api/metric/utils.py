@@ -112,7 +112,11 @@ def parse_boolean(val):
 
 
 def parse_filepath(filepath):
-    """Parses a filepath."""
+    """Parses a filepath.
+
+    :param str filepath: Path to a file to be processed.
+
+    """
     err = None
     if not os.path.exists(filepath):
         err = "Invalid file path."

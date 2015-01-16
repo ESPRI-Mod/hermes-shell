@@ -101,9 +101,14 @@ run_metric_help()
 	log "Metric web API commands :"
 	log
 
-	log "metric-add METRICS" 1
+	log "metric-add PATH" 1
 	log "adds a group of metrics from a json file" 2
-	log "METRICS: path to a metrics file" 2
+	log "PATH: path to a metrics file" 2
+	log
+
+	log "metric-add-batch PATH" 1
+	log "adds batches of metrics from json files" 2
+	log "PATH: path to a directory containing formatted metrics files" 2
 	log
 
 	log "metric-delete GROUP [FILTER]" 1
@@ -139,6 +144,13 @@ run_metric_help()
 	log "fetches a metric group's distinct column values" 2
 	log "GROUP: group identifier" 2
 	log "FILTER: path to a metrics query filter file" 2
+	log
+
+	log "metric-format GROUP FORMAT PATH" 1
+	log "formats metrics file(s) in readiness for upload" 2
+	log "GROUP: group identifier" 2
+	log "FORMAT: format of input files (pcmdi | ipsl-extended)" 2
+	log "PATH: path to a directory containing input files" 2
 	log
 }
 

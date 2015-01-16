@@ -54,9 +54,13 @@ _GROUP_FACTORIES = {
 
 
 def _main():
-    """Main entry point."""
+    """Main entry point.
+
+    """
     # Parse params.
     filepath = utils.parse_filepath(options.file)
+    filename = filepath.split("/")[-1]
+    utils.log("add", "uploading metrics file: {}".format(filename))
 
     # Set payload.
     encoding = utils.parse_encoding(os.path.splitext(filepath)[1][1:])
@@ -70,9 +74,7 @@ def _main():
     if 'error' in response:
         utils.log_error("add", response['error'])
     else:
-        utils.log("add", "{0} metrics group was sucessfully added".format(response['group']))
-
-
+        utils.log("add", "metrics uploaded (file={0} , group={1})".format(filepath.split("/")[-1], response['group']))
 
 
 # Main entry point.

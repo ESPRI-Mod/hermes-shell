@@ -23,10 +23,10 @@ def main():
 
 	print cv.cache.get_term_count()
 
-	print cv.parser.parse_term_name(term_type, "ipsl-cm5a-lr")
-	print cv.parser.parse_term_name(term_type, "IPSL-cm5a-lr")
-	print cv.parser.parse_term_name(term_type, "IPSLCM5A")
-	print cv.parser.parse_term_name(term_type, "ipslcm5A")
+	print cv.parser.get_term_name(term_type, "ipsl-cm5a-lr")
+	print cv.parser.get_term_name(term_type, "IPSL-cm5a-lr")
+	print cv.parser.get_term_name(term_type, "IPSLCM5A")
+	print cv.parser.get_term_name(term_type, "ipslcm5A")
 
 	cv.cache.reload()
 

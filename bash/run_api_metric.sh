@@ -9,6 +9,15 @@ run_metric_add()
 	python $DIR_JOBS/api/metric/run_add.py --file=$1
 }
 
+# Adds a batch of metrics.
+run_metric_add_batch()
+{
+	for file in $1/metrics*.json
+	do
+		run_metric_add $file
+	done
+}
+
 # Delete metric.
 run_metric_delete()
 {
@@ -42,6 +51,13 @@ run_metric_fetch_list()
 {
 	activate_venv server
 	python $DIR_JOBS/api/metric/run_fetch_list.py
+}
+
+# Format a set of metrics files.
+run_metric_format()
+{
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_format.py --group=$1 --input_format=$2 --input_dir=$3
 }
 
 # Fetch metric group line count.

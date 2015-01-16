@@ -23,7 +23,9 @@ _EP = r"/api/1/metric/delete?group={0}"
 
 
 def _main():
-    """Main entry point."""
+    """Main entry point.
+
+    """
     # Parse params.
     group_id = utils.parse_group_id(options.group)
     filepath = utils.parse_filepath(options.filter) if options.filter else None

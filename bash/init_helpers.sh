@@ -42,7 +42,10 @@ set_working_dir()
 # Activates a virtual environment.
 activate_venv()
 {
-	export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-$1/src
+	if [ $1 = "server" ]; then
+		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-server/src
+		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-metrics-formatter
+	fi
 	source $DIR_VENV/$1/bin/activate
 }
 
