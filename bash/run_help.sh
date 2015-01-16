@@ -146,11 +146,12 @@ run_metric_help()
 	log "FILTER: path to a metrics query filter file" 2
 	log
 
-	log "metric-format GROUP FORMAT PATH" 1
+	log "metric-format GROUP FORMAT INPUT-DIR OUTPUT-DIR" 1
 	log "formats metrics file(s) in readiness for upload" 2
 	log "GROUP: group identifier" 2
 	log "FORMAT: format of input files (pcmdi | ipsl-extended)" 2
-	log "PATH: path to a directory containing input files" 2
+	log "INPUT-DIR: path to a directory containing unformatted metrics files" 2
+	log "OUTPUT-DIR: path to a directory to which formatted files will be written" 2
 	log
 }
 
