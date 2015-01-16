@@ -143,6 +143,7 @@ run_install_repos()
 	run_install_repo prodiguer-cv
 	run_install_repo prodiguer-docs
 	run_install_repo prodiguer-fe
+	run_install_repo prodiguer-metrics-formatter
 	run_install_repo prodiguer-server
 }
 
@@ -219,6 +220,7 @@ run_stack_update_repos()
 	_update_repo prodiguer-cv
 	_update_repo prodiguer-docs
 	_update_repo prodiguer-fe
+	_update_repo prodiguer-metrics-formatter
 	_update_repo prodiguer-server
 }
 
@@ -283,6 +285,7 @@ _uninstall_repos()
 	_uninstall_repo prodiguer-cv
 	_uninstall_repo prodiguer-docs
 	_uninstall_repo prodiguer-fe
+	_uninstall_repo prodiguer-metrics-formatter
 	_uninstall_repo prodiguer-server
 }
 

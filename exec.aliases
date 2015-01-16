@@ -16,6 +16,7 @@ alias prodiguer-db-uninstall='prodiguer db-uninstall'
 
 # Metric API invocation.
 alias prodiguer-metric-add='prodiguer metric-add'
+alias prodiguer-metric-add-batch='prodiguer metric-add-batch'
 alias prodiguer-metric-delete='prodiguer metric-delete'
 alias prodiguer-metric-delete-line='prodiguer metric-delete-line'
 alias prodiguer-metric-fetch='prodiguer metric-fetch'
