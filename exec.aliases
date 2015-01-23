@@ -26,6 +26,7 @@ alias prodiguer-metric-fetch-filtered='prodiguer metric-fetch-filtered'
 alias prodiguer-metric-fetch-setup='prodiguer metric-fetch-setup'
 alias prodiguer-metric-fetch-list='prodiguer metric-fetch-list'
 alias prodiguer-metric-format='prodiguer metric-format'
+alias prodiguer-metric-rename='prodiguer metric-rename'
 
 # Help.
 alias prodiguer-help='prodiguer help'

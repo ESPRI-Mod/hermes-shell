@@ -66,3 +66,10 @@ run_metric_fetch_setup()
 	activate_venv server
 	python $DIR_JOBS/api/metric/run_fetch_setup.py --group=$1 --filter=$2
 }
+
+# Format a set of metrics files.
+run_metric_rename()
+{
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_rename.py --group=$1 --new_name=$2
+}
