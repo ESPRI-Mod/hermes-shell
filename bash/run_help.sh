@@ -153,6 +153,12 @@ run_metric_help()
 	log "INPUT-DIR: path to a directory containing unformatted metrics files" 2
 	log "OUTPUT-DIR: path to a directory to which formatted files will be written" 2
 	log
+
+	log "metric-rename GROUP NEW_NAME" 1
+	log "renames a metric group" 2
+	log "GROUP: group identifier" 2
+	log "NEW_NAME: new group identifier" 2
+	log
 }
 
 run_help_metric()
