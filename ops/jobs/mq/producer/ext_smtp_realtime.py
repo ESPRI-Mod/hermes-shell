@@ -53,13 +53,8 @@ def _on_imap_idle_event(idle_event_data):
     """IMAP IDLE event handler.
 
     """
-    _log("_on_imap_idle_event :: {}".format(idle_event_data))
-
-    # Escape if no need to process event.
-    if not _has_new_email_notification(idle_event_data):
-        return
-
-    # Dispatch new emails to MQ server.
+    _log("_on_imap_idle_event data: {}".format(idle_event_data))
+    # Dispatch emails to MQ server.
     emails = sorted(set(mail.get_email_uid_list()))
     if emails:
         _log("_on_imap_idle_event new emails: {}".format(emails))
@@ -93,8 +88,9 @@ def execute(throttle=0):
         imap_client = _init(throttle)
         imap_client.idle()
         while True:
-            _log("invoking imap_client.idle_check")
-            Thread(_on_imap_idle_event, imap_client.idle_check())
+            idle_event_data = imap_client.idle_check()
+            if _has_new_email_notification(idle_event_data):
+                Thread(_on_imap_idle_event, idle_event_data)
 
     # Log errors.
     except Exception as err:
