@@ -212,7 +212,8 @@ def _set_messages_ampq(ctx):
     """Set AMPQ messages to be dispatched.
 
     """
-    for msg in ctx.messages_dict:
+    for msg in [m for m in ctx.messages_dict if m['msgCode'] not in ['2000', '3000', '7000']]:
+    # for msg in ctx.messages_dict:
         ctx.messages.append(mq.Message(_get_msg_basic_props(msg),
                                        _get_msg_payload(msg),
                                        mq.constants.EXCHANGE_PRODIGUER_IN))

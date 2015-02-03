@@ -11,7 +11,7 @@
 
 
 """
-import requests
+import requests, json
 
 from prodiguer import api, mq, rt
 
@@ -28,6 +28,9 @@ _API_EP = '/monitoring/event'
 
 # API not running error message.
 _ERR_API_NOT_RUNNING = "API service needs to be started."
+
+# HTTP header inidcating that content type is json.
+_JSON_HTTP_HEADER = {'content-type': 'application/json'}
 
 
 def get_tasks():
@@ -46,8 +49,11 @@ def _invoke_endpoint(ctx):
     # Set API endpoint.
     endpoint = api.utils.handler.get_endpoint(_API_EP)
 
-    # Send event info via an HTTP GET to API endpoint.
+    # Send event info via an HTTP POST to API endpoint.
     try:
-        requests.get(endpoint, params=ctx.content, timeout=2.0)
+        requests.post(endpoint,
+                      data=json.dumps(ctx.content),
+                      headers=_JSON_HTTP_HEADER,
+                      timeout=2.0)
     except requests.exceptions.ConnectionError:
         rt.log_api_warning(_ERR_API_NOT_RUNNING)

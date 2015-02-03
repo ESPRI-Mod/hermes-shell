@@ -38,7 +38,8 @@ def get_tasks():
         _unpack_message_content,
         _reformat_message_content,
         _parse_cv_terms,
-        _persist_cv_terms,
+        _persist_cv_terms_to_fs,
+        _persist_cv_terms_to_db,
         _persist_simulation,
         _persist_simulation_configuration,
         _persist_simulation_state,
@@ -73,6 +74,7 @@ class ProcessingContextInfo(mq.Message):
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
+        self.persisted_cv_terms = []
         self.uid = None
 
 
@@ -90,6 +92,17 @@ class ProcessingContextInfo(mq.Message):
             'model',
             'simulation_space'
         ]
+
+
+    @property
+    def cv_term_fields_mixed_case(self):
+        """Gets set of mixed case cv term related fields.
+
+        """
+        return [
+            'experiment'
+        ]
+
 
     @property
     def lower_case_fields(self):
@@ -143,31 +156,60 @@ def _parse_cv_terms(ctx):
     for term_type in ctx.cv_term_fields:
         term_name = getattr(ctx, term_type)
         try:
-            term_name_parsed = cv.parser.parse_term_name(term_type, term_name)
-        except ValueError:
-            ctx.new_cv_terms.append((term_type, term_name))
+            cv.validation.validate_term_name(term_type, term_name)
+
+        # New terms.
+        except cv.TermNameError:
+            ctx.new_cv_terms.append(cv.create(term_type, term_name))
+
+        # Valid term substitution.
         else:
-            if term_name != term_name_parsed:
-                setattr(ctx, term_type, term_name_parsed)
+            parsed_term_name = cv.parser.parse_term_name(term_type, term_name)
+            if term_name != parsed_term_name:
+                setattr(ctx, term_type, parsed_term_name)
                 msg = "CV term subsitution: {0}.{1} --> {0}.{2}"
-                msg = msg.format(term_type, term_name, term_name_parsed)
+                msg = msg.format(term_type, term_name, parsed_term_name)
                 rt.log_mq(msg)
 
 
-def _persist_cv_terms(ctx):
-    """Persists cv terms to db.
+def _persist_cv_terms_to_fs(ctx):
+    """Persists cv terms to file system.
 
     """
+    # Escape if no new terms to persist.
     if not ctx.new_cv_terms:
         return
 
-    # Insert new CV terms.
-    for term_type, term_name in ctx.new_cv_terms:
-        cv.session.insert(term_type, term_name)
+    # Commit cv session.
+    cv.session.insert(ctx.new_cv_terms)
     cv.session.commit()
 
     # Reparse.
     _parse_cv_terms(ctx)
+
+
+def _persist_cv_terms_to_db(ctx):
+    """Persists cv terms to database.
+
+    """
+    def _persist(term):
+        """Persists a term to db.
+
+        """
+        try:
+            return db.dao_cv.create_term(
+                term['meta']['type'],
+                term['meta']['name'],
+                term['meta']['display_name']
+                )
+        except IntegrityError:
+            db.session.rollback()
+            return db.dao_cv.retrieve_term(
+                term['meta']['type'],
+                term['meta']['name']
+                )
+
+    ctx.persisted_cv_terms = [_persist(t) for t in ctx.new_cv_terms]
 
 
 def _persist_simulation(ctx):
@@ -190,6 +232,7 @@ def _persist_simulation(ctx):
             ctx.simulation_space,
             ctx.uid
             )
+    # Duplicates ... rollback & abort further processing.
     except IntegrityError:
         db.session.rollback()
         ctx.abort = True
@@ -226,7 +269,8 @@ def _notify_api(ctx):
     """
     data = {
         "event_type": "new_simulation",
-        "uid": unicode(ctx.uid)
+        "uid": unicode(ctx.uid),
+        "cv_terms": db.utils.get_collection(ctx.persisted_cv_terms)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)

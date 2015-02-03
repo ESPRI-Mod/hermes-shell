@@ -72,7 +72,6 @@ def _on_imap_idle_event(idle_event_data):
     if not _has_new_email_notification(idle_event_data):
         return
 
-
     # Caclulate new emails.
     emails = mail.get_email_uid_list()
     new_emails = sorted(set(emails).difference(_STATE.emails))
