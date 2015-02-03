@@ -43,7 +43,7 @@ def _init(ctx):
     """Initialization routine.
 
     """
-    ctx.email_uid_list = mail.get_email_uid_list()
+    ctx.email_uid_list = utils.get_emails_for_dispatch()
     rt.log_mq("{0} Messages for dispatch: {1}".format(len(ctx.email_uid_list),
                                                       ctx.email_uid_list))
 

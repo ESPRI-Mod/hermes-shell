@@ -49,7 +49,7 @@ def get_message(uid):
                       mq.constants.EXCHANGE_PRODIGUER_EXT)
 
 
-def _get_emails_for_dispatch():
+def get_emails_for_dispatch():
     """Returns set of emails to be dispatched to MQ server.
 
     """
@@ -71,7 +71,7 @@ def dispatch():
 
     """
     # Escape if there are no emails to be dispatched.
-    uid_list = _get_emails_for_dispatch()
+    uid_list = get_emails_for_dispatch()
     if not uid_list:
         return
 
