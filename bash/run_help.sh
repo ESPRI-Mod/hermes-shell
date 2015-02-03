@@ -193,6 +193,8 @@ run_mq_help()
 
 	log "mq-daemons-init" 1
 	log "initializes Prodiguer daemon process controller" 2
+	log "mq-daemons-kill" 1
+	log "stops Prodiguer MQ daemons & kills Prodiguer daemon process controller" 2
 	log "mq-daemons-refresh" 1
 	log "refreshes Prodiguer MQ daemons - i.e. reloads mq-supervisor.conf & restarts" 2
 	log "mq-daemons-restart" 1

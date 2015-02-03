@@ -143,6 +143,15 @@ run_mq_daemons_init()
     supervisord -c $DIR_CONFIG/mq-supervisord.conf
 }
 
+# Kills MQ daemon process.
+run_mq_daemons_kill()
+{
+    activate_venv server
+
+ 	 supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
+     supervisorctl -c $DIR_CONFIG/mq-supervisord.conf shutdown
+}
+
 # Restarts MQ daemons.
 run_mq_daemons_refresh()
 {

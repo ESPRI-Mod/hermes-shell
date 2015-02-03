@@ -42,6 +42,7 @@ alias prodiguer-monitor-simulation='prodiguer monitor-simulation'
 # MQ admin.
 alias prodiguer-mq-configure='prodiguer mq-configure'
 alias prodiguer-mq-daemons-init='prodiguer mq-daemons-init'
+alias prodiguer-mq-daemons-kill='prodiguer mq-daemons-kill'
 alias prodiguer-mq-daemons-refresh='prodiguer mq-daemons-refresh'
 alias prodiguer-mq-daemons-restart='prodiguer mq-daemons-restart'
 alias prodiguer-mq-daemons-start='prodiguer mq-daemons-start'
