@@ -30,13 +30,6 @@ class DispatchEmails(threading.Thread):
         self.start()
 
 
-def _log(msg):
-    """Helper function: writes to MQ log.
-
-    """
-    rt.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
-
-
 def _requires_dispatch(idle_event_data):
     """Returns flag indicating whether IMAP IDLE response contains new email notifications.
 
@@ -46,36 +39,6 @@ def _requires_dispatch(idle_event_data):
             return True
 
     return False
-
-
-def _on_imap_idle_event(idle_event_data):
-    """IMAP IDLE event handler.
-
-    """
-    # Escape if nothing to process.
-    if not _requires_dispatch(idle_event_data):
-        return
-
-    # Dispatch emails to MQ server.
-    _log("_on_imap_idle_event:: dispatching emails")
-    DispatchEmails()
-
-
-def _init(throttle):
-    """Initializes module state.
-
-    """
-    # Get imap client.
-    imap_client = mail.connect()
-
-    # Clear items marked for deletion.
-    imap_client.expunge()
-
-    # Dispatch initial email stack on new thread.
-    _log("_init:: dispatching emails")
-    DispatchEmails()
-
-    return imap_client
 
 
 def execute(throttle=0):
@@ -98,7 +61,6 @@ def execute(throttle=0):
         imap_client.idle()
         while True:
             if _requires_dispatch(imap_client.idle_check()):
-                _log("imap_client.idle event:: dispatching emails")
                 DispatchEmails()
 
     # Log errors.
@@ -107,6 +69,5 @@ def execute(throttle=0):
 
     # Close IMAP client.
     finally:
-        _log("closing message producer")
         if imap_client:
             mail.disconnect(imap_client)
