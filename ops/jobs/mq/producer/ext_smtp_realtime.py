@@ -46,6 +46,13 @@ class Thread(threading.Thread):
         self.start()
 
 
+def _log(msg):
+    """Helper function: writes to MQ log.
+
+    """
+    rt.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
+
+
 def _has_new_email_notification(idle_event_data):
     """Returns flag indicating whether IMAP IDLE response contains new email notifications.
 
@@ -65,12 +72,14 @@ def _on_imap_idle_event(idle_event_data):
     if not _has_new_email_notification(idle_event_data):
         return
 
+
     # Caclulate new emails.
     emails = mail.get_email_uid_list()
     new_emails = sorted(set(emails).difference(_STATE.emails))
 
     # Dispatch new emails to MQ server.
     if new_emails:
+        _log("imap_client.idle_check returned new emails {}".format(new_emails))
         with _LOCK:
             _STATE.emails.update(new_emails)
         utils.dispatch(new_emails)
@@ -111,6 +120,7 @@ def execute(throttle=0):
         # Process IMAP idle events on new thread.
         imap_client.idle()
         while True:
+            _log("invoking imap_client.idle_check")
             Thread(_on_imap_idle_event, imap_client.idle_check())
 
     # Log errors.
