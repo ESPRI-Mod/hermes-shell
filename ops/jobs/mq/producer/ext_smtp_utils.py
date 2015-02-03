@@ -77,5 +77,5 @@ def dispatch():
 
     # Dispatch emails to MQ server for further processing.
     rt.log_mq("{0} new messages for dispatch: {1}".format(len(uid_list), uid_list))
-    mq.produce((get_message(uid) for uid in _get_emails_for_dispatch()),
+    mq.produce((get_message(uid) for uid in uid_list),
                connection_url=config.mq.connections.libigcm)
