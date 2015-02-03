@@ -15,7 +15,7 @@ import logging
 
 from tornado.options import define, options
 
-from prodiguer import rt
+from prodiguer import config, db, rt
 
 import ext_smtp_from_file
 import ext_smtp_polling
@@ -105,12 +105,19 @@ def _execute():
     # Log.
     rt.log_mq("Message producer launched: {0}".format(options.agent_type))
 
-    # Execute producer.
-    if producer in _NON_STANDARD:
-        _execute_non_standard(producer)
-    else:
-        _execute_standard(producer)
+    # Start db session.
+    db.session.start(config.db.pgres.main)
 
+    # Execute producer.
+    try:
+        if producer in _NON_STANDARD:
+            _execute_non_standard(producer)
+        else:
+            _execute_standard(producer)
+
+    # Close db session.
+    finally:
+        db.session.close()
 
 
 # Main entry point.
