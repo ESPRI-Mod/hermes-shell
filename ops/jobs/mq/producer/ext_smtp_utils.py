@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import config, mq, rt
+from prodiguer import config, mail, mq, rt
 
 
 
@@ -47,12 +47,14 @@ def get_message(uid):
                       mq.constants.EXCHANGE_PRODIGUER_EXT)
 
 
-def dispatch(uid_list):
+def dispatch():
     """Dispatches messages to MQ server.
 
-    :param list uid_list: List of email unique identifiers for dispatch to email server.
-
     """
-    rt.log_mq("{0} new messages for dispatch: {1}".format(len(uid_list), uid_list))
-    mq.produce((get_message(uid) for uid in uid_list),
-               connection_url=config.mq.connections.libigcm)
+    uid_list = mail.get_email_uid_list()
+    for uid in uid_list:
+        rt.log_mq("TODO : verify if email is processed {0}".format(uid))
+
+    # rt.log_mq("{0} new messages for dispatch: {1}".format(len(uid_list), uid_list))
+    # mq.produce((get_message(uid) for uid in uid_list),
+    #            connection_url=config.mq.connections.libigcm)

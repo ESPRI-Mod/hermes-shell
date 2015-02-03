@@ -14,20 +14,19 @@
 import threading
 
 from prodiguer import mail, rt
-import ext_smtp_utils as utils
+from ext_smtp_utils import dispatch
 
 
 
-
-class Thread(threading.Thread):
-    """Wrapper around a runtime thread.
+class DispatchEmails(threading.Thread):
+    """Dispatches emails upon a new runtime thread.
 
     """
-    def __init__(self, t, *args):
+    def __init__(self):
         """Object constructor.
 
         """
-        threading.Thread.__init__(self, target=t, args=args)
+        threading.Thread.__init__(self, target=dispatch)
         self.start()
 
 
@@ -38,7 +37,7 @@ def _log(msg):
     rt.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
 
 
-def _has_new_email_notification(idle_event_data):
+def _requires_dispatch(idle_event_data):
     """Returns flag indicating whether IMAP IDLE response contains new email notifications.
 
     """
@@ -53,12 +52,13 @@ def _on_imap_idle_event(idle_event_data):
     """IMAP IDLE event handler.
 
     """
-    _log("_on_imap_idle_event data: {}".format(idle_event_data))
+    # Escape if nothing to process.
+    if not _requires_dispatch(idle_event_data):
+        return
+
     # Dispatch emails to MQ server.
-    emails = sorted(set(mail.get_email_uid_list()))
-    if emails:
-        _log("_on_imap_idle_event new emails: {}".format(emails))
-        utils.dispatch(emails)
+    _log("_on_imap_idle_event:: dispatching emails")
+    DispatchEmails()
 
 
 def _init(throttle):
@@ -72,7 +72,8 @@ def _init(throttle):
     imap_client.expunge()
 
     # Dispatch initial email stack on new thread.
-    Thread(utils.dispatch, mail.get_email_uid_list(imap_client))
+    _log("_init:: dispatching emails")
+    DispatchEmails()
 
     return imap_client
 
@@ -83,20 +84,28 @@ def execute(throttle=0):
     :param int throttle: Limit upon number of emails to process.
 
     """
-    # Process IMAP idle events.
     try:
-        imap_client = _init(throttle)
+        # Get imap client.
+        imap_client = mail.connect()
+
+        # Clear items marked for deletion.
+        imap_client.expunge()
+
+        # Dispatch initial email stack.
+        DispatchEmails()
+
+        # Process IMAP idle events.
         imap_client.idle()
         while True:
-            idle_event_data = imap_client.idle_check()
-            if _has_new_email_notification(idle_event_data):
-                Thread(_on_imap_idle_event, idle_event_data)
+            if _requires_dispatch(imap_client.idle_check()):
+                _log("imap_client.idle event:: dispatching emails")
+                DispatchEmails()
 
     # Log errors.
     except Exception as err:
         rt.log_mq_error(err)
 
-    # Close imap client.
+    # Close IMAP client.
     finally:
         _log("closing message producer")
         if imap_client:
