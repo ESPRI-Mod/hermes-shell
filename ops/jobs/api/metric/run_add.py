@@ -42,7 +42,9 @@ def _get_group_from_csv_file(filepath):
 
 
 def _get_group_from_json_file(filepath):
-    """Returns a metric group from a local json file."""
+    """Returns a metric group from a local json file.
+
+    """
     return convert.json_file_to_dict(filepath)
 
 
@@ -73,8 +75,6 @@ def _main():
     # Log to stdout.
     if 'error' in response:
         utils.log_error("add", response['error'])
-    else:
-        utils.log("add", "metrics uploaded (file={0} , group={1})".format(filepath.split("/")[-1], response['group']))
 
 
 # Main entry point.

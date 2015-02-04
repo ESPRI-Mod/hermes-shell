@@ -48,16 +48,11 @@ def execute(throttle=0):
 
     """
     try:
-        # Get imap client.
-        imap_client = mail.connect()
-
-        # Clear items marked for deletion.
-        imap_client.expunge()
-
         # Dispatch initial email stack.
         DispatchEmails()
 
         # Process IMAP idle events.
+        imap_client = mail.connect()
         imap_client.idle()
         while True:
             if _requires_dispatch(imap_client.idle_check()):
