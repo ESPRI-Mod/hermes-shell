@@ -53,17 +53,28 @@ def get_emails_for_dispatch():
     """Returns set of emails to be dispatched to MQ server.
 
     """
-    # Build list of emails requiring processing.
-    uid_list = []
-    for uid in mail.get_email_uid_list():
-        try:
-            db.dao_mq.create_message_email(uid)
-        except IntegrityError:
-            db.session.rollback()
-        else:
-            uid_list.append(uid)
+    # Get emails tht may requiring processing.
+    targets = mail.get_email_uid_list()
+    if not targets:
+        return
 
-    return uid_list
+    # As this executes upon a new theread we need to start a db session.
+    db.session.start(config.db.pgres.main)
+
+    # Filter out those that have already been processed.
+    try:
+        result = []
+        for uid in targets:
+            try:
+                db.dao_mq.create_message_email(uid)
+            except IntegrityError:
+                db.session.rollback()
+            else:
+                result.append(uid)
+    finally:
+        db.session.end()
+
+    return result
 
 
 def dispatch():
@@ -75,7 +86,11 @@ def dispatch():
     if not uid_list:
         return
 
+    # Log.
+    msg = "{0} new messages for dispatch: {1}"
+    msg = msg.format(len(uid_list), uid_list)
+    rt.log_mq(msg)
+
     # Dispatch emails to MQ server for further processing.
-    rt.log_mq("{0} new messages for dispatch: {1}".format(len(uid_list), uid_list))
     mq.produce((get_message(uid) for uid in uid_list),
                connection_url=config.mq.connections.libigcm)
