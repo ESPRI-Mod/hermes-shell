@@ -25,7 +25,7 @@ def main():
 
     """
     # Start session.
-    db.session.start(config.db.pgres.main)
+    db.session.start()
 
     print db.dao.get_simulation_state(_UID)
 

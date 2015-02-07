@@ -39,6 +39,6 @@ _DATA = {
 _DATA = {'eventType': u'newSimulation', 'eventTimestamp': u'2014-12-19 13:06:59.150173', 'simulation': {'execution_end_date': None, 'compute_node_login': u'p86ipsl', 'compute_node_machine': u'tgcc-curie', 'name': u'EXP00C - a06456a0-e109-4500-b51d-f176a6daae5e', 'compute_node': u'tgcc', 'space': u'test', 'output_start_date': datetime.datetime(2000, 1, 1, 1, 0), 'output_end_date': datetime.datetime(2000, 2, 28, 1, 0), 'experiment': u'ipslcm5a', 'row_update_date': None, 'parent_simulation_branch_date': None, 'execution_start_date': datetime.datetime(2014, 11, 3, 21, 36, 39, 18983), 'activity': u'ipsl', 'ensemble_member': None, 'model': u'ipsl-cm5a-lr', 'execution_state': u'queued', 'row_create_date': datetime.datetime(2014, 12, 19, 13, 6, 54, 347719), 'id': 50, 'parent_simulation_name': None, 'uid': u'088b42c2-f7d1-4cbc-bd60-a90df8acb7a2'}}
 
 
-db.session.start(config.db.pgres.main)
+db.session.start()
 s =  db.dao_monitoring.retrieve_simulation("6473b806-61ab-43a4-b7ff-2f4be1927dc6")
 print jsonify(s)

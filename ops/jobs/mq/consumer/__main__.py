@@ -89,7 +89,7 @@ def _initialize_consumer(consumer):
         task()
 
 
-def _process_message(msg, consumer):
+def _process(consumer, ctx):
     """Processes a message being consumed from a queue.
 
     """
@@ -103,7 +103,7 @@ def _process_message(msg, consumer):
         error_tasks = None
 
     # Execute.
-    rt.invoke1(tasks, error_tasks=error_tasks, ctx=msg, module="MQ")
+    rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx, module="MQ")
 
 
 class _ConsumerExecutionInfo(object):
@@ -165,7 +165,7 @@ def _execute():
     exec_info = _ConsumerExecutionInfo.create(options.agent_type)
 
     # Start db session.
-    db.session.start(config.db.pgres.main)
+    db.session.start()
 
     # Initialise cv session.
     cv.session.init()
@@ -179,7 +179,7 @@ def _execute():
     try:
         mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,
                          "q-{0}".format(options.agent_type),
-                         lambda ctx: _process_message(ctx, exec_info.consumer),
+                         lambda ctx: _process(exec_info.consumer, ctx),
                          auto_persist=exec_info.auto_persist,
                          consume_limit=options.agent_limit,
                          context_type=exec_info.context_type,

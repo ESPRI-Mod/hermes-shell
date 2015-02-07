@@ -15,7 +15,7 @@ import logging
 
 from tornado.options import define, options
 
-from prodiguer import config, db, rt
+from prodiguer import rt
 
 import ext_smtp_from_file
 import ext_smtp_polling
@@ -38,6 +38,7 @@ define("agent_arg",
        default=None,
        help="Miscellaneous argument to be passed to producer")
 
+
 # Map of producer types to producers.
 _PRODUCERS = {
     'ext-smtp-from-file': ext_smtp_from_file,
@@ -49,6 +50,7 @@ _PRODUCERS = {
 _WITH_ARG = {
     ext_smtp_from_file: "Must supply email file path."
     }
+
 
 # Collection of non-standard producers.
 _NON_STANDARD = [ext_smtp_realtime]
@@ -105,19 +107,11 @@ def _execute():
     # Log.
     rt.log_mq("Message producer launched: {0}".format(options.agent_type))
 
-    # Start db session.
-    db.session.start(config.db.pgres.main)
-
     # Execute producer.
-    try:
-        if producer in _NON_STANDARD:
-            _execute_non_standard(producer)
-        else:
-            _execute_standard(producer)
-
-    # Close db session.
-    finally:
-        db.session.close()
+    if producer in _NON_STANDARD:
+        _execute_non_standard(producer)
+    else:
+        _execute_standard(producer)
 
 
 # Main entry point.

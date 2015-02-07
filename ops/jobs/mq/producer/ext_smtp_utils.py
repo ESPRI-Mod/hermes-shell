@@ -49,20 +49,18 @@ def get_message(uid):
                       mq.constants.EXCHANGE_PRODIGUER_EXT)
 
 
-def get_emails_for_dispatch():
+def get_emails_for_dispatch(imap_client=None):
     """Returns set of emails to be dispatched to MQ server.
 
     """
-    # Get emails tht may requiring processing.
-    targets = mail.get_email_uid_list()
+    # Get target emails.
+    targets = mail.get_email_uid_list(imap_client)
     if not targets:
         return
 
-    # As this executes upon a new theread we need to start a db session.
-    db.session.start(config.db.pgres.main)
-
-    # Filter out those that have already been processed.
+    # Exclude those that have already been processed.
     try:
+        db.session.start()
         result = []
         for uid in targets:
             try:
@@ -77,12 +75,14 @@ def get_emails_for_dispatch():
     return result
 
 
-def dispatch():
+def dispatch(imap_client=None):
     """Dispatches messages to MQ server.
+
+    :param imapclient.IMAPClient client: An imap server client.
 
     """
     # Escape if there are no emails to be dispatched.
-    uid_list = get_emails_for_dispatch()
+    uid_list = get_emails_for_dispatch(imap_client)
     if not uid_list:
         return
 

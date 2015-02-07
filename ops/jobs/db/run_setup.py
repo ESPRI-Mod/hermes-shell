@@ -27,8 +27,13 @@ _DB_USER_ADMIN = "prodiguer_db_admin"
 
 
 def main():
-    """Main entry point."""
+    """Main entry point.
+
+    """
     def setup(connection):
+        """Sets up the database.
+
+        """
         rt.log_db("Seeding begins : db = {0}".format(connection))
 
         # Start session.
@@ -44,15 +49,13 @@ def main():
         rt.log()
 
     # Setup each target db.
-    connection = config.db.pgres.main
-    targets = [connection, connection + '_test']
-    targets = [c.replace(_DB_USER, _DB_USER_ADMIN) for c in targets]
-
     try:
-        for target in targets:
-            setup(target)
+        connection = config.db.pgres.main.replace(_DB_USER, _DB_USER_ADMIN)
+        setup(connection)
+        setup(connection + '_test')
     except sqlalchemy.exc.ProgrammingError as err:
         rt.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(target))
+
 
 if __name__ == '__main__':
     main()

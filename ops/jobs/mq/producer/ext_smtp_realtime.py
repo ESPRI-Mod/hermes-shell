@@ -11,33 +11,50 @@
 
 
 """
-import threading
-
 from prodiguer import mail, rt
-from ext_smtp_utils import dispatch
+from ext_smtp_utils import dispatch as dispatch_emails
 
 
 
-class DispatchEmails(threading.Thread):
-    """Dispatches emails upon a new runtime thread.
-
-    """
-    def __init__(self):
-        """Object constructor.
-
-        """
-        threading.Thread.__init__(self, target=dispatch)
-        self.start()
-
-
-def _requires_dispatch(idle_event_data):
-    """Returns flag indicating whether IMAP IDLE response contains new email notifications.
+def _log(msg):
+    """Helper function: logs a message.
 
     """
-    for idle_response in idle_event_data:
-        if len(idle_response) == 2 and idle_response[1] == u'EXISTS':
-            return True
+    rt.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
 
+
+def _requires_reconnect(idle_response):
+    """Predicate indicating if IMAP IDLE response indicates connection was dropped.
+
+    """
+    # True if response is empty.
+    if not isinstance(idle_response, list):
+        return True
+    elif len(idle_response) == 0:
+        return True
+
+    # True if response is server initiated disconnect.
+    elif len(idle_response) == 1 and \
+         isinstance(idle_response[0], tuple) and \
+         idle_response[0][1] == u'BYE':
+         return True
+
+    # False otherwise.
+    return False
+
+
+def _requires_dispatch(idle_response):
+    """Predicate indicating if IMAP IDLE response indicates new emails.
+
+    """
+    # True if server sens an IMAP EXISTS response.
+    for data in idle_response:
+        if isinstance(data, tuple) and \
+           len(data) == 2 and \
+           data[1] == u'EXISTS':
+           return True
+
+    # False otherwise.
     return False
 
 
@@ -48,15 +65,31 @@ def execute(throttle=0):
 
     """
     try:
-        # Dispatch initial email stack.
-        DispatchEmails()
-
-        # Process IMAP idle events.
-        imap_client = mail.connect()
-        imap_client.idle()
         while True:
-            if _requires_dispatch(imap_client.idle_check()):
-                DispatchEmails()
+            # Connect to email server.
+            imap_client = mail.connect()
+
+            # Dispatch existing emails.
+            dispatch_emails(imap_client)
+
+            # Process IMAP idle events.
+            imap_client.idle()
+            while True:
+                # ... blocks whilst waiting for idle response
+                idle_response = imap_client.idle_check()
+
+                # ... reconnects
+                if _requires_reconnect(idle_response):
+                    _log("Reconnecting to SMTP server")
+                    break
+
+                # ... dispatches
+                elif _requires_dispatch(idle_response):
+                    dispatch_emails()
+
+                # ... other responses can be ignored
+                else:
+                    pass
 
     # Log errors.
     except Exception as err:
