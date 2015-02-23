@@ -66,7 +66,7 @@ def _persist_simulation_state(ctx):
     """
     db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_ROLLBACK,
+        cv.constants.SIMULATION_STATE_ERROR,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -77,7 +77,7 @@ def _notify_api(ctx):
 
     """
     utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, cv.constants.SIMULATION_STATE_ROLLBACK)
+        ctx.simulation_uid, cv.constants.SIMULATION_STATE_ERROR)
 
 
 def _notify_operator(ctx):
