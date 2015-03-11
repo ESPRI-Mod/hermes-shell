@@ -22,3 +22,5 @@ declare DB_DAYS_TO_KEEP=7
 # How many weeks to keep weekly backups.  Defaults to 5 (1 month)
 declare DB_WEEKS_TO_KEEP=5
 
+# Path to pg_dump executable.
+declare DB_PGDUMP=/usr/bin/pg_dump
