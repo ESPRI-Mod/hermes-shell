@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import db, mq
+from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
 
@@ -30,7 +30,6 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
-      _persist_job_updates,
       _persist_job_state
       )
 
@@ -46,27 +45,31 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.simulation_uid = None
         self.execution_end_date = None
+        self.execution_state_timestamp = None
+        self.job_uid = None
+        self.simulation_uid = None
 
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.simulation_uid = ctx.content['simuid']
     ctx.execution_end_date = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.job_uid = ctx.content['jobuid']
+    ctx.simulation_uid = ctx.content['simuid']
 
-
-def _persist_job_updates(ctx):
-    """Persists job updates to db.
-
-    """
-    pass
 
 
 def _persist_job_state(ctx):
-    """Persists job status to db.
+    """Persists job state to db.
 
     """
-    pass
+    db.dao_monitoring.create_job_state(
+        ctx.simulation_uid,
+        ctx.job_uid,
+        cv.constants.SIMULATION_STATE_COMPLETE,
+        ctx.execution_state_timestamp,
+        MQ_QUEUE
+        )
