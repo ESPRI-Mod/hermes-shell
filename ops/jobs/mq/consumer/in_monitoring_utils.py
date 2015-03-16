@@ -63,7 +63,7 @@ def get_timestamp(timestamp):
         return arrow.get(timestamp).to('Europe/Paris').datetime
 
 
-def notify_api_of_simulation_state_change(uid, state):
+def notify_api_of_simulation_state_change(uid):
     """Notifies web API of a simulation state change event.
 
     :param str uid: UID of simulation being processed.
@@ -72,26 +72,7 @@ def notify_api_of_simulation_state_change(uid, state):
     """
     data = {
         u"event_type": "simulation_state_change",
-        u"uid": unicode(uid),
-        u"state": state
-    }
-
-    dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-
-
-def notify_api_of_simulation_terminated(uid, state, ended):
-    """Notifies web API of a simulation termination event.
-
-    :param str uid: UID of simulation being processed.
-    :param str state: New state of simulation being processed.
-    :param datetime ended: Datetime when simulation was terminated.
-
-    """
-    data = {
-        u"ended": unicode(ended),
-        u"event_type": "simulation_termination",
-        u"uid": unicode(uid),
-        u"state": state
+        u"uid": unicode(uid)
     }
 
     dispatch_message(data, mq.constants.TYPE_GENERAL_API)

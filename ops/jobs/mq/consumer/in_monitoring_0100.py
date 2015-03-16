@@ -89,10 +89,7 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_terminated(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_COMPLETE,
-        ctx.execution_end_date)
+    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)
 
 
 def _notify_operator(ctx):

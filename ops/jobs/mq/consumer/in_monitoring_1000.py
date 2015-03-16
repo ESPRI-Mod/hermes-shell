@@ -11,6 +11,8 @@
 
 
 """
+from sqlalchemy.exc import IntegrityError
+
 from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
@@ -65,12 +67,15 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_RUNNING,
-        ctx.execution_state_timestamp,
-        MQ_QUEUE
-        )
+    try:
+        db.dao_monitoring.create_simulation_state(
+            ctx.simulation_uid,
+            cv.constants.SIMULATION_STATE_RUNNING,
+            ctx.execution_state_timestamp,
+            MQ_QUEUE
+            )
+    except IntegrityError:
+        db.session.rollback()
 
 
 def _persist_job_state(ctx):
@@ -80,7 +85,7 @@ def _persist_job_state(ctx):
     db.dao_monitoring.create_job_state(
         ctx.simulation_uid,
         ctx.job_uid,
-        cv.constants.SIMULATION_STATE_RUNNING,
+        cv.constants.JOB_STATE_RUNNING,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
@@ -90,5 +95,4 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_state_change(
-        ctx.simulation_uid, cv.constants.SIMULATION_STATE_RUNNING)
+    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)

@@ -11,6 +11,8 @@
 
 
 """
+from sqlalchemy.exc import IntegrityError
+
 from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
@@ -63,22 +65,24 @@ def _unpack_message_content(ctx):
 
 def _persist_simulation_state(ctx):
     """Persists simulation state to db."""
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_ERROR,
-        ctx.execution_state_timestamp,
-        MQ_QUEUE
-        )
+    try:
+        db.dao_monitoring.create_simulation_state(
+            ctx.simulation_uid,
+            cv.constants.SIMULATION_STATE_ERROR,
+            ctx.execution_state_timestamp,
+            MQ_QUEUE
+            )
+    except IntegrityError:
+        # No need to do anything as a message
+        # of type 9000 has already been received.
+        pass
 
 
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_terminated(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_ERROR,
-        ctx.execution_end_date)
+    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)
 
 
 def _notify_operator(ctx):

@@ -30,7 +30,8 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
-      _persist_job_state
+      _persist_job_state,
+      _notify_api
       )
 
 
@@ -69,7 +70,15 @@ def _persist_job_state(ctx):
     db.dao_monitoring.create_job_state(
         ctx.simulation_uid,
         ctx.job_uid,
-        cv.constants.SIMULATION_STATE_COMPLETE,
+        cv.constants.JOB_STATE_COMPLETE,
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
+
+
+def _notify_api(ctx):
+    """Dispatches API notification.
+
+    """
+    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)
+
