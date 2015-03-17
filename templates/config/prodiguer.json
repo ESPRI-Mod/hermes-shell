@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.4",
+    "configSchemaVersion": "1.0.5",
     "api": {
         "cookie_secret": "p2FAdrUN3tac",
         "host": "localhost",
@@ -25,6 +25,7 @@
         "defaultJobWarningDelayInSeconds": 180
     },
     "mail": {
+        "deleteProcessed": false,
         "imap": {
             "host": "courriel3.ipsl.jussieu.fr",
             "mailbox": "AMPQ-PROD",

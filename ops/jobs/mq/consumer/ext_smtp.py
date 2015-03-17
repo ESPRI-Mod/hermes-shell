@@ -42,6 +42,7 @@ def get_tasks():
         _set_messages_ampq,
         _dispatch,
         _log_stats,
+        _delete_email,
         _move_email,
         _close_imap_client
         )
@@ -232,10 +233,23 @@ def _dispatch(ctx):
                connection_url=config.mq.connections.libigcm)
 
 
+def _delete_email(ctx):
+    """Deletes email after processing.
+
+    """
+    if not config.mail.deleteProcessed:
+        return
+
+    mail.delete_email(ctx.email_uid, client=ctx.imap_client)
+
+
 def _move_email(ctx):
     """Moves email after processing.
 
     """
+    if config.mail.deleteProcessed:
+        return
+
     mail.move_email(ctx.email_uid, client=ctx.imap_client)
 
 
