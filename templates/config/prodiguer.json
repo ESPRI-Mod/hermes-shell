@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.3",
+    "configSchemaVersion": "1.0.4",
     "api": {
         "cookie_secret": "p2FAdrUN3tac",
         "host": "localhost",
@@ -22,7 +22,7 @@
         }
     },
     "monitoring": {
-        "jobWarningDelayInSeconds": 180
+        "defaultJobWarningDelayInSeconds": 180
     },
     "mail": {
         "imap": {
