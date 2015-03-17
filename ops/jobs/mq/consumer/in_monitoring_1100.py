@@ -62,7 +62,6 @@ def _unpack_message_content(ctx):
     ctx.simulation_uid = ctx.content['simuid']
 
 
-
 def _persist_job_state(ctx):
     """Persists job state to db.
 

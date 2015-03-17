@@ -17,7 +17,6 @@ import arrow
 from sqlalchemy.exc import IntegrityError
 
 from prodiguer import cv, db, mq, rt
-from prodiguer.utils import config
 
 import in_monitoring_utils as utils
 
@@ -66,7 +65,6 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node_login = None
         self.compute_node_machine = None
         self.configuration = None
-        self.job_warning_delay = None
         self.new_cv_terms = []
         self.execution_state = cv.constants.SIMULATION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
@@ -135,8 +133,6 @@ def _unpack_message_content(ctx):
     ctx.execution_state_timestamp = \
         utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.experiment = ctx.content['experiment']
-    ctx.job_warning_delay = ctx.content.get('jobWarningDelay',
-                                            config.monitoring.jobWarningDelayInSeconds)
     ctx.model = ctx.content['model']
     ctx.name = ctx.content['name']
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
@@ -229,7 +225,6 @@ def _persist_simulation(ctx):
             ctx.execution_start_date,
             ctx.execution_state,
             ctx.experiment,
-            ctx.job_warning_delay,
             ctx.model,
             ctx.name,
             ctx.output_start_date,

@@ -14,6 +14,7 @@
 from sqlalchemy.exc import IntegrityError
 
 from prodiguer import cv, db, mq
+from prodiguer.utils import config
 
 import in_monitoring_utils as utils
 
@@ -60,6 +61,8 @@ def _unpack_message_content(ctx):
     """
     ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.job_uid = ctx.content['jobuid']
+    ctx.job_warning_delay = ctx.content.get(
+        'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
     ctx.simulation_uid = ctx.content['simuid']
 
 
@@ -87,7 +90,8 @@ def _persist_job_state(ctx):
         ctx.job_uid,
         cv.constants.JOB_STATE_RUNNING,
         ctx.execution_state_timestamp,
-        MQ_QUEUE
+        MQ_QUEUE,
+        ctx.job_warning_delay
         )
 
 
