@@ -43,7 +43,7 @@ def get_tasks():
         _persist_simulation,
         _persist_simulation_configuration,
         _persist_simulation_state,
-        _archive_dead_simulation_runs,
+        _delete_dead_simulation_runs,
         _notify_api,
         _notify_operator
         )
@@ -267,15 +267,15 @@ def _persist_simulation_state(ctx):
         )
 
 
-def _archive_dead_simulation_runs(ctx):
-    """Archives previous simulation runs now considered dead.
+def _delete_dead_simulation_runs(ctx):
+    """Deletes previous simulation runs now considered dead.
 
     """
-    pass
-    # db.dao_monitoring.archive_dead_simulation_runs(
-    #     ctx.hashid,
-    #     ctx.uid
-    #     )
+    db.dao_monitoring.delete_dead_simulation_runs(
+        ctx.hashid,
+        ctx.uid
+        )
+    db.session.commit()
 
 
 def _notify_api(ctx):
