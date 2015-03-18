@@ -21,7 +21,7 @@ from prodiguer import config, mq, rt
 _EMAIL_FILE_EXTENSION = "eml"
 
 # Message types that we do not wish to import.
-_MESSAGE_TYPE_BLACKLIST = ['2000', '3000', '7000']
+_MESSAGE_TYPE_BLACKLIST = ['2000', '3000', '7000', '7100']
 
 
 def get_tasks():
@@ -205,8 +205,8 @@ def _update_messages_dict(ctx):
             msg['msgUID'] = unicode(uuid.uuid4())
         if 'simuid' in msg:
             _set_new_uid(msg, 'simuid')
-            if 'name' in msg:
-                msg['name'] = "{0} - {1}".format(msg['name'], unicode(uuid.uuid4()))
+            # if 'name' in msg:
+            #     msg['name'] = "{0} - {1}".format(msg['name'], unicode(uuid.uuid4()))
         if 'jobuid' in msg:
             _set_new_uid(msg, 'jobuid')
 

@@ -43,6 +43,7 @@ def get_tasks():
         _persist_simulation,
         _persist_simulation_configuration,
         _persist_simulation_state,
+        _archive_dead_simulation_runs,
         _notify_api,
         _notify_operator
         )
@@ -65,6 +66,7 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node_login = None
         self.compute_node_machine = None
         self.configuration = None
+        self.hashid = None
         self.new_cv_terms = []
         self.execution_state = cv.constants.SIMULATION_STATE_QUEUED
         self.execution_start_date = datetime.datetime.now()
@@ -217,7 +219,7 @@ def _persist_simulation(ctx):
 
     """
     try:
-        db.dao_monitoring.create_simulation(
+        sim = db.dao_monitoring.create_simulation(
             ctx.activity,
             ctx.compute_node,
             ctx.compute_node_login,
@@ -236,6 +238,8 @@ def _persist_simulation(ctx):
     except IntegrityError:
         db.session.rollback()
         ctx.abort = True
+    else:
+        ctx.hashid = sim.hashid
 
 
 def _persist_simulation_configuration(ctx):
@@ -261,6 +265,17 @@ def _persist_simulation_state(ctx):
         ctx.execution_state_timestamp,
         MQ_QUEUE
         )
+
+
+def _archive_dead_simulation_runs(ctx):
+    """Archives previous simulation runs now considered dead.
+
+    """
+    pass
+    # db.dao_monitoring.archive_dead_simulation_runs(
+    #     ctx.hashid,
+    #     ctx.uid
+    #     )
 
 
 def _notify_api(ctx):

@@ -26,6 +26,7 @@ import in_monitoring_1100
 import in_monitoring_2000
 import in_monitoring_3000
 import in_monitoring_7000
+import in_monitoring_7100
 import in_monitoring_8888
 import in_monitoring_9000
 import in_monitoring_9999
@@ -62,6 +63,7 @@ _CONSUMERS = {
     'in-monitoring-2000': in_monitoring_2000,
     'in-monitoring-3000': in_monitoring_3000,
     'in-monitoring-7000': in_monitoring_7000,
+    'in-monitoring-7100': in_monitoring_7100,
     'in-monitoring-8888': in_monitoring_8888,
     'in-monitoring-9000': in_monitoring_9000,
     'in-monitoring-9999': in_monitoring_9999,

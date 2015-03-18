@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_7000.py
+.. module:: run_in_monitoring_7100.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 7000 messages.
+   :synopsis: Consumes monitoring 7100 messages.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -21,7 +21,7 @@ import in_monitoring_utils as utils
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_7000
+MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_7100
 
 
 def get_tasks():
