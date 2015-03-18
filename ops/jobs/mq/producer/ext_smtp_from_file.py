@@ -20,6 +20,9 @@ from prodiguer import config, mq, rt
 # Email file extension.
 _EMAIL_FILE_EXTENSION = "eml"
 
+# Message types that we do not wish to import.
+_MESSAGE_TYPE_BLACKLIST = ['2000', '3000', '7000']
+
 
 def get_tasks():
     """Returns set of message processing tasks to be executed.
@@ -212,12 +215,11 @@ def _set_messages_ampq(ctx):
     """Set AMPQ messages to be dispatched.
 
     """
-    for msg in [m for m in ctx.messages_dict
-                if m['msgCode'] not in ['2000', '3000', '7000']]:
     # for msg in ctx.messages_dict:
-        ctx.messages.append(mq.Message(_get_msg_basic_props(msg),
-                                       _get_msg_payload(msg),
-                                       mq.constants.EXCHANGE_PRODIGUER_IN))
+    for msg in [m for m in ctx.messages_dict if m['msgCode'] not in _MESSAGE_TYPE_BLACKLIST]:
+            ctx.messages.append(mq.Message(_get_msg_basic_props(msg),
+                                           _get_msg_payload(msg),
+                                           mq.constants.EXCHANGE_PRODIGUER_IN))
 
     rt.log_mq("AMPQ messages for dispatch to MQ server: ", len(ctx.messages))
 
