@@ -22,7 +22,7 @@
         }
     },
     "monitoring": {
-        "defaultJobWarningDelayInSeconds": 180
+        "defaultJobWarningDelayInSeconds": 86400
     },
     "mail": {
         "deleteProcessed": false,
