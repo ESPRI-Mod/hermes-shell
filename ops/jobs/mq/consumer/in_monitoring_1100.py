@@ -30,6 +30,7 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
+      _persist_simulation_state,
       _persist_job_state,
       _notify_api
       )
@@ -46,20 +47,30 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.execution_end_date = None
-        self.execution_state_timestamp = None
         self.job_uid = None
         self.simulation_uid = None
+        self.timestamp = None
 
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.execution_end_date = utils.get_timestamp(ctx.props.headers['timestamp'])
-    ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
+
+
+def _persist_simulation_state(ctx):
+    """Persists simulation state to db.
+
+    """
+    db.dao_monitoring.create_simulation_state(
+        ctx.simulation_uid,
+        cv.constants.SIMULATION_STATE_QUEUED,
+        ctx.timestamp,
+        MQ_QUEUE
+        )
 
 
 def _persist_job_state(ctx):
@@ -70,7 +81,7 @@ def _persist_job_state(ctx):
         ctx.simulation_uid,
         ctx.job_uid,
         cv.constants.JOB_STATE_COMPLETE,
-        ctx.execution_state_timestamp,
+        ctx.timestamp,
         MQ_QUEUE
         )
 

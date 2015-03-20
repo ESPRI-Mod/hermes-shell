@@ -4,7 +4,7 @@
 # SECTION: BOOTSTRAP
 # ###############################################################
 
-run_init_ops_directories()
+run_stack_init_ops_directories()
 {
 	log "Initializing ops directories"
 	set_working_dir
@@ -29,7 +29,7 @@ run_stack_bootstrap()
 	log "BOOTSTRAP STARTS"
 	set_working_dir
 
-	run_init_ops_directories
+	run_stack_init_ops_directories
 
 	log "Initializing configuration"
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
@@ -64,7 +64,7 @@ _install_notice()
 
 
 # Installs virtual environments.
-run_install_venv()
+run_stack_install_venv()
 {
 	if [ "$2" ]; then
 		log "Installing virtual environment: $1"
@@ -90,13 +90,13 @@ run_install_venv()
 }
 
 # Installs python virtual environments.
-run_install_venvs()
+run_stack_install_venvs()
 {
-	run_install_venv "server" "echo"
+	run_stack_install_venv "server" "echo"
 }
 
 # Installs a python executable primed with setuptools, pip & virtualenv.
-run_install_python()
+run_stack_install_python()
 {
 	log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
@@ -129,7 +129,7 @@ run_install_python()
 }
 
 # Installs a git repo.
-run_install_repo()
+run_stack_install_repo()
 {
 	log "Installing repo: $1"
 
@@ -138,13 +138,13 @@ run_install_repo()
 }
 
 # Installs git repos.
-run_install_repos()
+run_stack_install_repos()
 {
-	run_install_repo prodiguer-cv
-	run_install_repo prodiguer-docs
-	run_install_repo prodiguer-fe
-	run_install_repo prodiguer-metrics-formatter
-	run_install_repo prodiguer-server
+	run_stack_install_repo prodiguer-cv
+	run_stack_install_repo prodiguer-docs
+	run_stack_install_repo prodiguer-fe
+	run_stack_install_repo prodiguer-metrics-formatter
+	run_stack_install_repo prodiguer-server
 }
 
 # Sets up directories.
@@ -161,9 +161,9 @@ run_stack_install()
 	log "INSTALLING STACK"
 
 	_install_dirs
-	run_install_repos
-	run_install_python
-	run_install_venvs
+	run_stack_install_repos
+	run_stack_install_python
+	run_stack_install_venvs
 
 	log "INSTALLED STACK"
 
@@ -192,7 +192,7 @@ _update_venv()
 	log "Updating virtual environment :: $1"
 
 	_uninstall_venv $1
-	run_install_venv $1
+	run_stack_install_venv $1
 }
 
 # Updates virtual environments.
@@ -204,7 +204,7 @@ run_stack_update_venvs()
 }
 
 # Updates a git repo.
-_update_repo()
+run_stack_update_repo()
 {
 	log "Updating repo: $1"
 
@@ -217,11 +217,11 @@ _update_repo()
 # Updates git repos.
 run_stack_update_repos()
 {
-	_update_repo prodiguer-cv
-	_update_repo prodiguer-docs
-	_update_repo prodiguer-fe
-	_update_repo prodiguer-metrics-formatter
-	_update_repo prodiguer-server
+	run_stack_update_repo prodiguer-cv
+	run_stack_update_repo prodiguer-docs
+	run_stack_update_repo prodiguer-fe
+	run_stack_update_repo prodiguer-metrics-formatter
+	run_stack_update_repo prodiguer-server
 }
 
 # Updates configuration.

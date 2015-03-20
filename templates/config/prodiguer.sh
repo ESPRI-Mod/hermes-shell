@@ -24,3 +24,9 @@ declare DB_WEEKS_TO_KEEP=5
 
 # Path to pg_dump executable.
 declare DB_PGDUMP=/usr/bin/pg_dump
+
+# Username of GitHub account used to push changes to GitHub.
+declare GIT_USERNAME=prodiguer-git-user
+
+# Email of GitHub account used to push changes to GitHub.
+declare GIT_EMAIL=mark.morgan@ipsl.jussieu.fr

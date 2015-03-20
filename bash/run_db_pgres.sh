@@ -108,69 +108,63 @@ _db_setup()
 	log "Seeding DB"
 
 	activate_venv server
-	python $DIR_JOBS/db/run_setup.py
-}
-
-run_get_simulation_state_change()
-{
-	activate_venv server
-	python $DIR_JOBS/db/run_get_simulation_state.py
+	python $DIR_JOBS/db/run_pgres_setup.py
 }
 
 # Backup db.
-run_db_backup()
+run_db_pgres_backup()
 {
-	log "DB : backing up ..."
+	log "DB : backing up postgres db ..."
 
 	_db_verify_backup
 	_db_init_backup_dir
 	_dbs_backup
 
-	log "DB : backed up"
+	log "DB : backed up postgres db"
 }
 
 # Install db.
-run_db_install()
+run_db_pgres_install()
 {
-	log "DB : installing ..."
+	log "DB : installing postgres db ..."
 
 	_db_create_users
 	_db_create
 	_db_setup
 	_db_grant_permissions
 
-	log "DB : installed ..."
+	log "DB : installed postgres db"
 }
 
 # Reset db.
-run_db_reset()
+run_db_pgres_reset()
 {
-	log "DB : resetting ..."
+	log "DB : resetting postgres db ..."
 
-	run_db_uninstall
-	run_db_install
+	run_db_pgres_uninstall
+	run_db_pgres_install
 
-	log "DB : reset"
+	log "DB : reset postgres db"
 }
 
 # Restore db.
-run_db_restore()
+run_db_pgres_restore()
 {
-	log "DB : restoring ..."
+	log "DB : restoring postgres db ..."
 
 	log "TODO"
 
-	log "DB : restored"
+	log "DB : restored postgres db"
 }
 
 # Uninstall db.
-run_db_uninstall()
+run_db_pgres_uninstall()
 {
-	log "DB : uninstalling ..."
+	log "DB : uninstalling postgres db ..."
 
-	run_db_backup
+	run_db_pgres_backup
 	_db_drop
 	_db_drop_users
 
-	log "DB : uninstalled"
+	log "DB : uninstalled postgres db"
 }

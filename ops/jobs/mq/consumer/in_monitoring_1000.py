@@ -11,8 +11,6 @@
 
 
 """
-from sqlalchemy.exc import IntegrityError
-
 from prodiguer import cv, db, mq
 from prodiguer.utils import config
 
@@ -50,8 +48,9 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.execution_state_timestamp = None
+        self.execution_start_date = None
         self.job_uid = None
+        self.job_warning_delay = None
         self.simulation_uid = None
 
 
@@ -59,7 +58,7 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.execution_start_date = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
         'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
@@ -70,15 +69,12 @@ def _persist_simulation_state(ctx):
     """Persists simulation state to db.
 
     """
-    try:
-        db.dao_monitoring.create_simulation_state(
-            ctx.simulation_uid,
-            cv.constants.SIMULATION_STATE_RUNNING,
-            ctx.execution_state_timestamp,
-            MQ_QUEUE
-            )
-    except IntegrityError:
-        db.session.rollback()
+    db.dao_monitoring.create_simulation_state(
+        ctx.simulation_uid,
+        cv.constants.SIMULATION_STATE_RUNNING,
+        ctx.execution_start_date,
+        MQ_QUEUE
+        )
 
 
 def _persist_job_state(ctx):
@@ -89,7 +85,7 @@ def _persist_job_state(ctx):
         ctx.simulation_uid,
         ctx.job_uid,
         cv.constants.JOB_STATE_RUNNING,
-        ctx.execution_state_timestamp,
+        ctx.execution_start_date,
         MQ_QUEUE,
         ctx.job_warning_delay
         )

@@ -6,7 +6,9 @@
 
 # Set action.
 declare ACTION=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
-if [[ $ACTION != run_* ]]; then
+if [[ $ACTION == help_* ]]; then
+	:
+elif [[ $ACTION != run_* ]]; then
 	declare ACTION="run_"$ACTION
 fi
 

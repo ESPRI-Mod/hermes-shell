@@ -2,17 +2,23 @@
 DIR_PRODIGUER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 alias prodiguer='$DIR_PRODIGUER/exec.sh'
 
-# API admin.
-alias prodiguer-api='prodiguer api'
-alias prodiguer-api-heartbeat='prodiguer api-heartbeat'
-alias prodiguer-api-list-endpoints='prodiguer api-list-endpoints'
+# Web service API admin.
+alias prodiguer-web-api='prodiguer web-api'
+alias prodiguer-web-api-heartbeat='prodiguer web-api-heartbeat'
+alias prodiguer-web-api-list-endpoints='prodiguer web-api-list-endpoints'
 
-# DB admin.
-alias prodiguer-db-backup='prodiguer db-backup'
-alias prodiguer-db-install='prodiguer db-install'
-alias prodiguer-db-reset='prodiguer db-reset'
-alias prodiguer-db-restore='prodiguer db-restore'
-alias prodiguer-db-uninstall='prodiguer db-uninstall'
+# DB (PGRES) admin.
+alias prodiguer-db-pgres-backup='prodiguer db-pgres-backup'
+alias prodiguer-db-pgres-install='prodiguer db-pgres-install'
+alias prodiguer-db-pgres-reset='prodiguer db-pgres-reset'
+alias prodiguer-db-pgres-restore='prodiguer db-pgres-restore'
+alias prodiguer-db-pgres-uninstall='prodiguer db-pgres-uninstall'
+
+# DB (MONGO) admin.
+# TODO
+
+# DB (ALL) admin.
+alias prodiguer-db-reset='prodiguer db-pgres-reset'
 
 # Metric API invocation.
 alias prodiguer-metric-add='prodiguer metric-add'
@@ -30,14 +36,13 @@ alias prodiguer-metric-rename='prodiguer metric-rename'
 
 # Help.
 alias prodiguer-help='prodiguer help'
+alias prodiguer-help-cv='prodiguer help-cv'
 alias prodiguer-help-db='prodiguer help-db'
+alias prodiguer-help-metric='prodiguer help-metric'
 alias prodiguer-help-mq='prodiguer help-mq'
 alias prodiguer-help-web='prodiguer help-web'
-alias prodiguer-help-metric='prodiguer help-metric'
+alias prodiguer-help-utests='prodiguer help-utests'
 alias prodiguer-help-stack='prodiguer help-stack'
-
-# Simulation monitoring.
-alias prodiguer-monitor-simulation='prodiguer monitor-simulation'
 
 # MQ admin.
 alias prodiguer-mq-configure='prodiguer mq-configure'
@@ -78,3 +83,8 @@ alias prodiguer-stack-uninstall='prodiguer stack-uninstall'
 alias prodiguer-stack-config-commit='prodiguer stack-config-commit'
 alias prodiguer-stack-config-encrypt='prodiguer stack-config-encrypt'
 alias prodiguer-stack-config-decrypt='prodiguer stack-config-decrypt'
+
+# Controlled vocabulary management.
+alias prodiguer-cv-git-pull='prodiguer cv-git-pull'
+alias prodiguer-cv-git-push='prodiguer cv-git-push'
+alias prodiguer-cv-git-setup='prodiguer cv-git-setup'

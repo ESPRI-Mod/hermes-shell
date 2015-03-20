@@ -47,6 +47,7 @@ activate_venv()
 		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-metrics-formatter
 	fi
 	source $DIR_VENV/$1/bin/activate
+	log "Activated virtual environment: "$1
 }
 
 # Removes all files of passed type in current working directory.

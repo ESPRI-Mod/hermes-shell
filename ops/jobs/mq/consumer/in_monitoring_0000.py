@@ -68,8 +68,6 @@ class ProcessingContextInfo(mq.Message):
         self.configuration = None
         self.hashid = None
         self.new_cv_terms = []
-        self.execution_state = cv.constants.SIMULATION_STATE_QUEUED
-        self.execution_start_date = datetime.datetime.now()
         self.experiment = None
         self.simulation_space = None
         self.model = None
@@ -77,6 +75,7 @@ class ProcessingContextInfo(mq.Message):
         self.output_start_date = None
         self.output_end_date = None
         self.persisted_cv_terms = []
+        self.timestamp = None
         self.uid = None
 
 
@@ -130,16 +129,13 @@ def _unpack_message_content(ctx):
     ctx.compute_node_machine = \
         "{0}-{1}".format(ctx.compute_node, ctx.content['machine'])
     ctx.configuration = ctx.content.get('configuration')
-    ctx.execution_start_date = \
-        utils.get_timestamp(ctx.props.headers['timestamp'])
-    ctx.execution_state_timestamp = \
-        utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.experiment = ctx.content['experiment']
     ctx.model = ctx.content['model']
     ctx.name = ctx.content['name']
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
     ctx.output_end_date = arrow.get(ctx.content['endDate']).datetime
     ctx.simulation_space = ctx.content['space']
+    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.uid = ctx.content['simuid']
 
 
@@ -224,8 +220,7 @@ def _persist_simulation(ctx):
             ctx.compute_node,
             ctx.compute_node_login,
             ctx.compute_node_machine,
-            ctx.execution_start_date,
-            ctx.execution_state,
+            ctx.timestamp,
             ctx.experiment,
             ctx.model,
             ctx.name,
@@ -261,8 +256,8 @@ def _persist_simulation_state(ctx):
     """
     db.dao_monitoring.create_simulation_state(
         ctx.uid,
-        ctx.execution_state,
-        ctx.execution_state_timestamp,
+        cv.constants.SIMULATION_STATE_RUNNING,
+        ctx.timestamp,
         MQ_QUEUE
         )
 

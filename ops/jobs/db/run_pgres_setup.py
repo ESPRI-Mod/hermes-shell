@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_db_setup.py
+.. module:: run_db_pgres_setup.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Sets up prodiguer databases.
+   :synopsis: Sets up prodiguer postgres database.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
-import sys
-
 import sqlalchemy
 
-import prodiguer
 from prodiguer import db
 from prodiguer.utils import config, rt
 
@@ -26,7 +23,7 @@ _DB_USER = "prodiguer_db_user"
 _DB_USER_ADMIN = "prodiguer_db_admin"
 
 
-def main():
+def _main():
     """Main entry point.
 
     """
@@ -46,7 +43,6 @@ def main():
         db.session.end()
 
         rt.log_db("Seeding ends : db = {0}".format(connection))
-        rt.log()
 
     # Setup each target db.
     try:
@@ -54,8 +50,10 @@ def main():
         setup(connection)
         setup(connection + '_test')
     except sqlalchemy.exc.ProgrammingError as err:
-        rt.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(target))
+        print err
+        rt.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(connection))
+
 
 
 if __name__ == '__main__':
-    main()
+    _main()

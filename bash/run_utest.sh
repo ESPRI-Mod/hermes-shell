@@ -85,5 +85,5 @@ run_tests()
 	elif [ $1 = "u-config" ]; then
 	    log "TESTS: executing config utils tests ..."
 		nosetests -v -s $DIR_SERVER_TESTS/test_utils_config.py
-	fi	
+	fi
 }

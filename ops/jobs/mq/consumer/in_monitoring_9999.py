@@ -11,8 +11,6 @@
 
 
 """
-from sqlalchemy.exc import IntegrityError
-
 from prodiguer import cv, db, mq
 
 import in_monitoring_utils as utils
@@ -49,9 +47,8 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.simulation = None
         self.simulation_uid = None
-        self.execution_state_timestamp = None
+        self.timestamp = None
 
 
 def _unpack_message_content(ctx):
@@ -59,23 +56,19 @@ def _unpack_message_content(ctx):
 
     """
     ctx.simulation_uid = ctx.content['simuid']
-    ctx.execution_end_date = utils.get_timestamp(ctx.props.headers['timestamp'])
-    ctx.execution_state_timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
 
 
 def _persist_simulation_state(ctx):
-    """Persists simulation state to db."""
-    try:
-        db.dao_monitoring.create_simulation_state(
-            ctx.simulation_uid,
-            cv.constants.SIMULATION_STATE_ERROR,
-            ctx.execution_state_timestamp,
-            MQ_QUEUE
-            )
-    except IntegrityError:
-        # No need to do anything as a message
-        # of type 9000 has already been received.
-        pass
+    """Persists simulation state to db.
+
+    """
+    db.dao_monitoring.create_simulation_state(
+        ctx.simulation_uid,
+        cv.constants.SIMULATION_STATE_ERROR,
+        ctx.timestamp,
+        MQ_QUEUE
+        )
 
 
 def _notify_api(ctx):

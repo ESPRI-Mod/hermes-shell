@@ -5,17 +5,38 @@ declare -a initializers=(
 	'init_helpers'
 	'init_paths'
 	'init_vars'
-	'run_api_metric'
-	'run_api_monitoring'
-	'run_api_ops'
-	'run_db_mongo'
-	'run_db_pgres'
-	'run_help'
-	'run_mq'
-	'run_stack'
-	'run_tests'
 )
 for initializer in "${initializers[@]}"
 do
 	source $DIR/bash/$initializer.sh
+done
+
+declare -a commands=(
+	'run_web'
+	'run_cv'
+	'run_db_mongo'
+	'run_db_pgres'
+	'run_metric'
+	'run_mq'
+	'run_stack'
+	'run_utest'
+)
+for command in "${commands[@]}"
+do
+	source $DIR/bash/$command.sh
+done
+
+declare -a helpers=(
+	'help'
+	'help_cv'
+	'help_db'
+	'help_metric'
+	'help_mq'
+	'help_stack'
+	'help_utest'
+	'help_web'
+)
+for helper in "${helpers[@]}"
+do
+	source $DIR/bash/$helper.sh
 done
