@@ -17,9 +17,6 @@ alias prodiguer-db-pgres-uninstall='prodiguer db-pgres-uninstall'
 # DB (MONGO) admin.
 # TODO
 
-# DB (ALL) admin.
-alias prodiguer-db-reset='prodiguer db-pgres-reset'
-
 # Metric API invocation.
 alias prodiguer-metric-add='prodiguer metric-add'
 alias prodiguer-metric-add-batch='prodiguer metric-add-batch'
@@ -88,3 +85,6 @@ alias prodiguer-stack-config-decrypt='prodiguer stack-config-decrypt'
 alias prodiguer-cv-git-pull='prodiguer cv-git-pull'
 alias prodiguer-cv-git-push='prodiguer cv-git-push'
 alias prodiguer-cv-git-setup='prodiguer cv-git-setup'
+
+# DB (ALL) admin.
+alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer db-pgres-reset'
