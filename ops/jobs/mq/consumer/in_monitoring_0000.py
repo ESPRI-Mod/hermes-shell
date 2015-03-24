@@ -37,7 +37,7 @@ def get_tasks():
         _reformat_message_content,
         _parse_cv_terms,
         _persist_cv_terms_to_fs,
-        _persist_cv_terms_to_db,
+        _persist_cv_terms_persisted_to_db,
         _persist_simulation,
         _persist_simulation_configuration,
         _persist_simulation_state,
@@ -67,7 +67,7 @@ class ProcessingContextInfo(mq.Message):
         self.configuration = None
         self.cv_terms = []
         self.cv_terms_new = []
-        self.cv_terms_persisted = []
+        self.cv_terms_persisted_to_db = []
         self.hashid = None
         self.experiment = None
         self.simulation_space = None
@@ -181,12 +181,11 @@ def _persist_cv_terms_to_fs(ctx):
     cv.session.commit()
 
     # Reparse.
-    ctx.cv_terms_new = []
     ctx.cv_terms = []
     _parse_cv_terms(ctx)
 
 
-def _persist_cv_terms_to_db(ctx):
+def _persist_cv_terms_persisted_to_db(ctx):
     """Persists cv terms to database.
 
     """
@@ -202,7 +201,7 @@ def _persist_cv_terms_to_db(ctx):
             db.session.rollback()
         finally:
             if persisted_term:
-                ctx.cv_terms_persisted.append(persisted_term)
+                ctx.cv_terms_persisted_to_db.append(persisted_term)
 
 
 def _persist_simulation(ctx):
@@ -272,7 +271,7 @@ def _push_cv_terms(ctx):
     """Pushes new CV terms to remote GitHub repo.
 
     """
-    if not ctx.cv_terms_persisted:
+    if not ctx.cv_terms_persisted_to_db and not ctx.cv_terms_new:
         return
 
     print "enqueuing ", mq.constants.TYPE_GENERAL_CV
@@ -287,7 +286,7 @@ def _notify_api(ctx):
     data = {
         "event_type": "new_simulation",
         "uid": unicode(ctx.uid),
-        "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted)
+        "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted_to_db)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
