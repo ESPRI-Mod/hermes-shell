@@ -11,8 +11,6 @@
 
 
 """
-import datetime
-
 import arrow
 from sqlalchemy.exc import IntegrityError
 
@@ -66,15 +64,16 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node_login = None
         self.compute_node_machine = None
         self.configuration = None
+        self.cv_terms = []
+        self.cv_terms_new = []
+        self.cv_terms_persisted = []
         self.hashid = None
-        self.new_cv_terms = []
         self.experiment = None
         self.simulation_space = None
         self.model = None
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
-        self.persisted_cv_terms = []
         self.timestamp = None
         self.uid = None
 
@@ -158,9 +157,9 @@ def _parse_cv_terms(ctx):
 
         # New terms.
         except cv.TermNameError:
-            ctx.new_cv_terms.append(cv.create(term_type, term_name))
+            ctx.cv_terms_new.append(cv.create(term_type, term_name))
 
-        # Valid term substitution.
+        # Existing terms.
         else:
             parsed_term_name = cv.parser.parse_term_name(term_type, term_name)
             if term_name != parsed_term_name:
@@ -168,21 +167,21 @@ def _parse_cv_terms(ctx):
                 msg = "CV term subsitution: {0}.{1} --> {0}.{2}"
                 msg = msg.format(term_type, term_name, parsed_term_name)
                 rt.log_mq(msg)
+                term_name = parsed_term_name
+            ctx.cv_terms.append(cv.cache.get_term(term_type, term_name))
 
 
 def _persist_cv_terms_to_fs(ctx):
     """Persists cv terms to file system.
 
     """
-    # Escape if no new terms to persist.
-    if not ctx.new_cv_terms:
-        return
-
     # Commit cv session.
-    cv.session.insert(ctx.new_cv_terms)
+    cv.session.insert(ctx.cv_terms_new)
     cv.session.commit()
 
     # Reparse.
+    ctx.cv_terms_new = []
+    ctx.cv_terms = []
     _parse_cv_terms(ctx)
 
 
@@ -190,24 +189,19 @@ def _persist_cv_terms_to_db(ctx):
     """Persists cv terms to database.
 
     """
-    def _persist(term):
-        """Persists a term to db.
-
-        """
+    for term in ctx.cv_terms:
+        persisted_term = None
         try:
-            return db.dao_cv.create_term(
+            persisted_term = db.dao_cv.create_term(
                 term['meta']['type'],
                 term['meta']['name'],
-                term['meta']['display_name']
+                term['meta'].get('display_name', None)
                 )
         except IntegrityError:
             db.session.rollback()
-            return db.dao_cv.retrieve_term(
-                term['meta']['type'],
-                term['meta']['name']
-                )
-
-    ctx.persisted_cv_terms = [_persist(t) for t in ctx.new_cv_terms]
+        finally:
+            if persisted_term:
+                ctx.cv_terms_persisted.append(persisted_term)
 
 
 def _persist_simulation(ctx):
@@ -280,7 +274,7 @@ def _notify_api(ctx):
     data = {
         "event_type": "new_simulation",
         "uid": unicode(ctx.uid),
-        "cv_terms": db.utils.get_collection(ctx.persisted_cv_terms)
+        "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
