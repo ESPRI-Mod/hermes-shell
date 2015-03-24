@@ -31,6 +31,7 @@ import in_monitoring_8888
 import in_monitoring_9000
 import in_monitoring_9999
 import internal_api
+import internal_cv
 import internal_smtp
 import internal_sms
 
@@ -53,6 +54,7 @@ define("agent_limit",
 _CONSUMERS = {
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
+    'internal-cv': internal_cv,
     'internal-smtp': internal_smtp,
     'internal-sms': internal_sms,
     'in-monitoring': in_monitoring,

@@ -14,7 +14,7 @@
 from prodiguer import cv, db, mq
 from prodiguer.utils import config
 
-import in_monitoring_utils as utils
+import utils
 
 
 

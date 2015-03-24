@@ -1,23 +1,32 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: in_monitoring_utils.py
+.. module:: consumer_utils.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Monitoring message consumer utility functions.
+   :synopsis: Message consumer utility functions.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
+import os, subprocess
+
 import arrow
 
-from prodiguer import db, mq
+from prodiguer import mq
 
 
 
-def dispatch_message(data, message_type):
+def dispatch_message(
+    data,
+    message_type,
+    mq_user_id=mq.constants.USER_PRODIGUER,
+    mq_producer_id = mq.constants.PRODUCER_PRODIGUER,
+    mq_app_id = mq.constants.APP_MONITORING,
+    mq_mode = mq.constants.MODE_TEST
+    ):
     """Dispatches message to MQ server for subsequent processing.
 
     """
@@ -26,11 +35,11 @@ def dispatch_message(data, message_type):
 
         """
         return mq.utils.create_ampq_message_properties(
-            user_id = mq.constants.USER_PRODIGUER,
-            producer_id = mq.constants.PRODUCER_PRODIGUER,
-            app_id = mq.constants.APP_MONITORING,
+            user_id = mq_user_id,
+            producer_id = mq_producer_id,
+            app_id = mq_app_id,
             message_type = message_type,
-            mode = mq.constants.MODE_TEST)
+            mode = mq_mode)
 
 
     def _get_message():
@@ -92,3 +101,22 @@ def notify_operator(uid, notification_type):
 
     dispatch_message(data, mq.constants.TYPE_GENERAL_SMTP)
     dispatch_message(data, mq.constants.TYPE_GENERAL_SMS)
+
+
+def exec_shell_command(cmd):
+    """Executes a prodiguer-shell command.
+
+    :param str cmd: Prodiguer shell command to be executed.
+
+    """
+    # Set path to shell.
+    shell = os.path.dirname(__file__)
+    for _ in range(4):
+        shell = os.path.dirname(shell)
+    shell = os.path.join(shell, 'exec.sh')
+
+    # Set command.
+    cmd = '{0} {1}'.format(shell, cmd)
+
+    # Invoke command.
+    subprocess.call(cmd, shell=True)

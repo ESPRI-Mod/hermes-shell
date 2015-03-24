@@ -16,7 +16,7 @@ from sqlalchemy.exc import IntegrityError
 
 from prodiguer import cv, db, mq, rt
 
-import in_monitoring_utils as utils
+import utils
 
 
 
@@ -42,6 +42,7 @@ def get_tasks():
         _persist_simulation_configuration,
         _persist_simulation_state,
         _delete_dead_simulation_runs,
+        _push_cv_terms,
         _notify_api,
         _notify_operator
         )
@@ -265,6 +266,18 @@ def _delete_dead_simulation_runs(ctx):
         ctx.uid
         )
     db.session.commit()
+
+
+def _push_cv_terms(ctx):
+    """Pushes new CV terms to remote GitHub repo.
+
+    """
+    if not ctx.cv_terms_persisted:
+        return
+
+    print "enqueuing ", mq.constants.TYPE_GENERAL_CV
+
+    utils.dispatch_message({}, mq.constants.TYPE_GENERAL_CV)
 
 
 def _notify_api(ctx):
