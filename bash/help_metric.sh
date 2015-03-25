@@ -53,12 +53,13 @@ help_metric_fetch_list()
 
 help_metric_format()
 {
-	log "metric-format GROUP-ID FORMAT INPUT-DIR OUTPUT-DIR" 1
+	log "metric-format GROUP-ID INPUT-FORMAT INPUT-DIR OUTPUT-DIR [OUTPUT-FORMAT]" 1
 	log "formats metrics file(s) in readiness for upload" 2
 	log "GROUP-ID: group identifier" 2
-	log "FORMAT: format of input files (pcmdi | ipsl-extended)" 2
+	log "INPUT-FORMAT: format of input files (pcmdi | ipsl-extended)" 2
 	log "INPUT-DIR: path to a directory containing unformatted metrics files" 2
 	log "OUTPUT-DIR: path to a directory to which formatted files will be written" 2
+	log "OUTPUT-FORMAT: format of output files (blocks | lines)" 2
 }
 
 help_metric_fetch_setup()
