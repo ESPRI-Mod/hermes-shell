@@ -57,7 +57,7 @@ run_metric_fetch_list()
 run_metric_format()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_format.py --group=$1 --input_format=$2 --input_dir=$3 --output_dir=$4
+	python $DIR_JOBS/api/metric/run_format.py --group=$1 --input_format=$2 --input_dir=$3 --output_dir=$4 --output_format=blocks
 }
 
 # Fetch metric group line count.

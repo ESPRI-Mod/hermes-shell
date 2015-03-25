@@ -25,6 +25,10 @@ define("input_dir",
 define("output_dir",
        type=str,
        help="Path to which reformatted metrics files will be written.")
+define("output_format",
+       type=str,
+       default="blocks",
+       help="Format of metrics output files (defaults to blocks).")
 
 
 def _main():
@@ -37,7 +41,8 @@ def _main():
     formatter.execute(options.group,
                       options.input_dir,
                       options.input_format,
-                      options.output_dir)
+                      options.output_dir,
+                      options.output_format)
 
 
 # Main entry point.
