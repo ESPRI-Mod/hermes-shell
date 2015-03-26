@@ -62,7 +62,6 @@ def _main():
     # Parse params.
     filepath = utils.parse_filepath(options.file)
     filename = filepath.split("/")[-1]
-    utils.log("add", "uploading metrics file: {}".format(filename))
 
     # Set payload.
     encoding = utils.parse_encoding(os.path.splitext(filepath)[1][1:])
@@ -75,6 +74,11 @@ def _main():
     # Log to stdout.
     if 'error' in response:
         utils.log_error("add", response['error'])
+    else:
+        msg = "processed file: {}".format(filename)
+        msg += " (added row count={0}, duplicate row count={1})".format(response['addedCount'], response['duplicateCount'])
+        msg += "."
+        utils.log("add", msg)
 
 
 # Main entry point.
