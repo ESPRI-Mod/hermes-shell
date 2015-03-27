@@ -6,7 +6,7 @@
 run_metric_add()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_add.py --file=$1
+	python $DIR_JOBS/api/metric/run_add.py --file=$1 --duplicate_action=$2
 }
 
 # Adds a batch of metrics.
@@ -14,7 +14,7 @@ run_metric_add_batch()
 {
 	for file in $1/metrics*.json
 	do
-		run_metric_add $file
+		run_metric_add $file $2
 	done
 }
 
@@ -72,4 +72,11 @@ run_metric_rename()
 {
 	activate_venv server
 	python $DIR_JOBS/api/metric/run_rename.py --group=$1 --new_name=$2
+}
+
+# Sets the hash identifiers over a set of metrics.
+run_metric_set_hashes()
+{
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_set_hashes.py --group=$1
 }

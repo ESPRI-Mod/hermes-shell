@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Module imports.
-import os, sys
+import os
 
 import requests
 from tornado.options import define, options
@@ -15,9 +15,11 @@ import utils
 # Define command line options.
 define("file",
        help="Path to a metrics file to be uploaded to server")
+define("duplicate_action",
+       help="Action to take when adding a metric with a duplicate hash identifier")
 
 # Metric API endpoints.
-_EP = r"/api/1/metric/add"
+_EP = r"/api/1/metric/add?duplicate_action={0}"
 
 # Supported file extensions.
 _ENCODING_CSV = "csv"
@@ -25,7 +27,9 @@ _ENCODING_JSON = "json"
 
 
 def _get_group_from_csv_file(filepath):
-    """Returns a metric group from a local csv file."""
+    """Returns a metric group from a local csv file.
+
+    """
     # Set group name = file name.
     group_name = unicode(os.path.basename(filepath).split(".")[0])
     group_name = group_name.lower()
@@ -60,6 +64,7 @@ def _main():
 
     """
     # Parse params.
+    duplicate_action = utils.parse_duplicate_action(options.duplicate_action)
     filepath = utils.parse_filepath(options.file)
     filename = filepath.split("/")[-1]
 
@@ -68,7 +73,7 @@ def _main():
     payload = _GROUP_FACTORIES[encoding](filepath)
 
     # Invoke api.
-    endpoint = utils.get_endpoint(_EP)
+    endpoint = utils.get_endpoint(_EP.format(duplicate_action))
     response = utils.invoke_api(endpoint, verb=requests.post, payload=payload)
 
     # Log to stdout.

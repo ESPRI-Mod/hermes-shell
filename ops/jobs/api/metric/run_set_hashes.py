@@ -12,14 +12,11 @@ import utils
 # Define command line options.
 define("group",
        type=str,
-       help="Name of metrics group to be renamed (e.g. cmip5-1).")
-define("new_name",
-       type=str,
-       help="New group name.")
+       help="Name of metrics group whose hash identifiers are to be reset (e.g. cmip5-1).")
 
 
 # Metric API endpoint.
-_EP = r"/api/1/metric/rename?group={0}&new_name={1}"
+_EP = r"/api/1/metric/set_hashes?group={0}"
 
 
 def _main():
@@ -29,18 +26,17 @@ def _main():
     # Parse params.
     options.parse_command_line()
     group = utils.parse_group_id(options.group)
-    new_name = utils.parse_group_id(options.new_name)
 
     # Invoke api.
-    endpoint = utils.get_endpoint(_EP.format(group, new_name))
+    endpoint = utils.get_endpoint(_EP.format(group))
     response = utils.invoke_api(endpoint, verb=requests.post)
 
     # Log to stdout.
     if 'error' in response:
-        utils.log_error("rename", response['error'])
+        utils.log_error("set_hashes", response['error'])
     else:
-        utils.log("rename",
-                  "Group {0} sucessfully renamed {1}".format(group, new_name))
+        utils.log("set_hashes",
+                  "Group {0} hash identifiers sucessfully set.".format(group))
 
 
 # Main entry point.

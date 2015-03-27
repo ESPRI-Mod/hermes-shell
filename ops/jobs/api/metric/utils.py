@@ -129,6 +129,18 @@ def parse_filepath(filepath):
     return filepath
 
 
+def parse_duplicate_action(action):
+    """Parses duplicate hash action.
+
+    :param str action: Action to take when processing a metric set with a duplicate hash identifier.
+
+    """
+    if action not in ['skip', 'force']:
+        raise ValueError("Invalid duplicate metric action")
+
+    return action
+
+
 def log(action, msg=None):
     """Logger helper function.
 

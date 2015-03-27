@@ -1,8 +1,9 @@
 help_metric_add()
 {
-	log "metric-add PATH" 1
+	log "metric-add PATH DUPLICATE_ACTION" 1
 	log "adds a group of metrics from a json file" 2
 	log "PATH: path to a metrics file" 2
+	log "DUPLICATE_ACTION: Action to take when adding a duplicate metric (skip | force)"
 }
 
 help_metric_add_batch()
