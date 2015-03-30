@@ -79,6 +79,13 @@ help_metric_rename()
 	log "NEW-GROUP-ID: new group identifier" 2
 }
 
+help_metric_set_hashes()
+{
+	log "metric-set-hashes GROUP-ID" 1
+	log "resets the hash identifiers for a metric group" 2
+	log "GROUP-ID: group identifier" 2
+}
+
 help_metric()
 {
 	commands=(
@@ -92,6 +99,7 @@ help_metric()
 		format
 		fetch_setup
 		rename
+		set_hashes
 	)
 	log_help_commands "metric" ${commands[@]}
 }
