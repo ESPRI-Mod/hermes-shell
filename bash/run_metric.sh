@@ -6,7 +6,11 @@
 run_metric_add()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_add.py --file=$1 --duplicate_action=$2
+	if [ "$2" ]; then
+		python $DIR_JOBS/api/metric/run_add.py --file=$1 --duplicate_action=$2
+	else
+		python $DIR_JOBS/api/metric/run_add.py --file=$1 --duplicate_action=skip
+	fi
 }
 
 # Adds a batch of metrics.
@@ -14,7 +18,11 @@ run_metric_add_batch()
 {
 	for file in $1/metrics*.json
 	do
-		run_metric_add $file $2
+		if [ "$2" ]; then
+			run_metric_add $file $2
+		else
+			run_metric_add $file skip
+		fi
 	done
 }
 
