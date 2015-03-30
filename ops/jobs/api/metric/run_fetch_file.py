@@ -36,6 +36,7 @@ def _main():
     if type(response) == dict and 'error' in response:
         utils.log_error("fetch", response['error'])
     else:
+        del response['status']
         with open(os.path.join(output_dir, "metrics.json"), 'w') as outfile:
             outfile.write(json.dumps(response, indent=4))
 
