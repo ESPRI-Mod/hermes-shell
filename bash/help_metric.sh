@@ -46,6 +46,14 @@ help_metric_fetch_count()
 	log "FILTER: path to a metrics query filter file" 2
 }
 
+help_metric_fetch_file()
+{
+	log "metric-fetch-file GROUP-ID OUTPUT-DIR" 1
+	log "fetches a group of metrics & saves them to file system" 2
+	log "GROUP-ID: group identifier" 2
+	log "OUTPUT-DIR: path to a directory to which downloaded files will be written" 2
+}
+
 help_metric_fetch_list()
 {
 	log "metric-fetch-list" 1

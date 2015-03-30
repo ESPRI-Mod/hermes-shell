@@ -13,9 +13,6 @@ import utils
 # Define command line options.
 define("group",
        help="ID of a metrics group")
-define("include_db_id",
-       default=False,
-       help="Flag indicating whether to also return db id column")
 define("encoding",
        help="Encoding to which metrics will be converted")
 define("filter",
@@ -23,14 +20,15 @@ define("filter",
        help="Path to a metrics filter to be applied")
 
 # Target metric API endpoint.
-_EP = r"/api/1/metric/fetch?group={0}&include_db_id={1}&format={2}"
+_EP = r"/api/1/metric/fetch?group={0}&format={1}"
 
 
 def _main():
-    """Main entry point."""
+    """Main entry point.
+
+    """
     # Parse params.
     group_id = utils.parse_group_id(options.group)
-    include_db_id = utils.parse_boolean(options.include_db_id)
     encoding = utils.parse_encoding(options.encoding)
     filepath = utils.parse_filepath(options.filter) if options.filter else None
 
@@ -38,7 +36,7 @@ def _main():
     payload = convert.json_file_to_dict(filepath) if options.filter else None
 
     # Invoke api.
-    endpoint = _EP.format(group_id, include_db_id, encoding)
+    endpoint = _EP.format(group_id, encoding)
     endpoint = utils.get_endpoint(endpoint)
     response = utils.invoke_api(endpoint,
                                 payload=payload,

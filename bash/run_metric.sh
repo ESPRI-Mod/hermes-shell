@@ -37,14 +37,14 @@ run_metric_delete()
 run_metric_fetch()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_fetch.py --group=$1 --include-db-id=$2 --filter=$3 --encoding=json
+	python $DIR_JOBS/api/metric/run_fetch.py --group=$1 --filter=$2 --encoding=json
 }
 
 # Fetch metric group columns.
 run_metric_fetch_columns()
 {
 	activate_venv server
-	python $DIR_JOBS/api/metric/run_fetch_columns.py --group=$1 --include-db-id=$2
+	python $DIR_JOBS/api/metric/run_fetch_columns.py --group=$1
 }
 
 # Fetch metric count.
@@ -52,6 +52,13 @@ run_metric_fetch_count()
 {
 	activate_venv server
 	python $DIR_JOBS/api/metric/run_fetch_count.py --group=$1 --filter=$2
+}
+
+# Fetch metric group to file system.
+run_metric_fetch_file()
+{
+	activate_venv server
+	python $DIR_JOBS/api/metric/run_fetch_file.py --group=$1 --output_dir=$2
 }
 
 # List groups.
