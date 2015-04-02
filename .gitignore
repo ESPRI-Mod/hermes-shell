@@ -1,3 +1,4 @@
+ops/certs
 ops/backups
 ops/config
 ops/daemons
@@ -7,5 +8,4 @@ ops/tmp
 ops/venv
 repos
 tmp
-ops/config copy
 dev-web.tar.encrypted
