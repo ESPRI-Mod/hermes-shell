@@ -5,9 +5,8 @@ import sys
 import requests
 from tornado.options import define, options
 
-from prodiguer.utils import convert
-
 import utils
+import utils_convert as convert
 
 
 

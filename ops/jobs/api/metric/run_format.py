@@ -40,8 +40,8 @@ def _main():
 
     formatter.execute(options.group,
                       options.input_dir,
-                      options.input_format,
                       options.output_dir,
+                      options.input_format,
                       options.output_format)
 
 
