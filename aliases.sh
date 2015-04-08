@@ -1,6 +1,5 @@
-# Root alias.
-DIR_PRODIGUER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-alias prodiguer='$DIR_PRODIGUER/exec.sh'
+# Create root alias.
+alias prodiguer="$( dirname "${BASH_SOURCE[0]}" )"/exec.sh
 
 # Supported command types.
 declare -a command_types=(
@@ -69,23 +68,36 @@ declare -a commands=(
 	web-api-list-endpoints
 )
 
+# Set path to exec.sh.
+PRODIGUER_SHELL_EXEC="$( dirname "${BASH_SOURCE[0]}" )"/exec.sh
+
+# Create default alias.
+alias prodiguer=$PRODIGUER_SHELL_EXEC
+
 # Create command aliases.
 for command in "${commands[@]}"
 do
-	alias prodiguer-$command="prodiguer "$command
+	alias prodiguer-$command=$PRODIGUER_SHELL_EXEC" "$command
 done
 
 # Create command type help aliases.
 for command_type in "${command_types[@]}"
 do
-	alias help-prodiguer-$command_type="prodiguer help-"$command_type
+	alias help-prodiguer-$command_type=$PRODIGUER_SHELL_EXEC" help-"$command_type
 done
 
 # Create command help aliases.
 for command in "${commands[@]}"
 do
-	alias help-prodiguer-$command="prodiguer help-"$command
+	alias help-prodiguer-$command=$PRODIGUER_SHELL_EXEC" help-"$command
 done
 
 # Composite commands.
-alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer db-pgres-reset'
+alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
+
+# Unset vars.
+unset PRODIGUER_SHELL_EXEC
+unset command_type
+unset command_types
+unset command
+unset commands
