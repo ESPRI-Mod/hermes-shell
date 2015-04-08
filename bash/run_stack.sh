@@ -8,19 +8,10 @@ run_stack_init_ops_directories()
 {
 	log "Initializing ops directories"
 	set_working_dir
-	mkdir -p $DIR_BACKUPS
-	mkdir -p $DIR_CONFIG
-	mkdir -p $DIR_DAEMONS
-	mkdir -p $DIR_DATA
-	mkdir -p $DIR_DATA/pgres
-	mkdir -p $DIR_DATA/mongo
-	mkdir -p $DIR_LOGS
-	mkdir -p $DIR_LOGS/db
-	mkdir -p $DIR_LOGS/mq
-	mkdir -p $DIR_LOGS/web
-	mkdir -p $DIR_PYTHON
-	mkdir -p $DIR_TMP
-	mkdir -p $DIR_VENV
+	for ops_dir in "${OPS_DIRS[@]}"
+	do
+		mkdir -p $ops_dir
+	done
 }
 
 # Run stack bootstrapper.
@@ -92,7 +83,10 @@ run_stack_install_venv()
 # Installs python virtual environments.
 run_stack_install_venvs()
 {
-	run_stack_install_venv "server" "echo"
+	for venv in "${VENVS[@]}"
+	do
+		run_stack_install_venv $venv "echo"
+	done
 }
 
 # Installs a python executable primed with setuptools, pip & virtualenv.
@@ -140,11 +134,10 @@ run_stack_install_repo()
 # Installs git repos.
 run_stack_install_repos()
 {
-	run_stack_install_repo prodiguer-cv
-	run_stack_install_repo prodiguer-docs
-	run_stack_install_repo prodiguer-fe
-	run_stack_install_repo prodiguer-metrics-formatter
-	run_stack_install_repo prodiguer-server
+	for repo in "${REPOS[@]}"
+	do
+		run_install_repo $repo
+	done
 }
 
 # Sets up directories.
@@ -187,7 +180,7 @@ _update_notice()
 }
 
 # Updates a virtual environment.
-_update_venv()
+run_stack_update_venv()
 {
 	log "Updating virtual environment :: $1"
 
@@ -200,7 +193,10 @@ run_stack_update_venvs()
 {
 	export PATH=$DIR_PYTHON/bin:$PATH
 	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
-	_update_venv "server"
+	for venv in "${VENVS[@]}"
+	do
+		run_stack_update_venv $venv
+	done
 }
 
 # Updates a git repo.
@@ -217,11 +213,14 @@ run_stack_update_repo()
 # Updates git repos.
 run_stack_update_repos()
 {
-	run_stack_update_repo prodiguer-cv
-	run_stack_update_repo prodiguer-docs
-	run_stack_update_repo prodiguer-fe
-	run_stack_update_repo prodiguer-metrics-formatter
-	run_stack_update_repo prodiguer-server
+	for repo in "${REPOS[@]}"
+	do
+		if [ -d "$DIR_REPOS/$repo" ]; then
+			run_stack_update_repo $repo
+		else
+			run_stack_install_repo $repo
+		fi
+	done
 }
 
 # Updates configuration.
@@ -242,6 +241,13 @@ run_stack_update_shell()
 	set_working_dir
 	git pull -q
 	remove_files "*.pyc"
+}
+
+# Updates source code.
+run_stack_update_source()
+{
+	run_stack_update_shell
+	run_stack_update_repos
 }
 
 # Updates stack.
@@ -272,7 +278,7 @@ _uninstall_shell()
 }
 
 # Uninstalls git repo.
-_uninstall_repo()
+run_stack_uninstall_repo()
 {
 	rm -rf $DIR_REPOS/$1
 }
@@ -282,11 +288,10 @@ _uninstall_repos()
 {
 	log "Uninstalling repos"
 
-	_uninstall_repo prodiguer-cv
-	_uninstall_repo prodiguer-docs
-	_uninstall_repo prodiguer-fe
-	_uninstall_repo prodiguer-metrics-formatter
-	_uninstall_repo prodiguer-server
+	for repo in "${REPOS[@]}"
+	do
+		run_stack_uninstall_repo $repo
+	done
 }
 
 # Uninstalls python.
@@ -310,7 +315,10 @@ _uninstall_venv()
 # Uninstalls virtual environments.
 _uninstall_venvs()
 {
-	_uninstall_venv "server" "echo"
+	for venv in "${VENVS[@]}"
+	do
+		_uninstall_venv $venv "echo"
+	done
 }
 
 # Uninstalls stack.

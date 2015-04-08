@@ -10,7 +10,6 @@ log_help_commands()
 	local typeof=$1
 	shift
 	local cmds=$@
-	log $typeof" commands:"
 	for cmd in $cmds
 	do
 		"help_"$typeof"_"$cmd
@@ -24,10 +23,9 @@ run_help()
 	helpers=(
 		help_cv
 		help_db
-		help_metric
 		help_mq
 		help_stack
-		help_utests
+		help_utest
 		help_web
 	)
 

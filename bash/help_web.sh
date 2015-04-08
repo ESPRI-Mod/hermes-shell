@@ -1,19 +1,19 @@
 help_web_api()
 {
-	log "web-api" 1
-	log "launches web service API" 2
+	log "web-api"
+	log "Description: launches web service API" 1
 }
 
 help_web_api_heartbeat()
 {
-	log "web-api-heartbeat" 1
-	log "indicates whether web service API is up and running" 2
+	log "web-api-heartbeat"
+	log "Description: indicates whether web service API is up and running" 1
 }
 
 help_web_api_list_endpoints()
 {
-	log "web-api-list-endpoints" 1
-	log "displays list of endpoints supported by web service API" 2
+	log "web-api-list-endpoints"
+	log "Description: displays list of endpoints supported by web service API" 1
 }
 
 help_web()

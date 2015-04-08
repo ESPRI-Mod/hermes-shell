@@ -1,114 +1,114 @@
 help_stack_bootstrap()
 {
-	log "stack-bootstrap" 1
-	log "prepares system for install " 2
+	log "stack-bootstrap"
+	log "Description: prepares system for install " 1
 }
 
 help_stack_config_commit()
 {
-	log "stack-config-commit" 1
-	log "commits local changes to configuration templates" 2
+	log "stack-config-commit"
+	log "Description: commits local changes to configuration templates" 1
 }
 
 help_stack_config_decrypt()
 {
-	log "stack-config-decrypt" 1
-	log "decrypts & extracts configuration files" 2
-	log "MODE = deployment mode [test | prod]" 2
-	log "SERVER-TYPE = type of server [web | mq | db]" 2
+	log "stack-config-decrypt MODE SERVER-TYPE"
+	log "Description: decrypts & extracts configuration files" 1
+	log "MODE = deployment mode [test | prod]" 1
+	log "SERVER-TYPE = type of server [web | mq | db]" 1
 }
 
 help_stack_config_encrypt()
 {
-	log "stack-config-encrypt" 1
-	log "compresses & encrypts configuration files" 2
-	log "MODE = deployment mode [test | prod]" 2
-	log "SERVER-TYPE = type of server [web | mq | db]" 2
+	log "stack-config-encrypt MODE SERVER-TYPE"
+	log "Description: compresses & encrypts configuration files" 1
+	log "MODE = deployment mode [test | prod]" 1
+	log "SERVER-TYPE = type of server [web | mq | db]" 1
 }
 
 help_stack_install_venv()
 {
-	log "stack-install-venv" 1
-	log "installs a virtual environment" 2
+	log "stack-install-venv"
+	log "Description: installs a virtual environment" 1
 }
 
 help_stack_install_venvs()
 {
-	log "stack-install-venvs" 1
-	log "installs virtual environment" 2
+	log "stack-install-venvs"
+	log "Description: installs virtual environment" 1
 }
 
 help_stack_install_python()
 {
-	log "stack-install-python" 1
-	log "installs a python executable" 2
+	log "stack-install-python"
+	log "Description: installs a python executable" 1
 }
 
 help_stack_install_repo()
 {
-	log "stack-install-repo" 1
-	log "installs a prodiguer github repo" 2
-	log "NAME = name of repo to be installed" 2
+	log "stack-install-repo"
+	log "Description: installs a prodiguer github repo" 1
+	log "NAME = name of repo to be installed" 1
 }
 
 help_stack_install_repos()
 {
-	log "stack-install-repos" 1
-	log "installs all prodiguer github repo" 2
+	log "stack-install-repos"
+	log "Description: installs all prodiguer github repo" 1
 }
 
 help_stack_install()
 {
-	log "stack-install" 1
-	log "installs complete stack" 2
+	log "stack-install"
+	log "Description: installs complete stack" 1
 }
 
 help_stack_update_venvs()
 {
-	log "stack-update-venvs" 1
-	log "updates virtual environments" 2
+	log "stack-update-venvs"
+	log "Description: updates virtual environments" 1
 }
 
 help_stack_update_repo()
 {
-	log "stack-update-repo" 1
-	log "updates a git repo" 2
+	log "stack-update-repo"
+	log "Description: updates a git repo" 1
 }
 
 help_stack_update_repos()
 {
-	log "stack-update-repos" 1
-	log "updates git repos" 2
+	log "stack-update-repos"
+	log "Description: updates git repos" 1
 }
 
 help_stack_update_config()
 {
-	log "stack-update-config" 1
-	log "updates local configuration files" 2
+	log "stack-update-config"
+	log "Description: updates local configuration files" 1
 }
 
 help_stack_update_shell()
 {
-	log "stack-update-shell" 1
-	log "updates shell" 2
+	log "stack-update-shell"
+	log "Description: updates shell" 1
 }
 
 help_stack_update_source()
 {
-	log "stack-update-source" 1
-	log "updates shell and git repos" 2
+	log "stack-update-source"
+	log "Description: updates shell and git repos" 1
 }
 
 help_stack_update()
 {
-	log "stack-update" 1
-	log "updates full stack (i.e. shell, repos, config and virtual environments)" 2
+	log "stack-update"
+	log "Description: updates full stack (i.e. shell, repos, config and virtual environments)" 1
 }
 
 help_stack_uninstall()
 {
-	log "stack-uninstall" 1
-	log "uninstalls stack & virtual environments" 2
+	log "stack-uninstall"
+	log "Description: uninstalls stack & virtual environments" 1
 }
 
 help_stack()

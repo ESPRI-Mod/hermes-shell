@@ -6,6 +6,7 @@
 
 declare DIR_BASH=$DIR/bash
 declare DIR_BACKUPS=$DIR/ops/backups
+declare DIR_CERTS=$DIR/ops/certs
 declare DIR_CONFIG=$DIR/ops/config
 declare DIR_DAEMONS=$DIR/ops/daemons
 declare DIR_DATA=$DIR/ops/data
