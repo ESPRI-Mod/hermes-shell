@@ -221,6 +221,12 @@ run_stack_update_repos()
 			run_stack_install_repo $repo
 		fi
 	done
+	for repo in "${REPOS_OBSOLETE[@]}"
+	do
+		if [ -d "$DIR_REPOS/$repo" ]; then
+			run_stack_uninstall_repo $repo
+		fi
+	done
 }
 
 # Updates configuration.

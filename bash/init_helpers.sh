@@ -45,7 +45,6 @@ activate_venv()
 	if [ $1 = "server" ]; then
 		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-server/src
 		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-client
-		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-metrics-formatter
 	fi
 	source $DIR_VENV/$1/bin/activate
 	log "Activated virtual environment: "$1

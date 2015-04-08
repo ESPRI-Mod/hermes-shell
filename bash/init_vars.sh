@@ -13,8 +13,12 @@ declare -a REPOS=(
 	'prodiguer-cv'
 	'prodiguer-docs'
 	'prodiguer-fe'
-	'prodiguer-metrics-formatter'
 	'prodiguer-server'
+)
+
+# Set of obsolete git repos.
+declare -a REPOS_OBSOLETE=(
+	'prodiguer-metrics-formatter'
 )
 
 # Set of ops sub-directories.
