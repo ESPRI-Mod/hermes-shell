@@ -64,8 +64,6 @@ declare -a commands=(
 	stack-config-decrypt
 	# Web service.
 	web-api
-	web-api-heartbeat
-	web-api-list-endpoints
 )
 
 # Set path to exec.sh.
