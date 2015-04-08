@@ -3,7 +3,9 @@ import prodiguer
 
 
 def main():
-	"""Main entry point."""
+	"""Main entry point.
+
+	"""
 	prodiguer.api.run()
 
 

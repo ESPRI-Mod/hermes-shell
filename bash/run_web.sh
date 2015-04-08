@@ -11,5 +11,5 @@ run_web_api()
 
 	activate_venv server
 
-	python $DIR_JOBS/api/run_api.py
+	python $DIR_JOBS/web/run_api.py
 }
