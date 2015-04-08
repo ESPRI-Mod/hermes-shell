@@ -55,21 +55,3 @@ remove_files()
 {
 	find . -name $1 -exec rm -rf {} \;
 }
-
-run_init_cv()
-{
-	activate_venv server
-	python $DIR_JOBS/cv/run_init.py
-}
-
-run_load_cv()
-{
-	activate_venv server
-	python $DIR_JOBS/cv/run_load.py
-}
-
-run_misc()
-{
-	activate_venv server
-	python $DIR_JOBS/other/run_misc.py
-}
