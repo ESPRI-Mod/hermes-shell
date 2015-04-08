@@ -286,6 +286,8 @@ _uninstall_shell()
 # Uninstalls git repo.
 run_stack_uninstall_repo()
 {
+	log "Uninstalling repo: $1"
+
 	rm -rf $DIR_REPOS/$1
 }
 
