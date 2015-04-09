@@ -53,7 +53,7 @@ _WITH_ARG = {
 
 
 # Collection of non-standard producers.
-_NON_STANDARD = [ext_smtp_realtime]
+_NON_STANDARD = {ext_smtp_realtime}
 
 
 def _execute_standard(producer):
@@ -77,7 +77,7 @@ def _execute_standard(producer):
         error_tasks = None
 
     # Invoke tasks.
-    rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx, module="MQ")
+    rt.invoke_mq(options.agent_type, tasks, error_tasks=error_tasks, ctx=ctx)
 
 
 def _execute_non_standard(producer):

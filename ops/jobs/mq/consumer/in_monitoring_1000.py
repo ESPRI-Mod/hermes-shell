@@ -59,7 +59,7 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.execution_start_date = utils.get_timestamp(ctx.props.headers['timestamp'])
+    ctx.execution_start_date = ctx.msg.timestamp
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
         'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)

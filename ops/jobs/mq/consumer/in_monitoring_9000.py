@@ -49,15 +49,14 @@ class ProcessingContextInfo(mq.Message):
             props, body, decode=decode)
 
         self.simulation_uid = None
-        self.timestamp = None
 
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
+    ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
-    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
 
 
 def _persist_job_state(ctx):
@@ -68,7 +67,7 @@ def _persist_job_state(ctx):
         ctx.simulation_uid,
         ctx.job_uid,
         cv.constants.JOB_STATE_ERROR,
-        ctx.timestamp,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 

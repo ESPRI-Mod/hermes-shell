@@ -76,7 +76,6 @@ class ProcessingContextInfo(mq.Message):
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
-        self.timestamp = None
         self.uid = None
 
 
@@ -136,7 +135,6 @@ def _unpack_message_content(ctx):
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
     ctx.output_end_date = arrow.get(ctx.content['endDate']).datetime
     ctx.simulation_space = ctx.content['space']
-    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.uid = ctx.content['simuid']
 
 
@@ -215,7 +213,7 @@ def _persist_simulation(ctx):
             ctx.compute_node,
             ctx.compute_node_login,
             ctx.compute_node_machine,
-            ctx.timestamp,
+            ctx.msg.timestamp,
             ctx.experiment,
             ctx.model,
             ctx.name,
@@ -252,7 +250,7 @@ def _persist_simulation_state(ctx):
     db.dao_monitoring.create_simulation_state(
         ctx.uid,
         cv.constants.SIMULATION_STATE_RUNNING,
-        ctx.timestamp,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 

@@ -25,7 +25,6 @@ run_cv_git_setup()
 {
 	set_working_dir $DIR_REPOS/prodiguer-cv
 	git config user.name $GIT_USERNAME
-	git config user.email $GIT_EMAIL
 	git config --list
 	set_working_dir
 	log "CV : configured prodiguer-cv repo for automated pushes"

@@ -45,12 +45,10 @@ class ProcessingContextInfo(mq.Message):
         """Object constructor.
 
         """
-        super(ProcessingContextInfo, self).__init__(
-            props, body, decode=decode)
+        super(ProcessingContextInfo, self).__init__(props, body, decode=decode)
 
         self.simulation = None
         self.simulation_uid = None
-        self.timestamp = None
 
 
 def _unpack_message_content(ctx):
@@ -58,7 +56,6 @@ def _unpack_message_content(ctx):
 
     """
     ctx.simulation_uid = ctx.content['simuid']
-    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
 
 
 def _persist_simulation_updates(ctx):
@@ -69,7 +66,7 @@ def _persist_simulation_updates(ctx):
     if not simulation:
         ctx.abort = True
     else:
-        simulation.execution_end_date = ctx.timestamp
+        simulation.execution_end_date = ctx.msg.timestamp
         db.session.update(simulation, False)
 
 
@@ -80,7 +77,7 @@ def _persist_simulation_state(ctx):
     db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
         cv.constants.SIMULATION_STATE_COMPLETE,
-        ctx.timestamp,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 

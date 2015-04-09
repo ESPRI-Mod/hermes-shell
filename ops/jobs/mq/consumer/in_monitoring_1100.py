@@ -50,14 +50,12 @@ class ProcessingContextInfo(mq.Message):
 
         self.job_uid = None
         self.simulation_uid = None
-        self.timestamp = None
 
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.timestamp = utils.get_timestamp(ctx.props.headers['timestamp'])
     ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
 
@@ -69,7 +67,7 @@ def _persist_simulation_state(ctx):
     db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
         cv.constants.SIMULATION_STATE_QUEUED,
-        ctx.timestamp,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 
@@ -82,7 +80,7 @@ def _persist_job_state(ctx):
         ctx.simulation_uid,
         ctx.job_uid,
         cv.constants.JOB_STATE_COMPLETE,
-        ctx.timestamp,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 

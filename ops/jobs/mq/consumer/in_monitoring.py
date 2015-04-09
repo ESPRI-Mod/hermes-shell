@@ -43,15 +43,8 @@ _SUB_CONSUMERS = {
 }
 
 # Set of auotmatically loggable consumers.
-_LOGGABLE_CONSUMERS = {
-    '0000',
-    '0100',
-    '1000',
-    '1100',
-    '9000',
-    '9999'
-    }
-
+# N.B. these are used during development.
+_LOGGABLE_CONSUMERS = {}
 
 # MQ exhange to bind to.
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
@@ -94,4 +87,5 @@ def _process(ctx):
     except AttributeError:
         error_tasks = None
 
-    rt.invoke1(tasks, error_tasks=error_tasks, ctx=sub_ctx, module="MQ")
+    # Invoke tasks.
+    rt.invoke_mq(ctx.props.type, tasks, error_tasks=error_tasks, ctx=sub_ctx)

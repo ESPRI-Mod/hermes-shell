@@ -62,14 +62,14 @@ def get_timestamp(timestamp):
 
     """
     try:
-        return arrow.get(timestamp).to('Europe/Paris').datetime
+        return arrow.get(timestamp).to('UTC').datetime
     except arrow.parser.ParserError:
         part1 = timestamp.split(".")[0]
         part2 = timestamp.split(".")[1].split("+")[0][0:6]
         part3 = timestamp.split(".")[1].split("+")[1]
         timestamp = "{0}.{1}+{2}".format(part1, part2, part3)
 
-        return arrow.get(timestamp).to('Europe/Paris').datetime
+        return arrow.get(timestamp).to('UTC').datetime
 
 
 def notify_api_of_simulation_state_change(uid):
@@ -94,6 +94,9 @@ def notify_operator(uid, notification_type):
     :param dict notification_info: Notification information.
 
     """
+    # Skip until notification strategy is better defined.
+    return
+
     data = {
         'notificationType': notification_type,
         'simulation_uid': uid

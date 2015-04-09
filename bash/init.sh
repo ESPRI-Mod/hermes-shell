@@ -16,8 +16,8 @@ declare -a commands=(
 	'run_db_mongo'
 	'run_db_pgres'
 	'run_mq'
-	'run_mq'
 	'run_os'
+	'run_stack'
 	'run_utest'
 	'run_web'
 )

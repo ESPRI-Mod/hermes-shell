@@ -94,21 +94,21 @@ def _initialize_consumer(consumer):
         task()
 
 
-def _process(consumer, ctx):
+def _process(exec_info, ctx):
     """Processes a message being consumed from a queue.
 
     """
     # Set tasks.
-    tasks = consumer.get_tasks()
+    tasks = exec_info.consumer.get_tasks()
 
     # Set error tasks.
     try:
-        error_tasks = consumer.get_error_tasks()
+        error_tasks = exec_info.consumer.get_error_tasks()
     except AttributeError:
         error_tasks = None
 
     # Execute.
-    rt.invoke1(tasks, error_tasks=error_tasks, ctx=ctx, module="MQ")
+    rt.invoke_mq(exec_info.consumer_type, tasks, error_tasks=error_tasks, ctx=ctx)
 
 
 class _ConsumerExecutionInfo(object):
@@ -121,7 +121,6 @@ class _ConsumerExecutionInfo(object):
         """
         self.consumer = None
         self.consumer_type = consumer_type
-        self.auto_persist = True
         self.context_type = mq.Message
 
 
@@ -143,12 +142,6 @@ class _ConsumerExecutionInfo(object):
             instance.consumer = _CONSUMERS[options.agent_type]
         except KeyError:
             raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
-
-        # Set flag indicating whether message will be presisted to db.
-        try:
-            instance.auto_persist = instance.consumer.PERSIST_MESSAGE
-        except AttributeError:
-            pass
 
         # Set processing context information type.
         try:
@@ -184,8 +177,7 @@ def _execute():
     try:
         mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,
                          "q-{0}".format(options.agent_type),
-                         lambda ctx: _process(exec_info.consumer, ctx),
-                         auto_persist=exec_info.auto_persist,
+                         lambda ctx: _process(exec_info, ctx),
                          consume_limit=options.agent_limit,
                          context_type=exec_info.context_type,
                          verbose=options.agent_limit > 0)
