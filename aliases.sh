@@ -6,6 +6,7 @@ declare -a command_types=(
 	cv
 	db
 	mq
+	os
 	stack
 	utests
 	web
@@ -25,6 +26,7 @@ declare -a commands=(
 	db-pgres-uninstall
 	# MQ admin.
 	mq-configure
+	mq-consume
 	mq-daemons-init
 	mq-daemons-kill
 	mq-daemons-refresh
@@ -32,21 +34,12 @@ declare -a commands=(
 	mq-daemons-start
 	mq-daemons-status
 	mq-daemons-stop
+	mq-produce
 	mq-purge
 	mq-reset
 	mq-server
-	# MQ producers.
-	mq-produce
-	mq-produce-ext-smtp-from-file
-	mq-produce-ext-smtp-polling
-	mq-produce-ext-smtp-realtime
-	# MQ consumers.
-	mq-consume
-	mq-consume-ext-smtp
-	mq-consume-in-monitoring
-	mq-consume-internal-api
-	mq-consume-internal-smtp
-	mq-consume-internal-sms
+	# Server setup.
+	os-setup
 	# Stack management.
 	stack-bootstrap
 	stack-install

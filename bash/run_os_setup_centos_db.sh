@@ -1,19 +1,5 @@
-# Sets up common system dependencies.
-setup_common()
-{
-	# Ensure machine is upto date.
-	yum upgrade
-
-	# Enable EPEL v6.
-	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-
-	# Install various tools.
-	yum groupinstall -y development
-	yum install xz-libs zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel postgresql93-libs postgresql-devel postgresql93-devel python-devel postgresql93-plpython python-psycopg2
-}
-
 # Installs postgres db server.
-setup_postgres()
+_setup_postgres()
 {
 	# Install yum PostgreSQL repository.
 	log "Installing PostgreSQL repo"
@@ -41,7 +27,7 @@ setup_postgres()
 }
 
 # Installs mongodb db server.
-setup_mongodb()
+_setup_mongodb()
 {
 	# Configure the package management system (YUM).
 	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
@@ -53,28 +39,12 @@ setup_mongodb()
 # Main entry point.
 main()
 {
-	# Download prodiguer shell.
-	yum install git
-	cd /opt
-	git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
-
-	# Set vars.
-	declare DIR_TEMPLATES=./prodiguer/templates
-
-	# Install common libraries.
-	setup_common
-
 	# Install postgres db server.
-	setup_postgres
+	_setup_postgres
 
 	# Install mogondb db server.
-	setup_mongodb
-
-	# Install stack.
-	./prodiguer/exec.sh stack-bootstrap
-	./prodiguer/exec.sh stack-install
-	./prodiguer/exec.sh db-install
+	_setup_mongodb
 }
 
 # Invoke entry point.
-main()
+main

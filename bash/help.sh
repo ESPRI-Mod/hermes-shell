@@ -24,6 +24,7 @@ run_help()
 		help_cv
 		help_db
 		help_mq
+		help_os
 		help_stack
 		help_utest
 		help_web

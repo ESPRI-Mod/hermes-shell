@@ -12,13 +12,14 @@ do
 done
 
 declare -a commands=(
-	'run_web'
 	'run_cv'
 	'run_db_mongo'
 	'run_db_pgres'
 	'run_mq'
-	'run_stack'
+	'run_mq'
+	'run_os'
 	'run_utest'
+	'run_web'
 )
 for command in "${commands[@]}"
 do
@@ -30,6 +31,7 @@ declare -a helpers=(
 	'help_cv'
 	'help_db'
 	'help_mq'
+	'help_os'
 	'help_stack'
 	'help_utest'
 	'help_web'
