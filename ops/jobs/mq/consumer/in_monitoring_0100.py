@@ -10,7 +10,8 @@
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 """
-from prodiguer import cv, db, mq
+from prodiguer import cv, mq
+from prodiguer.db import pgres as db
 
 import utils
 

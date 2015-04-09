@@ -13,7 +13,8 @@
 """
 from sqlalchemy.exc import IntegrityError
 
-from prodiguer import config, db, mail, mq, rt
+from prodiguer import config, mail, mq, rt
+from prodiguer.db import pgres as db
 
 
 

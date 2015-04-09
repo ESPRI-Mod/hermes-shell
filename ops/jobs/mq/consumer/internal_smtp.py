@@ -17,7 +17,8 @@ from os.path import abspath, dirname, join
 
 import tornado.template as template
 
-from prodiguer import mq, db
+from prodiguer import mq
+from prodiguer.db import pgres as db
 
 
 

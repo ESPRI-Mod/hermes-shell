@@ -14,7 +14,8 @@
 import arrow
 from sqlalchemy.exc import IntegrityError
 
-from prodiguer import cv, db, mq, rt
+from prodiguer import cv, mq, rt
+from prodiguer.db import pgres as db
 
 import utils
 

@@ -13,7 +13,7 @@
 """
 import sqlalchemy
 
-from prodiguer import db
+from prodiguer.db import pgres as db
 from prodiguer.utils import config, rt
 
 

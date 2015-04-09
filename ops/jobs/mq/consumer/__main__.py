@@ -15,7 +15,8 @@ import logging
 
 from tornado.options import define, options
 
-from prodiguer import config, cv, db, mq, rt
+from prodiguer import cv, mq, rt
+from prodiguer.db import pgres as db
 
 import ext_smtp
 import in_monitoring

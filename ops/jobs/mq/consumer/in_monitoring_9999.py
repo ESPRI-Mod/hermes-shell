@@ -11,7 +11,8 @@
 
 
 """
-from prodiguer import cv, db, mq
+from prodiguer import cv, mq
+from prodiguer.db import pgres as db
 
 import utils
 
