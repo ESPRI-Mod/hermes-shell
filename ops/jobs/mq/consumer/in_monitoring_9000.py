@@ -31,9 +31,7 @@ def get_tasks():
     """
     return (
         _unpack_message_content,
-        _persist_job_state,
-        _notify_api,
-        _notify_operator
+        _persist_job_state
         )
 
 
@@ -70,17 +68,3 @@ def _persist_job_state(ctx):
         ctx.msg.timestamp,
         MQ_QUEUE
         )
-
-
-def _notify_api(ctx):
-    """Dispatches API notification.
-
-    """
-    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)
-
-
-def _notify_operator(ctx):
-    """Dispatches operator notification.
-
-    """
-    utils.notify_operator(ctx.simulation_uid, "monitoring-9000")
