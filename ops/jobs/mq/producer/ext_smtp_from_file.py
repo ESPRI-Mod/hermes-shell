@@ -110,7 +110,6 @@ def _get_msg_basic_props(msg):
         app_id = msg['msgApplication'],
         message_id = msg['msgUID'],
         message_type = msg['msgCode'],
-        mode = mq.constants.MODE_TEST,
         timestamp = timestamp.as_ms_int,
         headers = {
             "timestamp": unicode(timestamp.as_ns_raw),

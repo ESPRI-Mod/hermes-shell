@@ -32,8 +32,8 @@ def get_message(uid):
             user_id = mq.constants.USER_IGCM,
             producer_id = mq.constants.PRODUCER_IGCM,
             app_id = mq.constants.APP_MONITORING,
-            message_type = mq.constants.TYPE_GENERAL_SMTP,
-            mode = mq.constants.MODE_TEST)
+            message_type = mq.constants.TYPE_GENERAL_SMTP
+            )
 
 
     def _get_body(uid):

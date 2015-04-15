@@ -64,6 +64,7 @@ def execute(throttle=0):
     :param int throttle: Limit upon number of emails to process.
 
     """
+    imap_client = None
     try:
         while True:
             # Connect to email server.

@@ -24,8 +24,7 @@ def dispatch_message(
     message_type,
     mq_user_id=mq.constants.USER_PRODIGUER,
     mq_producer_id = mq.constants.PRODUCER_PRODIGUER,
-    mq_app_id = mq.constants.APP_MONITORING,
-    mq_mode = mq.constants.MODE_TEST
+    mq_app_id = mq.constants.APP_MONITORING
     ):
     """Dispatches message to MQ server for subsequent processing.
 
@@ -38,8 +37,8 @@ def dispatch_message(
             user_id = mq_user_id,
             producer_id = mq_producer_id,
             app_id = mq_app_id,
-            message_type = message_type,
-            mode = mq_mode)
+            message_type = message_type
+            )
 
 
     def _get_message():
