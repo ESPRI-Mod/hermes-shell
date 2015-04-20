@@ -5,16 +5,13 @@
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 3000 messages.
+   :synopsis: Consumes monitoring 3000 messages: post-processing (from checker) job starts.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
 from prodiguer import mq
-from prodiguer.db import pgres as db
-
-import utils
 
 
 
@@ -31,7 +28,6 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
-      _persist_job_command
       )
 
 
@@ -46,19 +42,9 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.simulation_uid = None
-
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.simulation_uid = ctx.content['simuid']
-
-
-def _persist_job_command(ctx):
-    """Persists job command information to db.
-
-    """
     pass
-

@@ -33,7 +33,7 @@ def get_tasks():
     return (
       _unpack_message_content,
       _persist_simulation_state,
-      _persist_job_state,
+      _persist_job,
       _notify_api
       )
 
@@ -49,7 +49,6 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.execution_start_date = None
         self.job_uid = None
         self.job_warning_delay = None
         self.simulation_uid = None
@@ -59,7 +58,6 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.execution_start_date = ctx.msg.timestamp
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
         'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
@@ -73,21 +71,19 @@ def _persist_simulation_state(ctx):
     db.dao_monitoring.create_simulation_state(
         ctx.simulation_uid,
         cv.constants.SIMULATION_STATE_RUNNING,
-        ctx.execution_start_date,
+        ctx.msg.timestamp,
         MQ_QUEUE
         )
 
 
-def _persist_job_state(ctx):
-    """Persists job state to db.
+def _persist_job(ctx):
+    """Persists job info to db.
 
     """
-    db.dao_monitoring.create_job_state(
+    db.dao_monitoring.create_job(
         ctx.simulation_uid,
         ctx.job_uid,
-        cv.constants.JOB_STATE_RUNNING,
-        ctx.execution_start_date,
-        MQ_QUEUE,
+        ctx.msg.timestamp,
         ctx.job_warning_delay
         )
 
@@ -96,4 +92,10 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    utils.notify_api_of_simulation_state_change(ctx.simulation_uid)
+    data = {
+        "event_type": u"job_start",
+        "job_uid": unicode(ctx.job_uid),
+        "simulation_uid": unicode(ctx.simulation_uid)
+    }
+
+    utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)

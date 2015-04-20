@@ -18,28 +18,43 @@ import in_monitoring_0100
 import in_monitoring_1000
 import in_monitoring_1100
 import in_monitoring_2000
+import in_monitoring_2100
 import in_monitoring_3000
+import in_monitoring_3100
+import in_monitoring_4000
+import in_monitoring_4100
+import in_monitoring_4900
 import in_monitoring_7000
 import in_monitoring_7100
 import in_monitoring_8888
-import in_monitoring_9000
 import in_monitoring_9999
 
 
 
 # Map of sub-consumer types to sub-consumers.
 _SUB_CONSUMERS = {
+    # Simulation messages.
     '0000': in_monitoring_0000,
     '0100': in_monitoring_0100,
+    '9999': in_monitoring_9999,
+    # Computing job messages.
     '1000': in_monitoring_1000,
     '1100': in_monitoring_1100,
+    # Post processing job messages.
     '2000': in_monitoring_2000,
+    '2100': in_monitoring_2100,
+    # Post processing from checker job messages.
     '3000': in_monitoring_3000,
+    '3100': in_monitoring_3100,
+    # Command messages.
+    '4000': in_monitoring_4000,
+    '4100': in_monitoring_4100,
+    '4900': in_monitoring_4900,
+    '9000': in_monitoring_4900,
+    # Other messages.
     '7000': in_monitoring_7000,
     '7100': in_monitoring_7100,
-    '8888': in_monitoring_8888,
-    '9000': in_monitoring_9000,
-    '9999': in_monitoring_9999,
+    '8888': in_monitoring_8888
 }
 
 # Set of auotmatically loggable consumers.

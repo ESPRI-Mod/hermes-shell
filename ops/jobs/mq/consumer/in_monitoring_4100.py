@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_9999.py
+.. module:: run_in_monitoring_4100.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 9999 messages.
+   :synopsis: Consumes monitoring 4100 messages: pop stack.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 
 import utils
@@ -22,7 +22,7 @@ import utils
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_9999
+MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_4100
 
 
 def get_tasks():
@@ -30,10 +30,9 @@ def get_tasks():
 
     """
     return (
-        _unpack_message_content,
-        _persist_simulation_state,
-        _notify_api
-        )
+      _unpack_message_content,
+      _persist_command
+      )
 
 
 class ProcessingContextInfo(mq.Message):
@@ -57,26 +56,9 @@ def _unpack_message_content(ctx):
     ctx.simulation_uid = ctx.content['simuid']
 
 
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
+def _persist_command(ctx):
+    """Persists command information to db.
 
     """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_ERROR,
-        ctx.msg.timestamp,
-        MQ_QUEUE
-        )
-
-
-def _notify_api(ctx):
-    """Dispatches API notification.
-
-    """
-    data = {
-        "event_type": u"simulation_error",
-        "simulation_uid": unicode(ctx.simulation_uid)
-    }
-
-    utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
+    pass
 

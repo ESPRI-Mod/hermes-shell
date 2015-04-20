@@ -71,21 +71,6 @@ def get_timestamp(timestamp):
         return arrow.get(timestamp).to('UTC').datetime
 
 
-def notify_api_of_simulation_state_change(uid):
-    """Notifies web API of a simulation state change event.
-
-    :param str uid: UID of simulation being processed.
-    :param str state: New state of simulation being processed.
-
-    """
-    data = {
-        u"event_type": "simulation_state_change",
-        u"uid": unicode(uid)
-    }
-
-    dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-
-
 def notify_operator(uid, notification_type):
     """Notifies operator of a simulation event of interest.
 

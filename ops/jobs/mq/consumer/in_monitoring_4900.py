@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_0100.py
+.. module:: run_in_monitoring_4900.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 0100 messages.
+   :synopsis: Consumes monitoring 4900 messages: pop stack failure.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
 
 """
 from prodiguer import cv, mq
@@ -21,7 +22,7 @@ import utils
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_0100
+MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_4900
 
 
 def get_tasks():
@@ -29,11 +30,9 @@ def get_tasks():
 
     """
     return (
-        _unpack_message_content,
-        _persist_simulation_updates,
-        _persist_simulation_state,
-        _notify_api
-    )
+      _unpack_message_content,
+      _persist_job_updates
+      )
 
 
 class ProcessingContextInfo(mq.Message):
@@ -44,9 +43,10 @@ class ProcessingContextInfo(mq.Message):
         """Object constructor.
 
         """
-        super(ProcessingContextInfo, self).__init__(props, body, decode=decode)
+        super(ProcessingContextInfo, self).__init__(
+            props, body, decode=decode)
 
-        self.simulation = None
+        self.job_uid = None
         self.simulation_uid = None
 
 
@@ -54,31 +54,22 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
+    ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
 
 
-def _persist_simulation_updates(ctx):
-    """Persists simulation updates to db.
+def _persist_job_updates(ctx):
+    """Persists job updates to db.
 
     """
-    simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
-    if not simulation:
-        ctx.abort = True
-    else:
-        simulation.execution_end_date = ctx.msg.timestamp
-        db.session.update(simulation, False)
-
-
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
-
-    """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_COMPLETE,
+    updated = db.dao_monitoring.update_job_status(
+        ctx.job_uid,
         ctx.msg.timestamp,
-        MQ_QUEUE
+        cv.constants.JOB_STATE_ERROR
         )
+
+    if not updated:
+        ctx.abort = True
 
 
 def _notify_api(ctx):
@@ -86,9 +77,9 @@ def _notify_api(ctx):
 
     """
     data = {
-        "event_type": u"simulation_complete",
+        "event_type": u"job_error",
+        "job_uid": unicode(ctx.job_uid),
         "simulation_uid": unicode(ctx.simulation_uid)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-

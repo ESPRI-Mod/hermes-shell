@@ -67,13 +67,11 @@ def execute(throttle=0):
     imap_client = None
     try:
         while True:
-            # Connect to email server.
-            imap_client = mail.connect()
-
             # Dispatch existing emails.
-            dispatch_emails(imap_client)
+            dispatch_emails()
 
             # Process IMAP idle events.
+            imap_client = mail.connect()
             imap_client.idle()
             while True:
                 # ... blocks whilst waiting for idle response

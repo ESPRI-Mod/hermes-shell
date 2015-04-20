@@ -25,11 +25,15 @@ import in_monitoring_0100
 import in_monitoring_1000
 import in_monitoring_1100
 import in_monitoring_2000
+import in_monitoring_2100
 import in_monitoring_3000
+import in_monitoring_3100
+import in_monitoring_4000
+import in_monitoring_4100
+import in_monitoring_4900
 import in_monitoring_7000
 import in_monitoring_7100
 import in_monitoring_8888
-import in_monitoring_9000
 import in_monitoring_9999
 import internal_api
 import internal_cv
@@ -64,12 +68,17 @@ _CONSUMERS = {
     'in-monitoring-1000': in_monitoring_1000,
     'in-monitoring-1100': in_monitoring_1100,
     'in-monitoring-2000': in_monitoring_2000,
+    'in-monitoring-2100': in_monitoring_2100,
     'in-monitoring-3000': in_monitoring_3000,
+    'in-monitoring-3100': in_monitoring_3100,
+    'in-monitoring-4000': in_monitoring_4000,
+    'in-monitoring-4100': in_monitoring_4100,
+    'in-monitoring-4900': in_monitoring_4900,
     'in-monitoring-7000': in_monitoring_7000,
     'in-monitoring-7100': in_monitoring_7100,
     'in-monitoring-8888': in_monitoring_8888,
-    'in-monitoring-9000': in_monitoring_9000,
-    'in-monitoring-9999': in_monitoring_9999,
+    'in-monitoring-9000': in_monitoring_4900,
+    'in-monitoring-9999': in_monitoring_9999
 }
 
 

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_2000.py
+.. module:: run_in_monitoring_3100.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 2000 messages: post-processing job starts.
+   :synopsis: Consumes monitoring 3100 messages: post-processing (from checker) job ends.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -19,7 +19,7 @@ from prodiguer import mq
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_2000
+MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_3100
 
 
 def get_tasks():

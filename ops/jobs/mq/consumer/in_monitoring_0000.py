@@ -44,8 +44,7 @@ def get_tasks():
         _persist_simulation_state,
         _delete_dead_simulation_runs,
         _push_cv_terms,
-        _notify_api,
-        _notify_operator
+        _notify_api
         )
 
 
@@ -76,7 +75,7 @@ class ProcessingContextInfo(mq.Message):
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
-        self.uid = None
+        self.simulation_uid = None
 
 
     @property
@@ -135,7 +134,7 @@ def _unpack_message_content(ctx):
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
     ctx.output_end_date = arrow.get(ctx.content['endDate']).datetime
     ctx.simulation_space = ctx.content['space']
-    ctx.uid = ctx.content['simuid']
+    ctx.simulation_uid = ctx.content['simuid']
 
 
 def _reformat_message_content(ctx):
@@ -220,7 +219,7 @@ def _persist_simulation(ctx):
             ctx.output_start_date,
             ctx.output_end_date,
             ctx.simulation_space,
-            ctx.uid
+            ctx.simulation_uid
             )
     # Duplicates ... rollback & abort further processing.
     except IntegrityError:
@@ -238,7 +237,7 @@ def _persist_simulation_configuration(ctx):
         return
 
     db.dao_monitoring.create_simulation_configuration(
-        ctx.uid,
+        ctx.simulation_uid,
         ctx.configuration
         )
 
@@ -248,7 +247,7 @@ def _persist_simulation_state(ctx):
 
     """
     db.dao_monitoring.create_simulation_state(
-        ctx.uid,
+        ctx.simulation_uid,
         cv.constants.SIMULATION_STATE_RUNNING,
         ctx.msg.timestamp,
         MQ_QUEUE
@@ -261,7 +260,7 @@ def _delete_dead_simulation_runs(ctx):
     """
     db.dao_monitoring.delete_dead_simulation_runs(
         ctx.hashid,
-        ctx.uid
+        ctx.simulation_uid
         )
     db.session.commit()
 
@@ -273,8 +272,6 @@ def _push_cv_terms(ctx):
     if not ctx.cv_terms_persisted_to_db and not ctx.cv_terms_new:
         return
 
-    print "enqueuing ", mq.constants.TYPE_GENERAL_CV
-
     utils.dispatch_message({}, mq.constants.TYPE_GENERAL_CV)
 
 
@@ -283,16 +280,9 @@ def _notify_api(ctx):
 
     """
     data = {
-        "event_type": "new_simulation",
-        "uid": unicode(ctx.uid),
+        "event_type": u"simulation_start",
+        "simulation_uid": unicode(ctx.simulation_uid),
         "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted_to_db)
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-
-
-def _notify_operator(ctx):
-    """Dispatches operator notification.
-
-    """
-    utils.notify_operator(ctx.uid, "monitoring-0000")
