@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 
 import utils
@@ -47,6 +47,7 @@ class ProcessingContextInfo(mq.Message):
             props, body, decode=decode)
 
         self.job_uid = None
+        self.notify_api = True
         self.simulation_uid = None
 
 
@@ -63,18 +64,24 @@ def _persist_job_updates(ctx):
 
     """
     job = db.dao_monitoring.retrieve_job(ctx.job_uid)
-    if not job or job.is_error:
-        ctx.abort = True
+    if job and job.is_error:
+        ctx.notify_api = False
     else:
-        job.execution_end_date = ctx.msg.timestamp
-        job.is_error = True
-        db.session.update(job)
+        db.dao_monitoring.persist_job_02(
+            ctx.msg.timestamp,
+            True,
+            ctx.job_uid,
+            ctx.simulation_uid
+            )
 
 
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
+    if not ctx.notify_api:
+        return
+
     data = {
         "event_type": u"job_error",
         "job_uid": unicode(ctx.job_uid),

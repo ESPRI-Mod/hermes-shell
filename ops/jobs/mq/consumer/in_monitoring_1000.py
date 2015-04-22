@@ -67,11 +67,11 @@ def _persist_job(ctx):
     """Persists job info to db.
 
     """
-    db.dao_monitoring.create_job(
-        ctx.simulation_uid,
-        ctx.job_uid,
+    db.dao_monitoring.persist_job_01(
+        ctx.job_warning_delay,
         ctx.msg.timestamp,
-        ctx.job_warning_delay
+        ctx.job_uid,
+        ctx.simulation_uid
         )
 
 

@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 
 import utils
@@ -63,12 +63,12 @@ def _persist_job_updates(ctx):
     """Persists job updates to db.
 
     """
-    job = db.dao_monitoring.retrieve_job(ctx.job_uid)
-    if not job:
-        ctx.abort = True
-    else:
-        job.execution_end_date = ctx.msg.timestamp
-        db.session.update(job)
+    db.dao_monitoring.persist_job_02(
+        ctx.msg.timestamp,
+        False,
+        ctx.job_uid,
+        ctx.simulation_uid
+        )
 
 
 def _notify_api(ctx):
