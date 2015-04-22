@@ -10,7 +10,7 @@
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 
 import utils
@@ -31,7 +31,6 @@ def get_tasks():
     return (
         _unpack_message_content,
         _persist_simulation_updates,
-        _persist_simulation_state,
         _notify_api
     )
 
@@ -66,19 +65,7 @@ def _persist_simulation_updates(ctx):
         ctx.abort = True
     else:
         simulation.execution_end_date = ctx.msg.timestamp
-        db.session.update(simulation, False)
-
-
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
-
-    """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_COMPLETE,
-        ctx.msg.timestamp,
-        MQ_QUEUE
-        )
+        db.session.update(simulation)
 
 
 def _notify_api(ctx):
@@ -91,4 +78,3 @@ def _notify_api(ctx):
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
-

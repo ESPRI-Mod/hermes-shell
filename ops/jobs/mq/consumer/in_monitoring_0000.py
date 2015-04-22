@@ -40,9 +40,8 @@ def get_tasks():
         _persist_cv_terms_to_fs,
         _persist_cv_terms_persisted_to_db,
         _persist_simulation,
+        _persist_dead_simulation_updates,
         _persist_simulation_configuration,
-        _persist_simulation_state,
-        _delete_dead_simulation_runs,
         _push_cv_terms,
         _notify_api
         )
@@ -242,23 +241,11 @@ def _persist_simulation_configuration(ctx):
         )
 
 
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
+def _persist_dead_simulation_updates(ctx):
+    """Updates previous simulation runs now considered dead.
 
     """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_RUNNING,
-        ctx.msg.timestamp,
-        MQ_QUEUE
-        )
-
-
-def _delete_dead_simulation_runs(ctx):
-    """Deletes previous simulation runs now considered dead.
-
-    """
-    db.dao_monitoring.delete_dead_simulation_runs(
+    db.dao_monitoring.update_dead_simulation_runs(
         ctx.hashid,
         ctx.simulation_uid
         )

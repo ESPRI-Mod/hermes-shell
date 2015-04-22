@@ -31,7 +31,7 @@ def get_tasks():
     """
     return (
         _unpack_message_content,
-        _persist_simulation_state,
+        _persist_simulation_updates,
         _notify_api
         )
 
@@ -57,16 +57,17 @@ def _unpack_message_content(ctx):
     ctx.simulation_uid = ctx.content['simuid']
 
 
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
+def _persist_simulation_updates(ctx):
+    """Persists simulation updates to db.
 
     """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_ERROR,
-        ctx.msg.timestamp,
-        MQ_QUEUE
-        )
+    simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
+    if not simulation:
+        ctx.abort = True
+    else:
+        simulation.execution_end_date = ctx.msg.timestamp
+        simulation.is_error = True
+        db.session.update(simulation)
 
 
 def _notify_api(ctx):

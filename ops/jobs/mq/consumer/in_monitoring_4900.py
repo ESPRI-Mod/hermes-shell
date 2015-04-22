@@ -62,14 +62,13 @@ def _persist_job_updates(ctx):
     """Persists job updates to db.
 
     """
-    updated = db.dao_monitoring.update_job_status(
-        ctx.job_uid,
-        ctx.msg.timestamp,
-        cv.constants.JOB_STATE_ERROR
-        )
-
-    if not updated:
+    job = db.dao_monitoring.retrieve_job(ctx.job_uid)
+    if not job or job.is_error:
         ctx.abort = True
+    else:
+        job.execution_end_date = ctx.msg.timestamp
+        job.is_error = True
+        db.session.update(job)
 
 
 def _notify_api(ctx):

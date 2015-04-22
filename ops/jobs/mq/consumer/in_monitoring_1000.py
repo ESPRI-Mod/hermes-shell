@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 from prodiguer.utils import config
 
@@ -32,7 +32,6 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
-      _persist_simulation_state,
       _persist_job,
       _notify_api
       )
@@ -62,18 +61,6 @@ def _unpack_message_content(ctx):
     ctx.job_warning_delay = ctx.content.get(
         'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
     ctx.simulation_uid = ctx.content['simuid']
-
-
-def _persist_simulation_state(ctx):
-    """Persists simulation state to db.
-
-    """
-    db.dao_monitoring.create_simulation_state(
-        ctx.simulation_uid,
-        cv.constants.SIMULATION_STATE_RUNNING,
-        ctx.msg.timestamp,
-        MQ_QUEUE
-        )
 
 
 def _persist_job(ctx):
