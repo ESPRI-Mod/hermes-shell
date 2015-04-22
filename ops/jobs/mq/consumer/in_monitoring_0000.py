@@ -67,8 +67,8 @@ class ProcessingContextInfo(mq.Message):
         self.cv_terms = []
         self.cv_terms_new = []
         self.cv_terms_persisted_to_db = []
-        self.hashid = None
         self.experiment = None
+        self.simulation = None
         self.simulation_space = None
         self.model = None
         self.name = None
@@ -205,27 +205,20 @@ def _persist_simulation(ctx):
     """Persists simulation information to db.
 
     """
-    try:
-        sim = db.dao_monitoring.create_simulation(
-            ctx.activity,
-            ctx.compute_node,
-            ctx.compute_node_login,
-            ctx.compute_node_machine,
-            ctx.msg.timestamp,
-            ctx.experiment,
-            ctx.model,
-            ctx.name,
-            ctx.output_start_date,
-            ctx.output_end_date,
-            ctx.simulation_space,
-            ctx.simulation_uid
-            )
-    # Duplicates ... rollback & abort further processing.
-    except IntegrityError:
-        db.session.rollback()
-        ctx.abort = True
-    else:
-        ctx.hashid = sim.hashid
+    ctx.simulation = db.dao_monitoring.persist_simulation_01(
+        ctx.activity,
+        ctx.compute_node,
+        ctx.compute_node_login,
+        ctx.compute_node_machine,
+        ctx.msg.timestamp,
+        ctx.experiment,
+        ctx.model,
+        ctx.name,
+        ctx.output_start_date,
+        ctx.output_end_date,
+        ctx.simulation_space,
+        ctx.simulation_uid
+        )
 
 
 def _persist_simulation_configuration(ctx):
@@ -246,7 +239,7 @@ def _persist_dead_simulation_updates(ctx):
 
     """
     db.dao_monitoring.update_dead_simulation_runs(
-        ctx.hashid,
+        ctx.simulation.hashid,
         ctx.simulation_uid
         )
     db.session.commit()

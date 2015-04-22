@@ -11,7 +11,7 @@
 
 
 """
-from prodiguer import cv, mq
+from prodiguer import mq
 from prodiguer.db import pgres as db
 
 import utils
@@ -47,6 +47,7 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
+        self.notify_api = False
         self.simulation_uid = None
 
 
@@ -61,19 +62,22 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
-    if not simulation:
-        ctx.abort = True
-    else:
-        simulation.execution_end_date = ctx.msg.timestamp
-        simulation.is_error = True
-        db.session.update(simulation)
+    simulation = db.dao_monitoring.persist_simulation_02(
+        ctx.msg.timestamp,
+        True,
+        ctx.simulation_uid
+        )
+
+    ctx.notify_api = simulation.name is not None
 
 
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
+    if not ctx.notify_api:
+        return
+
     data = {
         "event_type": u"simulation_error",
         "simulation_uid": unicode(ctx.simulation_uid)
