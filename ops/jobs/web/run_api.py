@@ -6,7 +6,7 @@ def main():
 	"""Main entry point.
 
 	"""
-	prodiguer.api.run()
+	prodiguer.web.run()
 
 
 

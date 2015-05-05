@@ -14,7 +14,7 @@
 import requests, json
 
 from prodiguer import mq, rt
-from prodiguer.api import handler_utils
+from prodiguer.web import handler_utils
 
 
 
