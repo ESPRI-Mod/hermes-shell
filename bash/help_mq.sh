@@ -61,7 +61,6 @@ help_mq_daemons_stop()
 	log "Description: stops Prodiguer MQ daemons" 1
 }
 
-
 help_mq_produce()
 {
 	log "mq-produce TYPE [THROTTLE]"
@@ -74,12 +73,6 @@ help_mq_purge()
 {
 	log "mq-purge"
 	log "Description: deletes all messages from all queues" 1
-}
-
-help_mq_reset()
-{
-	log "mq-reset"
-	log "Description: deletes all vhosts, exhanges, queues and users from RabbitMQ server" 1
 }
 
 help_mq()
@@ -96,7 +89,6 @@ help_mq()
 		daemons_stop
 		produce
 		purge
-		reset
 	)
 	log_help_commands "mq" ${commands[@]}
 }

@@ -4,25 +4,6 @@
 # SECTION: MQ FUNCTIONS
 # ###############################################################
 
-# Set of supported MQ exchanges.
-declare -a MQ_VHOSTS=(
-	'prodiguer'
-)
-
-# Set of supported MQ exchanges.
-declare -a MQ_EXCHANGES=(
-	'ext'
-	'in'
-	'internal'
-	'out'
-)
-
-# Set of supported MQ users.
-declare -a MQ_USERS=(
-	'libigcm-mq-user'
-	'prodiguer-mq-user'
-)
-
 # Set of supported MQ queues.
 declare -a MQ_QUEUES=(
 	'ext-smtp'
@@ -41,6 +22,7 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-7000'
 	'in-monitoring-7100'
 	'in-monitoring-8888'
+	'in-monitoring-9000'
 	'in-monitoring-9999'
 	'internal-api'
 	'internal-cv'
@@ -69,7 +51,7 @@ run_mq_configure()
 {
 	log "MQ : configuring mq server ..."
 
-	rabbitmqadmin -q -u $1 -p $2 import $DIR_TEMPLATES/config/rabbitmq.json
+	rabbitmqadmin -q -u $1 -p $2 import $DIR_TEMPLATES/config/mq-rabbit.json
 
 	log "MQ : mq server configured ..."
 }
@@ -107,38 +89,6 @@ run_mq_purge()
 	done
 
 	log "MQ : purged queues ..."
-}
-
-run_mq_reset()
-{
-	log "MQ : resetting server ..."
-
-	# Drop existing.
-	for queue in "${MQ_DEAD_QUEUES[@]}"
-	do
-		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete queue name=q-$queue
-	done
-	for queue in "${MQ_QUEUES[@]}"
-	do
-		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete queue name=q-$queue
-	done
-	for user in "${MQ_USERS[@]}"
-	do
-		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete user name=$user
-	done
-	for exchange in "${MQ_EXCHANGES[@]}"
-	do
-		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete exchange name=x-$exchange
-	done
-	for vhost in "${MQ_VHOSTS[@]}"
-	do
-		rabbitmqadmin -q -u $1 -p $2 -V prodiguer delete vhost name=$vhost
-	done
-
-	# Reconfigure.
-	run_mq_configure $1 $2
-
-	log "MQ : reset server ..."
 }
 
 # Initializes MQ daemons.

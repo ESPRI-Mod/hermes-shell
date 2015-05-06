@@ -13,3 +13,63 @@ run_web_api()
 
 	python $DIR_JOBS/web/run_api.py
 }
+
+# Initializes WEB daemon.
+run_web_daemons_init()
+{
+    activate_venv server
+
+    supervisord -c $DIR_CONFIG/web-supervisord.conf
+}
+
+# Kills WEB daemon process.
+run_web_daemons_kill()
+{
+    activate_venv server
+
+ 	 supervisorctl -c $DIR_CONFIG/web-supervisord.conf stop all
+     supervisorctl -c $DIR_CONFIG/web-supervisord.conf shutdown
+}
+
+# Restarts WEB daemons.
+run_web_daemons_refresh()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf stop all
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf update all
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf start all
+}
+
+# Restarts WEB daemons.
+run_web_daemons_restart()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf stop all
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf start all
+}
+
+# Launches WEB daemons.
+run_web_daemons_start()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf start all
+}
+
+# Launches WEB daemons.
+run_web_daemons_status()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf status all
+}
+
+# Launches WEB daemons.
+run_web_daemons_stop()
+{
+    activate_venv server
+
+    supervisorctl -c $DIR_CONFIG/web-supervisord.conf stop all
+}

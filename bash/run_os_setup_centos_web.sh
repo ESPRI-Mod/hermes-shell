@@ -6,7 +6,7 @@ _setup_nginx()
 	yum install nginx
 
 	# Update nginx configuration.
-	cp $DIR_TEMPLATES/config/nginx.conf /etc/nginx/nginx.conf
+	cp $DIR_TEMPLATES/config/web-nginx.conf /etc/nginx/nginx.conf
 }
 
 # Main entry point.

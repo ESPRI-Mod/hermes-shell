@@ -50,7 +50,7 @@ _SUB_CONSUMERS = {
     '4000': in_monitoring_4000,
     '4100': in_monitoring_4100,
     '4900': in_monitoring_4900,
-    '9000': in_monitoring_4900,
+    '9000': in_monitoring_4900,  # TO BE DEPRECATED
     # Other messages.
     '7000': in_monitoring_7000,
     '7100': in_monitoring_7100,

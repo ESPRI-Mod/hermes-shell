@@ -36,8 +36,6 @@ declare -a commands=(
 	mq-daemons-stop
 	mq-produce
 	mq-purge
-	mq-reset
-	mq-server
 	# Server setup.
 	os-setup
 	# Stack management.
@@ -57,6 +55,13 @@ declare -a commands=(
 	stack-config-decrypt
 	# Web service.
 	web-api
+	web-daemons-init
+	web-daemons-kill
+	web-daemons-refresh
+	web-daemons-restart
+	web-daemons-start
+	web-daemons-status
+	web-daemons-stop
 )
 
 # Set path to exec.sh.

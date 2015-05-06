@@ -6,7 +6,7 @@ _setup_rabbitmq()
 
 	# Install RabbitMQ.
 	rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.5.1/rabbitmq-server-3.5.1-1.noarch.rpm
+	yum install rabbitmq-server-3.5.1-1.noarch.rpm
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management

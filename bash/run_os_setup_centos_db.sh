@@ -19,7 +19,7 @@ _setup_postgres()
 
 	# Copy pg_hba.conf template.
 	rm /var/lib/pgsql/9.3/data/pg_hba.conf
-	cp $DIR_TEMPLATES/config/pg_hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
+	cp $DIR_TEMPLATES/config/db-pgres-hba.conf /var/lib/pgsql/9.3/data/pg_hba.conf
 
 	# Start PostgreSQL service using following command.
 	log "Starting PostgreSQL server"
