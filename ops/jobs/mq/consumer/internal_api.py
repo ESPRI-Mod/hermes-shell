@@ -13,7 +13,8 @@
 """
 import requests, json
 
-from prodiguer import mq, rt
+from prodiguer import mq
+from prodiguer.utils import logger
 from prodiguer.web import handler_utils
 
 
@@ -45,7 +46,7 @@ def _invoke_endpoint(ctx):
     """Invokes API endpoint.
 
     """
-    rt.log_mq("Dispatching API notification: {0}".format(ctx.content))
+    logger.log_mq("Dispatching API notification: {0}".format(ctx.content))
 
     # Set API endpoint.
     endpoint = handler_utils.get_endpoint(_API_EP)
@@ -57,4 +58,4 @@ def _invoke_endpoint(ctx):
                       headers=_JSON_HTTP_HEADER,
                       timeout=2.0)
     except requests.exceptions.ConnectionError:
-        rt.log_api_warning(_ERR_API_NOT_RUNNING)
+        logger.log_api_warning(_ERR_API_NOT_RUNNING)

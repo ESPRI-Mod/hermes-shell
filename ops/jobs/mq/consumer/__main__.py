@@ -15,7 +15,9 @@ import logging
 
 from tornado.options import define, options
 
-from prodiguer import cv, mq, rt
+from prodiguer import cv
+from prodiguer import mq
+from prodiguer.utils import logger
 from prodiguer.db import pgres as db
 
 import ext_smtp
@@ -181,7 +183,7 @@ def _execute():
     _initialize_consumer(exec_info.consumer)
 
     # Log.
-    rt.log_mq("launching consumer: {0}".format(options.agent_type))
+    logger.log_mq("launching consumer: {0}".format(options.agent_type))
 
     try:
         mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,

@@ -13,7 +13,10 @@
 """
 from sqlalchemy.exc import IntegrityError
 
-from prodiguer import config, mail, mq, rt
+from prodiguer import config
+from prodiguer import mail
+from prodiguer import mq
+from prodiguer.utils import logger
 from prodiguer.db import pgres as db
 
 
@@ -43,7 +46,7 @@ def get_message(uid):
         return {u"email_uid": uid}
 
 
-    rt.log_mq("Dispatching email {0} to MQ server".format(uid))
+    logger.log_mq("Dispatching email {0} to MQ server".format(uid))
 
     return mq.Message(_get_props(),
                       _get_body(uid),
@@ -90,7 +93,7 @@ def dispatch(imap_client=None):
     # Log.
     msg = "{0} new messages for dispatch: {1}"
     msg = msg.format(len(uid_list), uid_list)
-    rt.log_mq(msg)
+    logger.log_mq(msg)
 
     # Dispatch emails to MQ server for further processing.
     mq.produce((get_message(uid) for uid in uid_list),

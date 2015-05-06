@@ -14,8 +14,10 @@
 import arrow
 from sqlalchemy.exc import IntegrityError
 
-from prodiguer import cv, mq, rt
+from prodiguer import cv
+from prodiguer import mq
 from prodiguer.db import pgres as db
+from prodiguer.utils import logger
 
 import utils
 
@@ -164,7 +166,7 @@ def _parse_cv_terms(ctx):
                 setattr(ctx, term_type, parsed_term_name)
                 msg = "CV term subsitution: {0}.{1} --> {0}.{2}"
                 msg = msg.format(term_type, term_name, parsed_term_name)
-                rt.log_mq(msg)
+                logger.log_mq(msg)
                 term_name = parsed_term_name
             ctx.cv_terms.append(cv.cache.get_term(term_type, term_name))
 

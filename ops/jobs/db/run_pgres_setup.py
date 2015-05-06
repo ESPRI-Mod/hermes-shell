@@ -14,7 +14,8 @@
 import sqlalchemy
 
 from prodiguer.db import pgres as db
-from prodiguer.utils import config, rt
+from prodiguer.utils import config
+from prodiguer.utils import logger
 
 
 
@@ -31,7 +32,7 @@ def _main():
         """Sets up the database.
 
         """
-        rt.log_db("Seeding begins : db = {0}".format(connection))
+        logger.log_db("Seeding begins : db = {0}".format(connection))
 
         # Start session.
         db.session.start(connection)
@@ -42,7 +43,7 @@ def _main():
         # End session.
         db.session.end()
 
-        rt.log_db("Seeding ends : db = {0}".format(connection))
+        logger.log_db("Seeding ends : db = {0}".format(connection))
 
     # Setup each target db.
     try:
@@ -51,7 +52,7 @@ def _main():
         setup(connection + '_test')
     except sqlalchemy.exc.ProgrammingError as err:
         print err
-        rt.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(connection))
+        logger.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(connection))
 
 
 

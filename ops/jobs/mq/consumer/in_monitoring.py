@@ -11,7 +11,9 @@
 
 
 """
-from prodiguer import mq, rt
+from prodiguer import mq
+from prodiguer import rt
+from prodiguer.utils import logger
 
 import in_monitoring_0000
 import in_monitoring_0100
@@ -86,7 +88,7 @@ def _process(ctx):
     # Log significant messages.
     if ctx.props.type in _LOGGABLE_CONSUMERS:
         msg = "Processing message of type {}".format(ctx.props.type)
-        rt.log_mq(msg)
+        logger.log_mq(msg)
 
     # Set sub-consumer.
     sub_consumer = _SUB_CONSUMERS[ctx.props.type]

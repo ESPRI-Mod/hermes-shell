@@ -13,7 +13,9 @@
 """
 import base64, email, json, os, uuid
 
-from prodiguer import config, mq, rt
+from prodiguer import config
+from prodiguer import mq
+from prodiguer.utils import logger
 
 
 
@@ -157,7 +159,7 @@ def _set_messages_b64(ctx):
     for mail in ctx.mails:
         ctx.messages_b64 += [l for l in mail.splitlines() if l]
 
-    rt.log_mq("Raw messages:", len(ctx.messages_b64))
+    logger.log_mq("Raw messages:", len(ctx.messages_b64))
 
 
 def _set_messages_json(ctx):
@@ -170,7 +172,7 @@ def _set_messages_json(ctx):
         else:
             ctx.messages_json.append(msg)
 
-    rt.log_mq("Base64 decoding errors: ", len(ctx.messages_json_error))
+    logger.log_mq("Base64 decoding errors: ", len(ctx.messages_json_error))
 
 
 def _set_messages_dict(ctx):
@@ -183,7 +185,7 @@ def _set_messages_dict(ctx):
         else:
             ctx.messages_dict.append(msg)
 
-    rt.log_mq("Json encoding errors: ", len(ctx.messages_dict_error))
+    logger.log_mq("Json encoding errors: ", len(ctx.messages_dict_error))
 
 
 def _update_messages_dict(ctx):
@@ -220,7 +222,7 @@ def _set_messages_ampq(ctx):
                                            _get_msg_payload(msg),
                                            mq.constants.EXCHANGE_PRODIGUER_IN))
 
-    rt.log_mq("AMPQ messages for dispatch to MQ server: ", len(ctx.messages))
+    logger.log_mq("AMPQ messages for dispatch to MQ server: ", len(ctx.messages))
 
 
 def _dispatch(ctx):

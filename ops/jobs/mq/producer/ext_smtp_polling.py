@@ -11,7 +11,10 @@
 
 
 """
-from prodiguer import config, mail, mq, rt
+from prodiguer import config
+from prodiguer import mq
+from prodiguer.utils import logger
+
 import ext_smtp_utils as utils
 
 
@@ -44,7 +47,7 @@ def _init(ctx):
 
     """
     ctx.email_uid_list = utils.get_emails_for_dispatch()
-    rt.log_mq("{0} Messages for dispatch: {1}".format(len(ctx.email_uid_list),
+    logger.log_mq("{0} Messages for dispatch: {1}".format(len(ctx.email_uid_list),
                                                       ctx.email_uid_list))
 
 

@@ -11,7 +11,9 @@
 
 
 """
-from prodiguer import mail, rt
+from prodiguer import mail
+from prodiguer.utils import logger
+
 from ext_smtp_utils import dispatch as dispatch_emails
 
 
@@ -20,7 +22,7 @@ def _log(msg):
     """Helper function: logs a message.
 
     """
-    rt.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
+    logger.log_mq("EXT-SMTP-REALTIME :: {}".format(msg))
 
 
 def _requires_reconnect(idle_response):
@@ -92,7 +94,7 @@ def execute(throttle=0):
 
     # Log errors.
     except Exception as err:
-        rt.log_mq_error(err)
+        logger.log_mq_error(err)
 
     # Close IMAP client.
     finally:

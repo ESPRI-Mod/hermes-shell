@@ -13,7 +13,10 @@
 """
 import base64, json
 
-from prodiguer import config, mail, mq, rt
+from prodiguer import config
+from prodiguer import mail
+from prodiguer import mq
+from prodiguer.utils import logger
 
 
 
@@ -274,4 +277,4 @@ def _log_stats(ctx):
                      len(ctx.messages_dict_error),
                      len(ctx.messages))
 
-    rt.log_mq(msg)
+    logger.log_mq(msg)

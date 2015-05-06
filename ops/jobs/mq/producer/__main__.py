@@ -16,6 +16,7 @@ import logging
 from tornado.options import define, options
 
 from prodiguer import rt
+from prodiguer.utils import logger
 
 import ext_smtp_from_file
 import ext_smtp_polling
@@ -105,7 +106,7 @@ def _execute():
         raise ValueError(_WITH_ARG[producer])
 
     # Log.
-    rt.log_mq("Message producer launched: {0}".format(options.agent_type))
+    logger.log_mq("Message producer launched: {0}".format(options.agent_type))
 
     # Execute producer.
     if producer in _NON_STANDARD:
