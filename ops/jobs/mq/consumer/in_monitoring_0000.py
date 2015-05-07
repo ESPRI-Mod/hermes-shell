@@ -230,7 +230,7 @@ def _persist_simulation_configuration(ctx):
     if not ctx.configuration:
         return
 
-    db.dao_monitoring.create_simulation_configuration(
+    db.dao_monitoring.persist_simulation_configuration(
         ctx.simulation_uid,
         ctx.configuration
         )

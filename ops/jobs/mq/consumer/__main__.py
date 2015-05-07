@@ -18,6 +18,7 @@ from tornado.options import define, options
 from prodiguer import cv
 from prodiguer import mq
 from prodiguer.utils import logger
+from prodiguer.utils import rt
 from prodiguer.db import pgres as db
 
 import ext_smtp
