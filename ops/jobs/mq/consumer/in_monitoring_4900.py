@@ -31,7 +31,9 @@ def get_tasks():
     """
     return (
       _unpack_message_content,
-      _persist_job_updates
+      _persist_job_updates,
+      _set_simulation,
+      _notify_api
       )
 
 
@@ -46,8 +48,9 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
+        self.job = None
         self.job_uid = None
-        self.notify_api = True
+        self.simulation = None
         self.simulation_uid = None
 
 
@@ -64,10 +67,8 @@ def _persist_job_updates(ctx):
 
     """
     job = db.dao_monitoring.retrieve_job(ctx.job_uid)
-    if job and job.is_error:
-        ctx.notify_api = False
-    else:
-        db.dao_monitoring.persist_job_02(
+    if not job or job.is_error == False:
+        ctx.job = db.dao_monitoring.persist_job_02(
             ctx.msg.timestamp,
             True,
             ctx.job_uid,
@@ -75,12 +76,31 @@ def _persist_job_updates(ctx):
             )
 
 
+def _set_simulation(ctx):
+    """Sets simulation being processed.
+
+    """
+    # Skip if job error has already been raised.
+    if ctx.job is None:
+        return
+
+    ctx.simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
+
+
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    if not ctx.notify_api:
+    # Skip if job error has already been raised.
+    if ctx.job is None:
         return
+    # Skip if simulation start message (0000) has not yet been received.
+    if ctx.simulation is None:
+        return
+    # Skip if simulation is obsolete (i.e. it was restarted).
+    if ctx.simulation.is_obsolete:
+        return
+
 
     data = {
         "event_type": u"job_error",

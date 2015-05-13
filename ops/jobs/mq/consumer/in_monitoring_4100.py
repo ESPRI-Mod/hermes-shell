@@ -30,8 +30,7 @@ def get_tasks():
 
     """
     return (
-      _unpack_message_content,
-      _persist_command
+      _unpack_message_content
       )
 
 
@@ -46,19 +45,9 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
-        self.simulation_uid = None
-
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
-    ctx.simulation_uid = ctx.content['simuid']
-
-
-def _persist_command(ctx):
-    """Persists command information to db.
-
-    """
     pass
-

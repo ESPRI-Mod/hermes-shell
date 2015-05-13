@@ -31,6 +31,7 @@ def get_tasks():
     return (
         _unpack_message_content,
         _persist_simulation_updates,
+        _set_active_simulation,
         _notify_api
     )
 
@@ -45,7 +46,8 @@ class ProcessingContextInfo(mq.Message):
         """
         super(ProcessingContextInfo, self).__init__(props, body, decode=decode)
 
-        self.notify_api = False
+        self.active_simulation = None
+        self.simulation = None
         self.simulation_uid = None
 
 
@@ -60,20 +62,34 @@ def _persist_simulation_updates(ctx):
     """Persists simulation updates to db.
 
     """
-    simulation = db.dao_monitoring.persist_simulation_02(
+    ctx.simulation = db.dao_monitoring.persist_simulation_02(
         ctx.msg.timestamp,
         False,
         ctx.simulation_uid
         )
 
-    ctx.notify_api = simulation.name is not None
+
+def _set_active_simulation(ctx):
+    """Sets the so-called active simulation.
+
+    """
+    # Skip if the 0000 message has not yet been received.
+    if ctx.simulation.hashid is None:
+        return
+
+    ctx.active_simulation = \
+        db.dao_monitoring.retrieve_active_simulation(ctx.simulation.hashid)
 
 
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    if not ctx.notify_api:
+    # Skip if the 0000 message has not yet been received.
+    if ctx.simulation.hashid is None:
+        return
+    # Skip if not the active simulation.
+    if ctx.simulation.uid != ctx.active_simulation.uid:
         return
 
     data = {

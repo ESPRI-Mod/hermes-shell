@@ -46,7 +46,7 @@ def dispatch_message(
 
         """
         yield mq.Message(_get_msg_props(),
-                         data,
+                         data or {},
                          mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
 
 

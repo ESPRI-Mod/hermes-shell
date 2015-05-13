@@ -40,9 +40,9 @@ def get_tasks():
         _reformat_message_content,
         _parse_cv_terms,
         _persist_cv_terms_to_fs,
-        _persist_cv_terms_persisted_to_db,
+        _persist_cv_terms_to_db,
         _persist_simulation,
-        _persist_dead_simulation_updates,
+        _set_active_simulation,
         _persist_simulation_configuration,
         _push_cv_terms,
         _notify_api
@@ -66,6 +66,7 @@ class ProcessingContextInfo(mq.Message):
         self.compute_node_login = None
         self.compute_node_machine = None
         self.configuration = None
+        self.active_simulation = None
         self.cv_terms = []
         self.cv_terms_new = []
         self.cv_terms_persisted_to_db = []
@@ -184,7 +185,7 @@ def _persist_cv_terms_to_fs(ctx):
     _parse_cv_terms(ctx)
 
 
-def _persist_cv_terms_persisted_to_db(ctx):
+def _persist_cv_terms_to_db(ctx):
     """Persists cv terms to database.
 
     """
@@ -223,6 +224,15 @@ def _persist_simulation(ctx):
         )
 
 
+def _set_active_simulation(ctx):
+    """Sets the so-called active simulation.
+
+    """
+    ctx.active_simulation = \
+        db.dao_monitoring.update_active_simulation(ctx.simulation.hashid)
+    db.session.commit()
+
+
 def _persist_simulation_configuration(ctx):
     """Persists simulation configuration to db.
 
@@ -236,17 +246,6 @@ def _persist_simulation_configuration(ctx):
         )
 
 
-def _persist_dead_simulation_updates(ctx):
-    """Updates previous simulation runs now considered dead.
-
-    """
-    db.dao_monitoring.update_dead_simulation_runs(
-        ctx.simulation.hashid,
-        ctx.simulation_uid
-        )
-    db.session.commit()
-
-
 def _push_cv_terms(ctx):
     """Pushes new CV terms to remote GitHub repo.
 
@@ -254,7 +253,7 @@ def _push_cv_terms(ctx):
     if not ctx.cv_terms_persisted_to_db and not ctx.cv_terms_new:
         return
 
-    utils.dispatch_message({}, mq.constants.TYPE_GENERAL_CV)
+    utils.dispatch_message(None, mq.constants.TYPE_GENERAL_CV)
 
 
 def _notify_api(ctx):
@@ -263,8 +262,8 @@ def _notify_api(ctx):
     """
     data = {
         "event_type": u"simulation_start",
-        "simulation_uid": unicode(ctx.simulation_uid),
-        "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted_to_db)
+        "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted_to_db),
+        "simulation_uid": ctx.active_simulation.uid
     }
 
     utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)

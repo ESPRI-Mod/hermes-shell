@@ -30,8 +30,7 @@ def get_tasks():
 
     """
     return (
-      _unpack_message_content,
-      _persist_metrics
+      _unpack_message_content
       )
 
 
@@ -51,13 +50,6 @@ class ProcessingContextInfo(mq.Message):
 
 def _unpack_message_content(ctx):
     """Unpacks message being processed.
-
-    """
-    pass
-
-
-def _persist_metrics(ctx):
-    """Persists environment metrics information to db.
 
     """
     pass

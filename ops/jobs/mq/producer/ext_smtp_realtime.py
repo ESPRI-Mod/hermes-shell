@@ -11,7 +11,10 @@
 
 
 """
+import time
+
 from prodiguer import mail
+from prodiguer.utils import config
 from prodiguer.utils import logger
 
 from ext_smtp_utils import dispatch as dispatch_emails
@@ -60,10 +63,8 @@ def _requires_dispatch(idle_response):
     return False
 
 
-def execute(throttle=0):
+def _execute(throttle=0):
     """Executes realtime SMTP sourced message production.
-
-    :param int throttle: Limit upon number of emails to process.
 
     """
     imap_client = None
@@ -92,11 +93,22 @@ def execute(throttle=0):
                 else:
                     pass
 
-    # Log errors.
-    except Exception as err:
-        logger.log_mq_error(err)
-
     # Close IMAP client.
     finally:
         if imap_client:
             mail.disconnect(imap_client)
+
+
+def execute(throttle=0):
+    """Executes realtime SMTP sourced message production.
+
+    :param int throttle: Limit upon number of emails to process.
+
+    """
+    while True:
+        _log("Launching IDLE client")
+        try:
+            _execute(throttle)
+        except Exception as err:
+            logger.log_mq_error(err)
+            time.sleep(config.mail.idleFaultRetryDelayInSeconds)
