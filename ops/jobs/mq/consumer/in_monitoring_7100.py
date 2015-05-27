@@ -30,8 +30,8 @@ MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_7100
 # Actions to take when uploading duplicate metrics.
 _ADD_DUPLICATE_ACTION_SKIP = 'skip'
 
-# Temporary metric group identifier.
-_TEMP_METRIC_GROUP_ID = 'XXXXXX'
+# Default metric group identifier.
+_DEFAULT_METRIC_GROUP_ID = 'XXXXXX'
 
 
 
@@ -65,6 +65,7 @@ class ProcessingContextInfo(mq.Message):
         self.metrics_base64 = None
         self.metrics_json = None
         self.metrics_fpath = "{}.json".format(uuid.uuid4())
+        self.metrics_group_id = None
         self.dir_raw = None
         self.dir_formatted = None
 
@@ -76,6 +77,7 @@ def _unpack_message_content(ctx):
     ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
     ctx.metrics_base64 = ctx.content['metrics']
+    ctx.metrics_group_id = ctx.content.get('metricsGroupName', _DEFAULT_METRIC_GROUP_ID)
 
 
 def _decode_metrics(ctx):
@@ -100,7 +102,7 @@ def _format_metrics(ctx):
     """Formats metrics in readiness for upload.
 
     """
-    prodiguer_client.metrics.format(_TEMP_METRIC_GROUP_ID, ctx.dir_raw, ctx.dir_formatted)
+    prodiguer_client.metrics.format(ctx.metrics_group_id, ctx.dir_raw, ctx.dir_formatted)
 
 
 def _upload_metrics(ctx):
