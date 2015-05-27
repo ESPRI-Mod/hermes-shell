@@ -11,7 +11,7 @@
 
 
 """
-import base64, json
+import base64, copy, json, uuid
 
 from prodiguer import config
 from prodiguer import mail
@@ -28,9 +28,9 @@ MQ_QUEUE = mq.constants.QUEUE_EXT_SMTP
 
 # Map of message types to attachment fields.
 _ATTACHMENT_FIELD_MAP = {
-    '0000': u'configuration'
+    '0000': u'configuration',
+    '7100': u'metrics'
 }
-
 
 def get_tasks():
     """Returns set of tasks to be executed when processing a message.
@@ -41,7 +41,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
-        _process_attachment,
+        _process_attachments,
         _set_messages_ampq,
         _dispatch,
         _log_stats,
@@ -69,7 +69,7 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(props, body, decode=True)
 
         self.email = None
-        self.email_attachment = None
+        self.email_attachments = None
         self.email_uid = self.content['email_uid']
         self.imap_client = None
         self.messages = []
@@ -155,12 +155,11 @@ def _set_email(ctx):
     ctx.imap_client = mail.connect()
 
     # Pull email.
-    body, attachment = mail.get_email(ctx.email_uid, ctx.imap_client)
+    body, attachments = mail.get_email(ctx.email_uid, ctx.imap_client)
 
     # Decode email.
     ctx.email = body.get_payload(decode=True)
-    if attachment:
-        ctx.email_attachment = attachment.get_payload(decode=True)
+    ctx.email_attachments = [a.get_payload(decode=True) for a in attachments]
 
 
 def _set_messages_b64(ctx):
@@ -192,29 +191,55 @@ def _set_messages_dict(ctx):
             ctx.messages_dict.append(msg)
 
 
-def _process_attachment(ctx):
+def _process_attachments_0000(ctx):
+    """Processes email attachments for message type 0000.
+
+    """
+    # Simply push attachment into message body.
+    msg = ctx.messages_dict[0]
+    msg['configuration'] = ctx.email_attachments[0]
+
+
+def _process_attachments_7100(ctx):
+    """Processes email attachments for message type 7100.
+
+    """
+    msg = ctx.messages_dict[0]
+    ctx.messages_dict = []
+    for attachment in ctx.email_attachments:
+        new_msg = copy.deepcopy(msg)
+        new_msg['msgUID'] = unicode(uuid.uuid4())
+        new_msg['metrics'] = base64.encodestring(attachment)
+        ctx.messages_dict.append(new_msg)
+
+
+# Map of attachment handlers to message types.
+_ATTACHMENT_HANDLERS = {
+    '0000': _process_attachments_0000,
+    '7100': _process_attachments_7100
+}
+
+
+def _process_attachments(ctx):
     """Processes an email attchment.
 
     """
-    # Escape if there is no attachment to process.
-    if not ctx.email_attachment:
+    # Escape if there are no attachments to process.
+    if not ctx.email_attachments:
         return
 
-    # Escape if the attachment is not associated with a single message.
+    # Escape if attachments must be associated with a single message.
     if len(ctx.messages_dict) != 1:
         return
 
-    # Escape if the message code is not mapped.
+    # Escape if message type is not mapped to a handler..
     msg = ctx.messages_dict[0]
-    msg_type = msg['msgCode']
-    if msg_type not in _ATTACHMENT_FIELD_MAP:
+    if msg['msgCode'] not in _ATTACHMENT_HANDLERS:
         return
 
-    # Set attachment message field.
-    msg_field = _ATTACHMENT_FIELD_MAP[msg_type]
-
-    # Set message attachment field.
-    msg[msg_field] = ctx.email_attachment
+    # Invoke handler.
+    handler = _ATTACHMENT_HANDLERS[msg['msgCode']]
+    handler(ctx)
 
 
 def _set_messages_ampq(ctx):
