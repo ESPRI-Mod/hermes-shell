@@ -17,6 +17,7 @@ from sqlalchemy.exc import IntegrityError
 from prodiguer import cv
 from prodiguer import mq
 from prodiguer.db import pgres as db
+from prodiguer.utils import config
 from prodiguer.utils import logger
 
 import utils
@@ -44,6 +45,7 @@ def get_tasks():
         _persist_simulation,
         _set_active_simulation,
         _persist_simulation_configuration,
+        _persist_job,
         _push_cv_terms,
         _notify_api
         )
@@ -71,12 +73,14 @@ class ProcessingContextInfo(mq.Message):
         self.cv_terms_new = []
         self.cv_terms_persisted_to_db = []
         self.experiment = None
-        self.simulation = None
-        self.simulation_space = None
+        self.job_uid = None
+        self.job_warning_delay = None
         self.model = None
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
+        self.simulation = None
+        self.simulation_space = None
         self.simulation_uid = None
 
 
@@ -131,6 +135,8 @@ def _unpack_message_content(ctx):
         "{0}-{1}".format(ctx.compute_node, ctx.content['machine'])
     ctx.configuration = ctx.content.get('configuration')
     ctx.experiment = ctx.content['experiment']
+    ctx.job_uid = ctx.content['jobuid']
+    ctx.job_warning_delay = config.monitoring.defaultJobWarningDelayInSeconds
     ctx.model = ctx.content['model']
     ctx.name = ctx.content['name']
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
@@ -243,6 +249,18 @@ def _persist_simulation_configuration(ctx):
     db.dao_monitoring.persist_simulation_configuration(
         ctx.simulation_uid,
         ctx.configuration
+        )
+
+
+def _persist_job(ctx):
+    """Persists job info to db.
+
+    """
+    db.dao_monitoring.persist_job_01(
+        ctx.job_warning_delay,
+        ctx.msg.timestamp,
+        ctx.job_uid,
+        ctx.simulation_uid
         )
 
 
