@@ -22,6 +22,7 @@ declare -a commands=(
 	db-pgres-backup
 	db-pgres-install
 	db-pgres-reset
+	db-pgres-cv-table-reset
 	db-pgres-restore
 	db-pgres-uninstall
 	# MQ admin.

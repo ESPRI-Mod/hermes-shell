@@ -40,6 +40,12 @@ help_db_pgres_reset()
 	log "Description: uninstalls & installs database" 1
 }
 
+help_db_pgres_cv_table_reset()
+{
+	log "db-pgres-cv-table-reset"
+	log "Description: resets the controlled vocabulary table after terms have been manually updated" 1
+}
+
 help_db_pgres_restore()
 {
 	log "db-pgres-restore"
@@ -62,6 +68,7 @@ help_db()
 		pgres_backup
 		pgres_install
 		pgres_reset
+		pgres_reset_cv_table
 		pgres_restore
 		pgres_uninstall
 	)

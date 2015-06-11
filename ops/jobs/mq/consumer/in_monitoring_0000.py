@@ -63,24 +63,26 @@ class ProcessingContextInfo(mq.Message):
             props, body, decode=decode)
 
         self.abort = False
-        self.activity = None
-        self.compute_node = None
-        self.compute_node_login = None
-        self.compute_node_machine = None
+        self.accounting_project = None
+        self.activity = self.activity_raw = None
+        self.compute_node = self.compute_node_raw = None
+        self.compute_node_login = self.compute_node_login_raw = None
+        self.compute_node_machine = self.compute_node_machine_raw = None
         self.configuration = None
         self.active_simulation = None
         self.cv_terms = []
         self.cv_terms_new = []
         self.cv_terms_persisted_to_db = []
-        self.experiment = None
+        self.experiment = self.experiment_raw = None
+        self.job_type = cv.constants.JOB_TYPE_COMPUTING
         self.job_uid = None
         self.job_warning_delay = None
-        self.model = None
+        self.model = self.model_raw = None
         self.name = None
         self.output_start_date = None
         self.output_end_date = None
         self.simulation = None
-        self.simulation_space = None
+        self.simulation_space = self.simulation_space_raw = None
         self.simulation_uid = None
 
 
@@ -89,7 +91,7 @@ class ProcessingContextInfo(mq.Message):
         """Gets set of cv term related fields.
 
         """
-        return [
+        return {
             'activity',
             'compute_node',
             'compute_node_login',
@@ -97,17 +99,7 @@ class ProcessingContextInfo(mq.Message):
             'experiment',
             'model',
             'simulation_space'
-        ]
-
-
-    @property
-    def cv_term_fields_mixed_case(self):
-        """Gets set of mixed case cv term related fields.
-
-        """
-        return [
-            'experiment'
-        ]
+        }
 
 
     @property
@@ -128,20 +120,22 @@ def _unpack_message_content(ctx):
     """Unpacks message content prior to further processing.
 
     """
-    ctx.activity = ctx.content['activity']
-    ctx.compute_node = ctx.content['centre']
+    ctx.accounting_project = ctx.content.get('accountingProject')
+    ctx.activity = ctx.activity_raw = ctx.content['activity']
+    ctx.compute_node = ctx.compute_node_raw = ctx.content['centre']
     ctx.compute_node_login = ctx.content['login']
-    ctx.compute_node_machine = \
+    ctx.compute_node_machine = ctx.compute_node_machine_raw = \
         "{0}-{1}".format(ctx.compute_node, ctx.content['machine'])
     ctx.configuration = ctx.content.get('configuration')
-    ctx.experiment = ctx.content['experiment']
+    ctx.experiment = ctx.experiment_raw = ctx.content['experiment']
     ctx.job_uid = ctx.content['jobuid']
-    ctx.job_warning_delay = config.monitoring.defaultJobWarningDelayInSeconds
-    ctx.model = ctx.content['model']
+    ctx.job_warning_delay = ctx.content.get(
+        'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
+    ctx.model = ctx.model_raw = ctx.content['model']
     ctx.name = ctx.content['name']
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime
     ctx.output_end_date = arrow.get(ctx.content['endDate']).datetime
-    ctx.simulation_space = ctx.content['space']
+    ctx.simulation_space = ctx.simulation_space_raw = ctx.content['space']
     ctx.simulation_uid = ctx.content['simuid']
 
 
@@ -215,17 +209,25 @@ def _persist_simulation(ctx):
 
     """
     ctx.simulation = db.dao_monitoring.persist_simulation_01(
+        ctx.accounting_project,
         ctx.activity,
+        ctx.activity_raw,
         ctx.compute_node,
+        ctx.compute_node_raw,
         ctx.compute_node_login,
+        ctx.compute_node_login_raw,
         ctx.compute_node_machine,
+        ctx.compute_node_machine_raw,
         ctx.msg.timestamp,
         ctx.experiment,
+        ctx.experiment_raw,
         ctx.model,
+        ctx.model_raw,
         ctx.name,
         ctx.output_start_date,
         ctx.output_end_date,
         ctx.simulation_space,
+        ctx.simulation_space_raw,
         ctx.simulation_uid
         )
 
@@ -257,8 +259,10 @@ def _persist_job(ctx):
 
     """
     db.dao_monitoring.persist_job_01(
+        ctx.accounting_project,
         ctx.job_warning_delay,
         ctx.msg.timestamp,
+        ctx.job_type,
         ctx.job_uid,
         ctx.simulation_uid
         )

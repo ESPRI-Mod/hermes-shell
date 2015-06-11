@@ -147,6 +147,17 @@ run_db_pgres_reset()
 	log "DB : reset postgres db"
 }
 
+# Reset db.
+run_db_pgres_cv_table_reset()
+{
+	log "DB : resetting postgres db controlled vocabulary table ..."
+
+	activate_venv server
+	python $DIR_JOBS/db/run_pgres_reset_cv_table.py
+
+	log "DB : reset postgres db controlled vocabulary table ..."
+}
+
 # Restore db.
 run_db_pgres_restore()
 {

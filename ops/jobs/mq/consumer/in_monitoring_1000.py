@@ -11,6 +11,7 @@
 
 
 """
+from prodiguer import cv
 from prodiguer import mq
 from prodiguer.db import pgres as db
 from prodiguer.utils import config
@@ -49,6 +50,8 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
+        self.accounting_project = None
+        self.job_type = cv.constants.JOB_TYPE_COMPUTING
         self.job_uid = None
         self.job_warning_delay = None
         self.simulation_uid = None
@@ -58,6 +61,7 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
+    ctx.accounting_project = ctx.content.get('accountingProject')
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
         'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
@@ -69,8 +73,10 @@ def _persist_job(ctx):
 
     """
     db.dao_monitoring.persist_job_01(
+        ctx.accounting_project,
         ctx.job_warning_delay,
         ctx.msg.timestamp,
+        ctx.job_type,
         ctx.job_uid,
         ctx.simulation_uid
         )
