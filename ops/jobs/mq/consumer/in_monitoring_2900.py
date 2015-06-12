@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_2100.py
+.. module:: run_in_monitoring_2900.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 2100 messages.
+   :synopsis: Consumes monitoring 2900 messages.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -13,7 +13,7 @@
 """
 from prodiguer import mq
 
-import in_monitoring_job_end as base
+import in_monitoring_job_fail as base
 
 
 
@@ -21,7 +21,7 @@ import in_monitoring_job_end as base
 MQ_EXCHANGE = base.MQ_EXCHANGE
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_2100
+MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_2900
 
 # Set of tasks to be executed when processing a message.
 get_tasks = base.get_tasks

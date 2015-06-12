@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: internal_smtp.py
+.. module:: in_monitoring.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Sends notifications to an SMTP server.
+   :synopsis: Processes simulation monitoring related messages (by delegation).
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -21,13 +21,13 @@ import in_monitoring_1000
 import in_monitoring_1100
 import in_monitoring_2000
 import in_monitoring_2100
+import in_monitoring_2900
 import in_monitoring_3000
 import in_monitoring_3100
+import in_monitoring_3900
 import in_monitoring_4000
 import in_monitoring_4100
 import in_monitoring_4900
-import in_monitoring_7000
-import in_monitoring_7100
 import in_monitoring_8888
 import in_monitoring_9999
 
@@ -45,17 +45,17 @@ _SUB_CONSUMERS = {
     # Post processing job messages.
     '2000': in_monitoring_2000,
     '2100': in_monitoring_2100,
+    '2900': in_monitoring_2900,
     # Post processing from checker job messages.
     '3000': in_monitoring_3000,
     '3100': in_monitoring_3100,
+    '3900': in_monitoring_3900,
     # Command messages.
     '4000': in_monitoring_4000,
     '4100': in_monitoring_4100,
     '4900': in_monitoring_4900,
-    '9000': in_monitoring_4900,  # TO BE DEPRECATED
+    '9000': in_monitoring_4900,  # TODO-DEPRECATE
     # Other messages.
-    '7000': in_monitoring_7000,
-    '7100': in_monitoring_7100,
     '8888': in_monitoring_8888
 }
 

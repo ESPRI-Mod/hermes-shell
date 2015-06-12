@@ -25,7 +25,7 @@ import utils
 MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
 
 # MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_7100
+MQ_QUEUE = mq.constants.QUEUE_IN_METRICS_SIM
 
 # Actions to take when uploading duplicate metrics.
 _ADD_DUPLICATE_ACTION_SKIP = 'skip'

@@ -12,7 +12,8 @@
 
 """
 from prodiguer import mq
-from prodiguer.db import pgres as db
+
+import null_consumer as base
 
 
 
@@ -22,65 +23,8 @@ MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_INTERNAL
 # MQ queue to bind to.
 MQ_QUEUE = mq.constants.QUEUE_INTERNAL_SMS
 
+# Set of tasks to be executed when processing a message.
+get_tasks = base.get_tasks
 
-
-class ProcessingContextInfo(mq.Message):
-    """Message processing context information.
-
-    """
-    def __init__(self, props, body, decode=True):
-        """Object constructor.
-
-        """
-        super(ProcessingContextInfo, self).__init__(
-            props, body, decode=decode)
-
-        self.notification_type = None
-
-
-def get_tasks():
-    """Returns set of tasks to be executed when processing a message.
-
-    """
-    return (
-        _unpack_content,
-        _set_operator,
-        _set_template,
-        _interpolate_template,
-        _dispatch
-        )
-
-
-def _unpack_content(ctx):
-    """Unpacks information from message content.
-
-    """
-    ctx.notification_type = ctx.content['notificationType']
-
-
-def _set_operator(ctx):
-    """Sets information regarding operator.
-
-    """
-    pass
-
-
-def _set_template(ctx):
-    """Sets template of sms to be dispatched.
-
-    """
-    pass
-
-
-def _interpolate_template(ctx):
-    """Sets content of sms to be dispatched.
-
-    """
-    pass
-
-
-def _dispatch(ctx):
-    """Dispatch sms to operator.
-
-    """
-    pass
+# Message processing context information.
+ProcessingContextInfo = base.ProcessingContextInfo

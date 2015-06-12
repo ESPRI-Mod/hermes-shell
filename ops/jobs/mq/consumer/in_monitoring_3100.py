@@ -5,7 +5,7 @@
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Consumes monitoring 3100 messages: post-processing (from checker) job ends.
+   :synopsis: Consumes monitoring 3100 messages.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -13,38 +13,18 @@
 """
 from prodiguer import mq
 
+import in_monitoring_job_end as base
+
 
 
 # MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
+MQ_EXCHANGE = base.MQ_EXCHANGE
 
 # MQ queue to bind to.
 MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_3100
 
+# Set of tasks to be executed when processing a message.
+get_tasks = base.get_tasks
 
-def get_tasks():
-    """Returns set of tasks to be executed when processing a message.
-
-    """
-    return (
-      _unpack_message_content,
-      )
-
-
-class ProcessingContextInfo(mq.Message):
-    """Message processing context information.
-
-    """
-    def __init__(self, props, body, decode=True):
-        """Object constructor.
-
-        """
-        super(ProcessingContextInfo, self).__init__(
-            props, body, decode=decode)
-
-
-def _unpack_message_content(ctx):
-    """Unpacks message being processed.
-
-    """
-    pass
+# Message processing context information.
+ProcessingContextInfo = base.ProcessingContextInfo
