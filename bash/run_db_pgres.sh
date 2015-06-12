@@ -111,6 +111,17 @@ _db_setup()
 	python $DIR_JOBS/db/run_pgres_setup.py
 }
 
+# Seed db from backup.
+_db_restore()
+{
+	declare backup_dir=$1
+	declare db_name=$2
+
+	gzip -d $backup_dir/$db_name.sql.gz
+	psql -U prodiguer_db_admin $db_name -f $backup_dir/$db_name.sql -q
+	gzip $backup_dir/$db_name.sql
+}
+
 # Backup db.
 run_db_pgres_backup()
 {
@@ -163,7 +174,11 @@ run_db_pgres_restore()
 {
 	log "DB : restoring postgres db ..."
 
-	log "TODO"
+	_db_drop
+	_db_create
+
+	_db_restore $1 prodiguer
+	_db_restore $1 prodiguer_test
 
 	log "DB : restored postgres db"
 }

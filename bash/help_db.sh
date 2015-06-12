@@ -48,8 +48,9 @@ help_db_pgres_cv_table_reset()
 
 help_db_pgres_restore()
 {
-	log "db-pgres-restore"
+	log "db-pgres-restore BACKUP_DIR"
 	log "Description: restores database from backup" 1
+	log "BACKUP_DIR = directory within which backup files are located" 1
 }
 
 help_db_pgres_uninstall()
