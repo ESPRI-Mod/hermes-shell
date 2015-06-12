@@ -17,12 +17,6 @@ import utils
 
 
 
-# MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_INTERNAL
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_INTERNAL_CV
-
 # Prodiguer shell command to be executed.
 _SHELL_CMD = 'cv-git-push'
 

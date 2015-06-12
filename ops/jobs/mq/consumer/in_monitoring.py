@@ -25,12 +25,9 @@ import in_monitoring_2900
 import in_monitoring_3000
 import in_monitoring_3100
 import in_monitoring_3900
-import in_monitoring_4000
-import in_monitoring_4100
 import in_monitoring_4900
-import in_monitoring_8888
 import in_monitoring_9999
-
+import null_consumer
 
 
 # Map of sub-consumer types to sub-consumers.
@@ -51,24 +48,17 @@ _SUB_CONSUMERS = {
     '3100': in_monitoring_3100,
     '3900': in_monitoring_3900,
     # Command messages.
-    '4000': in_monitoring_4000,
-    '4100': in_monitoring_4100,
+    '4000': null_consumer,
+    '4100': null_consumer,
     '4900': in_monitoring_4900,
     '9000': in_monitoring_4900,  # TODO-DEPRECATE
     # Other messages.
-    '8888': in_monitoring_8888
+    '8888': null_consumer
 }
 
 # Set of auotmatically loggable consumers.
 # N.B. these are used during development.
 _LOGGABLE_CONSUMERS = {}
-
-# MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING
-
 
 
 def get_tasks():

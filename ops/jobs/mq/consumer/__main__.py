@@ -35,17 +35,11 @@ import in_monitoring_2900
 import in_monitoring_3000
 import in_monitoring_3100
 import in_monitoring_3900
-import in_monitoring_4000
-import in_monitoring_4100
 import in_monitoring_4900
-import in_monitoring_7000
-import in_monitoring_7100
-import in_monitoring_8888
 import in_monitoring_9999
 import internal_api
 import internal_cv
-import internal_smtp
-import internal_sms
+import null_consumer
 
 
 
@@ -56,7 +50,8 @@ logging.getLogger("requests").setLevel(logging.ERROR)
 
 # Define command line options.
 define("agent_type",
-       help="Type of message consumer to lanuch")
+       help="Type of message consumer to lanuch",
+       type=str)
 define("agent_limit",
        default=0,
        help="Consumption limit (0 = unlimited)",
@@ -67,8 +62,8 @@ _CONSUMERS = {
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
     'internal-cv': internal_cv,
-    'internal-smtp': internal_smtp,
-    'internal-sms': internal_sms,
+    'internal-smtp': null_consumer,
+    'internal-sms': null_consumer,
     'in-monitoring-compute': in_monitoring,
     'in-monitoring-post-processing': in_monitoring,
     'in-monitoring-0000': in_monitoring_0000,
@@ -81,14 +76,12 @@ _CONSUMERS = {
     'in-monitoring-3000': in_monitoring_3000,
     'in-monitoring-3100': in_monitoring_3100,
     'in-monitoring-3900': in_monitoring_3900,
-    'in-monitoring-4000': in_monitoring_4000,
-    'in-monitoring-4100': in_monitoring_4100,
+    'in-monitoring-4000': null_consumer,
+    'in-monitoring-4100': null_consumer,
     'in-monitoring-4900': in_monitoring_4900,
-    'in-monitoring-7000': in_monitoring_7000,
-    'in-monitoring-7100': in_monitoring_7100,
-    'in-monitoring-8888': in_monitoring_8888,
-    'in-monitoring-9000': in_monitoring_4900,
-    'in-monitoring-9999': in_monitoring_9999
+    'in-monitoring-8888': null_consumer,
+    'in-monitoring-9000': in_monitoring_4900,   # TODO - deprecate
+    'in-monitoring-9999': in_monitoring_9999,
     'in-metrics-env': in_metrics_env,
     'in-metrics-sim': in_metrics_sim
 }
@@ -143,6 +136,7 @@ class _ConsumerExecutionInfo(object):
         self.consumer = None
         self.consumer_type = consumer_type
         self.context_type = mq.Message
+        self.mq_exchange = "x-{}".format(consumer_type.split('-')[0])
 
 
     @staticmethod
@@ -155,12 +149,16 @@ class _ConsumerExecutionInfo(object):
         :rtype: _ConsumerExecutionInfo
 
         """
+        # Strip irrelevant prefix.
+        if consumer_type.startswith('q-'):
+            consumer_type = consumer_type[2:]
+
         # Instantiate.
         instance = _ConsumerExecutionInfo(consumer_type)
 
         # Set consumer to be launched.
         try:
-            instance.consumer = _CONSUMERS[options.agent_type]
+            instance.consumer = _CONSUMERS[consumer_type]
         except KeyError:
             raise ValueError("Invalid consumer type: {0}".format(options.agent_type))
 
@@ -196,8 +194,8 @@ def _execute():
     logger.log_mq("launching consumer: {0}".format(options.agent_type))
 
     try:
-        mq.utils.consume(exec_info.consumer.MQ_EXCHANGE,
-                         "q-{0}".format(options.agent_type),
+        mq.utils.consume(exec_info.mq_exchange,
+                         "q-{0}".format(exec_info.consumer_type),
                          lambda ctx: _process(exec_info, ctx),
                          consume_limit=options.agent_limit,
                          context_type=exec_info.context_type,

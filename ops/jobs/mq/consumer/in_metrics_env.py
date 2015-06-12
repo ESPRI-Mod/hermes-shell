@@ -18,13 +18,6 @@ import utils
 
 
 
-# MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_METRICS_ENV
-
-
 def get_tasks():
     """Returns set of tasks to be executed when processing a message.
 

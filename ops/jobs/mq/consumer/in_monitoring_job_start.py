@@ -20,10 +20,6 @@ import utils
 
 
 
-# MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_IN
-
-
 def get_tasks():
     """Returns set of tasks to be executed when processing a message.
 

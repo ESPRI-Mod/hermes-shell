@@ -19,12 +19,6 @@ from prodiguer.web import handler_utils
 
 
 
-# MQ exhange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_INTERNAL
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_INTERNAL_API
-
 # API endpoint to post event data to.
 _API_EP = '/monitoring/event'
 
@@ -58,4 +52,4 @@ def _invoke_endpoint(ctx):
                       headers=_JSON_HTTP_HEADER,
                       timeout=2.0)
     except requests.exceptions.ConnectionError:
-        logger.log_api_warning(_ERR_API_NOT_RUNNING)
+        logger.log_web_warning(_ERR_API_NOT_RUNNING)

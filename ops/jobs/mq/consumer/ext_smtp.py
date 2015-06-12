@@ -20,12 +20,6 @@ from prodiguer.utils import logger
 
 
 
-# MQ exchange to bind to.
-MQ_EXCHANGE = mq.constants.EXCHANGE_PRODIGUER_EXT
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_EXT_SMTP
-
 # Map of message types to attachment fields.
 _ATTACHMENT_FIELD_MAP = {
     '0000': u'configuration',

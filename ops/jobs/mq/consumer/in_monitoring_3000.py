@@ -17,12 +17,6 @@ from prodiguer import mq
 import in_monitoring_job_start as base
 
 
-# MQ exhange to bind to.
-MQ_EXCHANGE = base.MQ_EXCHANGE
-
-# MQ queue to bind to.
-MQ_QUEUE = mq.constants.QUEUE_IN_MONITORING_3000
-
 # Set of tasks to be executed when processing a message.
 get_tasks = base.get_tasks
 
