@@ -122,7 +122,7 @@ def _unpack_message_content(ctx):
     ctx.experiment = ctx.experiment_raw = ctx.content['experiment']
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
-        'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
+        'jobWarningDelay', config.apps.monitoring.defaultJobWarningDelayInSeconds)
     ctx.model = ctx.model_raw = ctx.content['model']
     ctx.name = ctx.content['name']
     ctx.output_start_date = arrow.get(ctx.content['startDate']).datetime

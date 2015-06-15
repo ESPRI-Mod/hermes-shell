@@ -258,7 +258,7 @@ def _delete_email(ctx):
     """Deletes email after processing.
 
     """
-    if not config.mail.deleteProcessed:
+    if not config.mq.mail.deleteProcessed:
         return
 
     mail.delete_email(ctx.email_uid, client=ctx.imap_client)
@@ -268,7 +268,7 @@ def _move_email(ctx):
     """Moves email after processing.
 
     """
-    if config.mail.deleteProcessed:
+    if config.mq.mail.deleteProcessed:
         return
 
     mail.move_email(ctx.email_uid, client=ctx.imap_client)

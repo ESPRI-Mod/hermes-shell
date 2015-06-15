@@ -31,11 +31,13 @@ run_stack_bootstrap()
 
 	log
 	log "IMPORTANT NOTICE"
-	log "The bootstrap process installs the follwing config files:" 1
+	log "The bootstrap process installs the following config files:" 1
 	log "$DIR_CONFIG/prodiguer.json" 2
 	log "$DIR_CONFIG/prodiguer.sh" 2
 	log "Please review and assign settings as appropriate to your " 1
 	log "environemt prior to continuing with the installation process." 1
+	log "Also ensure that the relevant Prodiguer environemt variables are initialized." 1
+
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -173,9 +175,9 @@ _update_notice()
 {
 	log
 	log "IMPORTANT NOTICE"
-	log "The update process installed a new config file:" 1
-	log "$DIR_CONFIG/new-prodiguer.json" 2
-	log "If the config schema version of the new and existing config files is different then you will need to update your local configuration settings accordingly." 1
+	log "The update process installed a new config file.  The old config file is:" 1
+	log "$DIR_CONFIG/old-prodiguer.json" 2
+	log "If the config schema version of the new and existing config files is different then you will need to update your local settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -234,7 +236,8 @@ run_update_config()
 {
 	log "Updating configuration"
 
-	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/new-prodiguer.json
+	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/old-prodiguer.json
+	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 }

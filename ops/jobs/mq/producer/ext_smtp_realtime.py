@@ -111,4 +111,4 @@ def execute(throttle=0):
             _execute(throttle)
         except Exception as err:
             logger.log_mq_error(err)
-            time.sleep(config.mail.idleFaultRetryDelayInSeconds)
+            time.sleep(config.mq.mail.idleFaultRetryDelayInSeconds)

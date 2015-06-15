@@ -57,7 +57,7 @@ def _unpack_message_content(ctx):
     ctx.accounting_project = ctx.content.get('accountingProject')
     ctx.job_uid = ctx.content['jobuid']
     ctx.job_warning_delay = ctx.content.get(
-        'jobWarningDelay', config.monitoring.defaultJobWarningDelayInSeconds)
+        'jobWarningDelay', config.apps.monitoring.defaultJobWarningDelayInSeconds)
     ctx.simulation_uid = ctx.content['simuid']
 
 

@@ -7,7 +7,10 @@
 # Set of supported MQ queues.
 declare -a MQ_QUEUES=(
 	'ext-smtp'
-	'in-monitoring'
+	'in-metrics-env'
+	'in-metrics-sim'
+	'in-monitoring-compute'
+	'in-monitoring-post-processing'
 	'in-monitoring-0000'
 	'in-monitoring-0100'
 	'in-monitoring-1000'
@@ -19,8 +22,6 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-4000'
 	'in-monitoring-4100'
 	'in-monitoring-4900'
-	'in-monitoring-7000'
-	'in-monitoring-7100'
 	'in-monitoring-8888'
 	'in-monitoring-9000'
 	'in-monitoring-9999'
