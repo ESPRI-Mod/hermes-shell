@@ -194,3 +194,16 @@ run_db_pgres_uninstall()
 
 	log "DB : uninstalled postgres db"
 }
+
+
+# Uninstall db.
+run_db_pgres_migrate()
+{
+	log "DB : migrating postgres db ..."
+
+	run_db_pgres_backup
+	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_migrate.sql
+	psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_migrate.sql
+
+	log "DB : migrated postgres db"
+}

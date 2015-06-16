@@ -21,6 +21,7 @@ declare -a commands=(
 	# DB admin.
 	db-pgres-backup
 	db-pgres-install
+	db-pgres-migrate
 	db-pgres-reset
 	db-pgres-cv-table-reset
 	db-pgres-restore

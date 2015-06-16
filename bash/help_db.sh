@@ -34,6 +34,12 @@ help_db_pgres_install()
 	log "Description: installs database intiialised with setup data" 1
 }
 
+help_db_pgres_migrate()
+{
+	log "db-pgres-migrate"
+	log "Description: migrates database to latest schema version" 1
+}
+
 help_db_pgres_reset()
 {
 	log "db-pgres-reset"
@@ -68,6 +74,7 @@ help_db()
 		mongo_install
 		pgres_backup
 		pgres_install
+		pgres_migrate
 		pgres_reset
 		pgres_reset_cv_table
 		pgres_restore
