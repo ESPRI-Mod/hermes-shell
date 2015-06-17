@@ -17,9 +17,6 @@ from prodiguer import mq
 import in_monitoring_job_start as base
 
 
-# Set of tasks to be executed when processing a message.
-get_tasks = base.get_tasks
-
 
 class ProcessingContextInfo(base.ProcessingContextInfo):
     """Message processing context information.
@@ -33,3 +30,4 @@ class ProcessingContextInfo(base.ProcessingContextInfo):
             props, body, decode=decode)
 
         self.job_type = cv.constants.JOB_TYPE_POST_PROCESSING
+

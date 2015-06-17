@@ -24,12 +24,13 @@ def get_tasks():
     """Returns set of tasks to be executed when processing a message.
 
     """
-    return (
-      _unpack_message_content,
-      _persist_job,
-      _set_simulation,
-      _notify_api
-      )
+    return [
+        _drop_obsoletes,
+        _unpack_message_content,
+        _persist_job,
+        _set_simulation,
+        _notify_api
+    ]
 
 
 class ProcessingContextInfo(mq.Message):
@@ -48,6 +49,16 @@ class ProcessingContextInfo(mq.Message):
         self.job_uid = None
         self.job_warning_delay = None
         self.simulation_uid = None
+
+
+def _drop_obsoletes(ctx):
+    """Drops messages considered obsolete.
+
+    """
+    # If the field 'command' exists then this was
+    # from a version of libIGCM now considered obsolete.
+    if "command" in ctx.content:
+        ctx.abort = True
 
 
 def _unpack_message_content(ctx):
