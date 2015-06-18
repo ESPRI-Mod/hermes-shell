@@ -93,7 +93,7 @@ done
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 
-# Unset vars.
+# Unset vars so they do not leak into terminal session.
 unset PRODIGUER_SHELL_EXEC
 unset command_type
 unset command_types
