@@ -17,8 +17,10 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-1100'
 	'in-monitoring-2000'
 	'in-monitoring-2100'
+	'in-monitoring-2900'
 	'in-monitoring-3000'
 	'in-monitoring-3100'
+	'in-monitoring-3900'
 	'in-monitoring-4000'
 	'in-monitoring-4100'
 	'in-monitoring-4900'
@@ -27,8 +29,6 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-9999'
 	'internal-api'
 	'internal-cv'
-	'internal-sms'
-	'internal-smtp'
 )
 
 # Set of dead MQ queues.

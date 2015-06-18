@@ -62,8 +62,6 @@ _CONSUMERS = {
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
     'internal-cv': internal_cv,
-    'internal-smtp': null_consumer,
-    'internal-sms': null_consumer,
     'in-monitoring-compute': in_monitoring,
     'in-monitoring-post-processing': in_monitoring,
     'in-monitoring-0000': in_monitoring_0000,
