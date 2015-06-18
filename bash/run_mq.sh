@@ -24,6 +24,8 @@ declare -a MQ_QUEUES=(
 	'in-monitoring-4000'
 	'in-monitoring-4100'
 	'in-monitoring-4900'
+	'in-monitoring-7000'
+	'in-monitoring-7100'
 	'in-monitoring-8888'
 	'in-monitoring-9000'
 	'in-monitoring-9999'
