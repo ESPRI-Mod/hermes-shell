@@ -24,6 +24,7 @@ def get_tasks():
     return (
         _unpack_message_content,
         _persist_simulation_updates,
+        _persist_job,
         _set_active_simulation,
         _notify_api
     )
@@ -40,6 +41,7 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(props, body, decode=decode)
 
         self.active_simulation = None
+        self.job_uid = None
         self.simulation = None
         self.simulation_uid = None
 
@@ -48,6 +50,7 @@ def _unpack_message_content(ctx):
     """Unpacks message being processed.
 
     """
+    ctx.job_uid = ctx.content['jobuid']
     ctx.simulation_uid = ctx.content['simuid']
 
 
@@ -58,6 +61,18 @@ def _persist_simulation_updates(ctx):
     ctx.simulation = db.dao_monitoring.persist_simulation_02(
         ctx.msg.timestamp,
         False,
+        ctx.simulation_uid
+        )
+
+
+def _persist_job(ctx):
+    """Persists job info to db.
+
+    """
+    db.dao_monitoring.persist_job_02(
+        ctx.msg.timestamp,
+        False,
+        ctx.job_uid,
         ctx.simulation_uid
         )
 

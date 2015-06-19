@@ -94,7 +94,6 @@ def _notify_api(ctx):
     if ctx.simulation.is_obsolete:
         return
 
-
     data = {
         "event_type": u"job_error",
         "job_uid": unicode(ctx.job_uid),
