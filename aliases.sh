@@ -50,6 +50,7 @@ declare -a commands=(
 	stack-update-venv
 	stack-update-venvs
 	stack-update-source
+	stack-upgrade-venvs
 	stack-uninstall
 	stack-uninstall-repo
 	stack-config-commit

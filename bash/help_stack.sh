@@ -63,6 +63,12 @@ help_stack_install()
 	log "Description: installs complete stack" 1
 }
 
+help_stack_upgrade_venvs()
+{
+	log "stack-upgrade-venvs"
+	log "Description: upgrades virtual environments" 1
+}
+
 help_stack_update_venvs()
 {
 	log "stack-update-venvs"
@@ -131,6 +137,7 @@ help_stack()
 		update_source
 		update_venvs
 		update
+		upgrade_venvs
 		uninstall
 	)
 	log_help_commands "stack" ${commands[@]}

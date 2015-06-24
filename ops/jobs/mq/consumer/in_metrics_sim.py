@@ -11,7 +11,11 @@
 
 
 """
-import base64, os, shutil, tempfile, uuid
+import base64
+import os
+import shutil
+import tempfile
+import uuid
 
 import prodiguer_client
 from prodiguer import mq

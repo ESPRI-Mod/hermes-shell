@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_in_monitoring_job_fail.py
+.. module:: in_monitoring_job_error.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
@@ -41,7 +41,9 @@ class ProcessingContextInfo(mq.Message):
         super(ProcessingContextInfo, self).__init__(
             props, body, decode=decode)
 
+        self.job = None
         self.job_uid = None
+        self.simulation = None
         self.simulation_uid = None
 
 
@@ -57,18 +59,28 @@ def _persist_job_updates(ctx):
     """Persists job updates to db.
 
     """
-    db.dao_monitoring.persist_job_02(
-        ctx.msg.timestamp,
-        True,
-        ctx.job_uid,
-        ctx.simulation_uid
-        )
+    job = db.dao_monitoring.retrieve_job(ctx.job_uid)
+    # if job and job.is_error:
+    #     ctx.abort
+    #     return
+
+    if not job or job.is_error == False:
+        ctx.job = db.dao_monitoring.persist_job_02(
+            ctx.msg.timestamp,
+            True,
+            ctx.job_uid,
+            ctx.simulation_uid
+            )
 
 
 def _set_simulation(ctx):
     """Sets simulation being processed.
 
     """
+    # Skip if job error has already been raised.
+    if ctx.job is None:
+        return
+
     ctx.simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
 
 
@@ -76,6 +88,9 @@ def _notify_api(ctx):
     """Dispatches API notification.
 
     """
+    # Skip if job error has already been raised.
+    if ctx.job is None:
+        return
     # Skip if simulation start message (0000) has not yet been received.
     if ctx.simulation is None:
         return
@@ -84,7 +99,7 @@ def _notify_api(ctx):
         return
 
     data = {
-        "event_type": u"job_complete",
+        "event_type": u"job_error",
         "job_uid": unicode(ctx.job_uid),
         "simulation_uid": unicode(ctx.simulation_uid)
     }

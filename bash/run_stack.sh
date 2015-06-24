@@ -181,6 +181,28 @@ _update_notice()
 	log "IMPORTANT NOTICE ENDS"
 }
 
+# Upgrades a virtual environment.
+run_stack_upgrade_venv()
+{
+	log "Upgrading virtual environment :: $1"
+
+	declare TARGET_VENV=$DIR_VENV/$1
+	declare TARGET_VENV_REQUIREMENTS=$DIR_TEMPLATES/venv/requirements-$1.txt
+    source $TARGET_VENV/bin/activate
+    pip install -q --allow-all-external --upgrade -r $TARGET_VENV_REQUIREMENTS
+}
+
+# Upgrades virtual environments.
+run_stack_upgrade_venvs()
+{
+	export PATH=$DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
+	for venv in "${VENVS[@]}"
+	do
+		run_stack_upgrade_venv $venv
+	done
+}
+
 # Updates a virtual environment.
 run_stack_update_venv()
 {

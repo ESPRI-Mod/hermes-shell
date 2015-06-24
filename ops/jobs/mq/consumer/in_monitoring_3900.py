@@ -13,7 +13,7 @@
 """
 from prodiguer import mq
 
-import in_monitoring_job_fail as base
+import in_monitoring_job_error as base
 
 
 
