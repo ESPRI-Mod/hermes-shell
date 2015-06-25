@@ -175,8 +175,9 @@ _update_notice()
 {
 	log
 	log "IMPORTANT NOTICE"
-	log "The update process installed a new config file.  The old config file is:" 1
-	log "$DIR_CONFIG/old-prodiguer.json" 2
+	log "The update process installed new config files.  The old config files are:" 1
+	log "$DIR_CONFIG/prodiguer-backup.json" 2
+	log "$DIR_CONFIG/prodiguer-backup.sh" 2
 	log "If the config schema version of the new and existing config files is different then you will need to update your local settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }
@@ -258,10 +259,16 @@ run_update_config()
 {
 	log "Updating configuration"
 
-	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/old-prodiguer.json
+	# # Create backups.
+	# cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
+	# cp $DIR_CONFIG/config/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
+	# cp $DIR_CONFIG/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord-backup.conf
+	# cp $DIR_CONFIG/config/web-supervisord.conf $DIR_CONFIG/web-supervisord-backup.conf
+
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
+	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_CONFIG/web-supervisord.conf
 }
 
 # Updates shell.
