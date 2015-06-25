@@ -203,7 +203,7 @@ run_db_pgres_migrate()
 
 	run_db_pgres_backup
 	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_migrate.sql
-	psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_migrate.sql
+	# psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_migrate.sql
 
 	log "DB : migrated postgres db"
 }
