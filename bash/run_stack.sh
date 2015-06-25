@@ -296,7 +296,7 @@ run_stack_update()
 	run_stack_update_shell
 	run_stack_update_config
 	run_stack_update_repos
-	run_stack_update_venvs
+	run_stack_upgrade_venvs
 
 	log "UPDATED STACK"
 
