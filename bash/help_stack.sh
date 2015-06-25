@@ -63,6 +63,12 @@ help_stack_install()
 	log "Description: installs complete stack" 1
 }
 
+help_stack_upgrade_config()
+{
+	log "stack-upgrade-config"
+	log "Description: upgrades configuration files from templates" 1
+}
+
 help_stack_upgrade_venvs()
 {
 	log "stack-upgrade-venvs"

@@ -255,10 +255,8 @@ run_stack_update_repos()
 }
 
 # Updates configuration.
-run_update_config()
+run_stack_update_config()
 {
-	log "Updating configuration"
-
 	# # Create backups.
 	# cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
 	# cp $DIR_CONFIG/config/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
@@ -269,6 +267,8 @@ run_update_config()
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
 	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_CONFIG/web-supervisord.conf
+
+	log "Updated configuration"
 }
 
 # Updates shell.
@@ -294,7 +294,7 @@ run_stack_update()
 	log "UPDATING STACK"
 
 	run_stack_update_shell
-	run_update_config
+	run_stack_update_config
 	run_stack_update_repos
 	run_stack_update_venvs
 
