@@ -74,12 +74,11 @@ run_mq_produce()
 {
 	declare typeof=$1
 	declare throttle=$2
-	declare misc=$3
 
 	log "MQ : launching producer: "$typeof
 
     activate_venv server
-	python $DIR_JOBS"/mq/producer" --agent-type=$typeof --agent-limit=$throttle --agent-arg=$misc
+	python $DIR_JOBS"/mq/producer" --agent-type=$typeof --agent-limit=$throttle
 }
 
 run_mq_purge()

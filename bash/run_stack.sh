@@ -257,12 +257,6 @@ run_stack_update_repos()
 # Updates configuration.
 run_stack_update_config()
 {
-	# # Create backups.
-	# cp $DIR_CONFIG/prodiguer.json $DIR_CONFIG/prodiguer-backup.json
-	# cp $DIR_CONFIG/config/prodiguer.sh $DIR_CONFIG/prodiguer-backup.sh
-	# cp $DIR_CONFIG/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord-backup.conf
-	# cp $DIR_CONFIG/config/web-supervisord.conf $DIR_CONFIG/web-supervisord-backup.conf
-
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf

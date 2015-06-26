@@ -11,7 +11,8 @@
 
 
 """
-import os, subprocess
+import os
+import subprocess
 
 import arrow
 
@@ -19,18 +20,24 @@ from prodiguer import mq
 
 
 
-def dispatch_message(
-    data,
+def enqueue(
     message_type,
+    payload=None,
     mq_user_id=mq.constants.USER_PRODIGUER,
     mq_producer_id = mq.constants.PRODUCER_PRODIGUER,
     mq_app_id = mq.constants.APP_MONITORING
     ):
-    """Dispatches message to MQ server for subsequent processing.
+    """Enqueues a message upon MQ server.
+
+    :param str message_type: Message type, e.g. 0000.
+    :param dict payload: Message payload.
+    :param str mq_user_id: MQ server user id, e.g. prodiguer-mq-user.
+    :param str mq_producer_id: MQ server producer id, e.g. lilIGCM.
+    :param str mq_app_id: MQ server app id, e.g. monitoring.
 
     """
     def _get_msg_props():
-        """Message properties factory.
+        """Returns AMPQ message properties.
 
         """
         return mq.utils.create_ampq_message_properties(
@@ -41,23 +48,24 @@ def dispatch_message(
             )
 
 
-    def _get_message():
-        """Message factory.
+    def _yield_message():
+        """Yeild a mesage to be enqueued.
 
         """
         yield mq.Message(_get_msg_props(),
-                         data or {},
+                         payload or {},
                          mq.constants.EXCHANGE_PRODIGUER_INTERNAL)
 
-
-    mq.produce(_get_message)
-
+    mq.produce(_yield_message)
 
 
 def get_timestamp(timestamp):
-    """Returns formatted timestamp for insertion into db.
+    """Corrects nano-second to micro-second precision and returns updated timestamp.
 
-    This is necessary due to nano-second to second precision errors.
+    :param str timestamp: Incoming message timestamp.
+
+    :return: Formatted micro-second precise UTC timestamp.
+    :rtype: datetime.datetime
 
     """
     try:
@@ -71,38 +79,19 @@ def get_timestamp(timestamp):
         return arrow.get(timestamp).to('UTC').datetime
 
 
-def notify_operator(uid, notification_type):
-    """Notifies operator of a simulation event of interest.
-
-    :param str uid: UID of simulation being processed.
-    :param dict notification_info: Notification information.
-
-    """
-    # Skip until notification strategy is better defined.
-    return
-
-    data = {
-        'notificationType': notification_type,
-        'simulation_uid': uid
-    }
-
-    dispatch_message(data, mq.constants.TYPE_GENERAL_SMTP)
-    dispatch_message(data, mq.constants.TYPE_GENERAL_SMS)
-
-
 def exec_shell_command(cmd):
     """Executes a prodiguer-shell command.
 
     :param str cmd: Prodiguer shell command to be executed.
 
     """
-    # Set path to shell.
+    # Set prodiguer-shell path.
     shell = os.path.dirname(__file__)
     for _ in range(4):
         shell = os.path.dirname(shell)
     shell = os.path.join(shell, 'exec.sh')
 
-    # Set command.
+    # Set prodiguer shell command.
     cmd = '{0} {1}'.format(shell, cmd)
 
     # Invoke command.

@@ -18,8 +18,6 @@ from tornado.options import define, options
 from prodiguer import rt
 from prodiguer.utils import logger
 
-import ext_smtp_from_file
-import ext_smtp_polling
 import ext_smtp_realtime
 
 
@@ -35,26 +33,16 @@ define("agent_limit",
        default=0,
        help="Production limit (0 = unlimited)",
        type=int)
-define("agent_arg",
-       default=None,
-       help="Miscellaneous argument to be passed to producer")
 
 
 # Map of producer types to producers.
 _PRODUCERS = {
-    'ext-smtp-from-file': ext_smtp_from_file,
-    'ext-smtp-polling': ext_smtp_polling,
     'ext-smtp-realtime': ext_smtp_realtime
 }
 
-# Collection of producers with an extra argument.
-_WITH_ARG = {
-    ext_smtp_from_file: "Must supply email file path."
-    }
 
-
-# Collection of non-standard producers.
-_NON_STANDARD = {ext_smtp_realtime}
+# Set of non-standard producers.
+_NON_STANDARD = { ext_smtp_realtime }
 
 
 def _execute_standard(producer):
@@ -62,11 +50,7 @@ def _execute_standard(producer):
 
     """
     # Create context.
-    if options.agent_arg:
-        ctx = producer.ProcessingContext(options.agent_limit,
-                                         options.agent_arg)
-    else:
-        ctx = producer.ProcessingContext(options.agent_limit)
+    ctx = producer.ProcessingContext(options.agent_limit)
 
     # Set tasks.
     tasks = producer.get_tasks()
@@ -85,10 +69,7 @@ def _execute_non_standard(producer):
     """Executes a non-standard producer.
 
     """
-    if options.agent_arg:
-        producer.execute(options.agent_limit, options.agent_arg)
-    else:
-        producer.execute(options.agent_limit)
+    producer.execute(options.agent_limit)
 
 
 def _execute():
@@ -101,18 +82,12 @@ def _execute():
     except KeyError:
         raise ValueError("Invalid producer type: {0}".format(options.agent_type))
 
-    # Parse producer argument.
-    if producer in _WITH_ARG and not options.agent_arg:
-        raise ValueError(_WITH_ARG[producer])
-
     # Log.
     logger.log_mq("Message producer launched: {0}".format(options.agent_type))
 
     # Execute producer.
-    if producer in _NON_STANDARD:
-        _execute_non_standard(producer)
-    else:
-        _execute_standard(producer)
+    executor = _execute_non_standard if producer in _NON_STANDARD else _execute_standard
+    executor(producer)
 
 
 # Main entry point.

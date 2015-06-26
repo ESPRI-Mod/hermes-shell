@@ -1,1 +1,0 @@
-Simulation ended: {{simulation['name']}} :: {{simulation['uid']}}

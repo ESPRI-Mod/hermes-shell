@@ -264,20 +264,21 @@ def _push_cv_terms(ctx):
     """Pushes new CV terms to remote GitHub repo.
 
     """
+    # Skip if unnecessary.
     if not ctx.cv_terms_persisted_to_db and not ctx.cv_terms_new:
         return
 
-    utils.dispatch_message(None, mq.constants.TYPE_GENERAL_CV)
+    # Enqueue CV notification.
+    utils.enqueue(mq.constants.TYPE_GENERAL_CV)
 
 
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    data = {
+    # Enqueue API notification.
+    utils.enqueue(mq.constants.TYPE_GENERAL_API, {
         "event_type": u"simulation_start",
         "cv_terms": db.utils.get_collection(ctx.cv_terms_persisted_to_db),
         "simulation_uid": ctx.active_simulation.uid
-    }
-
-    utils.dispatch_message(data, mq.constants.TYPE_GENERAL_API)
+    })
