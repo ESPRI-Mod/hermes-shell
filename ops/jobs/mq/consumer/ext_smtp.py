@@ -16,6 +16,7 @@ import base64, copy, json, uuid
 from prodiguer import config
 from prodiguer import mail
 from prodiguer import mq
+from prodiguer.db import pgres as db
 from prodiguer.utils import logger
 
 
@@ -35,6 +36,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
+        _drop_duplicate_messages,
         _process_attachments,
         _set_messages_ampq,
         _dispatch,
@@ -71,6 +73,7 @@ class ProcessingContextInfo(mq.Message):
         self.messages_json = []
         self.messages_json_error = []
         self.messages_dict = []
+        self.messages_dict_duplicate = []
         self.messages_dict_error = []
 
 
@@ -185,6 +188,22 @@ def _set_messages_dict(ctx):
             ctx.messages_dict.append(msg)
 
 
+def _drop_duplicate_messages(ctx):
+    """Drops messages that have already been processed.
+
+    """
+    def _is_duplicate(msg):
+        """Determines whether the message was already processed.
+
+        """
+        return db.dao_mq.is_duplicate(msg['msgUID'])
+
+    ctx.messages_dict_duplicate = \
+        [m for m in ctx.messages_dict if _is_duplicate(m)]
+    ctx.messages_dict = \
+        [m for m in ctx.messages_dict if m not in ctx.messages_dict_duplicate]
+
+
 def _process_attachments_0000(ctx):
     """Processes email attachments for message type 0000.
 
@@ -222,11 +241,12 @@ def _process_attachments(ctx):
     if not ctx.email_attachments:
         return
 
-    # Escape if attachments must be associated with a single message.
+    # Escape if attachment is not associated with a single message.
+    # TODO emit warning
     if len(ctx.messages_dict) != 1:
         return
 
-    # Escape if message type is not mapped to a handler..
+    # Escape if message type is not mapped to a handler.
     msg = ctx.messages_dict[0]
     if msg['msgCode'] not in _ATTACHMENT_HANDLERS:
         return
@@ -287,13 +307,15 @@ def _log_stats(ctx):
     """
     msg = "Email uid: {0};  "
     msg += "Incoming: {1};  "
-    msg += "Base64 decoding errors: {2};  "
-    msg += "JSON encoding errors: {3};  "
-    msg += "Outgoing: {4}."
+    msg += "Base64 errors: {2};  "
+    msg += "JSON errors: {3};  "
+    msg += "Duplicates: {4};  "
+    msg += "Outgoing: {5}."
     msg = msg.format(ctx.email_uid,
                      len(ctx.messages_b64),
                      len(ctx.messages_json_error),
                      len(ctx.messages_dict_error),
+                     len(ctx.messages_dict_duplicate),
                      len(ctx.messages))
 
     logger.log_mq(msg)

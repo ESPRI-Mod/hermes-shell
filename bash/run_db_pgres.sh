@@ -72,7 +72,6 @@ _db_create()
 	log "Creating DB"
 
 	createdb -U prodiguer_db_admin -e -O prodiguer_db_admin -T template0 prodiguer
-	createdb -U prodiguer_db_admin -e -O prodiguer_db_admin -T template0 prodiguer_test
 }
 
 # Grant db permissions.
@@ -81,7 +80,6 @@ _db_grant_permissions()
 	log "Granting DB permissions"
 
 	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_grant_permissions.sql
-	psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_grant_permissions.sql
 }
 
 # Create db users.
@@ -99,7 +97,6 @@ _db_drop()
 	log "Dropping DB"
 
 	dropdb -U prodiguer_db_admin prodiguer
-	dropdb -U prodiguer_db_admin prodiguer_test
 }
 
 # Seed db.
@@ -115,11 +112,10 @@ _db_setup()
 _db_restore()
 {
 	declare backup_dir=$1
-	declare db_name=$2
 
-	gzip -d $backup_dir/$db_name.sql.gz
-	psql -U prodiguer_db_admin $db_name -f $backup_dir/$db_name.sql -q
-	gzip $backup_dir/$db_name.sql
+	gzip -d $backup_dir/prodiguer.sql.gz
+	psql -U prodiguer_db_admin prodiguer -f $backup_dir/prodiguer.sql -q
+	gzip $backup_dir/prodiguer.sql
 }
 
 # Backup db.
@@ -158,15 +154,26 @@ run_db_pgres_reset()
 	log "DB : reset postgres db"
 }
 
-# Reset db.
+# Reset cv table.
 run_db_pgres_cv_table_reset()
 {
-	log "DB : resetting postgres db controlled vocabulary table ..."
+	log "DB : resetting postgres cv.tbl_cv_term table ..."
 
 	activate_venv server
 	python $DIR_JOBS/db/run_pgres_reset_cv_table.py
 
-	log "DB : reset postgres db controlled vocabulary table ..."
+	log "DB : reset postgres cv.tbl_cv_term table ..."
+}
+
+# Reset mq.message_email table.
+run_db_pgres_mq_email_table_reset()
+{
+	log "DB : resetting postgres mq.tbl_message_email table ..."
+
+	activate_venv server
+	python $DIR_JOBS/db/run_pgres_reset_mq_email_table.py
+
+	log "DB : reset postgres mq.tbl_message_email table ..."
 }
 
 # Restore db.
@@ -177,8 +184,7 @@ run_db_pgres_restore()
 	_db_drop
 	_db_create
 
-	_db_restore $1 prodiguer
-	_db_restore $1 prodiguer_test
+	_db_restore $1
 
 	log "DB : restored postgres db"
 }
@@ -203,7 +209,7 @@ run_db_pgres_migrate()
 
 	run_db_pgres_backup
 	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_migrate.sql
-	# psql -U prodiguer_db_admin -d prodiguer_test -q -f $DIR_BASH/run_db_pgres_migrate.sql
+	_db_grant_permissions
 
 	log "DB : migrated postgres db"
 }

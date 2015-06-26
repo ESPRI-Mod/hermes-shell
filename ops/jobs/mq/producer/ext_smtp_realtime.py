@@ -58,7 +58,7 @@ def _get_new_emails():
     return result
 
 
-def _yield_message(uid):
+def _get_message(uid):
     """Yields a message to be enqueued upon MQ server.
 
     """
@@ -101,7 +101,7 @@ def _enqueue_emails():
     _log(msg)
 
     # Enqueue emails upon MQ server.
-    mq.produce((_yield_message(uid) for uid in uid_list),
+    mq.produce((_get_message(uid) for uid in uid_list),
                connection_url=config.mq.connections.libigcm)
 
 

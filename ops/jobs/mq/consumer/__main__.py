@@ -124,7 +124,7 @@ def _process(exec_info, ctx):
 
 
 class _ConsumerExecutionInfo(object):
-    """Encapsulates information required to runa consumer.
+    """Encapsulates information required to run an agent.
 
     """
     def __init__(self, consumer_type):

@@ -24,6 +24,7 @@ declare -a commands=(
 	db-pgres-migrate
 	db-pgres-reset
 	db-pgres-cv-table-reset
+	db-pgres-mq-email-table-reset
 	db-pgres-restore
 	db-pgres-uninstall
 	# MQ admin.

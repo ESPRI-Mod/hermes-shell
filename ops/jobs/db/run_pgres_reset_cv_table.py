@@ -47,9 +47,7 @@ def _main():
 
     # Setup each target db.
     try:
-        connection = config.db.pgres.main.replace(_DB_USER, _DB_USER_ADMIN)
-        setup(connection)
-        # setup(connection + '_test')
+        setup(config.db.pgres.main.replace(_DB_USER, _DB_USER_ADMIN))
     except sqlalchemy.exc.ProgrammingError as err:
         print err
         logger.log_db_error("SETUP ERROR : are db connections still open ? : db = {0}".format(connection))

@@ -52,6 +52,12 @@ help_db_pgres_cv_table_reset()
 	log "Description: resets the controlled vocabulary table after terms have been manually updated" 1
 }
 
+help_db_pgres_mq_email_table_reset()
+{
+	log "db-pgres-mq-email-table-reset"
+	log "Description: resets the mq.tbl_message_email vocabulary table after emails have been manually moved between folders" 1
+}
+
 help_db_pgres_restore()
 {
 	log "db-pgres-restore BACKUP_DIR"
@@ -77,6 +83,7 @@ help_db()
 		pgres_migrate
 		pgres_reset
 		pgres_reset_cv_table
+		pgres_reset_mq_email_table
 		pgres_restore
 		pgres_uninstall
 	)

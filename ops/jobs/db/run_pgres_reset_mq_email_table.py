@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_db_pgres_setup.py
+.. module:: run_pgres_reset_mq_email_table.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Sets up prodiguer postgres database.
+   :synopsis: Resets prodiguer postgres mq.tbl_message_email database table.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -32,20 +32,20 @@ def _main():
         """Sets up the database.
 
         """
-        logger.log_db("Seeding begins : db = {0}".format(connection))
+        logger.log_db("Reset begins")
 
         # Start session.
         db.session.start(connection)
 
-        # Setup db.
-        db.setup.execute()
+        # Resets terms stored in db.
+        db.dao_mq.reset_emails()
 
         # End session.
         db.session.end()
 
-        logger.log_db("Seeding ends : db = {0}".format(connection))
+        logger.log_db("Reset ends")
 
-    # Setup target db.
+    # Setup each target db.
     try:
         setup(config.db.pgres.main.replace(_DB_USER, _DB_USER_ADMIN))
     except sqlalchemy.exc.ProgrammingError as err:
