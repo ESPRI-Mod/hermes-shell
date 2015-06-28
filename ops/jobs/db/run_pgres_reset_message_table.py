@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_pgres_reset_cv_table.py
+.. module:: run_pgres_reset_message_table.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Resets prodiguer postgres database tables after manual cv updates.
+   :synopsis: Resets prodiguer mq.tbl_message table.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -23,18 +23,18 @@ def _main():
     """Main entry point.
 
     """
-    logger.log_db("Reset cv table begins")
+    logger.log_db("Reset message table begins")
 
     # Start session.
     db.session.start(config.db.pgres.main)
 
-    # Resets terms stored in db.
-    db.dao_cv.reset_terms()
+    # Delete all records in table.
+    db.dao.delete_all(db.types.Message)
 
     # End session.
     db.session.end()
 
-    logger.log_db("Reset cv table complete")
+    logger.log_db("Reset message table complete")
 
 
 if __name__ == '__main__':

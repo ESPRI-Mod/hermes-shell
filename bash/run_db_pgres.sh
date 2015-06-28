@@ -154,8 +154,8 @@ run_db_pgres_reset()
 	log "DB : reset postgres db"
 }
 
-# Reset cv table.
-run_db_pgres_cv_table_reset()
+# Reset table: cv.tbl_cv_term table
+run_db_pgres_reset_cv_table()
 {
 	log "DB : resetting postgres cv.tbl_cv_term table ..."
 
@@ -165,15 +165,26 @@ run_db_pgres_cv_table_reset()
 	log "DB : reset postgres cv.tbl_cv_term table ..."
 }
 
-# Reset mq.message_email table.
-run_db_pgres_mq_email_table_reset()
+# Reset table: mq.message_email
+run_db_pgres_reset_email_table()
 {
 	log "DB : resetting postgres mq.tbl_message_email table ..."
 
 	activate_venv server
-	python $DIR_JOBS/db/run_pgres_reset_mq_email_table.py
+	python $DIR_JOBS/db/run_pgres_reset_email_table.py
 
 	log "DB : reset postgres mq.tbl_message_email table ..."
+}
+
+# Reset table: mq.message
+run_db_pgres_reset_message_table()
+{
+	log "DB : resetting postgres mq.message table ..."
+
+	activate_venv server
+	python $DIR_JOBS/db/run_pgres_reset_message_table.py
+
+	log "DB : reset postgres mq.message table ..."
 }
 
 # Restore db.

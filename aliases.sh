@@ -23,8 +23,9 @@ declare -a commands=(
 	db-pgres-install
 	db-pgres-migrate
 	db-pgres-reset
-	db-pgres-cv-table-reset
-	db-pgres-mq-email-table-reset
+	db-pgres-reset-cv-table
+	db-pgres-reset-email-table
+	db-pgres-reset-message-table
 	db-pgres-restore
 	db-pgres-uninstall
 	# MQ admin.
@@ -39,6 +40,7 @@ declare -a commands=(
 	mq-daemons-stop
 	mq-produce
 	mq-purge
+	mq-purge-debug-queues
 	# Server setup.
 	os-setup
 	# Stack management.

@@ -36,6 +36,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
+        _drop_obsolete_messages,
         _drop_duplicate_messages,
         _process_attachments,
         _set_messages_ampq,
@@ -75,6 +76,7 @@ class ProcessingContextInfo(mq.Message):
         self.messages_dict = []
         self.messages_dict_duplicate = []
         self.messages_dict_error = []
+        self.messages_dict_obsolete = []
 
 
 def _get_correlation_id_1(msg):
@@ -186,6 +188,24 @@ def _set_messages_dict(ctx):
             ctx.messages_dict_error.append(msg)
         else:
             ctx.messages_dict.append(msg)
+
+
+def _drop_obsolete_messages(ctx):
+    """Drops messages that came from an obsolete source.
+
+    """
+    def _is_obsolete(msg):
+        """Determines whether the message is deemed to be obsolete.
+
+        """
+        # Obsolete if old pop / push stack messages.
+        if msg['msgCode'] in ['2000', '3000'] and "command" in msg:
+            return True
+
+    ctx.messages_dict_obsolete = \
+        [m for m in ctx.messages_dict if _is_obsolete(m)]
+    ctx.messages_dict = \
+        [m for m in ctx.messages_dict if m not in ctx.messages_dict_obsolete]
 
 
 def _drop_duplicate_messages(ctx):
@@ -309,12 +329,14 @@ def _log_stats(ctx):
     msg += "Incoming: {1};  "
     msg += "Base64 errors: {2};  "
     msg += "JSON errors: {3};  "
-    msg += "Duplicates: {4};  "
-    msg += "Outgoing: {5}."
+    msg += "Obsoletes: {4};  "
+    msg += "Duplicates: {5};  "
+    msg += "Outgoing: {6}."
     msg = msg.format(ctx.email_uid,
                      len(ctx.messages_b64),
                      len(ctx.messages_json_error),
                      len(ctx.messages_dict_error),
+                     len(ctx.messages_dict_obsolete),
                      len(ctx.messages_dict_duplicate),
                      len(ctx.messages))
 

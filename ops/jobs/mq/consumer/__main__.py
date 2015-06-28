@@ -59,11 +59,15 @@ define("agent_limit",
 
 # Map of consumer types to consumers.
 _CONSUMERS = {
+    # Production queues.
     'ext-smtp': ext_smtp,
     'internal-api': internal_api,
     'internal-cv': internal_cv,
     'in-monitoring-compute': in_monitoring,
     'in-monitoring-post-processing': in_monitoring,
+    'in-metrics-env': in_metrics_env,
+    'in-metrics-sim': in_metrics_sim,
+    # Test queues.
     'in-monitoring-0000': in_monitoring_0000,
     'in-monitoring-0100': in_monitoring_0100,
     'in-monitoring-1000': in_monitoring_1000,
@@ -77,11 +81,11 @@ _CONSUMERS = {
     'in-monitoring-4000': null_consumer,
     'in-monitoring-4100': null_consumer,
     'in-monitoring-4900': in_monitoring_4900,
+    'in-monitoring-7000': in_metrics_env,
+    'in-monitoring-7100': in_metrics_sim,
     'in-monitoring-8888': null_consumer,
     'in-monitoring-9000': in_monitoring_4900,   # TODO - deprecate
     'in-monitoring-9999': in_monitoring_9999,
-    'in-metrics-env': in_metrics_env,
-    'in-metrics-sim': in_metrics_sim
 }
 
 

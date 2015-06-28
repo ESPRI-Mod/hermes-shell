@@ -75,6 +75,12 @@ help_mq_purge()
 	log "Description: deletes all messages from all queues" 1
 }
 
+help_mq_purge_debug_queues()
+{
+	log "mq-purge-debug-queues"
+	log "Description: deletes all messages from debug queues only" 1
+}
+
 help_mq()
 {
 	commands=(
@@ -89,6 +95,7 @@ help_mq()
 		daemons_stop
 		produce
 		purge
+		purge-debug-queues
 	)
 	log_help_commands "mq" ${commands[@]}
 }
