@@ -39,6 +39,10 @@
                 "password": "{PRODIGUER_MQ_SMTP_PASSWORD}",
                 "port": 587,
                 "username": "superviseur"
+            },
+            "smtpConsumer": {
+                "excludedTypes": [],
+                "dropDuplicates": false
             }
         }
     },

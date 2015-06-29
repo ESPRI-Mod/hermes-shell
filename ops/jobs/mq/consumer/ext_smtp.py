@@ -11,7 +11,10 @@
 
 
 """
-import base64, copy, json, uuid
+import base64
+import copy
+import json
+import uuid
 
 from prodiguer import config
 from prodiguer import mail
@@ -36,6 +39,7 @@ def get_tasks():
         _set_messages_b64,
         _set_messages_json,
         _set_messages_dict,
+        _drop_excluded_messages,
         _drop_obsolete_messages,
         _drop_duplicate_messages,
         _process_attachments,
@@ -76,6 +80,7 @@ class ProcessingContextInfo(mq.Message):
         self.messages_dict = []
         self.messages_dict_duplicate = []
         self.messages_dict_error = []
+        self.messages_dict_excluded = []
         self.messages_dict_obsolete = []
 
 
@@ -190,6 +195,22 @@ def _set_messages_dict(ctx):
             ctx.messages_dict.append(msg)
 
 
+def _drop_excluded_messages(ctx):
+    """Drops messages that are excluded due to their type.
+
+    """
+    def _is_excluded(msg):
+        """Determines whether the message is deemed to be excluded.
+
+        """
+        return msg['msgCode'] in config.mq.mail.smtpConsumer.excludedTypes
+
+    ctx.messages_dict_excluded = \
+        [m for m in ctx.messages_dict if _is_excluded(m)]
+    ctx.messages_dict = \
+        [m for m in ctx.messages_dict if m not in ctx.messages_dict_excluded]
+
+
 def _drop_obsolete_messages(ctx):
     """Drops messages that came from an obsolete source.
 
@@ -212,6 +233,10 @@ def _drop_duplicate_messages(ctx):
     """Drops messages that have already been processed.
 
     """
+    # Skip if told to do so (performance optimisation).
+    if not config.mq.mail.smtpConsumer.dropDuplicates:
+        return
+
     def _is_duplicate(msg):
         """Determines whether the message was already processed.
 
@@ -228,7 +253,6 @@ def _process_attachments_0000(ctx):
     """Processes email attachments for message type 0000.
 
     """
-    # Simply push attachment into message body.
     msg = ctx.messages_dict[0]
     msg['configuration'] = ctx.email_attachments[0]
 
@@ -329,13 +353,15 @@ def _log_stats(ctx):
     msg += "Incoming: {1};  "
     msg += "Base64 errors: {2};  "
     msg += "JSON errors: {3};  "
-    msg += "Obsoletes: {4};  "
-    msg += "Duplicates: {5};  "
-    msg += "Outgoing: {6}."
+    msg += "Excluded: {4};  "
+    msg += "Obsoletes: {5};  "
+    msg += "Duplicates: {6};  "
+    msg += "Outgoing: {7}."
     msg = msg.format(ctx.email_uid,
                      len(ctx.messages_b64),
                      len(ctx.messages_json_error),
                      len(ctx.messages_dict_error),
+                     len(ctx.messages_dict_excluded),
                      len(ctx.messages_dict_obsolete),
                      len(ctx.messages_dict_duplicate),
                      len(ctx.messages))
