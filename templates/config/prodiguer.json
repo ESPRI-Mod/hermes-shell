@@ -41,8 +41,7 @@
                 "username": "superviseur"
             },
             "smtpConsumer": {
-                "excludedTypes": [],
-                "dropDuplicates": false
+                "excludedTypes": []
             }
         }
     },

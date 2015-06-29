@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: run_mq_consumer_persist.py
+.. module:: ext_smtp.py
    :copyright: Copyright "Apr 26, 2013", Institute Pierre Simon Laplace
    :license: GPL/CeCIL
    :platform: Unix
-   :synopsis: Pulls messages from MQ server and persists them to db.
+   :synopsis: Enqueues messages embedded in enqueued emails received from libIGCM.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
@@ -41,7 +41,6 @@ def get_tasks():
         _set_messages_dict,
         _drop_excluded_messages,
         _drop_obsolete_messages,
-        _drop_duplicate_messages,
         _process_attachments,
         _set_messages_ampq,
         _dispatch,
@@ -73,82 +72,15 @@ class ProcessingContextInfo(mq.Message):
         self.email_attachments = None
         self.email_uid = self.content['email_uid']
         self.imap_client = None
-        self.messages = []
+        self.messages_ampq = []
+        self.messages_ampq_error = []
         self.messages_b64 = []
         self.messages_json = []
         self.messages_json_error = []
         self.messages_dict = []
-        self.messages_dict_duplicate = []
         self.messages_dict_error = []
         self.messages_dict_excluded = []
         self.messages_dict_obsolete = []
-
-
-def _get_correlation_id_1(msg):
-    """Returns a correlation id from message body.
-
-    """
-    return msg['simuid'] if 'simuid' in msg else None
-
-
-def _get_correlation_id_2(msg):
-    """Returns a correlation id from message body.
-
-    """
-    return msg['jobuid'] if 'jobuid' in msg else None
-
-
-def _get_msg_props(msg):
-    """Returns an AMPQ basic properties instance, i.e. message header.
-
-    """
-    # Decode nano-second precise timestamp.
-    timestamp = mq.Timestamp.from_ns(msg['msgTimestamp'])
-
-    return mq.utils.create_ampq_message_properties(
-        user_id = mq.constants.USER_IGCM,
-        producer_id = msg['msgProducer'],
-        app_id = msg['msgApplication'],
-        message_id = msg['msgUID'],
-        message_type = msg['msgCode'],
-        timestamp = timestamp.as_ms_int,
-        headers = {
-            'timestamp': unicode(timestamp.as_ns_raw),
-            'timestamp_precision': u'ns',
-            'correlation_id_1': _get_correlation_id_1(msg),
-            'correlation_id_2': _get_correlation_id_2(msg),
-        })
-
-
-def _get_msg_payload(msg):
-    """Formats message payload.
-
-    """
-    # Strip out platform related attributes as these are no longer required.
-    return { k: msg[k] for k in msg.keys() if not k.startswith("msg") }
-
-
-def _decode_b64(data):
-    """Helper function: decodes base64 encoded text.
-
-    """
-    try:
-        return base64.b64decode(data)
-    except Exception as err:
-        return data, err
-
-
-def _encode_json(data):
-    """Helper function: encodes json encoded text.
-
-    """
-    try:
-        return json.loads(data)
-    except Exception as err:
-        try:
-            return json.loads(data.replace('\\', ''))
-        except Exception as err:
-            return data, err
 
 
 def _set_email(ctx):
@@ -177,7 +109,16 @@ def _set_messages_json(ctx):
     """Decode json encoded strings from base64 encoded string.
 
     """
-    for msg in [_decode_b64(m) for m in ctx.messages_b64]:
+    def _decode(data):
+        """Decodes base64 encoded text.
+
+        """
+        try:
+            return base64.b64decode(data)
+        except Exception as err:
+            return data, err
+
+    for msg in [_decode(m) for m in ctx.messages_b64]:
         if isinstance(msg, tuple):
             ctx.messages_json_error.append(msg)
         else:
@@ -188,7 +129,19 @@ def _set_messages_dict(ctx):
     """Encode json encoded strings to dictionaries.
 
     """
-    for msg in [_encode_json(m) for m in ctx.messages_json]:
+    def _encode(data):
+        """Encodes json encoded text.
+
+        """
+        try:
+            return json.loads(data)
+        except Exception as err:
+            try:
+                return json.loads(data.replace('\\', ''))
+            except Exception as err:
+                return data, err
+
+    for msg in [_encode(m) for m in ctx.messages_json]:
         if isinstance(msg, tuple):
             ctx.messages_dict_error.append(msg)
         else:
@@ -227,26 +180,6 @@ def _drop_obsolete_messages(ctx):
         [m for m in ctx.messages_dict if _is_obsolete(m)]
     ctx.messages_dict = \
         [m for m in ctx.messages_dict if m not in ctx.messages_dict_obsolete]
-
-
-def _drop_duplicate_messages(ctx):
-    """Drops messages that have already been processed.
-
-    """
-    # Skip if told to do so (performance optimisation).
-    if not config.mq.mail.smtpConsumer.dropDuplicates:
-        return
-
-    def _is_duplicate(msg):
-        """Determines whether the message was already processed.
-
-        """
-        return db.dao_mq.is_duplicate(msg['msgUID'])
-
-    ctx.messages_dict_duplicate = \
-        [m for m in ctx.messages_dict if _is_duplicate(m)]
-    ctx.messages_dict = \
-        [m for m in ctx.messages_dict if m not in ctx.messages_dict_duplicate]
 
 
 def _process_attachments_0000(ctx):
@@ -304,17 +237,60 @@ def _set_messages_ampq(ctx):
     """Set AMPQ messages to be dispatched.
 
     """
-    for msg in ctx.messages_dict:
-        ctx.messages.append(mq.Message(_get_msg_props(msg),
-                                       _get_msg_payload(msg),
-                                       mq.constants.EXCHANGE_PRODIGUER_IN))
+    def _get_ampq_props(data):
+        """Returns an AMPQ basic properties instance, i.e. message header.
+
+        """
+        # Decode nano-second precise timestamp.
+        timestamp = mq.Timestamp.from_ns(data['msgTimestamp'])
+
+        return mq.utils.create_ampq_message_properties(
+            user_id = mq.constants.USER_IGCM,
+            producer_id = data['msgProducer'],
+            app_id = data['msgApplication'],
+            message_id = data['msgUID'],
+            message_type = data['msgCode'],
+            timestamp = timestamp.as_ms_int,
+            headers = {
+                'timestamp': unicode(timestamp.as_ns_raw),
+                'timestamp_precision': u'ns',
+                'correlation_id_1': data.get('simuid'),
+                'correlation_id_2': data.get('jobuid')
+            })
+
+
+    def _get_ampq_payload(data):
+        """Return ampq message payload.
+
+        """
+        # Strip out non-platform platform attributes.
+        return { k: data[k] for k in data.keys() if not k.startswith("msg") }
+
+
+    def _encode(data):
+        """Encodes data as an ampq message.
+
+        """
+        try:
+            return mq.Message(_get_ampq_props(data),
+                              _get_ampq_payload(data),
+                              mq.constants.EXCHANGE_PRODIGUER_IN)
+        except Exception as err:
+            return data, err
+
+
+    for msg in [_encode(m) for m in ctx.messages_dict]:
+        if isinstance(msg, tuple):
+            ctx.messages_ampq_error.append(msg)
+        else:
+            ctx.messages_ampq.append(msg)
 
 
 def _dispatch(ctx):
     """Dispatches messages to MQ server.
 
     """
-    mq.produce(ctx.messages,
+    mq.produce(ctx.messages_ampq,
                connection_url=config.mq.connections.libigcm)
 
 
@@ -349,21 +325,18 @@ def _log_stats(ctx):
     """Logs processing statistics.
 
     """
-    msg = "Email uid: {0};  "
-    msg += "Incoming: {1};  "
-    msg += "Base64 errors: {2};  "
-    msg += "JSON errors: {3};  "
-    msg += "Excluded: {4};  "
-    msg += "Obsoletes: {5};  "
-    msg += "Duplicates: {6};  "
-    msg += "Outgoing: {7}."
-    msg = msg.format(ctx.email_uid,
-                     len(ctx.messages_b64),
-                     len(ctx.messages_json_error),
-                     len(ctx.messages_dict_error),
-                     len(ctx.messages_dict_excluded),
-                     len(ctx.messages_dict_obsolete),
-                     len(ctx.messages_dict_duplicate),
-                     len(ctx.messages))
+    msg = "Email uid: {};  ".format(ctx.email_uid)
+    msg += "Incoming: {};  ".format(len(ctx.messages_b64))
+    if ctx.messages_json_error:
+        msg += "Base64 decoding errors: {};  ".format(len(ctx.messages_json_error))
+    if ctx.messages_dict_error:
+        msg += "JSON encoding errors: {};  ".format(len(ctx.messages_dict_error))
+    if ctx.messages_ampq_error:
+        msg += "AMPQ encoding errors: {};  ".format(len(ctx.messages_ampq_error))
+    if ctx.messages_dict_excluded:
+        msg += "Type Exclusions: {};  ".format(len(ctx.messages_dict_excluded))
+    if ctx.messages_dict_obsolete:
+        msg += "Obsoletes: {};  ".format(len(ctx.messages_dict_obsolete))
+    msg += "Outgoing: {}.".format(len(ctx.messages_ampq))
 
     logger.log_mq(msg)
