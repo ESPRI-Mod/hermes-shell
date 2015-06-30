@@ -60,6 +60,8 @@ declare -a commands=(
 	stack-config-commit
 	stack-config-encrypt
 	stack-config-decrypt
+	# Tests.
+	tests
 	# Web service.
 	web-api
 	web-daemons-init

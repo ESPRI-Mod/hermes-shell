@@ -27,21 +27,21 @@ run_tests()
 		log "TESTS: executing main tests ..."
 		nosetests -v -s $DIR_SERVER_TESTS/test_main.py
 
-	# Run API tests.
-	elif [ $1 = "api" ]; then
-	    log "TESTS: executing api utils tests ..."
+	# Run web service tests.
+	elif [ $1 = "web" ]; then
+	    log "TESTS: executing web service tests ..."
 		nosetests -v -s $DIR_SERVER_TESTS/test_api_utils_ep.py
 		nosetests -v -s $DIR_SERVER_TESTS/test_api_utils_ws.py
 		nosetests -v -s $DIR_SERVER_TESTS/test_api_metric.py
-	elif [ $1 = "api-utils-ep" ]; then
-	    log "TESTS: executing api endpoint utils tests ..."
-		nosetests -v -s $DIR_SERVER_TESTS/test_api_utils_ep.py
-	elif [ $1 = "api-utils-ws" ]; then
-	    log "TESTS: executing api websocket utils tests ..."
-		nosetests -v -s $DIR_SERVER_TESTS/test_api_utils_ws.py
-	elif [ $1 = "api-metric" ]; then
-	    log "TESTS: executing api simulation metrics tests ..."
-		nosetests -v -s $DIR_SERVER_TESTS/test_api_metric.py
+	elif [ $1 = "web-utils-ep" ]; then
+	    log "TESTS: executing web service endpoint tests ..."
+		nosetests -v -s $DIR_SERVER_TESTS/test_web_utils_ep.py
+	elif [ $1 = "web-utils-ws" ]; then
+	    log "TESTS: executing web socket tests ..."
+		nosetests -v -s $DIR_SERVER_TESTS/test_web_utils_ws.py
+	elif [ $1 = "web-sim-metrics" ]; then
+	    log "TESTS: executing simulation metrics web service  tests ..."
+		nosetests -v -s $DIR_SERVER_TESTS/test_web_sim_metrics.py
 
 	# Run CV tests.
 	elif [ $1 = "cv" ]; then
