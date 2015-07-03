@@ -14,8 +14,8 @@
 import requests, json
 
 from prodiguer import mq
+from prodiguer import web
 from prodiguer.utils import logger
-from prodiguer.web import handler_utils
 
 
 
@@ -43,7 +43,7 @@ def _invoke_endpoint(ctx):
     logger.log_mq("Dispatching API notification: {0}".format(ctx.content))
 
     # Set API endpoint.
-    endpoint = handler_utils.get_endpoint(_API_EP)
+    endpoint = web.get_endpoint(_API_EP)
 
     # Send event info via an HTTP POST to API endpoint.
     try:
