@@ -47,6 +47,7 @@ declare -a commands=(
 	stack-bootstrap
 	stack-install
 	stack-update
+	stack-update-aliases
 	stack-update-config
 	stack-update-shell
 	stack-update-repo

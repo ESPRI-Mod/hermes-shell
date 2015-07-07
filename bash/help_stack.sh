@@ -63,6 +63,12 @@ help_stack_install()
 	log "Description: installs complete stack" 1
 }
 
+help_stack_update_aliases()
+{
+	log "stack-update-aliases"
+	log "Description: update prodiguer command alises in current session" 1
+}
+
 help_stack_upgrade_config()
 {
 	log "stack-upgrade-config"
@@ -136,6 +142,7 @@ help_stack()
 		install_venv
 		install_venvs
 		install
+		update_aliases
 		update_config
 		update_repo
 		update_repos

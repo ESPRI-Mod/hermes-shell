@@ -24,8 +24,8 @@
             "idleFaultRetryDelayInSeconds": 60,
             "imap": {
                 "host": "courriel3.ipsl.jussieu.fr",
-                "mailbox": "AMPQ-TEST-QUEUE",
-                "mailbox_processed": "AMPQ-TEST-PROCESSED",
+                "mailbox": "AMPQ-PROD",
+                "mailbox_processed": "AMPQ-PROD-PROCESSED",
                 "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
                 "port": 993,
                 "username": "superviseur"
@@ -48,11 +48,6 @@
     "web": {
         "cookie_secret": "{PRODIGUER_WEB_API_COOKIE_SECRET}",
         "host": "{PRODIGUER_WEB_HOST}",
-        "metric": {
-            "cors_white_list": [
-                "*"
-            ]
-        },
         "url": "{PRODIGUER_WEB_URL}",
         "websocketKeepAliveDelayInSeconds": 280
     }

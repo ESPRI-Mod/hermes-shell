@@ -1,6 +1,17 @@
 #!/bin/bash
 
 # ###############################################################
+# SECTION: UTILITIES
+# ###############################################################
+
+# Updates aliases.
+run_stack_update_aliases()
+{
+	source $DIR/aliases.sh
+	log "aliases updated"
+}
+
+# ###############################################################
 # SECTION: BOOTSTRAP
 # ###############################################################
 
@@ -50,8 +61,8 @@ _install_notice()
 {
 	log
 	log "IMPORTANT NOTICE"
-	log "To prodiguer shell command aliases add the following line to your .bash_profile file:" 1
-	log "test -f $DIR/exec.aliases && source $DIR/exec.aliases" 2
+	log "Activate prodiguer commands by adding the following line to your settings (e.g. $HOME/.bash_profile)" 1
+	log "source $DIR/aliases.sh" 2
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -159,6 +170,7 @@ run_stack_install()
 	run_stack_install_repos
 	run_stack_install_python
 	run_stack_install_venvs
+	run_stack_update_aliases
 
 	log "INSTALLED STACK"
 
@@ -273,6 +285,7 @@ run_stack_update_shell()
 	set_working_dir
 	git pull -q
 	remove_files "*.pyc"
+	run_stack_update_aliases
 }
 
 # Updates source code.
