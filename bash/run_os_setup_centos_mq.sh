@@ -23,9 +23,10 @@ _setup_rabbitmq()
 	rm -rf $DIR_TMP/rabbitmqadmin
 
 	# Import RabbitMQ config.
-	rabbitmqadmin -q import $DIR_TEMPLATES/config/rabbitmq.json
+	rabbitmqctl set_user_tags guest administrator
+	rabbitmqadmin -q import $DIR_TEMPLATES/config/mq-rabbit.json
 
-	# Delete obsolete MQ server resources.
+	# Remove default user.
 	rabbitmqctl delete_user guest
 }
 
