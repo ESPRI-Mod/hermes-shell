@@ -49,15 +49,3 @@ CREATE SEQUENCE monitoring.tbl_environment_metric_id_seq
 ALTER TABLE monitoring.tbl_environment_metric_id_seq
   OWNER TO prodiguer_db_admin;
 
-/* Grant schema permissions */
-GRANT USAGE ON SCHEMA cv, monitoring, mq TO prodiguer_db_user;
-
-/* Grant table permissions */
-GRANT INSERT, UPDATE, DELETE, SELECT ON ALL TABLES IN SCHEMA cv TO prodiguer_db_user;
-GRANT INSERT, UPDATE, DELETE, SELECT ON ALL TABLES IN SCHEMA monitoring TO prodiguer_db_user;
-GRANT INSERT, UPDATE, DELETE, SELECT ON ALL TABLES IN SCHEMA mq TO prodiguer_db_user;
-
-/* Grant sequence permissions */
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA cv TO prodiguer_db_user;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA monitoring TO prodiguer_db_user;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA mq TO prodiguer_db_user;
