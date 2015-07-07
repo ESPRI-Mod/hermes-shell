@@ -5,8 +5,10 @@ _setup_rabbitmq()
 	yum install erlang
 
 	# Install RabbitMQ.
-	rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	yum install rabbitmq-server-3.5.3-1.noarch.rpm
+	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_3/rabbitmq-server-3.5.3-1.noarch.rpm -O $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
+	yum install $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
+	rm -rf $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
