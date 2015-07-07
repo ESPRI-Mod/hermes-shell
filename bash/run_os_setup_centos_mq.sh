@@ -6,7 +6,7 @@ _setup_rabbitmq()
 
 	# Install RabbitMQ.
 	rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	yum install rabbitmq-server-3.5.1-1.noarch.rpm
+	yum install rabbitmq-server-3.5.3-1.noarch.rpm
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
@@ -16,9 +16,9 @@ _setup_rabbitmq()
 	/etc/init.d/rabbitmq-server start
 
 	# Set RabbitMQ admin cli.
-	wget http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v3_5_1/bin/rabbitmqadmin -O /opt/prodiguer/ops/tmp/rabbitmqadmin
-	cp /opt/prodiguer/ops/tmp/rabbitmqadmin /usr/local/bin
-	rm -rf /opt/prodiguer/ops/tmp/rabbitmqadmin
+	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_3/bin/rabbitmqadmin -O $DIR_TMP/rabbitmqadmin
+	cp $DIR_TMP/rabbitmqadmin /usr/local/bin
+	rm -rf $DIR_TMP/rabbitmqadmin
 
 	# Import RabbitMQ config.
 	rabbitmqadmin -q import $DIR_TEMPLATES/config/rabbitmq.json

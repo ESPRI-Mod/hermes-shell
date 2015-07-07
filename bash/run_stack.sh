@@ -34,16 +34,16 @@ run_stack_bootstrap()
 
 	log "BOOTSTRAP ENDS"
 
-	log
-	log "IMPORTANT NOTICE"
+	log "*******************************************************************************"
+	log "IMPORTANT NOTICE !!!"
+	log "*******************************************************************************"
 	log "The bootstrap process installs the following config files:" 1
 	log "$DIR_CONFIG/prodiguer.json" 2
 	log "$DIR_CONFIG/prodiguer.sh" 2
-	log "Please review and assign settings as appropriate to your " 1
-	log "environemt prior to continuing with the installation process." 1
-	log "Also ensure that the relevant Prodiguer environemt variables are initialized." 1
-
-	log "IMPORTANT NOTICE ENDS"
+	log "Prior to continuing with the installation process:"
+	log "1. Review config files;" 2
+	log "2.	Ensure that the relevant Prodiguer environment variables are setup." 1
+	log "*******************************************************************************"
 }
 
 # ###############################################################
