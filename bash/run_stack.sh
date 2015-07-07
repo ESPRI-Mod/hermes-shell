@@ -7,8 +7,8 @@
 # Updates aliases.
 run_stack_update_aliases()
 {
+	log "Updating aliases"
 	source $DIR/aliases.sh
-	log "aliases updated"
 }
 
 # ###############################################################
