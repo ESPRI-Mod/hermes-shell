@@ -1,13 +1,13 @@
 # Installs postgres db server.
 _setup_postgres()
 {
-	# Install yum PostgreSQL repository.
+	# Install yum -q PostgreSQL repository.
 	log "Installing PostgreSQL repo"
 	rpm -Uvh http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
 
-	# Install PostgreSQL with yum package manager.
-	log "Installing PostgreSQL with yum package manager"
-	yum install postgresql93-server postgresql93
+	# Install PostgreSQL with yum -q package manager.
+	log "Installing PostgreSQL with yum -q package manager"
+	yum -q install postgresql93-server postgresql93
 
 	# Initialize PostgreSQL server.
 	log "Initializing PostgreSQL server"
@@ -33,7 +33,7 @@ _setup_mongodb()
 	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 	# Install latest stable version of mongodb.
-	yum install -y mongodb-org
+	yum -q install -y mongodb-org
 }
 
 # Main entry point.
