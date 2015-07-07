@@ -7,7 +7,7 @@ _setup_postgres()
 
 	# Install PostgreSQL with yum -q package manager.
 	log "Installing PostgreSQL with yum -q package manager"
-	yum -q install postgresql93-server postgresql93
+	yum -q -y install postgresql93-server postgresql93
 
 	# Initialize PostgreSQL server.
 	log "Initializing PostgreSQL server"
@@ -33,7 +33,7 @@ _setup_mongodb()
 	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 	# Install latest stable version of mongodb.
-	yum -q install -y mongodb-org
+	yum -q -y install -y mongodb-org
 }
 
 # Main entry point.
