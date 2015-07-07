@@ -2,7 +2,7 @@
 _setup_rabbitmq()
 {
 	# Install dependencies.
-	yum install erlang
+	yum -q install erlang
 
 	# Install RabbitMQ.
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
@@ -21,6 +21,7 @@ _setup_rabbitmq()
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_3/bin/rabbitmqadmin -O $DIR_TMP/rabbitmqadmin
 	cp $DIR_TMP/rabbitmqadmin /usr/local/bin
 	rm -rf $DIR_TMP/rabbitmqadmin
+	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Import RabbitMQ config.
 	rabbitmqctl set_user_tags guest administrator
