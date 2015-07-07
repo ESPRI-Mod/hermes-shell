@@ -15,23 +15,17 @@ run_stack_update_aliases()
 # SECTION: BOOTSTRAP
 # ###############################################################
 
-run_stack_init_ops_directories()
-{
-	log "Initializing ops directories"
-	set_working_dir
-	for ops_dir in "${OPS_DIRS[@]}"
-	do
-		mkdir -p $ops_dir
-	done
-}
-
 # Run stack bootstrapper.
 run_stack_bootstrap()
 {
 	log "BOOTSTRAP STARTS"
 	set_working_dir
 
-	run_stack_init_ops_directories
+	log "Initializing ops directories"
+	for ops_dir in "${OPS_DIRS[@]}"
+	do
+		mkdir -p $ops_dir
+	done
 
 	log "Initializing configuration"
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh

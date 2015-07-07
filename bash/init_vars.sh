@@ -26,6 +26,7 @@ declare -a OPS_DIRS=(
 	$DIR_BACKUPS
 	$DIR_CONFIG
 	$DIR_CERTS
+	$DIR_CERTS/rabbitmq
 	$DIR_DAEMONS
 	$DIR_DATA
 	$DIR_DATA/pgres
