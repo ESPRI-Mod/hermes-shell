@@ -126,7 +126,7 @@ run_mq_daemons_init()
 {
     activate_venv server
 
-    supervisord -c $DIR_CONFIG/mq-supervisord.conf
+    supervisord -c $DIR_DAEMONS/mq/supervisord.conf
 }
 
 # Kills MQ daemon process.
@@ -134,8 +134,8 @@ run_mq_daemons_kill()
 {
     activate_venv server
 
- 	 supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
-     supervisorctl -c $DIR_CONFIG/mq-supervisord.conf shutdown
+ 	 supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf shutdown
 }
 
 # Restarts MQ daemons.
@@ -143,9 +143,9 @@ run_mq_daemons_refresh()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf update all
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf update all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
 }
 
 # Restarts MQ daemons.
@@ -153,8 +153,8 @@ run_mq_daemons_restart()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
 }
 
 # Launches MQ daemons.
@@ -162,7 +162,7 @@ run_mq_daemons_start()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf start all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
 }
 
 # Launches MQ daemons.
@@ -170,7 +170,7 @@ run_mq_daemons_status()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf status all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf status all
 }
 
 # Launches MQ daemons.
@@ -178,5 +178,5 @@ run_mq_daemons_stop()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_CONFIG/mq-supervisord.conf stop all
+    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
 }

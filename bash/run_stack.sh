@@ -31,7 +31,8 @@ run_stack_bootstrap()
 	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
-	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
+	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
+	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
 
 	log "BOOTSTRAP ENDS"
 
@@ -46,6 +47,7 @@ run_stack_bootstrap()
 	log "$HOME/.prodiguer_server" 2
 	log ""
 	log "3.  Add 'source $HOME/.prodiguer_server' to your settings, e.g. .bash_profile or .bash_rc" 1
+	log ""
 	log "*******************************************************************************"
 }
 
@@ -268,8 +270,8 @@ run_stack_update_config()
 {
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
-	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
-	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_CONFIG/web-supervisord.conf
+	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
+	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
 
 	log "Updated configuration"
 }

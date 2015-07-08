@@ -28,6 +28,8 @@ declare -a OPS_DIRS=(
 	$DIR_CERTS
 	$DIR_CERTS/rabbitmq
 	$DIR_DAEMONS
+	$DIR_DAEMONS/mq
+	$DIR_DAEMONS/web
 	$DIR_DATA
 	$DIR_DATA/pgres
 	$DIR_DATA/mongo
