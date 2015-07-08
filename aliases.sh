@@ -45,6 +45,7 @@ declare -a commands=(
 	os-setup
 	# Stack management.
 	stack-bootstrap
+	stack-bootstrap-environment-variables
 	stack-install
 	stack-update
 	stack-update-aliases

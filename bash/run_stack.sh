@@ -15,6 +15,15 @@ run_stack_update_aliases()
 # SECTION: BOOTSTRAP
 # ###############################################################
 
+# Boostraps environment variables.
+run_stack_bootstrap_environment_variables()
+{
+	log "Bootstrapping environment variables"
+
+	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
+	cat $DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+}
+
 # Run stack bootstrapper.
 run_stack_bootstrap()
 {

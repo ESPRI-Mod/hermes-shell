@@ -4,6 +4,12 @@ help_stack_bootstrap()
 	log "Description: prepares system for install " 1
 }
 
+help_stack_bootstrap_environment_variables()
+{
+	log "stack-bootstrap-environment-variables"
+	log "Description: initializes .prodiguer_server environment variables file" 1
+}
+
 help_stack_config_commit()
 {
 	log "stack-config-commit"
