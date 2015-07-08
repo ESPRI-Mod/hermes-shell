@@ -7,6 +7,9 @@ export PRODIGUER_HOME=/opt/prodiguer
 # Mode of deployment.
 export PRODIGUER_DEPLOYMENT_MODE=test
 
+# Prodiguer client web service url.
+export PRODIGUER_CLIENT_WEB_URL=https://prodiguer-test-web.ipsl.fr
+
 # --------------------------------------------------------------------
 # DB server settings
 # --------------------------------------------------------------------
@@ -53,4 +56,4 @@ export PRODIGUER_WEB_API_COOKIE_SECRET=XXXXXXXXXXX
 export PRODIGUER_WEB_HOST=localhost:8888
 
 # Prodiguer web service url.
-export PRODIGUER_WEB_URL=http://localhost:8888
+export PRODIGUER_WEB_URL=https://prodiguer-test-web.ipsl.fr
