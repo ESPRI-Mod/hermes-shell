@@ -19,7 +19,6 @@ export PRODIGUER_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 # Prodiguer pgres server host (includes port).
 export PRODIGUER_DB_PGRES_HOST=localhost:5432
 
-
 # --------------------------------------------------------------------
 # MQ server settings
 # --------------------------------------------------------------------
@@ -43,7 +42,6 @@ export PRODIGUER_MQ_IMAP_PASSWORD=XXXXXXXXXXX
 
 # Prodiguer SMTP user password.
 export PRODIGUER_MQ_SMTP_PASSWORD=XXXXXXXXXXX
-
 
 # --------------------------------------------------------------------
 # Web server settings
