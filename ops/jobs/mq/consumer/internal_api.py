@@ -20,7 +20,7 @@ from prodiguer.utils import logger
 
 
 # API endpoint to post event data to.
-_API_EP = '/monitoring/event'
+_API_EP = '/simulation/monitoring/event'
 
 # API not running error message.
 _ERR_API_NOT_RUNNING = "API service needs to be started."
