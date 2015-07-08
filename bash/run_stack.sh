@@ -22,6 +22,17 @@ run_stack_bootstrap_environment_variables()
 
 	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
 	cat $DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+
+	log "*******************************************************************************"
+	log "IMPORTANT NOTICE !!!"
+	log "*******************************************************************************"
+	log "1.  Review environment variables file:" 1
+	log "$HOME/.prodiguer_server" 2
+	log ""
+	log "2.  Review bash settings (see end of file):" 1
+	log "$HOME/.bash_profile" 2
+	log ""
+	log "*******************************************************************************"
 }
 
 # Run stack bootstrapper.
@@ -37,25 +48,27 @@ run_stack_bootstrap()
 	done
 
 	log "Initializing configuration"
-	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
 	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
+	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
+	cat $DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
 
 	log "BOOTSTRAP ENDS"
 
 	log "*******************************************************************************"
 	log "IMPORTANT NOTICE !!!"
 	log "*******************************************************************************"
-	log "1.  Review the following config files:" 1
+	log "1.  Review config files:" 1
 	log "$DIR_CONFIG/prodiguer.json" 2
 	log "$DIR_CONFIG/prodiguer.sh" 2
 	log ""
-	log "2.  Review the following environment variables file:" 1
+	log "2.  Review environment variables file:" 1
 	log "$HOME/.prodiguer_server" 2
 	log ""
-	log "3.  Add 'source $HOME/.prodiguer_server' to your settings, e.g. .bash_profile or .bash_rc" 1
+	log "3.  Review bash settings (see end of file):" 1
+	log "$HOME/.bash_profile" 2
 	log ""
 	log "*******************************************************************************"
 }
