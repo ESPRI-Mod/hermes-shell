@@ -2,6 +2,14 @@
     "bindings": [
         {
             "arguments": {},
+            "destination": "q-debug-ext-smtp",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.*.-1000",
+            "source": "x-ext",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
             "destination": "q-ext-smtp",
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-1000",
@@ -362,6 +370,14 @@
         },
         {
             "arguments": {},
+            "destination": "q-in-monitoring-7000",
+            "destination_type": "queue",
+            "routing_key": "q-in-monitoring-7000",
+            "source": "x-in",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
             "destination": "q-in-monitoring-8888",
             "destination_type": "queue",
             "routing_key": "q-in-monitoring-8888",
@@ -394,9 +410,25 @@
         },
         {
             "arguments": {},
+            "destination": "q-debug-internal-api",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.*.-2000",
+            "source": "x-internal",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
             "destination": "q-internal-api",
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-2000",
+            "source": "x-internal",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "q-debug-internal-cv",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.*.-4000",
             "source": "x-internal",
             "vhost": "prodiguer"
         },
@@ -542,6 +574,13 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
+            "name": "q-debug-internal-api",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
             "name": "q-in-monitoring-2900",
             "vhost": "prodiguer"
         },
@@ -578,6 +617,20 @@
             "auto_delete": false,
             "durable": true,
             "name": "q-in-monitoring-1100",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "q-debug-ext-smtp",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "q-debug-internal-cv",
             "vhost": "prodiguer"
         },
         {
@@ -626,6 +679,13 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
+            "name": "q-internal-api",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
             "name": "q-in-monitoring-post-processing",
             "vhost": "prodiguer"
         },
@@ -634,13 +694,6 @@
             "auto_delete": false,
             "durable": true,
             "name": "q-in-metrics-env",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "q-internal-api",
             "vhost": "prodiguer"
         },
         {
