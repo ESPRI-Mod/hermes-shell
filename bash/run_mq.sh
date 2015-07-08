@@ -35,6 +35,9 @@ declare -a MQ_QUEUES=(
 
 # Set of supported debug MQ queues.
 declare -a MQ_DEBUG_QUEUES=(
+	'debug-ext-smtp'
+	'debug-internal-api'
+	'debug-internal-cv'
 	'in-monitoring-0000'
 	'in-monitoring-0100'
 	'in-monitoring-1000'
