@@ -28,6 +28,7 @@ run_stack_bootstrap()
 	done
 
 	log "Initializing configuration"
+	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
 	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
 	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_CONFIG/mq-supervisord.conf
@@ -37,12 +38,14 @@ run_stack_bootstrap()
 	log "*******************************************************************************"
 	log "IMPORTANT NOTICE !!!"
 	log "*******************************************************************************"
-	log "The bootstrap process installs the following config files:" 1
+	log "1.  Review the following config files:" 1
 	log "$DIR_CONFIG/prodiguer.json" 2
 	log "$DIR_CONFIG/prodiguer.sh" 2
-	log "Prior to continuing with the installation process:"
-	log "1. Review config files;" 2
-	log "2.	Ensure that the relevant Prodiguer environment variables are setup." 1
+	log ""
+	log "2.  Review the following environment variables file:" 1
+	log "$HOME/.prodiguer_server" 2
+	log ""
+	log "3.  Add 'source $HOME/.prodiguer_server' to your settings, e.g. .bash_profile or .bash_rc" 1
 	log "*******************************************************************************"
 }
 
