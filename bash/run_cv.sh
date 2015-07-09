@@ -4,12 +4,9 @@ run_cv_git_push()
 
 	set_working_dir $DIR_REPOS/prodiguer-cv
 
-	declare untracked=$(git ls-files --others --exclude-standard)
-	if [ "$untracked" ]; then
-		git add . --force
-		git commit -m "prodiguer-cv-push--->`date +\%Y-\%m-\%dT\%H:\%M:\%S`"
-		git push -v origin master:master
-	fi
+	git add . --force
+	git commit -m "prodiguer-cv-push--->`date +\%Y-\%m-\%dT\%H:\%M:\%S`"
+	git push -v origin master:master
 
 	set_working_dir
 
