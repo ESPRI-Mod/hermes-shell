@@ -17,6 +17,7 @@ from prodiguer import mq
 import in_monitoring_job_start as base
 
 
+
 # Set of tasks to be executed when processing a message.
 get_tasks = base.get_tasks
 

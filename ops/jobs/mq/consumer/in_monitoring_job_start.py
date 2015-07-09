@@ -28,6 +28,7 @@ def get_tasks():
         _drop_obsoletes,
         _unpack_message_content,
         _persist_job,
+        _persist_simulation_updates,
         _notify_api
     ]
 
@@ -85,11 +86,27 @@ def _persist_job(ctx):
         )
 
 
+def _persist_simulation_updates(ctx):
+    """Updates simulation (compute jobs only)
+
+    """
+    # Skip if not processing a compute job.
+    if ctx.job_type != cv.constants.JOB_TYPE_COMPUTING:
+        return
+
+    # Ensure simulation is not considered to be in an error state.
+    dao.persist_simulation_02(
+        None,
+        False,
+        ctx.simulation_uid
+        )
+
+
 def _notify_api(ctx):
     """Dispatches API notification.
 
     """
-    # Skip if simulation messages have not yet been received.
+    # Skip if simulation start (000) message not received.
     simulation = db.dao_monitoring.retrieve_simulation(ctx.simulation_uid)
     if simulation is None:
         return
