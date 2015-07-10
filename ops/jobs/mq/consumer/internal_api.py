@@ -51,6 +51,7 @@ def _invoke_endpoint(ctx):
         requests.post(endpoint,
                       data=json.dumps(ctx.content),
                       headers=_JSON_HTTP_HEADER,
-                      timeout=2.0)
+                      timeout=2.0,
+                      verify=False)
     except requests.exceptions.ConnectionError:
         logger.log_web_warning(_ERR_API_NOT_RUNNING)
