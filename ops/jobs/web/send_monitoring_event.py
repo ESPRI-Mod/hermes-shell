@@ -32,14 +32,14 @@ _parser.add_argument(
     help="Web service endpoint",
     dest="endpoint",
     type=str,
-    default=r'http://localhost:8888/api/1/simulation/monitoring/event'
+    default=r'https://prodiguer-test-web.ipsl.fr/api/1/simulation/monitoring/event'
     )
 _parser.add_argument(
     "-sim", "--simulation-uid",
     help="UID of a simulation",
     dest="simulation_uid",
     type=str,
-    default=u'8319d4eb-c3dc-4592-a90d-baf09c276404'
+    default=u'e9041bbb-daf9-4d1c-a2c0-3cbb52ae416f'
     )
 _parser.add_argument(
     "-job", "--job-uid",
