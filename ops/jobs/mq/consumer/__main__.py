@@ -86,6 +86,9 @@ _CONSUMERS = {
     'in-monitoring-8888': null_consumer,
     'in-monitoring-9000': in_monitoring_4900,   # TODO - deprecate
     'in-monitoring-9999': in_monitoring_9999,
+    'debug-internal-api': internal_api,
+    'debug-internal-cv': internal_cv,
+    'debug-ext-smtp': ext_smtp
 }
 
 
@@ -138,7 +141,13 @@ class _ConsumerExecutionInfo(object):
         self.consumer = None
         self.consumer_type = consumer_type
         self.context_type = mq.Message
-        self.mq_exchange = "x-{}".format(consumer_type.split('-')[0])
+
+        # Derive exchange from consumer type.
+        parts = consumer_type.split('-')
+        if len(parts) <= 1:
+            raise ValueError("Invalid consumer type: {0}".format(consumer_type))
+        mq_exchange = parts[1] if parts[0] == 'debug' else parts[0]
+        self.mq_exchange = "x-{}".format(mq_exchange)
 
 
     @staticmethod
