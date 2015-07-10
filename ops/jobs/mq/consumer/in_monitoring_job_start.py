@@ -95,7 +95,7 @@ def _persist_simulation_updates(ctx):
         return
 
     # Ensure simulation is not considered to be in an error state.
-    dao.persist_simulation_02(
+    db.dao_monitoring.persist_simulation_02(
         None,
         False,
         ctx.simulation_uid
