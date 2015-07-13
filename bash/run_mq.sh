@@ -131,6 +131,7 @@ run_mq_purge_debug_queues()
 run_mq_daemons_reset_logs()
 {
 	rm $DIR_LOGS/mq/*.log
+	rm $DIR_DAEMONS/mq/supervisord.log
 }
 
 # Initializes MQ daemons.

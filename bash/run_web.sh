@@ -47,6 +47,7 @@ run_web_daemons_refresh()
 run_web_daemons_reset_logs()
 {
     rm $DIR_LOGS/web/*.log
+    rm $DIR_DAEMONS/web/supervisord.log
 }
 
 # Restarts WEB daemons.
