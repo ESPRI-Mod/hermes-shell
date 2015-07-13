@@ -25,6 +25,13 @@ help_web_daemons_refresh()
 	log "Description: refreshes Prodiguer WEB daemons - i.e. reloads web-supervisor.conf & restarts" 1
 }
 
+# Resets WEB daemon log files.
+help_web_daemons_reset_logs()
+{
+	log "web-daemons-reset-logs"
+	log "Description: resets Prodiguer WEB daemon log files" 1
+}
+
 # Restarts WEB daemons.
 help_web_daemons_restart()
 {
@@ -53,6 +60,14 @@ help_web_daemons_stop()
 	log "Description: stops Prodiguer WEB daemons" 1
 }
 
+# Update WEB dameons config.
+help_web_daemons_update_config()
+{
+	log "web-daemons-update-config"
+	log "Description: updates Prodiguer WEB daemon supervisord config file" 1
+}
+
+
 help_web()
 {
 	commands=(
@@ -60,10 +75,12 @@ help_web()
 		daemons_init
 		daemons_kill
 		daemons_refresh
+		daemons_reset_logs
 		daemons_restart
 		daemons_start
 		daemons_status
 		daemons_stop
+		daemons_update_config
 	)
 	log_help_commands "web" ${commands[@]}
 }

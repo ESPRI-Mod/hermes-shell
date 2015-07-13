@@ -34,10 +34,13 @@ declare -a commands=(
 	mq-daemons-init
 	mq-daemons-kill
 	mq-daemons-refresh
+	mq-daemons-reset-logs
 	mq-daemons-restart
 	mq-daemons-start
 	mq-daemons-status
 	mq-daemons-stop
+	mq-daemons-update-config
+	mq-daemons-update-config-for-debug
 	mq-produce
 	mq-purge
 	mq-purge-debug-queues
@@ -69,10 +72,12 @@ declare -a commands=(
 	web-daemons-init
 	web-daemons-kill
 	web-daemons-refresh
+	web-daemons-reset-logs
 	web-daemons-restart
 	web-daemons-start
 	web-daemons-status
 	web-daemons-stop
+	web-daemons-update-config
 )
 
 # Set path to exec.sh.

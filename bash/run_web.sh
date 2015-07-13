@@ -17,6 +17,8 @@ run_web_api()
 # Initializes WEB daemon.
 run_web_daemons_init()
 {
+    run_web_daemons_reset_logs
+
     activate_venv server
 
     supervisord -c $DIR_DAEMONS/web/supervisord.conf
@@ -39,6 +41,12 @@ run_web_daemons_refresh()
     supervisorctl -c $DIR_DAEMONS/web/supervisord.conf stop all
     supervisorctl -c $DIR_DAEMONS/web/supervisord.conf update all
     supervisorctl -c $DIR_DAEMONS/web/supervisord.conf start all
+}
+
+# Resets WEB daemon logs.
+run_web_daemons_reset_logs()
+{
+    rm $DIR_LOGS/web/*.log
 }
 
 # Restarts WEB daemons.
@@ -72,4 +80,10 @@ run_web_daemons_stop()
     activate_venv server
 
     supervisorctl -c $DIR_DAEMONS/web/supervisord.conf stop all
+}
+
+# Updates the web supervisord config file.
+run_web_daemons_update_config()
+{
+    cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
 }

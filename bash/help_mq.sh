@@ -33,6 +33,13 @@ help_mq_daemons_refresh()
 	log "Description: refreshes Prodiguer MQ daemons - i.e. reloads mq-supervisor.conf & restarts" 1
 }
 
+# Resets MQ daemon log files.
+help_mq_daemons_reset_logs()
+{
+	log "mq-daemons-reset-logs"
+	log "Description: resets Prodiguer MQ daemon log files" 1
+}
+
 # Restarts MQ daemons.
 help_mq_daemons_restart()
 {
@@ -59,6 +66,20 @@ help_mq_daemons_stop()
 {
 	log "mq-daemons-stop"
 	log "Description: stops Prodiguer MQ daemons" 1
+}
+
+# Update MQ dameons config.
+help_mq_daemons_update_config()
+{
+	log "mq-daemons-update-config"
+	log "Description: updates Prodiguer MQ daemon supervisord config file" 1
+}
+
+# Update MQ dameons config.
+help_mq_daemons_update_config_for_debug()
+{
+	log "mq-daemons-update-config-for-debug"
+	log "Description: updates Prodiguer MQ daemon supervisord config file for debugging purposes" 1
 }
 
 help_mq_produce()
@@ -89,10 +110,13 @@ help_mq()
 		daemons_init
 		daemons_kill
 		daemons_refresh
+		daemons_reset_logs
 		daemons_restart
 		daemons_start
 		daemons_status
 		daemons_stop
+		daemons_update_config
+		daemons_update_config_for_debug
 		produce
 		purge
 		purge-debug-queues

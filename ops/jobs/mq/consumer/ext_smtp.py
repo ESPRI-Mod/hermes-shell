@@ -307,7 +307,10 @@ def _close_imap_client(ctx):
     """Closes imap client after use.
 
     """
-    mail.disconnect(ctx.imap_client)
+    try:
+        mail.disconnect(ctx.imap_client)
+    except:
+        logger.log_mq_warning("IMAP server disconnection error, error was discarded.")
 
 
 def _log_stats(ctx):

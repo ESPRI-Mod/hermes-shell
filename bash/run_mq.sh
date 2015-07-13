@@ -127,9 +127,17 @@ run_mq_purge_debug_queues()
 	log "MQ : purged debug queues ..."
 }
 
+# Resets MQ daemon logs.
+run_mq_daemons_reset_logs()
+{
+	rm $DIR_LOGS/mq/*.log
+}
+
 # Initializes MQ daemons.
 run_mq_daemons_init()
 {
+	run_mq_daemons_reset_logs
+
     activate_venv server
 
     supervisord -c $DIR_DAEMONS/mq/supervisord.conf
@@ -185,4 +193,16 @@ run_mq_daemons_stop()
     activate_venv server
 
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+}
+
+# Updates the mq supervisord config file.
+run_mq_daemons_update_config()
+{
+	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
+}
+
+# Updates the mq supervisord config file (for debugging).
+run_mq_daemons_update_config_for_debug()
+{
+	cp $DIR_TEMPLATES/config/mq-supervisord-debug.conf $DIR_DAEMONS/mq/supervisord.conf
 }
