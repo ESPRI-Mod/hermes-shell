@@ -7,5 +7,6 @@ ops/logs
 ops/tmp
 ops/venv
 repos
+svn
 tmp
 dev-web.tar.encrypted
