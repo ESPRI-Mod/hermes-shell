@@ -1,6 +1,3 @@
-# Create root alias.
-alias prodiguer="$( dirname "${BASH_SOURCE[0]}" )"/exec.sh
-
 # Supported command types.
 declare -a command_types=(
 	cv
