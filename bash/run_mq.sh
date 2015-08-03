@@ -63,13 +63,8 @@ declare -a MQ_DEBUG_QUEUES=(
 
 _run_mq_agent()
 {
-	declare agent=$1
-	declare typeof=$2
-	declare throttle=$3
-	declare misc=$4
-
     activate_venv server
-	python $DIR_JOBS"/mq/"$agent $typeof $throttle $misc
+	python $DIR_JOBS"/mq" --agent-type=$1 --agent-limit=$2
 }
 
 run_mq_configure()
@@ -83,24 +78,14 @@ run_mq_configure()
 
 run_mq_consume()
 {
-	declare typeof=$1
-	declare throttle=$2
-
-	log "MQ : launching consumer: "$typeof
-
-    activate_venv server
-	python $DIR_JOBS"/mq/consumer" --agent-type=$typeof --agent-limit=$throttle
+	log "MQ : launching consumer: "$1
+	_run_mq_agent $1 $2
 }
 
 run_mq_produce()
 {
-	declare typeof=$1
-	declare throttle=$2
-
-	log "MQ : launching producer: "$typeof
-
-    activate_venv server
-	python $DIR_JOBS"/mq/producer" --agent-type=$typeof --agent-limit=$throttle
+	log "MQ : launching producer: "$1
+	_run_mq_agent $1 $2
 }
 
 run_mq_purge()

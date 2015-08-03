@@ -7,6 +7,7 @@
 # Wraps standard echo by adding PRODIGUER prefix.
 log()
 {
+	declare now=`date +%Y-%m-%dT%H:%M:%S`
 	declare tabs=''
 	if [ "$1" ]; then
 		if [ "$2" ]; then
@@ -14,12 +15,12 @@ log()
 			do
 				declare tabs+='\t'
 			done
-	    	echo -e 'IPSL PRODIGUER INFO SH > '$tabs$1
+	    	echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "$tabs$1
 	    else
-	    	echo -e "IPSL PRODIGUER INFO SH > "$1
+	    	echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "$1
 	    fi
 	else
-	    echo -e "IPSL PRODIGUER INFO SH > "
+	    echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "
 	fi
 }
 
