@@ -117,6 +117,8 @@ run_mq_daemons_reset_logs()
 {
 	rm $DIR_LOGS/mq/*.log
 	rm $DIR_DAEMONS/mq/supervisord.log
+
+    log "MQ : reset daemon logs"
 }
 
 # Initializes MQ daemons.
@@ -127,6 +129,8 @@ run_mq_daemons_init()
     activate_venv server
 
     supervisord -c $DIR_DAEMONS/mq/supervisord.conf
+
+    log "MQ : initialized daemons"
 }
 
 # Kills MQ daemon process.
@@ -136,6 +140,8 @@ run_mq_daemons_kill()
 
  	 supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
      supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf shutdown
+
+    log "MQ : killed daemons"
 }
 
 # Restarts MQ daemons.
@@ -146,6 +152,8 @@ run_mq_daemons_refresh()
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf update all
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+
+    log "MQ : refreshed daemons"
 }
 
 # Restarts MQ daemons.
@@ -155,6 +163,8 @@ run_mq_daemons_restart()
 
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+
+    log "MQ : restarted daemons"
 }
 
 # Launches MQ daemons.
@@ -163,6 +173,8 @@ run_mq_daemons_start()
     activate_venv server
 
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+
+    log "MQ : started daemons"
 }
 
 # Launches MQ daemons.
@@ -179,16 +191,22 @@ run_mq_daemons_stop()
     activate_venv server
 
     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+
+    log "MQ : stopped daemons"
 }
 
 # Updates the mq supervisord config file.
 run_mq_daemons_update_config()
 {
 	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
+
+    log "MQ : updated daemons config"
 }
 
 # Updates the mq supervisord config file (for debugging).
 run_mq_daemons_update_config_for_debug()
 {
 	cp $DIR_TEMPLATES/config/mq-supervisord-debug.conf $DIR_DAEMONS/mq/supervisord.conf
+
+    log "MQ : updated daemons config"
 }
