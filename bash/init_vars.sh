@@ -10,6 +10,7 @@ test -f $DIR_CONFIG/prodiguer.sh && source $DIR_CONFIG/prodiguer.sh
 # Set of git repos.
 declare -a REPOS=(
 	'prodiguer-client'
+	'prodiguer-conso'
 	'prodiguer-cv'
 	'prodiguer-docs'
 	'prodiguer-fe'
