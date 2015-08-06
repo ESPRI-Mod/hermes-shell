@@ -79,7 +79,7 @@ _db_grant_permissions()
 {
 	log "Granting DB permissions"
 
-	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_grant_permissions.sql
+	psql -U prodiguer_db_admin -d prodiguer -q -f $PRODIGUER_DIR_BASH/run_db_pgres_grant_permissions.sql
 }
 
 # Create db users.
@@ -105,7 +105,7 @@ _db_setup()
 	log "Seeding DB"
 
 	activate_venv server
-	python $DIR_JOBS/db/run_pgres_setup.py
+	python $PRODIGUER_DIR_JOBS/db/run_pgres_setup.py
 }
 
 # Seed db from backup.
@@ -143,50 +143,6 @@ run_db_pgres_install()
 	log "DB : installed postgres db"
 }
 
-# Reset db.
-run_db_pgres_reset()
-{
-	log "DB : resetting postgres db ..."
-
-	run_db_pgres_uninstall
-	run_db_pgres_install
-
-	log "DB : reset postgres db"
-}
-
-# Reset table: cv.tbl_cv_term table
-run_db_pgres_reset_cv_table()
-{
-	log "DB : resetting postgres cv.tbl_cv_term table ..."
-
-	activate_venv server
-	python $DIR_JOBS/db/run_pgres_reset_cv_table.py
-
-	log "DB : reset postgres cv.tbl_cv_term table ..."
-}
-
-# Reset table: mq.message_email
-run_db_pgres_reset_email_table()
-{
-	log "DB : resetting postgres mq.tbl_message_email table ..."
-
-	activate_venv server
-	python $DIR_JOBS/db/run_pgres_reset_email_table.py
-
-	log "DB : reset postgres mq.tbl_message_email table ..."
-}
-
-# Reset table: mq.message
-run_db_pgres_reset_message_table()
-{
-	log "DB : resetting postgres mq.message table ..."
-
-	activate_venv server
-	python $DIR_JOBS/db/run_pgres_reset_message_table.py
-
-	log "DB : reset postgres mq.message table ..."
-}
-
 # Restore db.
 run_db_pgres_restore()
 {
@@ -219,7 +175,7 @@ run_db_pgres_migrate()
 	log "DB : migrating postgres db ..."
 
 	run_db_pgres_backup
-	psql -U prodiguer_db_admin -d prodiguer -q -f $DIR_BASH/run_db_pgres_migrate.sql
+	psql -U prodiguer_db_admin -d prodiguer -q -f $PRODIGUER_DIR_BASH/run_db_pgres_migrate.sql
 	_db_grant_permissions
 
 	log "DB : migrated postgres db"

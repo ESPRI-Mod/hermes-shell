@@ -5,10 +5,10 @@
 # ###############################################################
 
 # If produguer.sh config file exists then import variable definitions.
-test -f $DIR_CONFIG/prodiguer.sh && source $DIR_CONFIG/prodiguer.sh
+test -f $PRODIGUER_DIR_CONFIG/prodiguer.sh && source $PRODIGUER_DIR_CONFIG/prodiguer.sh
 
 # Set of git repos.
-declare -a REPOS=(
+declare -a PRODIGUER_REPOS=(
 	'prodiguer-client'
 	'prodiguer-cv'
 	'prodiguer-docs'
@@ -16,33 +16,29 @@ declare -a REPOS=(
 	'prodiguer-server'
 )
 
-# Set of obsolete git repos.
-declare -a REPOS_OBSOLETE=(
-	'prodiguer-metrics-formatter'
+# Set of virtual environments.
+declare -a PRODIGUER_VENVS=(
+	'conso'
+	'server'
 )
 
 # Set of ops sub-directories.
-declare -a OPS_DIRS=(
-	$DIR_BACKUPS
-	$DIR_CONFIG
-	$DIR_CERTS
-	$DIR_CERTS/rabbitmq
-	$DIR_DAEMONS
-	$DIR_DAEMONS/mq
-	$DIR_DAEMONS/web
-	$DIR_DATA
-	$DIR_DATA/pgres
-	$DIR_DATA/mongo
-	$DIR_LOGS
-	$DIR_LOGS/db
-	$DIR_LOGS/mq
-	$DIR_LOGS/web
-	$DIR_PYTHON
-	$DIR_TMP
-	$DIR_VENV
-)
-
-# Set of virtual environments.
-declare -a VENVS=(
-	'server'
+declare -a PRODIGUER_OPS_DIRS=(
+	$PRODIGUER_DIR_BACKUPS
+	$PRODIGUER_DIR_CONFIG
+	$PRODIGUER_DIR_CERTS
+	$PRODIGUER_DIR_CERTS/rabbitmq
+	$PRODIGUER_DIR_DAEMONS
+	$PRODIGUER_DIR_DAEMONS/mq
+	$PRODIGUER_DIR_DAEMONS/web
+	$PRODIGUER_DIR_DATA
+	$PRODIGUER_DIR_DATA/pgres
+	$PRODIGUER_DIR_DATA/mongo
+	$PRODIGUER_DIR_LOGS
+	$PRODIGUER_DIR_LOGS/db
+	$PRODIGUER_DIR_LOGS/mq
+	$PRODIGUER_DIR_LOGS/web
+	$PRODIGUER_DIR_PYTHON
+	$PRODIGUER_DIR_TMP
+	$PRODIGUER_DIR_VENV
 )

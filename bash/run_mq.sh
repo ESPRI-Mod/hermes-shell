@@ -64,14 +64,14 @@ declare -a MQ_DEBUG_QUEUES=(
 _run_mq_agent()
 {
     activate_venv server
-	python $DIR_JOBS"/mq" --agent-type=$1 --agent-limit=$2
+	python $PRODIGUER_DIR_JOBS"/mq" --agent-type=$1 --agent-limit=$2
 }
 
 run_mq_configure()
 {
 	log "MQ : configuring mq server ..."
 
-	rabbitmqadmin -q -u $1 -p $2 import $DIR_TEMPLATES/config/mq-rabbit.json
+	rabbitmqadmin -q -u $1 -p $2 import $PRODIGUER_DIR_TEMPLATES/config/mq-rabbit.json
 
 	log "MQ : mq server configured ..."
 }
@@ -115,8 +115,8 @@ run_mq_purge_debug_queues()
 # Resets MQ daemon logs.
 run_mq_daemons_reset_logs()
 {
-	rm $DIR_LOGS/mq/*.log
-	rm $DIR_DAEMONS/mq/supervisord.log
+	rm $PRODIGUER_DIR_LOGS/mq/*.log
+	rm $PRODIGUER_DIR_DAEMONS/mq/supervisord.log
 
     log "MQ : reset daemon logs"
 }
@@ -128,7 +128,7 @@ run_mq_daemons_init()
 
     activate_venv server
 
-    supervisord -c $DIR_DAEMONS/mq/supervisord.conf
+    supervisord -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
 
     log "MQ : initialized daemons"
 }
@@ -138,8 +138,8 @@ run_mq_daemons_kill()
 {
     activate_venv server
 
- 	 supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
-     supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf shutdown
+ 	 supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf stop all
+     supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf shutdown
 
     log "MQ : killed daemons"
 }
@@ -149,9 +149,9 @@ run_mq_daemons_refresh()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf update all
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf stop all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf update all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf start all
 
     log "MQ : refreshed daemons"
 }
@@ -161,8 +161,8 @@ run_mq_daemons_restart()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf stop all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf start all
 
     log "MQ : restarted daemons"
 }
@@ -172,7 +172,7 @@ run_mq_daemons_start()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf start all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf start all
 
     log "MQ : started daemons"
 }
@@ -182,7 +182,7 @@ run_mq_daemons_status()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf status all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf status all
 }
 
 # Launches MQ daemons.
@@ -190,7 +190,7 @@ run_mq_daemons_stop()
 {
     activate_venv server
 
-    supervisorctl -c $DIR_DAEMONS/mq/supervisord.conf stop all
+    supervisorctl -c $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf stop all
 
     log "MQ : stopped daemons"
 }
@@ -198,7 +198,7 @@ run_mq_daemons_stop()
 # Updates the mq supervisord config file.
 run_mq_daemons_update_config()
 {
-	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
 
     log "MQ : updated daemons config"
 }
@@ -206,7 +206,7 @@ run_mq_daemons_update_config()
 # Updates the mq supervisord config file (for debugging).
 run_mq_daemons_update_config_for_debug()
 {
-	cp $DIR_TEMPLATES/config/mq-supervisord-debug.conf $DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord-debug.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
 
     log "MQ : updated daemons config"
 }

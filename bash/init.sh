@@ -1,42 +1,25 @@
 #!/bin/bash
 
-declare -a initializers=(
-	'init_action'
-	'init_helpers'
-	'init_paths'
-	'init_vars'
-)
-for initializer in "${initializers[@]}"
-do
-	source $DIR/bash/$initializer.sh
-done
+source $PRODIGUER_DIR/bash/init_action.sh
+source $PRODIGUER_DIR/bash/init_helpers.sh
+source $PRODIGUER_DIR/bash/init_paths.sh
+source $PRODIGUER_DIR/bash/init_vars.sh
 
-declare -a commands=(
-	'run_cv'
-	'run_db_mongo'
-	'run_db_pgres'
-	'run_mq'
-	'run_os'
-	'run_stack'
-	'run_utest'
-	'run_web'
-)
-for command in "${commands[@]}"
-do
-	source $DIR/bash/$command.sh
-done
+source $PRODIGUER_DIR/bash/run_cv.sh
+source $PRODIGUER_DIR/bash/run_db_mongo.sh
+source $PRODIGUER_DIR/bash/run_db_pgres.sh
+source $PRODIGUER_DIR/bash/run_db_pgres_reset.sh
+source $PRODIGUER_DIR/bash/run_mq.sh
+source $PRODIGUER_DIR/bash/run_os.sh
+source $PRODIGUER_DIR/bash/run_stack.sh
+source $PRODIGUER_DIR/bash/run_utest.sh
+source $PRODIGUER_DIR/bash/run_web.sh
 
-declare -a helpers=(
-	'help'
-	'help_cv'
-	'help_db'
-	'help_mq'
-	'help_os'
-	'help_stack'
-	'help_utest'
-	'help_web'
-)
-for helper in "${helpers[@]}"
-do
-	source $DIR/bash/$helper.sh
-done
+source $PRODIGUER_DIR/bash/help.sh
+source $PRODIGUER_DIR/bash/help_cv.sh
+source $PRODIGUER_DIR/bash/help_db.sh
+source $PRODIGUER_DIR/bash/help_mq.sh
+source $PRODIGUER_DIR/bash/help_os.sh
+source $PRODIGUER_DIR/bash/help_stack.sh
+source $PRODIGUER_DIR/bash/help_utest.sh
+source $PRODIGUER_DIR/bash/help_web.sh

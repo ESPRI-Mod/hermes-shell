@@ -1,5 +1,11 @@
+#!/bin/bash
+
+# ###############################################################
+# Activates prodiguer-shell
+# ###############################################################
+
 # Supported command types.
-declare -a command_types=(
+declare -a PRODIGUER_SHELL_COMMAND_TYPES=(
 	cv
 	db
 	mq
@@ -10,7 +16,7 @@ declare -a command_types=(
 )
 
 # Supported commands.
-declare -a commands=(
+declare -a PRODIGUER_SHELL_COMMANDS=(
 	# Controlled vocabulary admin.
 	cv-git-pull
 	cv-git-push
@@ -23,6 +29,7 @@ declare -a commands=(
 	db-pgres-reset-cv-table
 	db-pgres-reset-email-table
 	db-pgres-reset-message-table
+	db-pgres-reset-environment-metric-table
 	db-pgres-restore
 	db-pgres-uninstall
 	# MQ admin.
@@ -48,7 +55,6 @@ declare -a commands=(
 	stack-bootstrap-environment-variables
 	stack-install
 	stack-update
-	stack-update-aliases
 	stack-update-config
 	stack-update-shell
 	stack-update-repo
@@ -84,29 +90,29 @@ PRODIGUER_SHELL_EXEC="$( dirname "${BASH_SOURCE[0]}" )"/exec.sh
 alias prodiguer=$PRODIGUER_SHELL_EXEC
 
 # Create command aliases.
-for command in "${commands[@]}"
+for PRODIGUER_SHELL_COMMAND in "${PRODIGUER_SHELL_COMMANDS[@]}"
 do
-	alias prodiguer-$command=$PRODIGUER_SHELL_EXEC" "$command
+	alias prodiguer-$PRODIGUER_SHELL_COMMAND=$PRODIGUER_SHELL_EXEC" "$PRODIGUER_SHELL_COMMAND
 done
 
 # Create command type help aliases.
-for command_type in "${command_types[@]}"
+for PRODIGUER_SHELL_COMMAND_TYPE in "${PRODIGUER_SHELL_COMMAND_TYPES[@]}"
 do
-	alias help-prodiguer-$command_type=$PRODIGUER_SHELL_EXEC" help-"$command_type
+	alias help-prodiguer-$PRODIGUER_SHELL_COMMAND_TYPE=$PRODIGUER_SHELL_EXEC" help-"$PRODIGUER_SHELL_COMMAND_TYPE
 done
 
 # Create command help aliases.
-for command in "${commands[@]}"
+for PRODIGUER_SHELL_COMMAND in "${PRODIGUER_SHELL_COMMANDS[@]}"
 do
-	alias help-prodiguer-$command=$PRODIGUER_SHELL_EXEC" help-"$command
+	alias help-prodiguer-$PRODIGUER_SHELL_COMMAND=$PRODIGUER_SHELL_EXEC" help-"$PRODIGUER_SHELL_COMMAND
 done
 
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 
-# Unset vars so they do not leak into terminal session.
+# Unset helper vars.
 unset PRODIGUER_SHELL_EXEC
-unset command_type
-unset command_types
-unset command
-unset commands
+unset PRODIGUER_SHELL_COMMAND
+unset PRODIGUER_SHELL_COMMANDS
+unset PRODIGUER_SHELL_COMMAND_TYPE
+unset PRODIGUER_SHELL_COMMAND_TYPES

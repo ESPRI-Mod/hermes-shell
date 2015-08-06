@@ -1,23 +1,21 @@
 #!/bin/bash
 
 # ###############################################################
-# SECTION: INITIALIZE ACTION
+# SECTION: INITIALIZE PRODIGUER_ACTION
 # ###############################################################
 
 # Set action.
-declare ACTION=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
-if [[ $ACTION == help_* ]]; then
+declare PRODIGUER_ACTION=`echo $1 | tr '[:upper:]' '[:lower:]' | tr '-' '_'`
+if [[ $PRODIGUER_ACTION == help_* ]]; then
 	:
-elif [[ $ACTION != run_* ]]; then
-	declare ACTION="run_"$ACTION
+elif [[ $PRODIGUER_ACTION != run_* ]]; then
+	declare PRODIGUER_ACTION="run_"$PRODIGUER_ACTION
 fi
 
-# Set action argument.
-declare ACTION_ARG=$2
-
-# Set action sub-arguments.
-declare ACTION_SUBARG1=$3
-declare ACTION_SUBARG2=$4
-declare ACTION_SUBARG3=$5
-declare ACTION_SUBARG4=$6
+# Set action arguments.
+declare PRODIGUER_ACTION_ARG1=$2
+declare PRODIGUER_ACTION_ARG2=$3
+declare PRODIGUER_ACTION_ARG3=$4
+declare PRODIGUER_ACTION_ARG4=$5
+declare PRODIGUER_ACTION_ARG5=$6
 

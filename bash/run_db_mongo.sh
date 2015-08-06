@@ -16,7 +16,7 @@ run_db_mongo_restart()
 run_db_mongo_install()
 {
 	# Configure the package management system (YUM).
-	cp $DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
+	cp $PRODIGUER_DIR_TEMPLATES/other/yum-repo-mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 	# Install latest stable version of mongodb.
 	yum install -y mongodb-org

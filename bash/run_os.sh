@@ -59,9 +59,9 @@ run_os_setup()
 
 	# Install common libraries setup.
 	log "installing $os_type common libraries ..."
-	source $DIR_BASH/run_os_setup_"$os_type".sh
+	source $PRODIGUER_DIR_BASH/run_os_setup_"$os_type".sh
 
 	# Install machine specific libraries setup.
 	log "installing $os_type $machine_type libraries ..."
-	source $DIR_BASH/run_os_setup_"$os_type"_"$machine_type".sh
+	source $PRODIGUER_DIR_BASH/run_os_setup_"$os_type"_"$machine_type".sh
 }

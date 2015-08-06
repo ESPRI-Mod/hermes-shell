@@ -6,9 +6,9 @@ _setup_rabbitmq()
 
 	# Install RabbitMQ.
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_3/rabbitmq-server-3.5.3-1.noarch.rpm -O $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
-	yum -q -y install $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
-	rm -rf $DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
+	wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_3/rabbitmq-server-3.5.3-1.noarch.rpm -O $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
+	yum -q -y install $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
+	rm -rf $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.3-1.noarch.rpm
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
@@ -18,14 +18,14 @@ _setup_rabbitmq()
 	/etc/init.d/rabbitmq-server start
 
 	# Set RabbitMQ admin cli.
-	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_3/bin/rabbitmqadmin -O $DIR_TMP/rabbitmqadmin
-	cp $DIR_TMP/rabbitmqadmin /usr/local/bin
-	rm -rf $DIR_TMP/rabbitmqadmin
+	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_3/bin/rabbitmqadmin -O $PRODIGUER_DIR_TMP/rabbitmqadmin
+	cp $PRODIGUER_DIR_TMP/rabbitmqadmin /usr/local/bin
+	rm -rf $PRODIGUER_DIR_TMP/rabbitmqadmin
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Import RabbitMQ config.
 	rabbitmqctl set_user_tags guest administrator
-	rabbitmqadmin -q import $DIR_TEMPLATES/config/mq-rabbit.json
+	rabbitmqadmin -q import $PRODIGUER_DIR_TEMPLATES/config/mq-rabbit.json
 
 	# Remove default user.
 	rabbitmqctl delete_user guest

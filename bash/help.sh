@@ -21,19 +21,18 @@ log_help_commands()
 run_help()
 {
 	helpers=(
-		help_cv
-		help_db
-		help_mq
-		help_os
-		help_stack
-		help_utest
-		help_web
+		cv
+		db
+		mq
+		os
+		stack
+		utest
+		web
 	)
-
 	log "------------------------------------------------------------------"
 	for helper in "${helpers[@]}"
 	do
-		$helper
+		help_$helper
 		log "------------------------------------------------------------------"
 	done
 }

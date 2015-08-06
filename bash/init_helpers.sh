@@ -36,7 +36,7 @@ set_working_dir()
 	if [ "$1" ]; then
 		cd $1
 	else
-		cd $DIR
+		cd $PRODIGUER_DIR
 	fi
 }
 
@@ -44,10 +44,13 @@ set_working_dir()
 activate_venv()
 {
 	if [ $1 = "server" ]; then
-		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-client
-		export PYTHONPATH=$PYTHONPATH:$DIR_REPOS/prodiguer-server
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-client
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
+	elif [ $1 = "conso" ]; then
+		# export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-conso
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
 	fi
-	source $DIR_VENV/$1/bin/activate
+	source $PRODIGUER_DIR_VENV/$1/bin/activate
 	log "Activated virtual environment: "$1
 }
 

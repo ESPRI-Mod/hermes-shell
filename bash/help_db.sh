@@ -64,6 +64,12 @@ help_db_pgres_reset_message_table()
 	log "Description: resets the mq.tbl_message table" 1
 }
 
+help_db_pgres_reset_environment_metric_table()
+{
+	log "db-pgres-reset-environment-metric-table"
+	log "Description: resets the monitoring.tbl_environment_metric table" 1
+}
+
 help_db_pgres_restore()
 {
 	log "db-pgres-restore BACKUP_DIR"

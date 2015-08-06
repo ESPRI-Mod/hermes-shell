@@ -1,17 +1,6 @@
 #!/bin/bash
 
 # ###############################################################
-# SECTION: UTILITIES
-# ###############################################################
-
-# Updates aliases.
-run_stack_update_aliases()
-{
-	log "Updating aliases"
-	source $DIR/aliases.sh
-}
-
-# ###############################################################
 # SECTION: BOOTSTRAP
 # ###############################################################
 
@@ -20,8 +9,8 @@ run_stack_bootstrap_environment_variables()
 {
 	log "Bootstrapping environment variables"
 
-	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
-	cat $DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
+	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
 
 	log "*******************************************************************************"
 	log "IMPORTANT NOTICE !!!"
@@ -42,18 +31,18 @@ run_stack_bootstrap()
 	set_working_dir
 
 	log "Initializing ops directories"
-	for ops_dir in "${OPS_DIRS[@]}"
+	for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
 	do
 		mkdir -p $ops_dir
 	done
 
 	log "Initializing configuration"
-	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
-	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
-	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
-	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
-	cp $DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
-	cat $DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
+	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
+	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
 
 	log "BOOTSTRAP ENDS"
 
@@ -61,8 +50,8 @@ run_stack_bootstrap()
 	log "IMPORTANT NOTICE !!!"
 	log "*******************************************************************************"
 	log "1.  Review config files:" 1
-	log "$DIR_CONFIG/prodiguer.json" 2
-	log "$DIR_CONFIG/prodiguer.sh" 2
+	log "$PRODIGUER_DIR_CONFIG/prodiguer.json" 2
+	log "$PRODIGUER_DIR_CONFIG/prodiguer.sh" 2
 	log ""
 	log "2.  Review environment variables file:" 1
 	log "$HOME/.prodiguer_server" 2
@@ -83,7 +72,7 @@ _install_notice()
 	log
 	log "IMPORTANT NOTICE"
 	log "Activate prodiguer commands by adding the following line to your settings (e.g. $HOME/.bash_profile)" 1
-	log "source $DIR/aliases.sh" 2
+	log "source $PRODIGUER_DIR/activate.sh" 2
 	log "IMPORTANT NOTICE ENDS"
 }
 
@@ -96,18 +85,18 @@ run_stack_install_venv()
 	fi
 
 	# Make directory.
-	declare TARGET_VENV=$DIR_VENV/$1
+	declare TARGET_VENV=$PRODIGUER_DIR_VENV/$1
 	rm -rf $TARGET_VENV
     mkdir -p $TARGET_VENV
 
     # Initialise venv.
-    export PATH=$DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
+    export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
     virtualenv -q $TARGET_VENV
 
     # Build dependencies.
     source $TARGET_VENV/bin/activate
-	declare TARGET_REQUIREMENTS=$DIR_TEMPLATES/venv/requirements-$1.txt
+	declare TARGET_REQUIREMENTS=$PRODIGUER_DIR_TEMPLATES/venv/requirements-$1.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -117,7 +106,7 @@ run_stack_install_venv()
 # Installs python virtual environments.
 run_stack_install_venvs()
 {
-	for venv in "${VENVS[@]}"
+	for venv in "${PRODIGUER_VENVS[@]}"
 	do
 		run_stack_install_venv $venv "echo"
 	done
@@ -129,7 +118,7 @@ run_stack_install_python()
 	log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
 	# Download source.
-	set_working_dir $DIR_PYTHON
+	set_working_dir $PRODIGUER_DIR_PYTHON
 	mkdir src
 	cd src
 	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz --no-check-certificate
@@ -138,19 +127,19 @@ run_stack_install_python()
 
 	# Compile.
 	cd Python-$PYTHON_VERSION
-	./configure --prefix=$DIR_PYTHON
+	./configure --prefix=$PRODIGUER_DIR_PYTHON
 	make
 	make install
-	export PATH=$DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
+	export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
 
 	# Install setuptools.
-	cd $DIR_PYTHON/src
+	cd $PRODIGUER_DIR_PYTHON/src
 	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 	python ez_setup.py
 
 	# Install pip.
-	easy_install --prefix $DIR_PYTHON pip
+	easy_install --prefix $PRODIGUER_DIR_PYTHON pip
 
 	# Install virtualenv.
 	pip install virtualenv
@@ -161,14 +150,14 @@ run_stack_install_repo()
 {
 	log "Installing repo: $1"
 
-	rm -rf $DIR_REPOS/$1
-	git clone -q https://github.com/Prodiguer/$1.git $DIR_REPOS/$1
+	rm -rf $PRODIGUER_DIR_REPOS/$1
+	git clone -q https://github.com/Prodiguer/$1.git $PRODIGUER_DIR_REPOS/$1
 }
 
 # Installs git repos.
 run_stack_install_repos()
 {
-	for repo in "${REPOS[@]}"
+	for repo in "${PRODIGUER_REPOS[@]}"
 	do
 		run_install_repo $repo
 	done
@@ -177,9 +166,9 @@ run_stack_install_repos()
 # Sets up directories.
 _install_dirs()
 {
-	mkdir -p $DIR_REPOS
-	mkdir -p $DIR_PYTHON
-	mkdir -p $DIR_TMP
+	mkdir -p $PRODIGUER_DIR_REPOS
+	mkdir -p $PRODIGUER_DIR_PYTHON
+	mkdir -p $PRODIGUER_DIR_TMP
 }
 
 # Installs stack.
@@ -191,7 +180,6 @@ run_stack_install()
 	run_stack_install_repos
 	run_stack_install_python
 	run_stack_install_venvs
-	run_stack_update_aliases
 
 	log "INSTALLED STACK"
 
@@ -209,8 +197,8 @@ _update_notice()
 	log
 	log "IMPORTANT NOTICE"
 	log "The update process installed new config files.  The old config files are:" 1
-	log "$DIR_CONFIG/prodiguer-backup.json" 2
-	log "$DIR_CONFIG/prodiguer-backup.sh" 2
+	log "$PRODIGUER_DIR_CONFIG/prodiguer-backup.json" 2
+	log "$PRODIGUER_DIR_CONFIG/prodiguer-backup.sh" 2
 	log "If the config schema version of the new and existing config files is different then you will need to update your local settings accordingly." 1
 	log "IMPORTANT NOTICE ENDS"
 }
@@ -220,8 +208,8 @@ run_stack_upgrade_venv()
 {
 	log "Upgrading virtual environment :: $1"
 
-	declare TARGET_VENV=$DIR_VENV/$1
-	declare TARGET_VENV_REQUIREMENTS=$DIR_TEMPLATES/venv/requirements-$1.txt
+	declare TARGET_VENV=$PRODIGUER_DIR_VENV/$1
+	declare TARGET_VENV_REQUIREMENTS=$PRODIGUER_DIR_TEMPLATES/venv/requirements-$1.txt
     source $TARGET_VENV/bin/activate
     pip install -q --allow-all-external --upgrade -r $TARGET_VENV_REQUIREMENTS
 }
@@ -229,9 +217,9 @@ run_stack_upgrade_venv()
 # Upgrades virtual environments.
 run_stack_upgrade_venvs()
 {
-	export PATH=$DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
-	for venv in "${VENVS[@]}"
+	export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
+	for venv in "${PRODIGUER_VENVS[@]}"
 	do
 		run_stack_upgrade_venv $venv
 	done
@@ -249,9 +237,9 @@ run_stack_update_venv()
 # Updates virtual environments.
 run_stack_update_venvs()
 {
-	export PATH=$DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$DIR_PYTHON
-	for venv in "${VENVS[@]}"
+	export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
+	for venv in "${PRODIGUER_VENVS[@]}"
 	do
 		run_stack_update_venv $venv
 	done
@@ -262,7 +250,7 @@ run_stack_update_repo()
 {
 	log "Updating repo: $1"
 
-	set_working_dir $DIR_REPOS/$1
+	set_working_dir $PRODIGUER_DIR_REPOS/$1
 	git pull -q
 	remove_files "*.pyc"
 	set_working_dir
@@ -271,18 +259,12 @@ run_stack_update_repo()
 # Updates git repos.
 run_stack_update_repos()
 {
-	for repo in "${REPOS[@]}"
+	for repo in "${PRODIGUER_REPOS[@]}"
 	do
-		if [ -d "$DIR_REPOS/$repo" ]; then
+		if [ -d "$PRODIGUER_DIR_REPOS/$repo" ]; then
 			run_stack_update_repo $repo
 		else
 			run_stack_install_repo $repo
-		fi
-	done
-	for repo in "${REPOS_OBSOLETE[@]}"
-	do
-		if [ -d "$DIR_REPOS/$repo" ]; then
-			run_stack_uninstall_repo $repo
 		fi
 	done
 }
@@ -290,10 +272,10 @@ run_stack_update_repos()
 # Updates configuration.
 run_stack_update_config()
 {
-	cp $DIR_TEMPLATES/config/prodiguer.json $DIR_CONFIG/prodiguer.json
-	cp $DIR_TEMPLATES/config/prodiguer.sh $DIR_CONFIG/prodiguer.sh
-	cp $DIR_TEMPLATES/config/mq-supervisord.conf $DIR_DAEMONS/mq/supervisord.conf
-	cp $DIR_TEMPLATES/config/web-supervisord.conf $DIR_DAEMONS/web/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
+	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
 
 	log "Updated configuration"
 }
@@ -306,7 +288,6 @@ run_stack_update_shell()
 	set_working_dir
 	git pull -q
 	remove_files "*.pyc"
-	run_stack_update_aliases
 }
 
 # Updates source code.
@@ -340,7 +321,7 @@ _uninstall_shell()
 {
 	log "Uninstalling shell"
 
-	rm -rf $DIR
+	rm -rf $PRODIGUER_DIR
 }
 
 # Uninstalls git repo.
@@ -348,7 +329,7 @@ run_stack_uninstall_repo()
 {
 	log "Uninstalling repo: $1"
 
-	rm -rf $DIR_REPOS/$1
+	rm -rf $PRODIGUER_DIR_REPOS/$1
 }
 
 # Uninstalls git repos.
@@ -356,7 +337,7 @@ _uninstall_repos()
 {
 	log "Uninstalling repos"
 
-	for repo in "${REPOS[@]}"
+	for repo in "${PRODIGUER_REPOS[@]}"
 	do
 		run_stack_uninstall_repo $repo
 	done
@@ -367,7 +348,7 @@ _uninstall_python()
 {
 	log "Uninstalling python"
 
-	rm -rf $DIR_PYTHON
+	rm -rf $PRODIGUER_DIR_PYTHON
 }
 
 # Uninstalls a virtual environment.
@@ -377,13 +358,13 @@ _uninstall_venv()
 		log "Uninstalling virtual environment :: $1"
 	fi
 
-	rm -rf $DIR_VENV/$1
+	rm -rf $PRODIGUER_DIR_VENV/$1
 }
 
 # Uninstalls virtual environments.
 _uninstall_venvs()
 {
-	for venv in "${VENVS[@]}"
+	for venv in "${PRODIGUER_VENVS[@]}"
 	do
 		_uninstall_venv $venv "echo"
 	done
@@ -412,11 +393,11 @@ run_stack_config_encrypt()
 	log "ENCRYPTING CONFIG FILES"
 
 	# Initialise file paths.
-	declare COMPRESSED=$DIR_TEMPLATES/config/$1-$2.tar
+	declare COMPRESSED=$PRODIGUER_DIR_TEMPLATES/config/$1-$2.tar
 	declare ENCRYPTED=$COMPRESSED.encrypted
 
 	# Compress.
-	set_working_dir $DIR_CONFIG
+	set_working_dir $PRODIGUER_DIR_CONFIG
 	tar cvf $COMPRESSED ./*
 
 	# Encrypt.
@@ -435,17 +416,17 @@ run_stack_config_decrypt()
 	log "DECRYPTING CONFIG FILES"
 
 	# Set paths.
-	declare COMPRESSED=$DIR_TEMPLATES/config/$1-$2.tar
+	declare COMPRESSED=$PRODIGUER_DIR_TEMPLATES/config/$1-$2.tar
 	declare ENCRYPTED=$COMPRESSED.encrypted
 
 	# Decrypt files.
 	openssl aes-128-cbc -d -salt -in $ENCRYPTED -out $COMPRESSED
 
 	# Clear current configuration.
-	rm -rf $DIR_CONFIG/*.*
+	rm -rf $PRODIGUER_DIR_CONFIG/*.*
 
 	# Decompress files.
-	tar xpvf $COMPRESSED -C $DIR_CONFIG
+	tar xpvf $COMPRESSED -C $PRODIGUER_DIR_CONFIG
 
 	# Clean up.
 	rm $COMPRESSED

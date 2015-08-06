@@ -11,7 +11,7 @@ declare PYTHON_VERSION=2.7.9
 declare DB_BACKUP_USER=
 
 # This dir will be created if it doesn't exist.  This must be writable by the user the script is running as.  Will default to ~/prodiguer/db/backups
-declare DB_BACKUP_DIR=$DIR_BACKUPS/db
+declare DB_BACKUP_DIR=$PRODIGUER_DIR_BACKUPS/db
 
 # Which day to take the weekly backup from (1-7 = Monday-Sunday).  Defaults to Friday.
 declare DB_DAY_OF_WEEK_TO_KEEP=5

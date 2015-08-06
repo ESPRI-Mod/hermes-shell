@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Set root path.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $DIR
+PRODIGUER_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $PRODIGUER_DIR
 
 # Initialise shell.
-source $DIR/bash/init.sh
+source $PRODIGUER_DIR/bash/init.sh
 
 # Invoke action.
-$ACTION $ACTION_ARG $ACTION_SUBARG1 $ACTION_SUBARG2 $ACTION_SUBARG3 $ACTION_SUBARG4
+$PRODIGUER_ACTION $PRODIGUER_ACTION_ARG1 $PRODIGUER_ACTION_ARG2 $PRODIGUER_ACTION_ARG3 $PRODIGUER_ACTION_ARG4 $PRODIGUER_ACTION_ARG5
 
 # End.
 log_banner
