@@ -87,18 +87,6 @@ do
 	alias prodiguer-$PRODIGUER_SHELL_COMMAND=$PRODIGUER_SHELL_EXEC" "$PRODIGUER_SHELL_COMMAND
 done
 
-# Create command type help aliases.
-for PRODIGUER_SHELL_COMMAND_TYPE in "${PRODIGUER_SHELL_COMMAND_TYPES[@]}"
-do
-	alias help-prodiguer-$PRODIGUER_SHELL_COMMAND_TYPE=$PRODIGUER_SHELL_EXEC" help-"$PRODIGUER_SHELL_COMMAND_TYPE
-done
-
-# Create command help aliases.
-for PRODIGUER_SHELL_COMMAND in "${PRODIGUER_SHELL_COMMANDS[@]}"
-do
-	alias help-prodiguer-$PRODIGUER_SHELL_COMMAND=$PRODIGUER_SHELL_EXEC" help-"$PRODIGUER_SHELL_COMMAND
-done
-
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 
