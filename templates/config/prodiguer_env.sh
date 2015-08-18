@@ -5,10 +5,10 @@
 export PRODIGUER_HOME=/opt/prodiguer
 
 # Mode of deployment.
-export PRODIGUER_DEPLOYMENT_MODE=test
+export PRODIGUER_DEPLOYMENT_MODE=dev
 
 # Prodiguer client web service url.
-export PRODIGUER_CLIENT_WEB_URL=https://prodiguer-test-web.ipsl.fr
+export PRODIGUER_CLIENT_WEB_URL=http://localhost:8888
 
 # --------------------------------------------------------------------
 # DB server settings
@@ -35,10 +35,10 @@ export PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD=XXXXXXXXXXX
 export PRODIGUER_MQ_RABBIT_USER_PASSWORD=XXXXXXXXXXX
 
 # Prodiguer Rabbit MQ client SSL cert path.
-export PRODIGUER_MQ_RABBIT_SSL_CLIENT_CERT=$PRODIGUER_HOME/ops/certs/rabbitmq/client-cert.pem
+export PRODIGUER_MQ_RABBIT_SSL_CLIENT_CERT=
 
 # Prodiguer Rabbit MQ client SSL cert key path.
-export PRODIGUER_MQ_RABBIT_SSL_CLIENT_KEY=$PRODIGUER_HOME/ops/certs/rabbitmq/client-key.pem
+export PRODIGUER_MQ_RABBIT_SSL_CLIENT_KEY=
 
 # Prodiguer IMAP user password.
 export PRODIGUER_MQ_IMAP_PASSWORD=XXXXXXXXXXX
@@ -52,8 +52,8 @@ export PRODIGUER_MQ_SMTP_PASSWORD=XXXXXXXXXXX
 # Prodiguer web service cookie secret.
 export PRODIGUER_WEB_API_COOKIE_SECRET=XXXXXXXXXXX
 
-# Prodiguer web service host (includes port).
-export PRODIGUER_WEB_HOST=localhost:8888
+# Prodiguer web service application port number.
+export PRODIGUER_WEB_PORT=8888
 
 # Prodiguer web service url.
-export PRODIGUER_WEB_URL=https://prodiguer-test-web.ipsl.fr
+export PRODIGUER_WEB_URL=http://localhost:8888

@@ -49,14 +49,10 @@ run_stack_bootstrap()
 	log "*******************************************************************************"
 	log "IMPORTANT NOTICE !!!"
 	log "*******************************************************************************"
-	log "1.  Review config files:" 1
-	log "$PRODIGUER_DIR_CONFIG/prodiguer.json" 2
-	log "$PRODIGUER_DIR_CONFIG/prodiguer.sh" 2
-	log ""
-	log "2.  Review environment variables file:" 1
+	log "1.  Review environment variables file:" 1
 	log "$HOME/.prodiguer_server" 2
 	log ""
-	log "3.  Review bash settings (see end of file):" 1
+	log "2.  Review bash settings (see end of file):" 1
 	log "$HOME/.bash_profile" 2
 	log ""
 	log "*******************************************************************************"
@@ -321,7 +317,7 @@ _uninstall_shell()
 {
 	log "Uninstalling shell"
 
-	rm -rf $PRODIGUER_DIR
+	rm -rf $PRODIGUER_HOME
 }
 
 # Uninstalls git repo.

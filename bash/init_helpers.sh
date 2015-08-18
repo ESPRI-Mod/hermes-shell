@@ -36,7 +36,7 @@ set_working_dir()
 	if [ "$1" ]; then
 		cd $1
 	else
-		cd $PRODIGUER_DIR
+		cd $PRODIGUER_HOME
 	fi
 }
 

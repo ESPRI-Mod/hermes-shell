@@ -2,12 +2,11 @@
 # Prodiguer server settings
 # --------------------------------------------------------------------
 
-# Prodiguer: server environment vars
+# Prodiguer: environment vars
 source $HOME/.prodiguer_server
 
-# Prodiguer: server aliases
-source $PRODIGUER_HOME/aliases.sh
+# Prodiguer: activate shell commands
+source $PRODIGUER_HOME/activate
 
-# Prodiguer: server python path
+# Prodiguer: python path
 export PYTHONPATH=$PYTHONPATH:$PRODIGUER_HOME/repos/prodiguer-server
-
