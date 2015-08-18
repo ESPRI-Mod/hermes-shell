@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Initialise.
+declare PRODIGUER_HOME=${PRODIGUER_HOME:="/opt/prodiguer"}
 source $PRODIGUER_HOME/bash/init.sh
 
 # Invoke action.
