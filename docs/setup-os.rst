@@ -28,26 +28,27 @@ Step 2: Activate setup script
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
 
-Step 3: Execute setup functions
+Step 3: Execute required setup function
 ----------------------------
-
-Install common libraries
 
 	setup_common
 
-Install MongoDB server (if machine is acting as a db server)
+Step 4: Execute optional setup functions
+----------------------------
+
+To install MongoDB server:
 
 	setup_db_mongo
 
-Install PostgreSQL server (if machine is acting as a db server)
+To install PostgreSQL server:
 
 	setup_db_postgres
 
-Install RabbitMQ server (if machine is acting as an mq server)
+To install RabbitMQ server:
 
 	setup_mq_rabbitmq
 
-Install NGINX web server (if machine is acting as a web server)
+To install NGINX web server:
 
 	setup_web_nginx
 
