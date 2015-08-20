@@ -14,20 +14,18 @@ setup_common()
 # Installs postgres db server.
 setup_db_postgres()
 {
-	# Install yum -q PostgreSQL repository.
+	# Install PostgreSQL.
 	yum localinstall http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+	yum -q -y install postgresql-server postgresql94-contrib postgresql
 
-	# Install PostgreSQL with yum -q package manager.
-	yum -q -y install postgresql-server postgresql
-
-	# Initialize PostgreSQL server.
+	# Initialize PostgreSQL database.
 	service postgresql initdb
+
+	# Start PostgreSQL service.
+	service postgresql start
 
 	# Setup PostgreSQL service to auto start on system boot.
 	chkconfig postgresql on
-
-	# # Start PostgreSQL service using following command.
-	service postgresql start
 }
 
 # Installs mongodb db server.
