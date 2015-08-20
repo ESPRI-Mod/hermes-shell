@@ -26,16 +26,14 @@ setup_db_postgres()
 	# Setup PostgreSQL service to auto start on system boot.
 	chkconfig postgresql on
 
-	# Start PostgreSQL service using following command.
+	# # Start PostgreSQL service using following command.
 	service postgresql start
 }
 
 # Installs mongodb db server.
 setup_db_mongo()
 {
-	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O   
-	 p-p2w3][=poi7yh2ygv2 wz  ./\"
-	 /etc/yum.repos.d/mongodb-org.repo
+	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
 }
 
@@ -76,7 +74,7 @@ setup_mq_rabbitmq()
 # Installs NGINX web server.
 setup_web_nginx()
 {
-	# # Install nginx.
+	# Install nginx.
 	yum localinstall http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum -q -y install nginx
 
