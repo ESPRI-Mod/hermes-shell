@@ -2,12 +2,14 @@
 Prodiguer Operating System Setup
 ===================================
 
-0: Open terminal session
+1: Open terminal session
 ----------------------------
 
 **NOTE** - you must be logged in as root.
 
-1: Download setup script
+		asdsadsadasd
+
+2: Download setup script
 ----------------------------
 
 **CentOS v6**
@@ -30,18 +32,18 @@ Prodiguer Operating System Setup
 
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_ubuntu_mint_17.sh -O ./prodiguer-os-setup.sh
 
-2: Activate setup script
+3: Activate setup script
 ----------------------------
 
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
 
-3: Execute required setup function
+4: Execute required setup function
 ----------------------------
 
 	setup_common
 
-4: Execute optional setup functions
+5: Execute optional setup functions
 ----------------------------
 
 To install MongoDB server
@@ -62,7 +64,7 @@ To install NGINX web server
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-5: Cleanup
+6: Cleanup
 ----------------------------
 
 	rm -f ./prodiguer-os-setup.sh
