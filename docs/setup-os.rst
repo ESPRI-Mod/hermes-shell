@@ -25,28 +25,25 @@ Step 1: Download setup script
 Step 2: Activate setup script
 ----------------------------
 
-	chmod a+x ./prodiguer-os-setup.sh  
+	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
-
-	pip install arrow
-	pip install requests
 
 Step 3: Execute setup functions
 ----------------------------
 
-	# Install common libraries.
+**Install common libraries**
 	setup_common
 
-	# Install MongoDB server (if machine is acting as a db server).
+**Install MongoDB server (if machine is acting as a db server)**
 	setup_db_mongo
 
-	# Install PostgreSQL server (if machine is acting as a db server).
+**Install PostgreSQL server (if machine is acting as a db server)**
 	setup_db_postgres
 
-	# Install RabbitMQ server (if machine is acting as an mq server).
+**Install RabbitMQ server (if machine is acting as an mq server)**
 	setup_mq_rabbitmq
 
-	# Install NGINX web server (if machine is acting as a web server).
+**Install NGINX web server (if machine is acting as a web server)**
 	setup_web_nginx
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
