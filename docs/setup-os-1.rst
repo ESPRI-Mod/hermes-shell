@@ -36,3 +36,8 @@ Step 2: Download setup script
 .. code-block::
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
+
+4: Execute required setup function
+----------------------------
+
+	setup_common
