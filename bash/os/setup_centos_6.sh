@@ -56,12 +56,18 @@ setup_mq_rabbitmq()
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
+	# Download RabbitMQ config.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/config/mq-rabbit.json -O /tmp/prodiguer-rabbitmq.conf
+
 	# Import RabbitMQ config.
 	rabbitmqctl set_user_tags guest administrator
-	rabbitmqadmin -q import /opt/prodiguer/templates/config/mq-rabbit.json
+	rabbitmqadmin -q import /tmp/prodiguer-rabbitmq.conf
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
+
+	# Clean up.
+	rm /tmp/prodiguer-rabbitmq.conf
 }
 
 # Installs NGINX web server.
@@ -71,6 +77,6 @@ setup_web_nginx()
 	yum localinstall http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum -q -y install nginx
 
-	# # Update nginx configuration.
-	cp /opt/prodiguer/config/web-nginx.conf /etc/nginx/nginx.conf
+	# Update nginx configuration.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/config/web-nginx.conf -O /etc/nginx/nginx.conf
 }
