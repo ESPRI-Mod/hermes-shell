@@ -33,7 +33,7 @@ Step 2: Download setup script
 3: Activate setup script
 ----------------------------
 
-.. code-block::
+.. ::
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
 
