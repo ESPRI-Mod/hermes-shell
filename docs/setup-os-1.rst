@@ -1,69 +1,49 @@
 ===================================
-Prodiguer Operating System Setup
+Prodiguer Client Installation Guide
 ===================================
 
-1: Open terminal session
+Installing the prodiguer client library is simple & straightforward.
+
+**Note** - it is assumed that git and pip are available.
+
+Step 1: Install python dependencies
 ----------------------------
 
-**NOTE** - you must be logged in as root.
+The prodiguer client library requires the following python libraries all of which can be installed via pip::
 
-2: Download setup script
+	pip install arrow
+	pip install requests
+
+Step 2: Clone from GitHub
 ----------------------------
 
-**CentOS v6**
+Simply clone from GitHub into your working directory::
 
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_centos_6.sh -O ./prodiguer-os-setup.sh
+	cd YOUR_WORKING_DIRECTORY
+	git clone https://github.com/Prodiguer/prodiguer-client.git
 
-**CentOS v7**
-
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_centos_7.sh -O ./prodiguer-os-setup.sh
-
-**Scientific Linux v6**
-
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_scientific_linux_6.sh -O ./prodiguer-os-setup.sh
-
-**Scientific Linux v7**
-
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_scientific_linux_7.sh -O ./prodiguer-os-setup.sh
-
-**Ubuntu Mint v17**
-
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_ubuntu_mint_17.sh -O ./prodiguer-os-setup.sh
-
-3: Activate setup script
+Step 3: Setup shell environment
 ----------------------------
 
-	chmod a+x ./prodiguer-os-setup.sh
-	source ./prodiguer-os-setup.sh
+Edit either $HOME/.bash_profile or $HOME/.bash_rc to setup your shell environment so that the prodiguer client library is correctly initialised.  You may cut & paste the following code (remember to define the YOUR_WORKING_DIRECTORY field)::
 
-4: Execute required setup function
+	# --------------------------------------------------------------------
+	# Prodiguer client settings
+	# --------------------------------------------------------------------
+
+	# Prodiguer: client path
+	export PRODIGUER_CLIENT_HOME=YOUR_WORKING_DIRECTORY/prodiguer-client
+
+	# Prodiguer: web-service URL.
+	export PRODIGUER_CLIENT_WEB_URL='https://prodiguer-test-web.ipsl.fr'
+
+	# Prodiguer: client aliases
+	source $PRODIGUER_CLIENT_HOME/aliases.sh
+
+	# Prodiguer: client python path
+	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_CLIENT_HOME
+
+Step 4.	Command line usage
 ----------------------------
 
-	setup_common
-
-5: Execute optional setup functions
-----------------------------
-
-To install MongoDB server
-
-	setup_db_mongo
-
-To install PostgreSQL server
-
-	setup_db_postgres
-
-To install RabbitMQ server
-
-	setup_mq_rabbitmq
-
-To install NGINX web server
-
-	setup_web_nginx
-
-**Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
-
-6: Cleanup
-----------------------------
-
-	rm -f ./prodiguer-os-setup.sh
-	exit
+Open a new interactive terminal session in order to activate the prodiguer client commands.  Full usage instructions are documented `here <https://github.com/Prodiguer/prodiguer-client/blob/master/docs/usage.rst>`_.
