@@ -4,7 +4,7 @@ How To Setup Operating System
 
 **NOTE - you must be logged on as root**
 
-Step 0: Download setup script
+Step 1: Download setup script
 ----------------------------
 
 	# CentOS v6.
@@ -22,13 +22,16 @@ Step 0: Download setup script
 	# Ubuntu Mint v17.
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_ubuntu_mint_17.sh -O ./prodiguer-os-setup.sh
 
-Step 1: Activate setup script
+Step 2: Activate setup script
 ----------------------------
 
-	chmod a+x ./prodiguer-os-setup.sh
+	chmod a+x ./prodiguer-os-setup.sh  
 	source ./prodiguer-os-setup.sh
 
-Step 2: Execute setup functions
+	pip install arrow
+	pip install requests
+
+Step 3: Execute setup functions
 ----------------------------
 
 	# Install common libraries.
