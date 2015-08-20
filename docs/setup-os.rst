@@ -2,12 +2,12 @@
 Prodiguer Operating System Setup
 ===================================
 
+		asdsadsadasd
+
 1: Open terminal session
 ----------------------------
 
 **NOTE** - you must be logged in as root.
-
-		asdsadsadasd
 
 2: Download setup script
 ----------------------------
