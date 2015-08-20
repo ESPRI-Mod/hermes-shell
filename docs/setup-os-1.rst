@@ -30,8 +30,9 @@ Step 2: Download setup script
 
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_ubuntu_mint_17.sh -O ./prodiguer-os-setup.sh
 
-3: Activate setup script::
+3: Activate setup script
 ----------------------------
 
+::  
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
