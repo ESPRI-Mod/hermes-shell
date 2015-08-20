@@ -14,6 +14,7 @@ setup_common()
 # Installs postgres db server.
 setup_db_postgres()
 {
+	echo "TODO - setup_db_postgres"
 	# # Install yum -q PostgreSQL repository.
 	# rpm ­-ivh $PRODIGUER_DIR_TEMPLATES/other/pgdg-centos94-9.4-1.noarch.rpm
 
@@ -40,6 +41,7 @@ setup_db_mongo()
 # Installs RabbitMQ server.
 setup_mq_rabbitmq()
 {
+	echo "TODO - setup_mq_rabbitmq"
 	# # Install dependencies.
 	# yum -q -y install erlang
 
@@ -73,6 +75,7 @@ setup_mq_rabbitmq()
 # Installs NGINX web server.
 setup_web_nginx()
 {
+	echo "TODO - setup_web_nginx"
 	# # Install nginx.
 	# rpm -i $PRODIGUER_DIR_TEMPLATES/other/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	# yum -q -y install nginx
