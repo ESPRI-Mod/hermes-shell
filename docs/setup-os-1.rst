@@ -10,9 +10,7 @@ Prodiguer Operating System Setup
 2: Download setup script
 ----------------------------
 
-The prodiguer client library requires the following python libraries all of which can be installed via pip::
-
-**CentOS v6**
+**CentOS v6**::
 
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/bash/os/setup_centos_6.sh -O ./prodiguer-os-setup.sh
 
