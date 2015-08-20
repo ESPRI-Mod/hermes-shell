@@ -14,27 +14,28 @@ setup_common()
 # Installs postgres db server.
 setup_db_postgres()
 {
-	echo "TODO - setup_db_postgres"
-	# # Install yum -q PostgreSQL repository.
-	# rpm ­-ivh $PRODIGUER_DIR_TEMPLATES/other/pgdg-centos94-9.4-1.noarch.rpm
+	# Install yum -q PostgreSQL repository.
+	yum localinstall http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 
-	# # Install PostgreSQL with yum -q package manager.
-	# yum -q -y install postgresql-server postgresql
+	# Install PostgreSQL with yum -q package manager.
+	yum -q -y install postgresql-server postgresql
 
-	# # Initialize PostgreSQL server.
-	# service postgresql initdb
+	# Initialize PostgreSQL server.
+	service postgresql initdb
 
-	# # Setup PostgreSQL service to auto start on system boot.
-	# chkconfig postgresql on
+	# Setup PostgreSQL service to auto start on system boot.
+	chkconfig postgresql on
 
-	# # Start PostgreSQL service using following command.
-	# service postgresql start
+	# Start PostgreSQL service using following command.
+	service postgresql start
 }
 
 # Installs mongodb db server.
 setup_db_mongo()
 {
-	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo /etc/yum.repos.d/mongodb-org.repo
+	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O   
+	 p-p2w3][=poi7yh2ygv2 wz  ./\"
+	 /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
 }
 
@@ -75,10 +76,9 @@ setup_mq_rabbitmq()
 # Installs NGINX web server.
 setup_web_nginx()
 {
-	echo "TODO - setup_web_nginx"
 	# # Install nginx.
-	# rpm -i $PRODIGUER_DIR_TEMPLATES/other/nginx-release-centos-6-0.el6.ngx.noarch.rpm
-	# yum -q -y install nginx
+	yum localinstall http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	yum -q -y install nginx
 
 	# # Update nginx configuration.
 	# cp $PRODIGUER_DIR_TEMPLATES/config/web-nginx.conf /etc/nginx/nginx.conf
