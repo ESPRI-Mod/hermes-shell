@@ -69,7 +69,7 @@ To install NGINX web server::
 6: Cleanup
 ----------------------------
 
-Remove setup script and close terminal session::
+Remove setup script & close terminal session::
 
 	rm -f ./prodiguer-os-setup.sh
 	exit
