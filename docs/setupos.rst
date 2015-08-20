@@ -1,5 +1,5 @@
 ===================================
-How To Setup Operating System for Prodiguer usage
+Setup Operating System for Prodiguer
 ===================================
 
 Step 0: Open terminal session
