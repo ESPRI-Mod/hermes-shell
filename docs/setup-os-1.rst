@@ -1,5 +1,5 @@
 ===================================
-Prodiguer Client Installation Guide
+Prodiguer Operating System Setup
 ===================================
 
 Installing the prodiguer client library is simple & straightforward.
