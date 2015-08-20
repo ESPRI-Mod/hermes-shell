@@ -38,12 +38,15 @@ Update permissions & import setup functions::
 	chmod a+x ./prodiguer-os-setup.sh
 	source ./prodiguer-os-setup.sh
 
-4: Execute setup functions
+4: Execute required setup functions
 ----------------------------
 
-To install common libraries (required)::
+To install common libraries::
 
 	setup_common
+
+5: Execute optional setup functions
+----------------------------
 
 To install MongoDB server::
 
@@ -63,7 +66,7 @@ To install NGINX web server::
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-5: Cleanup
+6: Cleanup
 ----------------------------
 
 Remove setup script and close terminal session::
