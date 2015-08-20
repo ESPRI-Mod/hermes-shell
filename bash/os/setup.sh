@@ -4,12 +4,11 @@ source $PRODIGUER_HOME/bash/init.sh
 _parse_os_type()
 {
 	declare -a types=(
-		'centos'
-		'debian'
-		'fedora'
-		'rhel'
-		'scientific-linux'
-		'ubuntu'
+		'centos-6'
+		'centos-7'
+		'scientific-linux-6'
+		'scientific-linux-7'
+		'mint-17'
 	)
 	declare result=UNKNOWN
 	for i in "${types[@]}"
@@ -19,24 +18,6 @@ _parse_os_type()
 	    fi
 	done
 	echo $result
-}
-
-# Maps operating system type name to OS package installer.
-_get_os_package_installer()
-{
-    if [ "$1" == "centos" ] ; then
-        echo "yum"
-    elif [ "$1" == "debian" ] ; then
-        echo "apt"
-    elif [ "$1" == "fedora" ] ; then
-        echo "yum"
-    elif [ "$1" == "rhel" ] ; then
-        echo "yum"
-    elif [ "$1" == "scientific-linux" ] ; then
-        echo "yum"
-    elif [ "$1" == "ubuntu" ] ; then
-        echo "apt"
-    fi
 }
 
 # Parses machine type name.
@@ -75,16 +56,41 @@ main()
 		exit
 	fi
 
-	# Set package installer.
-	declare package_installer=$(_get_os_package_installer $1)
+	# Activate setup functions.
+	source $PRODIGUER_DIR_BASH/os/setup_`echo $os_type | tr '[:upper:]' '[:lower:]' | tr '-' '_'`.sh
 
-	# Install common libraries setup.
+	# Setup common libraries.
 	log "installing common libraries ..."
-	source $PRODIGUER_DIR_BASH/os/setup_"$package_installer".sh
+	setup_common
+	log "installed common libraries ..."
 
-	# Install machine specific libraries setup.
-	log "installing $machine_type libraries ..."
-	source $PRODIGUER_DIR_BASH/os/setup_"$package_installer"_"$machine_type".sh
+	# Setup DB server.
+	if [ $machine_type = "db" ] || [ $machine_type = "dev" ] ; then
+		# ... PostgreSQL
+		log "installing PostgreSQL ..."
+		setup_db_postgres
+		log "installed PostgreSQL ..."
+		# ... MongoDB
+		log "installing MongoDB ..."
+		setup_db_mongo
+		log "installed MongoDB ..."
+	fi
+
+	# Setup MQ server.
+	if [ $machine_type = "mq" ] || [ $machine_type = "dev" ] ; then
+		# ... RabbitMQ
+		log "installing RabbitMQ ..."
+		setup_mq_rabbitmq
+		log "installed RabbitMQ ..."
+	fi
+
+	# Setup web server.
+	if [ $machine_type = "web" ] || [ $machine_type = "dev" ] ; then
+		# ... nginx
+		log "installing nginx ..."
+		setup_web_nginx
+		log "installed nginx ..."
+	fi
 }
 
 # Invoke entry point.
