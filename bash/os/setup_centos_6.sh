@@ -40,35 +40,30 @@ setup_db_mongo()
 # Installs RabbitMQ server.
 setup_mq_rabbitmq()
 {
-	echo "TODO - setup_mq_rabbitmq"
-	# # Install dependencies.
-	# yum -q -y install erlang
+	# Install dependencies.
+	yum -q -y install erlang
 
-	# # Install RabbitMQ.
-	# rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	# wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm -O $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.4-1.noarch.rpm
-	# yum -q -y install $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.4-1.noarch.rpm
-	# rm -rf $PRODIGUER_DIR_TMP/rabbitmq-server-3.5.4-1.noarch.rpm
+	# Install RabbitMQ.
+	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	yum localinstall https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
 
-	# # Enable RabbitMQ management plugin.
-	# rabbitmq-plugins enable rabbitmq_management
+	# Enable RabbitMQ management plugin.
+	rabbitmq-plugins enable rabbitmq_management
 
-	# # Set RabbitMQ to start on boot and start it up immediately.
-	# /sbin/chkconfig rabbitmq-server on
-	# /etc/init.d/rabbitmq-server start
+	# Set RabbitMQ to start on boot and start it up immediately.
+	/sbin/chkconfig rabbitmq-server on
+	/etc/init.d/rabbitmq-server start
 
-	# # Set RabbitMQ admin cli.
-	# wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O $PRODIGUER_DIR_TMP/rabbitmqadmin
-	# cp $PRODIGUER_DIR_TMP/rabbitmqadmin /usr/local/bin
-	# rm -rf $PRODIGUER_DIR_TMP/rabbitmqadmin
-	# chmod a+x /usr/local/bin/rabbitmqadmin
+	# Set RabbitMQ admin cli.
+	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
+	chmod a+x /usr/local/bin/rabbitmqadmin
 
-	# # Import RabbitMQ config.
-	# rabbitmqctl set_user_tags guest administrator
-	# rabbitmqadmin -q import $PRODIGUER_DIR_TEMPLATES/config/mq-rabbit.json
+	# Import RabbitMQ config.
+	rabbitmqctl set_user_tags guest administrator
+	rabbitmqadmin -q import /opt/prodiguer/templates/config/mq-rabbit.json
 
-	# # Remove default user.
-	# rabbitmqctl delete_user guest
+	# Remove default user.
+	rabbitmqctl delete_user guest
 }
 
 # Installs NGINX web server.
@@ -79,5 +74,5 @@ setup_web_nginx()
 	yum -q -y install nginx
 
 	# # Update nginx configuration.
-	# cp $PRODIGUER_DIR_TEMPLATES/config/web-nginx.conf /etc/nginx/nginx.conf
+	cp /opt/prodiguer/config/web-nginx.conf /etc/nginx/nginx.conf
 }
