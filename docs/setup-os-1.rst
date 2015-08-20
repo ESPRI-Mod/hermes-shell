@@ -2,9 +2,10 @@
 Prodiguer Operating System Setup
 ===================================
 
-Installing the prodiguer client library is simple & straightforward.
+1: Open terminal session
+----------------------------
 
-**Note** - it is assumed that git and pip are available.
+**NOTE** - you must be logged in as root.
 
 Step 1: Install python dependencies
 ----------------------------
