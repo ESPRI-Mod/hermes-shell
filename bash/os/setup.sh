@@ -8,7 +8,7 @@ _parse_os_type()
 		'centos-7'
 		'scientific-linux-6'
 		'scientific-linux-7'
-		'mint-17'
+		'ubuntu-mint-17'
 	)
 	declare result=UNKNOWN
 	for i in "${types[@]}"

@@ -2,13 +2,13 @@
 setup_common()
 {
 	# Ensure machine is upto date.
-	yum -q -y upgrade
+	yum upgrade
 
 	# Enable EPEL v6.
 	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
 	# Install various tools.
-	yum -q -y install xz-libs zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel postgresql-libs postgresql-devel python-devel postgresql-plpython python-psycopg2
+	yum -q -y install git xz-libs zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel postgresql-libs postgresql-devel python-devel postgresql-plpython python-psycopg2
 }
 
 # Installs postgres db server.
@@ -67,7 +67,7 @@ setup_mq_rabbitmq()
 	rabbitmqctl delete_user guest
 
 	# Clean up.
-	rm /tmp/prodiguer-rabbitmq.conf
+	rm -f /tmp/prodiguer-rabbitmq.conf
 }
 
 # Installs NGINX web server.
