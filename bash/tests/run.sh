@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# ###############################################################
-# SECTION: TESTS
-# ###############################################################
+# Import utils.
+source $PRODIGUER_HOME/bash/init.sh
 
-# Runs set of tests.
-run_tests()
+# Main entry point.
+main()
 {
 	# Set test folder paths.
 	PRODIGUER_DIR_SERVER_TESTS=$PRODIGUER_DIR_REPOS/prodiguer-server/tests
@@ -87,3 +86,6 @@ run_tests()
 		nosetests -v -s $PRODIGUER_DIR_SERVER_TESTS/test_utils_config.py
 	fi
 }
+
+# Invoke entry point.
+main $1

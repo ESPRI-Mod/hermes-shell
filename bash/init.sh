@@ -145,6 +145,3 @@ declare -a PRODIGUER_OPS_DIRS=(
 )
 
 
-source $PRODIGUER_HOME/bash/run_stack.sh
-source $PRODIGUER_HOME/bash/run_utest.sh
-

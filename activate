@@ -47,6 +47,9 @@ alias prodiguer-stack-update-repos=$PRODIGUER_HOME/bash/stack/update_repos.sh
 alias prodiguer-stack-update-shell=$PRODIGUER_HOME/bash/stack/update_shell.sh
 alias prodiguer-stack-update-venvs=$PRODIGUER_HOME/bash/stack/update_venvs.sh
 
+# Tests related commands.
+alias prodiguer-tests-run=$PRODIGUER_HOME/bash/tests/run.sh
+
 # WEB server related commands.
 alias prodiguer-web-api=$PRODIGUER_HOME/bash/web/run_web_service.sh
 alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
@@ -66,4 +69,5 @@ chmod a+x $PRODIGUER_HOME/bash/db/*.sh
 chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
 chmod a+x $PRODIGUER_HOME/bash/os/*.sh
 chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
+chmod a+x $PRODIGUER_HOME/bash/tests/*.sh
 chmod a+x $PRODIGUER_HOME/bash/web/*.sh

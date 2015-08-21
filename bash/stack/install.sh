@@ -3,9 +3,6 @@
 # Import utils.
 source $PRODIGUER_HOME/bash/init.sh
 
-# Version of python used by stack.
-declare PYTHON_VERSION=2.7.10
-
 # Installs virtual environments.
 _install_venv()
 {
@@ -44,6 +41,9 @@ _install_venvs()
 # Installs a python executable primed with setuptools, pip & virtualenv.
 _install_python_executable()
 {
+	# Version of python used by stack.
+	declare PYTHON_VERSION=2.7.10
+
 	log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
 	# Download source.
@@ -124,6 +124,7 @@ _install_script_permissions()
 	chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
 	chmod a+x $PRODIGUER_HOME/bash/os/*.sh
 	chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
+	chmod a+x $PRODIGUER_HOME/bash/tests/*.sh
 	chmod a+x $PRODIGUER_HOME/bash/web/*.sh
 }
 
