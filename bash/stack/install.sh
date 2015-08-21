@@ -3,6 +3,9 @@
 # Import utils.
 source $PRODIGUER_HOME/bash/init.sh
 
+# Version of python used by stack.
+declare PYTHON_VERSION=2.7.10
+
 # Installs virtual environments.
 _install_venv()
 {
