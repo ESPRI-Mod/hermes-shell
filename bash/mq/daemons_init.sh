@@ -2,7 +2,7 @@
 source $PRODIGUER_HOME/bash/init.sh
 
 # Reset logs.
-source $PRODIGUER_HOME/mq/daemons_reset_logs.sh
+source $PRODIGUER_HOME/bash/mq/daemons_reset_logs.sh
 
 # Launch daemons.
 activate_venv server

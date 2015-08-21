@@ -2,8 +2,8 @@ source $PRODIGUER_HOME/bash/init.sh
 
 log "DB : restoring postgres db ..."
 
-source $PRODIGUER_HOME/db/pgres_drop_db.sh
-source $PRODIGUER_HOME/db/pgres_create_db.sh
+source $PRODIGUER_HOME/bash/db/pgres_drop_db.sh
+source $PRODIGUER_HOME/bash/db/pgres_create_db.sh
 
 declare backup_dir=$1
 

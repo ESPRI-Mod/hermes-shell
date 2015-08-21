@@ -62,17 +62,6 @@ run_stack_bootstrap()
 # SECTION: INSTALL
 # ###############################################################
 
-# Display post install notice.
-_install_notice()
-{
-	log
-	log "IMPORTANT NOTICE"
-	log "Activate prodiguer commands by adding the following line to your settings (e.g. $HOME/.bash_profile)" 1
-	log "source $PRODIGUER_DIR/activate.sh" 2
-	log "IMPORTANT NOTICE ENDS"
-}
-
-
 # Installs virtual environments.
 run_stack_install_venv()
 {
@@ -178,8 +167,6 @@ run_stack_install()
 	run_stack_install_venvs
 
 	log "INSTALLED STACK"
-
-	_install_notice
 }
 
 

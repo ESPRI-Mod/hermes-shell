@@ -31,8 +31,12 @@ setup_db_postgres()
 # Installs mongodb db server.
 setup_db_mongo()
 {
+	# Install MongoDB.
 	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
+
+	# Start MongoDB service.
+	service mongod start
 }
 
 # Installs RabbitMQ server.
@@ -48,9 +52,11 @@ setup_mq_rabbitmq()
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
 
-	# Set RabbitMQ to start on boot and start it up immediately.
-	/sbin/chkconfig rabbitmq-server on
-	/etc/init.d/rabbitmq-server start
+	# Start RabbitMQ service.
+	service rabbitmq-server start
+
+	# Setup RabbitMQ service to auto start on system boot.
+	chkconfig rabbitmq-server on
 
 	# Set RabbitMQ admin cli.
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin

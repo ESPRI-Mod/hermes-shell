@@ -4,6 +4,9 @@
 # Activates prodiguer-shell
 # ###############################################################
 
+# Import environment vars.
+source $HOME/.prodiguer_server
+
 # CV server related commands.
 alias prodiguer-cv-git-push=$PRODIGUER_HOME/bash/cv/git_push.sh
 

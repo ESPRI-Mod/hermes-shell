@@ -1,13 +1,3 @@
 
-# --------------------------------------------------------------------
-# Prodiguer server settings
-# --------------------------------------------------------------------
-
-# Prodiguer: environment vars
-source $HOME/.prodiguer_server
-
-# Prodiguer: activate shell commands
-source $PRODIGUER_HOME/activate
-
-# Prodiguer: python path
-export PYTHONPATH=$PYTHONPATH:$PRODIGUER_HOME/repos/prodiguer-server
+# Prodiguer: activate shell
+source /opt/prodiguer/activate
