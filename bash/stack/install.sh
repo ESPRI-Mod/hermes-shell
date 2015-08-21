@@ -22,7 +22,7 @@ _install_venv()
 
     # Build dependencies.
     source $TARGET_VENV/bin/activate
-	declare TARGET_REQUIREMENTS=$PRODIGUER_DIR_TEMPLATES/venv/requirements-$1.txt
+	declare TARGET_REQUIREMENTS=$PRODIGUER_DIR_TEMPLATES/venv-requirements-$1.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -109,11 +109,11 @@ _install_dirs()
 # Sets up configuration.
 _install_configuration()
 {
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
-	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
-	cp $PRODIGUER_DIR_TEMPLATES/config/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
-	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+	cp $PRODIGUER_DIR_TEMPLATES/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
+	cp $PRODIGUER_DIR_TEMPLATES/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
+	cp $PRODIGUER_DIR_TEMPLATES/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
+	cat $PRODIGUER_DIR_TEMPLATES/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
 }
 
 # Sets up script permissions.

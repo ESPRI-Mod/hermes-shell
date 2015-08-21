@@ -22,7 +22,7 @@ Clone from remote git repository::
 
 Copy template::
 
-	cp ./prodiguer/templates/config/prodiguer_env.sh $HOME/.prodiguer_server
+	cp ./prodiguer/templates/prodiguer_env.sh $HOME/.prodiguer_server
 
 Review & edit defaults::
 

@@ -2,7 +2,7 @@
 setup_common()
 {
 	# Ensure machine is upto date.
-	yum upgrade
+	yum -q -y upgrade
 
 	# Enable EPEL v6.
 	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
@@ -25,11 +25,12 @@ setup_common()
 	yum -q -y install python-devel
 	yum -q -y install postgresql-plpython
 	yum -q -y install python-psycopg2
+	yum -q -y install pgadmin3
 	yum -q -y install gcc-c++
 	yum -q -y install freetype-devel
 	yum -q -y install libpng-devel
 	yum -q -y install python-matplotlib
-}
+}}
 
 # Installs postgres db server.
 setup_db_postgres()
@@ -83,7 +84,7 @@ setup_mq_rabbitmq()
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Download RabbitMQ config.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/config/mq-rabbit.json -O /tmp/prodiguer-rabbitmq.conf
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.json -O /tmp/prodiguer-rabbitmq.conf
 
 	# Import RabbitMQ config.
 	rabbitmqctl set_user_tags guest administrator
@@ -104,5 +105,5 @@ setup_web_nginx()
 	yum -q -y install nginx
 
 	# Update nginx configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/config/web-nginx.conf -O /etc/nginx/nginx.conf
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/web-nginx.conf -O /etc/nginx/nginx.conf
 }
