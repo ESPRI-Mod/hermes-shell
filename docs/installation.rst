@@ -2,7 +2,7 @@
 Prodiguer Shell Installation
 ===================================
 
-**Note** - it is assumed that you have setup your OS correctly as documented [here](https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst).
+**Note** - it is assumed that you have setup your OS correctly as documented (here)[https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst].
 
 1: Open terminal session
 ----------------------------
