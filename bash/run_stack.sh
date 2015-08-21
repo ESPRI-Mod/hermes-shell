@@ -84,9 +84,11 @@ run_stack_install_repo()
 # Installs git repos.
 run_stack_install_repos()
 {
+	log "Installing repos"
+
 	for repo in "${PRODIGUER_REPOS[@]}"
 	do
-		run_install_repo $repo
+		run_stack_install_repo $repo
 	done
 }
 

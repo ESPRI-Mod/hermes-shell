@@ -28,7 +28,7 @@ Review & edit defaults::
 
 	vi $HOME/.prodiguer_server
 
-3: Run stack installer
+4: Run stack installer
 ----------------------------
 
 Activate shell::
@@ -38,3 +38,18 @@ Activate shell::
 Run installer::
 
 	prodiguer-stack-install
+
+5: Review installation
+----------------------------
+
+Review source code downloaded from GitHub::
+
+	ls ./prodiguer/repos
+
+Review operations (ops) directories::
+
+	ls ./prodiguer/ops
+
+Review virtual environments::
+
+	ls ./prodiguer/ops/venv
