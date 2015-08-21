@@ -1,72 +1,6 @@
 #!/bin/bash
 
 # ###############################################################
-# SECTION: BOOTSTRAP
-# ###############################################################
-
-# Boostraps environment variables.
-run_stack_bootstrap_environment_variables()
-{
-	log "Bootstrapping environment variables"
-
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
-	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
-
-	log "*******************************************************************************"
-	log "IMPORTANT NOTICE !!!"
-	log "*******************************************************************************"
-	log "1.  Review environment variables file:" 1
-	log "$HOME/.prodiguer_server" 2
-	log ""
-	log "2.  Review bash settings (see end of file):" 1
-	log "$HOME/.bash_profile" 2
-	log ""
-	log "*******************************************************************************"
-}
-
-# Run stack bootstrapper.
-run_stack_bootstrap()
-{
-	log "BOOTSTRAP STARTS"
-	set_working_dir
-
-	log "Initializing ops directories"
-	for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
-	do
-		mkdir -p $ops_dir
-	done
-
-	log "Updating script permissions"
-	chmod a+x $PRODIGUER_BASH/cv/*.*
-	chmod a+x $PRODIGUER_BASH/db/*.*
-	chmod a+x $PRODIGUER_BASH/mq/*.*
-	chmod a+x $PRODIGUER_BASH/os/*.*
-	chmod a+x $PRODIGUER_BASH/stack/*.*
-	chmod a+x $PRODIGUER_BASH/web/*.*
-
-	log "Initializing configuration"
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
-	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
-	cp $PRODIGUER_DIR_TEMPLATES/config/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
-	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env.sh $HOME/.prodiguer_server
-	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
-
-	log "BOOTSTRAP ENDS"
-
-	log "*******************************************************************************"
-	log "IMPORTANT NOTICE !!!"
-	log "*******************************************************************************"
-	log "1.  Review environment variables file:" 1
-	log "$HOME/.prodiguer_server" 2
-	log ""
-	log "2.  Review bash settings (see end of file):" 1
-	log "$HOME/.bash_profile" 2
-	log ""
-	log "*******************************************************************************"
-}
-
-# ###############################################################
 # SECTION: INSTALL
 # ###############################################################
 
@@ -159,9 +93,34 @@ run_stack_install_repos()
 # Sets up directories.
 _install_dirs()
 {
+	for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
+	do
+		mkdir -p $ops_dir
+	done
 	mkdir -p $PRODIGUER_DIR_REPOS
 	mkdir -p $PRODIGUER_DIR_PYTHON
 	mkdir -p $PRODIGUER_DIR_TMP
+}
+
+# Sets up configuration.
+_install_configuration()
+{
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
+	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
+	cp $PRODIGUER_DIR_TEMPLATES/config/mq-supervisord.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+	cp $PRODIGUER_DIR_TEMPLATES/config/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
+	cat $PRODIGUER_DIR_TEMPLATES/config/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
+}
+
+# Sets up script permissions.
+_install_script_permissions()
+{
+	chmod a+x $PRODIGUER_BASH/cv/*.*
+	chmod a+x $PRODIGUER_BASH/db/*.*
+	chmod a+x $PRODIGUER_BASH/mq/*.*
+	chmod a+x $PRODIGUER_BASH/os/*.*
+	chmod a+x $PRODIGUER_BASH/stack/*.*
+	chmod a+x $PRODIGUER_BASH/web/*.*
 }
 
 # Installs stack.
@@ -170,6 +129,8 @@ run_stack_install()
 	log "INSTALLING STACK"
 
 	_install_dirs
+	_install_configuration
+	_install_script_permissions
 	run_stack_install_repos
 	run_stack_install_python
 	run_stack_install_venvs

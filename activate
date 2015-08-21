@@ -57,8 +57,6 @@ declare -a PRODIGUER_SHELL_COMMAND_TYPES=(
 # Supported commands.
 declare -a PRODIGUER_SHELL_COMMANDS=(
 	# Stack management.
-	stack-bootstrap
-	stack-bootstrap-environment-variables
 	stack-install
 	stack-update
 	stack-update-config
