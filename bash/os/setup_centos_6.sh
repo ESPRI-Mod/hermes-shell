@@ -42,6 +42,9 @@ setup_db_postgres()
 	# Initialize PostgreSQL database.
 	service postgresql initdb
 
+	# Copy default configuration.
+	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /var/lib/pgsql/data/pg_hba.conf
+
 	# Start PostgreSQL service.
 	service postgresql start
 

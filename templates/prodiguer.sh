@@ -4,9 +4,6 @@
 # SECTION: INITIALIZE VARS
 # ###############################################################
 
-# Version of python used by stack.
-declare PYTHON_VERSION=2.7.9
-
 # Optional system user to run backups as.  If the user the script is running as doesn't match this the script terminates.  Leave blank to skip check.
 declare DB_BACKUP_USER=
 
@@ -24,7 +21,4 @@ declare DB_WEEKS_TO_KEEP=5
 
 # Path to pg_dump executable.
 declare DB_PGDUMP=/usr/bin/pg_dump
-
-# Username of GitHub account used to push changes to GitHub.
-declare GIT_USERNAME=prodiguer-git-user
 
