@@ -117,12 +117,12 @@ _install_configuration()
 # Sets up script permissions.
 _install_script_permissions()
 {
-	chmod a+x $PRODIGUER_BASH/cv/*.*
-	chmod a+x $PRODIGUER_BASH/db/*.*
-	chmod a+x $PRODIGUER_BASH/mq/*.*
-	chmod a+x $PRODIGUER_BASH/os/*.*
-	chmod a+x $PRODIGUER_BASH/stack/*.*
-	chmod a+x $PRODIGUER_BASH/web/*.*
+	chmod a+x $PRODIGUER_HOME/bash/cv/*.*
+	chmod a+x $PRODIGUER_HOME/bash/db/*.*
+	chmod a+x $PRODIGUER_HOME/bash/mq/*.*
+	chmod a+x $PRODIGUER_HOME/bash/os/*.*
+	chmod a+x $PRODIGUER_HOME/bash/stack/*.*
+	chmod a+x $PRODIGUER_HOME/bash/web/*.*
 }
 
 # Installs stack.
