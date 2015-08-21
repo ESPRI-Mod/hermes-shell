@@ -8,10 +8,27 @@ setup_common()
 	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
 	# Install various tools.
-	yum -q -y install git xz-libs zlib-devel bzip2-devel gcc-c++ openssl-devel ncurses-devel
-	yum -q -y sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel
-	yum -q -y postgresql-libs postgresql-devel python-devel postgresql-plpython python-psycopg2
-	yum -q -y python-matplotlib freetype-devel libpng-devel
+	yum -q -y install git
+	yum -q -y install xz-libs
+	yum -q -y install zlib-devel
+	yum -q -y install bzip2-devel
+	yum -q -y install openssl-devel
+	yum -q -y install ncurses-devel
+	yum -q -y install sqlite-devel
+	yum -q -y install readline-devel
+	yum -q -y install tk-devel
+	yum -q -y install gdbm-devel
+	yum -q -y install db4-devel
+	yum -q -y install libpcap-devel
+	yum -q -y install postgresql-libs
+	yum -q -y install postgresql-devel
+	yum -q -y install python-devel
+	yum -q -y install postgresql-plpython
+	yum -q -y install python-psycopg2
+	yum -q -y install gcc-c++
+	yum -q -y install freetype-devel
+	yum -q -y install libpng-devel
+	yum -q -y install python-matplotlib
 }
 
 # Installs postgres db server.
