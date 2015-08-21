@@ -36,6 +36,14 @@ run_stack_bootstrap()
 		mkdir -p $ops_dir
 	done
 
+	log "Updating script permissions"
+	chmod a+x $PRODIGUER_BASH/cv/*.*
+	chmod a+x $PRODIGUER_BASH/db/*.*
+	chmod a+x $PRODIGUER_BASH/mq/*.*
+	chmod a+x $PRODIGUER_BASH/os/*.*
+	chmod a+x $PRODIGUER_BASH/stack/*.*
+	chmod a+x $PRODIGUER_BASH/web/*.*
+
 	log "Initializing configuration"
 	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.sh $PRODIGUER_DIR_CONFIG/prodiguer.sh
 	cp $PRODIGUER_DIR_TEMPLATES/config/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
