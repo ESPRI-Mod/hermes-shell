@@ -8,10 +8,10 @@ main()
 {
 	log "UPDATING STACK"
 
-	prodiguer-stack-update-shell
-	prodiguer-stack-update-config
-	prodiguer-stack-update-repos
-	prodiguer-stack-upgrade-venvs
+	source $PRODIGUER_HOME/bash/stack/update_shell.sh
+	source $PRODIGUER_HOME/bash/stack/update_config.sh
+	source $PRODIGUER_HOME/bash/stack/update_repos.sh
+	source $PRODIGUER_HOME/bash/stack/update_venvs.sh
 
 	log "UPDATED STACK"
 

@@ -2,7 +2,7 @@ source $PRODIGUER_HOME/bash/init.sh
 
 log "DB : resetting postgres database ..."
 
-prodiguer-db-pgres-uninstall
-prodiguer-db-pgres-install
+source $PRODIGUER_HOME/bash/db/pgres_uninstall.sh
+source $PRODIGUER_HOME/bash/db/pgres_install.sh
 
 log "DB : reset postgres database"
