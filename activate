@@ -60,3 +60,10 @@ alias prodiguer-web-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/web/dae
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos'
 
+# Ensure target scripts are executable.
+chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
+chmod a+x $PRODIGUER_HOME/bash/db/*.sh
+chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
+chmod a+x $PRODIGUER_HOME/bash/os/*.sh
+chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
+chmod a+x $PRODIGUER_HOME/bash/web/*.sh
