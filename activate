@@ -6,6 +6,7 @@
 
 # Import environment vars.
 source $HOME/.prodiguer_server
+source $PRODIGUER_HOME/ops/config/prodiguer.sh
 
 # CV server related commands.
 alias prodiguer-cv-git-push=$PRODIGUER_HOME/bash/cv/git_push.sh
@@ -38,6 +39,15 @@ alias prodiguer-mq-purge-debug-queues=$PRODIGUER_HOME/bash/mq/purge_queues_debug
 # OS (operating system) related commands.
 alias prodiguer-os-setup=$PRODIGUER_HOME/bash/os/setup.sh
 
+# Stack management related commands.
+alias prodiguer-stack-install=$PRODIGUER_HOME/bash/stack/install.sh
+alias prodiguer-stack-uninstall=$PRODIGUER_HOME/bash/stack/uninstall.sh
+alias prodiguer-stack-update=$PRODIGUER_HOME/bash/stack/update.sh
+alias prodiguer-stack-update-config=$PRODIGUER_HOME/bash/stack/update_config.sh
+alias prodiguer-stack-update-repos=$PRODIGUER_HOME/bash/stack/update_repos.sh
+alias prodiguer-stack-update-shell=$PRODIGUER_HOME/bash/stack/update_shell.sh
+alias prodiguer-stack-update-venvs=$PRODIGUER_HOME/bash/stack/update_venvs.sh
+
 # WEB server related commands.
 alias prodiguer-web-api=$PRODIGUER_HOME/bash/web/run_web_service.sh
 alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
@@ -47,53 +57,7 @@ alias prodiguer-web-daemons-status=$PRODIGUER_HOME/bash/web/daemons_status.sh
 alias prodiguer-web-daemons-update-config=$PRODIGUER_HOME/bash/web/daemons_update_config.sh
 alias prodiguer-web-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/web/daemons_update_config_for_debug.sh
 
-
-# Supported command types.
-declare -a PRODIGUER_SHELL_COMMAND_TYPES=(
-	stack
-	utests
-)
-
-# Supported commands.
-declare -a PRODIGUER_SHELL_COMMANDS=(
-	# Stack management.
-	stack-install
-	stack-update
-	stack-update-config
-	stack-update-shell
-	stack-update-repo
-	stack-update-repos
-	stack-update-venv
-	stack-update-venvs
-	stack-update-source
-	stack-upgrade-venvs
-	stack-uninstall
-	stack-uninstall-repo
-	stack-config-commit
-	stack-config-encrypt
-	stack-config-decrypt
-	# Tests.
-	tests
-)
-
-# Set path to exec.sh.
-PRODIGUER_SHELL_EXEC="$( dirname "${BASH_SOURCE[0]}" )"/bash/exec.sh
-
-# Create default alias.
-alias prodiguer=$PRODIGUER_SHELL_EXEC
-
-# Create command aliases.
-for PRODIGUER_SHELL_COMMAND in "${PRODIGUER_SHELL_COMMANDS[@]}"
-do
-	alias prodiguer-$PRODIGUER_SHELL_COMMAND=$PRODIGUER_SHELL_EXEC" "$PRODIGUER_SHELL_COMMAND
-done
-
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
+alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos'
 
-# Unset helper vars.
-unset PRODIGUER_SHELL_EXEC
-unset PRODIGUER_SHELL_COMMAND
-unset PRODIGUER_SHELL_COMMANDS
-unset PRODIGUER_SHELL_COMMAND_TYPE
-unset PRODIGUER_SHELL_COMMAND_TYPES
