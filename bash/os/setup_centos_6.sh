@@ -106,7 +106,6 @@ setup_mq_rabbitmq()
 setup_web_nginx()
 {
 	# Install nginx.
-	yum -q -y localinstall http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum -q -y install nginx
 
 	# Update nginx configuration.

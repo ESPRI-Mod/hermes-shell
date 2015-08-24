@@ -35,7 +35,7 @@ Activate shell::
 
 	source ./prodiguer/activate
 
-Run installer::
+Run installer (takes 10-15 minutes)::
 
 	prodiguer-stack-install
 
@@ -53,3 +53,10 @@ Review operations (ops) directories::
 Review virtual environments::
 
 	ls ./prodiguer/ops/venv
+
+6. Install database
+----------------------------
+
+To install prodiguer postgres database (if PostgreSQL is installed)::
+
+	prodiguer-db-pgres-install

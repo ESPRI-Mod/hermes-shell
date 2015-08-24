@@ -4,8 +4,8 @@ setup_common()
 	# Ensure machine is upto date.
 	yum -q -y upgrade
 
-	# Enable EPEL.
-	yum install epel-release
+	# Enable EPEL v6.
+	yum -q -y install epel-release
 
 	# Install various tools.
 	yum -q -y install git
@@ -74,7 +74,10 @@ setup_mq_rabbitmq()
 
 	# Install RabbitMQ.
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	yum localinstall https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
+	yum -q -y localinstall https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
+
+	# Initialise configuration.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
@@ -93,19 +96,16 @@ setup_mq_rabbitmq()
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit-broker-definitions.json -O /tmp/prodiguer-rabbitmq-broker.conf
 	rabbitmqctl set_user_tags guest administrator
 	rabbitmqadmin -q import /tmp/prodiguer-rabbitmq-broker.conf
+	rm -f /tmp/prodiguer-rabbitmq-broker.conf
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
-
-	# Clean up.
-	rm -f /tmp/prodiguer-rabbitmq-broker.conf
 }
 
 # Installs NGINX web server.
 setup_web_nginx()
 {
 	# Install nginx.
-	yum localinstall http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 	yum -q -y install nginx
 
 	# Update nginx configuration.
