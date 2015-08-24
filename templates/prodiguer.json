@@ -16,8 +16,8 @@
     },
     "mq": {
         "connections": {
-            "libigcm": "amqps://libigcm-mq-user:{PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}",
-            "main": "amqps://prodiguer-mq-user:{PRODIGUER_MQ_RABBIT_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}"
+            "libigcm": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://libigcm-mq-user:{PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}",
+            "main": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://prodiguer-mq-user:{PRODIGUER_MQ_RABBIT_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}"
         },
         "mail": {
             "deleteProcessed": false,

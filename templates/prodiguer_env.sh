@@ -29,7 +29,10 @@ export PRODIGUER_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 # MQ server settings
 # --------------------------------------------------------------------
 # Prodiguer Rabbit MQ sever host (includes port).
-export PRODIGUER_MQ_RABBIT_HOST=localhost:5671
+export PRODIGUER_MQ_RABBIT_HOST=localhost:5672
+
+# Prodiguer Rabbit MQ sever protocol (i.e. whether to communicate over ssl).
+export PRODIGUER_MQ_RABBIT_PROTOCOL=ampq
 
 # Prodiguer Rabbit MQ libIGCM user password.
 export PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD=XXXXXXXXXXX
