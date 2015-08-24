@@ -43,26 +43,26 @@ Update permissions & import setup functions::
 
 To install common libraries::
 
-	setup_common
+	prodiguer_setup_common
 
 5: Execute optional setup functions
 ----------------------------
 
+To install NGINX web server::
+
+	prodiguer_setup_nginx
+
 To install MongoDB server::
 
-	setup_db_mongo
+	prodiguer_setup_mongodb
 
 To install PostgreSQL server::
 
-	setup_db_postgres
+	prodiguer_setup_postgresql
 
 To install RabbitMQ server::
 
-	setup_mq_rabbitmq
-
-To install NGINX web server::
-
-	setup_web_nginx
+	prodiguer_setup_rabbitmq
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 

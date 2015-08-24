@@ -1,5 +1,5 @@
 # Installs common libraries.
-setup_common()
+prodiguer_setup_common()
 {
 	# Ensure machine is upto date.
 	yum -q -y upgrade
@@ -31,8 +31,29 @@ setup_common()
 	yum -q -y install python-matplotlib
 }
 
+# Installs NGINX web server.
+prodiguer_setup_nginx()
+{
+	# Install nginx.
+	yum -q -y install nginx
+
+	# Update nginx configuration.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/web-nginx.conf -O /etc/nginx/nginx.conf
+}
+
+# Installs mongodb db server.
+prodiguer_setup_mongodb()
+{
+	# Install MongoDB.
+	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
+	yum -q -y install mongodb-org
+
+	# Start MongoDB service.
+	service mongod start
+}
+
 # Installs postgres db server.
-setup_db_postgres()
+prodiguer_setup_postgresql()
 {
 	# Install PostgreSQL.
 	yum localinstall -q -y http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
@@ -55,19 +76,8 @@ setup_db_postgres()
 
 }
 
-# Installs mongodb db server.
-setup_db_mongo()
-{
-	# Install MongoDB.
-	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
-	yum -q -y install mongodb-org
-
-	# Start MongoDB service.
-	service mongod start
-}
-
 # Installs RabbitMQ server.
-setup_mq_rabbitmq()
+prodiguer_setup_rabbitmq()
 {
 	# Install dependencies.
 	yum -q -y install erlang
@@ -100,14 +110,4 @@ setup_mq_rabbitmq()
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
-}
-
-# Installs NGINX web server.
-setup_web_nginx()
-{
-	# Install nginx.
-	yum -q -y install nginx
-
-	# Update nginx configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/web-nginx.conf -O /etc/nginx/nginx.conf
 }
