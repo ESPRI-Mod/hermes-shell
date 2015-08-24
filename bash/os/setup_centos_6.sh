@@ -29,7 +29,7 @@ setup_common()
 	yum -q -y install freetype-devel
 	yum -q -y install libpng-devel
 	yum -q -y install python-matplotlib
-}}
+}
 
 # Installs postgres db server.
 setup_db_postgres()
