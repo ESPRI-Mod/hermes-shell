@@ -60,13 +60,16 @@ prodiguer_setup_postgresql()
 	yum -q -y install postgresql94-server postgresql94-contrib
 
 	# Initialize PostgreSQL database.
-	service postgresql-9.4 initdb
+	/usr/pgsql-9.4/bin/postgresql94-setup initdb
+	# service postgresql-9.4 initdb
 
 	# Install default configuration.
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/9.4/data/pg_hba.conf
 
 	# Start PostgreSQL service.
-	service postgresql-9.4 start
+	# service postgresql-9.4 start
+	systemctl enable postgresql-9.4
+	systemctl start postgresql-9.4
 
 	# Setup PostgreSQL service to auto start on system boot.
 	chkconfig postgresql-9.4 on
