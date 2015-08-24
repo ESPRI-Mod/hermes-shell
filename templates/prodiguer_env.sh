@@ -22,6 +22,9 @@ export PRODIGUER_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 # Prodiguer pgres server host (includes port).
 export PRODIGUER_DB_PGRES_HOST=localhost:5432
 
+# Prodiguer pgres pgdump executable path.
+export PRODIGUER_DB_PGRES_PGDUMP=/usr/bin/pg_dump
+
 # --------------------------------------------------------------------
 # MQ server settings
 # --------------------------------------------------------------------

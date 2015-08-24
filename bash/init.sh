@@ -105,9 +105,6 @@ declare PRODIGUER_DIR_VENV=$PRODIGUER_HOME/ops/venv
 # SECTION: INITIALIZE VARS
 # ###############################################################
 
-# If produguer.sh config file exists then import variable definitions.
-test -f $PRODIGUER_DIR_CONFIG/prodiguer.sh && source $PRODIGUER_DIR_CONFIG/prodiguer.sh
-
 # Set of git repos.
 declare -a PRODIGUER_REPOS=(
 	'prodiguer-client'
