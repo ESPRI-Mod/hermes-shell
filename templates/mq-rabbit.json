@@ -26,7 +26,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-0000",
+            "destination": "q-debug-in-monitoring-0000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0000",
             "source": "x-in",
@@ -42,7 +42,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-0100",
+            "destination": "q-debug-in-monitoring-0100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0100",
             "source": "x-in",
@@ -58,7 +58,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-1000",
+            "destination": "q-debug-in-monitoring-1000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1000",
             "source": "x-in",
@@ -74,7 +74,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-1100",
+            "destination": "q-debug-in-monitoring-1100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
             "source": "x-in",
@@ -90,7 +90,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-2000",
+            "destination": "q-debug-in-monitoring-2000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2000",
             "source": "x-in",
@@ -106,7 +106,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-2100",
+            "destination": "q-debug-in-monitoring-2100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
             "source": "x-in",
@@ -122,7 +122,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-2900",
+            "destination": "q-debug-in-monitoring-2900",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2900",
             "source": "x-in",
@@ -138,7 +138,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-3000",
+            "destination": "q-debug-in-monitoring-3000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3000",
             "source": "x-in",
@@ -154,7 +154,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-3100",
+            "destination": "q-debug-in-monitoring-3100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3100",
             "source": "x-in",
@@ -170,7 +170,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-3900",
+            "destination": "q-debug-in-monitoring-3900",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3900",
             "source": "x-in",
@@ -186,7 +186,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-4000",
+            "destination": "q-debug-in-monitoring-4000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.4000",
             "source": "x-in",
@@ -194,7 +194,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-4100",
+            "destination": "q-debug-in-monitoring-4100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.4100",
             "source": "x-in",
@@ -202,7 +202,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-4900",
+            "destination": "q-debug-in-monitoring-4900",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.4900",
             "source": "x-in",
@@ -213,6 +213,14 @@
             "destination": "q-in-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.4900",
+            "source": "x-in",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "q-debug-in-metrics-env",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.7000",
             "source": "x-in",
             "vhost": "prodiguer"
         },
@@ -226,9 +234,9 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-7000",
+            "destination": "q-debug-in-metrics-sim",
             "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7000",
+            "routing_key": "*.*.*.monitoring.7100",
             "source": "x-in",
             "vhost": "prodiguer"
         },
@@ -242,15 +250,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-7100",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-8888",
+            "destination": "q-debug-in-monitoring-8888",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.8888",
             "source": "x-in",
@@ -258,7 +258,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-9000",
+            "destination": "q-debug-in-monitoring-9000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9000",
             "source": "x-in",
@@ -274,7 +274,7 @@
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-9999",
+            "destination": "q-debug-in-monitoring-9999",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9999",
             "source": "x-in",
@@ -301,94 +301,6 @@
             "destination": "q-in-metrics-sim",
             "destination_type": "queue",
             "routing_key": "q-in-metrics-sim",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-0000",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-0000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-0100",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-0100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-1000",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-1000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-1100",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-1100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-2000",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-2000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-2100",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-2100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-3000",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-3000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-4900",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-4900",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-7000",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-7000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-8888",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-8888",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-9999",
-            "destination_type": "queue",
-            "routing_key": "q-in-monitoring-9999",
             "source": "x-in",
             "vhost": "prodiguer"
         },
@@ -437,6 +349,14 @@
             "destination": "q-internal-cv",
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-4000",
+            "source": "x-internal",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "q-debug-internal-api",
+            "destination_type": "queue",
+            "routing_key": "q-debug-internal-api",
             "source": "x-internal",
             "vhost": "prodiguer"
         },
@@ -525,28 +445,21 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-1000",
+            "name": "q-debug-in-monitoring-0000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-3100",
+            "name": "q-debug-in-monitoring-9999",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-3900",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "q-in-monitoring-8888",
+            "name": "q-debug-in-monitoring-2000",
             "vhost": "prodiguer"
         },
         {
@@ -567,13 +480,6 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-7100",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
             "name": "q-debug-internal-api",
             "vhost": "prodiguer"
         },
@@ -581,49 +487,56 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-2900",
+            "name": "q-debug-in-monitoring-3000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-4100",
+            "name": "q-debug-in-monitoring-8888",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-0000",
+            "name": "q-debug-in-monitoring-2900",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-2100",
+            "name": "q-debug-in-monitoring-3900",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-0100",
+            "name": "q-debug-in-metrics-env",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-1100",
+            "name": "q-debug-in-monitoring-4000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-ext-smtp",
+            "name": "q-debug-in-monitoring-0100",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "q-debug-in-monitoring-1100",
             "vhost": "prodiguer"
         },
         {
@@ -637,6 +550,20 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
+            "name": "q-debug-ext-smtp",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "q-debug-in-monitoring-1000",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
             "name": "q-ext-smtp",
             "vhost": "prodiguer"
         },
@@ -644,14 +571,21 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-2000",
+            "name": "q-debug-in-monitoring-4100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-3000",
+            "name": "q-debug-in-monitoring-4900",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "q-debug-in-monitoring-2100",
             "vhost": "prodiguer"
         },
         {
@@ -665,14 +599,7 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-7000",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "q-in-monitoring-4900",
+            "name": "q-debug-in-monitoring-3100",
             "vhost": "prodiguer"
         },
         {
@@ -686,13 +613,6 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-post-processing",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
             "name": "q-in-metrics-env",
             "vhost": "prodiguer"
         },
@@ -700,21 +620,21 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-9000",
+            "name": "q-in-monitoring-post-processing",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-9999",
+            "name": "q-debug-in-monitoring-9000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-4000",
+            "name": "q-debug-in-metrics-sim",
             "vhost": "prodiguer"
         }
     ],

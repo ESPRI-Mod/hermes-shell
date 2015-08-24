@@ -32,11 +32,8 @@ alias prodiguer-mq-daemons-status=$PRODIGUER_HOME/bash/mq/daemons_status.sh
 alias prodiguer-mq-daemons-update-config=$PRODIGUER_HOME/bash/mq/daemons_update_config.sh
 alias prodiguer-mq-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/mq/daemons_update_config_for_debug.sh
 alias prodiguer-mq-produce=$PRODIGUER_HOME/bash/mq/run_agent.sh
-alias prodiguer-mq-purge=$PRODIGUER_HOME/bash/mq/purge_queues.sh
+alias prodiguer-mq-purge=$PRODIGUER_HOME/bash/mq/purge_queues.sh && $PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
 alias prodiguer-mq-purge-debug-queues=$PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
-
-# OS (operating system) related commands.
-alias prodiguer-os-setup=$PRODIGUER_HOME/bash/os/setup.sh
 
 # Stack management related commands.
 alias prodiguer-stack-install=$PRODIGUER_HOME/bash/stack/install.sh

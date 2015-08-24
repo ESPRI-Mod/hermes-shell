@@ -4,26 +4,26 @@ source $PRODIGUER_HOME/bash/init.sh
 # Set of supported debug MQ queues.
 declare -a QUEUES=(
 	'debug-ext-smtp'
+	'debug-in-metrics-env'
+	'debug-in-metrics-sim'
+	'debug-in-monitoring-0000'
+	'debug-in-monitoring-0100'
+	'debug-in-monitoring-1000'
+	'debug-in-monitoring-1100'
+	'debug-in-monitoring-2000'
+	'debug-in-monitoring-2100'
+	'debug-in-monitoring-2900'
+	'debug-in-monitoring-3000'
+	'debug-in-monitoring-3100'
+	'debug-in-monitoring-3900'
+	'debug-in-monitoring-4000'
+	'debug-in-monitoring-4100'
+	'debug-in-monitoring-4900'
+	'debug-in-monitoring-8888'
+	'debug-in-monitoring-9000'
+	'debug-in-monitoring-9999'
 	'debug-internal-api'
 	'debug-internal-cv'
-	'in-monitoring-0000'
-	'in-monitoring-0100'
-	'in-monitoring-1000'
-	'in-monitoring-1100'
-	'in-monitoring-2000'
-	'in-monitoring-2100'
-	'in-monitoring-2900'
-	'in-monitoring-3000'
-	'in-monitoring-3100'
-	'in-monitoring-3900'
-	'in-monitoring-4000'
-	'in-monitoring-4100'
-	'in-monitoring-4900'
-	'in-monitoring-7000'
-	'in-monitoring-7100'
-	'in-monitoring-8888'
-	'in-monitoring-9000'
-	'in-monitoring-9999'
 )
 
 log "MQ : purging debug queues ..."
@@ -33,4 +33,4 @@ do
 	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-$queue
 done
 
-log "MQ : purged debug queues ..."
+log "MQ : purged debug queues"
