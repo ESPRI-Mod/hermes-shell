@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.9",
+    "configSchemaVersion": "1.0.10",
     "deploymentMode": "dev",
     "apps": {
         "monitoring": {
@@ -47,7 +47,7 @@
     },
     "web": {
         "cookie_secret": "{PRODIGUER_WEB_API_COOKIE_SECRET}",
-        "host": "{PRODIGUER_WEB_HOST}",
+        "port": {PRODIGUER_WEB_PORT},
         "url": "{PRODIGUER_WEB_URL}",
         "websocketKeepAliveDelayInSeconds": 280
     }

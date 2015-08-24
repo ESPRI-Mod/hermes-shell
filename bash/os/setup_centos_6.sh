@@ -5,7 +5,7 @@ setup_common()
 	yum -q -y upgrade
 
 	# Enable EPEL v6.
-	rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+	yum install epel-release
 
 	# Install various tools.
 	yum -q -y install git
@@ -35,7 +35,7 @@ setup_common()
 setup_db_postgres()
 {
 	# Install PostgreSQL.
-	yum localinstall http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+	yum localinstall -q -y http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum -q -y install postgresql94-server postgresql94-contrib
 
 	# Initialize PostgreSQL database.
