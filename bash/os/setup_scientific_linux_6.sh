@@ -1,29 +1,29 @@
 # Installs common libraries.
-setup_common()
+prodiguer_setup_common()
 {
-	echo "TODO: setup common libraries"
-}
-
-# Installs postgres db server.
-setup_db_postgres()
-{
-	echo "TODO: setup postgres"
-}
-
-# Installs mongodb db server.
-setup_db_mongo()
-{
-	echo "TODO: setup mongo"
-}
-
-# Installs RabbitMQ server.
-setup_mq_rabbitmq()
-{
-	echo "TODO: setup rabbitmq"
+	echo "TODO: prodiguer_setup_common"
 }
 
 # Installs NGINX web server.
-setup_web_nginx()
+prodiguer_setup_nginx()
 {
-	echo "TODO: setup nginx"
+	echo "TODO: prodiguer_setup_common"
+}
+
+# Installs mongodb db server.
+prodiguer_setup_mongodb()
+{
+	echo "TODO: prodiguer_setup_common"
+}
+
+# Installs postgres db server.
+prodiguer_setup_postgresql()
+{
+	echo "TODO: prodiguer_setup_common"
+}
+
+# Installs RabbitMQ server.
+prodiguer_setup_rabbitmq()
+{
+	echo "TODO: prodiguer_setup_common"
 }

@@ -73,7 +73,6 @@ prodiguer_setup_postgresql()
 
 	# Install client tools.
 	yum -q -y install pgadmin3_94
-
 }
 
 # Installs RabbitMQ server.
