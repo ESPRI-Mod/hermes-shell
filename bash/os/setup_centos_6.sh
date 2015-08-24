@@ -76,6 +76,9 @@ setup_mq_rabbitmq()
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 	yum localinstall https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
 
+	# Initialise configuration.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
+
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
 
@@ -89,18 +92,14 @@ setup_mq_rabbitmq()
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
-	# Download RabbitMQ config.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.json -O /tmp/prodiguer-rabbitmq.conf
-
-	# Import RabbitMQ config.
+	# Import RabbitMQ broker definitions.
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit-broker-definitions.json -O /tmp/prodiguer-rabbitmq-broker.conf
 	rabbitmqctl set_user_tags guest administrator
-	rabbitmqadmin -q import /tmp/prodiguer-rabbitmq.conf
+	rabbitmqadmin -q import /tmp/prodiguer-rabbitmq-broker.conf
+	rm -f /tmp/prodiguer-rabbitmq-broker.conf
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
-
-	# Clean up.
-	rm -f /tmp/prodiguer-rabbitmq.conf
 }
 
 # Installs NGINX web server.
