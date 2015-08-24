@@ -20,12 +20,11 @@ setup_common()
 	yum -q -y install gdbm-devel
 	yum -q -y install db4-devel
 	yum -q -y install libpcap-devel
-	yum -q -y install postgresql-libs
+	yum -q -y install postgresql-client
 	yum -q -y install postgresql-devel
 	yum -q -y install python-devel
 	yum -q -y install postgresql-plpython
 	yum -q -y install python-psycopg2
-	yum -q -y install pgadmin3
 	yum -q -y install gcc-c++
 	yum -q -y install freetype-devel
 	yum -q -y install libpng-devel
@@ -37,19 +36,23 @@ setup_db_postgres()
 {
 	# Install PostgreSQL.
 	yum localinstall http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-	yum -q -y install postgresql-server postgresql94-contrib postgresql
+	yum -q -y install postgresql94-server postgresql94-contrib
 
 	# Initialize PostgreSQL database.
-	service postgresql initdb
+	service postgresql-9.4 initdb
 
 	# Install default configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/data/pg_hba.conf
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/9.4/data/pg_hba.conf
 
 	# Start PostgreSQL service.
-	service postgresql start
+	service postgresql-9.4 start
 
 	# Setup PostgreSQL service to auto start on system boot.
-	chkconfig postgresql on
+	chkconfig postgresql-9.4 on
+
+	# Install client tools.
+	yum -q -y install pgadmin3_94
+
 }
 
 # Installs mongodb db server.
