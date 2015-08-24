@@ -1,19 +1,9 @@
 source $PRODIGUER_HOME/bash/init.sh
 
-# Performs pre db backup checks.
-_verify()
-{
-	# Make sure we're running as the required backup user
-	if [ "$DB_BACKUP_USER" != "" -a "$(id -un)" != "$DB_BACKUP_USER" ]; then
-		log "This script must be run as $DB_BACKUP_USER. Exiting."
-		exit 1;
-	fi;
-}
-
 # Initialises the db backup dir.
 _init_backup_dir()
 {
-	FINAL_DB_BACKUP_DIR=$DB_BACKUP_DIR"/""`date +\%Y-\%m-\%d`/"
+	FINAL_DB_BACKUP_DIR=$PRODIGUER_DIR_BACKUPS"/db/""`date +\%Y-\%m-\%d`/"
 
 	log "Making backup directory @ $FINAL_DB_BACKUP_DIR"
 
@@ -23,8 +13,22 @@ _init_backup_dir()
 	fi;
 }
 
-# Performs backup.
 _do_backup()
+{
+	log "db = $1 :: back up begins "
+
+	if ! $DB_PGDUMP -Fp -h localhost -U prodiguer_db_admin "$1" | gzip > $FINAL_DB_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
+		log "[!!ERROR!!] Failed to produce plain backup database $1"
+	else
+		mv $FINAL_DB_BACKUP_DIR"$1".sql.gz.in_progress $FINAL_DB_BACKUP_DIR"$1".sql.gz
+	fi
+	log "db = $1 :: back up file @ $FINAL_DB_BACKUP_DIR$1.sql.gz"
+
+	log "db = $1 :: back up ends"
+}
+
+# Performs backup.
+_do()
 {
 	log "Performing backups"
 
@@ -33,17 +37,17 @@ _do_backup()
 	do
 		if [[ $DATABASE == prodiguer* ]];
 		then
-			_db_backup $DATABASE
+			_do_backup $DATABASE
 		fi
 	done
 
 	log "All database backups complete!"
 }
 
+
 log "DB : backing up postgres db ..."
 
-_verify
 _init_backup_dir
-_do_backup
+_do
 
 log "DB : backed up postgres db"

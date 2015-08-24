@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.10",
+    "configSchemaVersion": "1.0.11",
     "deploymentMode": "dev",
     "apps": {
         "monitoring": {
@@ -24,8 +24,8 @@
             "idleFaultRetryDelayInSeconds": 60,
             "imap": {
                 "host": "courriel3.ipsl.jussieu.fr",
-                "mailbox": "AMPQ-PROD",
-                "mailbox_processed": "AMPQ-PROD-PROCESSED",
+                "mailbox": "{PRODIGUER_MQ_IMAP_MAILBOX}",
+                "mailbox_processed": "{PRODIGUER_MQ_IMAP_MAILBOX}-PROCESSED",
                 "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
                 "port": 993,
                 "username": "superviseur"

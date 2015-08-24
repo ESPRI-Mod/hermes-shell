@@ -40,6 +40,9 @@ export PRODIGUER_MQ_RABBIT_SSL_CLIENT_CERT=
 # Prodiguer Rabbit MQ client SSL cert key path.
 export PRODIGUER_MQ_RABBIT_SSL_CLIENT_KEY=
 
+# Prodiguer IMAP mailbox.
+export PRODIGUER_MQ_IMAP_MAILBOX=AMPQ-TEST
+
 # Prodiguer IMAP user password.
 export PRODIGUER_MQ_IMAP_PASSWORD=XXXXXXXXXXX
 
