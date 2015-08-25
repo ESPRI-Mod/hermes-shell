@@ -48,9 +48,6 @@ prodiguer_setup_mongodb()
 	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
 
-	# Setup MongoDB service to auto start on system boot.
-	systemctl enable mongod
-
 	# Start MongoDB service.
 	systemctl start mongod
 }
@@ -106,7 +103,7 @@ prodiguer_setup_rabbitmq()
 	systemctl enable rabbitmq-server
 
 	# Start RabbitMQ service.
-	systemctl rabbitmq-server mongod
+	systemctl start rabbitmq-server
 
 	# Set RabbitMQ admin cli.
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
