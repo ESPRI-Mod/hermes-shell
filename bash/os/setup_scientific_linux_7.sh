@@ -52,31 +52,26 @@ prodiguer_setup_mongodb()
 	systemctl start mongod
 }
 
-# Installs postgres db server.
-# see http://www.unixmen.com/postgresql-9-4-released-install-centos-7.
+# Installs postgres db server (v9.2).
 prodiguer_setup_postgresql()
 {
-	# Install postgresql repository.
-	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-	yum -q -y update
-
 	# Install PostgreSQL.
-	yum -q -y install postgresql94-server postgresql94-contrib
+	yum -q -y install postgresql-server postgresql-contrib
 
 	# Initialize PostgreSQL database.
-	/usr/pgsql-9.4/bin/postgresql94-setup initdb
+	postgresql-setup initdb
 
 	# Install default configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/9.4/data/pg_hba.conf
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/data/pg_hba.conf
 
 	# Setup PostgreSQL service to auto start on system boot.
-	systemctl enable postgresql-9.4
+	systemctl enable postgresql
 
 	# Start PostgreSQL service.
-	systemctl start postgresql-9.4
+	systemctl start postgresql
 
 	# Install client tools.
-	yum -q -y install pgadmin3_94
+	yum -q -y install pgadmin3
 }
 
 # Installs RabbitMQ server.
