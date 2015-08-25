@@ -39,22 +39,7 @@ Run installer (takes 10-15 minutes)::
 
 	prodiguer-stack-install
 
-5: Review installation
-----------------------------
-
-Review source code downloaded from GitHub::
-
-	ls ./prodiguer/repos
-
-Review operations (ops) directories::
-
-	ls ./prodiguer/ops
-
-Review virtual environments::
-
-	ls ./prodiguer/ops/venv
-
-6. Install database
+5. Install database
 ----------------------------
 
 To install prodiguer postgres database (if PostgreSQL is installed)::
