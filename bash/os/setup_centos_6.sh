@@ -53,10 +53,14 @@ prodiguer_setup_mongodb()
 }
 
 # Installs postgres db server.
+# see http://www.unixmen.com/postgresql-9-4-released-install-centos-7.
 prodiguer_setup_postgresql()
 {
+	# Install PostgreSQL repository.
+	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+	yum -q -y update
+
 	# Install PostgreSQL.
-	yum localinstall -q -y http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum -q -y install postgresql94-server postgresql94-contrib
 
 	# Initialize PostgreSQL database.
@@ -65,11 +69,11 @@ prodiguer_setup_postgresql()
 	# Install default configuration.
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /var/lib/pgsql/9.4/data/pg_hba.conf
 
-	# Start PostgreSQL service.
-	service postgresql-9.4 start
-
 	# Setup PostgreSQL service to auto start on system boot.
 	chkconfig postgresql-9.4 on
+
+	# Start PostgreSQL service.
+	service postgresql-9.4 start
 
 	# Install client tools.
 	yum -q -y install pgadmin3_94
@@ -81,9 +85,13 @@ prodiguer_setup_rabbitmq()
 	# Install dependencies.
 	yum -q -y install erlang
 
-	# Install RabbitMQ.
+	# Install RabbitMQ repository.
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	yum -q -y localinstall https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
+	rpm -Uvh https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
+	yum -q -y update
+
+	# Install RabbitMQ.
+	yum -q -y install rabbitmq-server
 
 	# Initialise configuration.
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
@@ -91,11 +99,11 @@ prodiguer_setup_rabbitmq()
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
 
-	# Start RabbitMQ service.
-	service rabbitmq-server start
-
 	# Setup RabbitMQ service to auto start on system boot.
 	chkconfig rabbitmq-server on
+
+	# Start RabbitMQ service.
+	service rabbitmq-server start
 
 	# Set RabbitMQ admin cli.
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
