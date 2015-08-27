@@ -2,12 +2,14 @@
 Prodiguer Shell Installation
 ===================================
 
-**Note** - it is assumed that you have setup your OS correctly as documented `here <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst>`_.
+**Note** - it is assumed that your OS is setup correctly as documented `here <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst>`_.
 
 1: Open terminal session
 ----------------------------
 
-**NOTE** - you must be logged in under the user account used to run / develop the stack.
+Log in under the user account that will be used to to run / develop the shell.
+
+**Note** - it is not advised to login as root.
 
 2: Download shell
 ----------------------------
