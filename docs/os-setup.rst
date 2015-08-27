@@ -66,16 +66,17 @@ To install RabbitMQ server::
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-6: Verification
+6: Verification of MongoDB installation
 ----------------------------
 
-If you installed MongoDB server::
+Open a MongoDB interactive command line session::
 
 	mongo
 
-This will open up a mongoDB command line session.  Type exit to close session.
+Type exit to close session.
 
-If you installed PostgreSQL server::
+7: Verification of PostgreSQL installation
+----------------------------
 
 --	Click system menu option: Applications --> Programming --> pgAdmin III
 
@@ -93,13 +94,14 @@ If you installed PostgreSQL server::
 
 -- 	Click pgAdmin III menu option: File --> Close
 
-If you installed RabbitMQ server::
+7: Verification of RabbitMQ installation
+----------------------------
 
 --	Open a browser
 
 --	Enter url: localhost:15672
 
---	The RabbitMq login page will be displayed
+--	The RabbitMQ login page will be displayed
 
 --  Close browser
 
