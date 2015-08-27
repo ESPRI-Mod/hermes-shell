@@ -45,7 +45,7 @@ prodiguer_setup_nginx()
 prodiguer_setup_mongodb()
 {
 	# Install MongoDB.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db-mongodb-org-centos-6.repo -O /etc/yum.repos.d/mongodb-org.repo
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db-mongodb-org-scientific-linux-6.repo -O /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
 
 	# Start MongoDB service.
@@ -57,7 +57,7 @@ prodiguer_setup_mongodb()
 prodiguer_setup_postgresql()
 {
 	# Install PostgreSQL repository.
-	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-sl94-9.4-1.noarch.rpm
 	yum -q -y update
 
 	# Install PostgreSQL.

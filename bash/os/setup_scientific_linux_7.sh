@@ -55,8 +55,12 @@ prodiguer_setup_mongodb()
 # Installs postgres db server (v9.2).
 prodiguer_setup_postgresql()
 {
+	# Install PostgreSQL repository.
+	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-sl94-9.4-1.noarch.rpm
+	yum -q -y update
+
 	# Install PostgreSQL.
-	yum -q -y install postgresql-server postgresql-contrib
+	yum -q -y install postgresql94-server postgresql94-contrib
 
 	# Initialize PostgreSQL database.
 	postgresql-setup initdb
