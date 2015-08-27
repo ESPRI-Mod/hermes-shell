@@ -7,14 +7,14 @@ Prodiguer Shell Installation
 1: Open terminal session
 ----------------------------
 
-**NOTE** - you must be logged in as root.
+**NOTE** - you must be logged in under the user account used to run / develop the stack.
 
 2: Download shell
 ----------------------------
 
 Clone from remote git repository::
 
-	cd /opt
+	cd $HOME
 	git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
 
 3: Define environment variables

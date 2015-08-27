@@ -2,7 +2,7 @@
 # General settings
 # --------------------------------------------------------------------
 # Path to Prodiguer server install directory.
-export PRODIGUER_HOME=/opt/prodiguer
+export PRODIGUER_HOME=$HOME/prodiguer
 
 # Mode of deployment.
 export PRODIGUER_DEPLOYMENT_MODE=dev
