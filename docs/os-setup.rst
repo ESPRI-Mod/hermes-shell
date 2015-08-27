@@ -82,9 +82,11 @@ Type exit to close session.
 
 *	Click pgAdmin III menu option: File --> Add Server
 
-*	In dialog enter following details:
-		Name = local
-		Host = localhost
+*	In pgAdmin III Add Server dialog enter:
+
+	-	Name = local
+
+	-	Host = localhost
 
 *	Click OK button
 
