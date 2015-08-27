@@ -66,7 +66,7 @@ To install RabbitMQ server::
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-6: Verification of MongoDB installation
+6: To verify MongoDB installation
 ----------------------------
 
 Open a MongoDB interactive command line session::
@@ -75,7 +75,7 @@ Open a MongoDB interactive command line session::
 
 Type exit to close session.
 
-7: Verification of PostgreSQL installation
+7: To verify PostgreSQL installation
 ----------------------------
 
 *  Click system menu option:
@@ -100,7 +100,7 @@ Type exit to close session.
 
 	-	File --> Close
 
-7: Verification of RabbitMQ installation
+8: To verify RabbitMQ installation
 ----------------------------
 
 *  Open Firefox web browser
@@ -111,7 +111,7 @@ Type exit to close session.
 
 *  Close Firefox web browser
 
-7: Cleanup
+9: Cleanup
 ----------------------------
 
 Remove setup script::
