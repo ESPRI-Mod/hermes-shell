@@ -78,32 +78,32 @@ Type exit to close session.
 7: Verification of PostgreSQL installation
 ----------------------------
 
---	Click system menu option: Applications --> Programming --> pgAdmin III
+*  Click system menu option: Applications --> Programming --> pgAdmin III
 
--- 	Click pgAdmin III menu option: File --> Add Server
+*	Click pgAdmin III menu option: File --> Add Server
 
--- 	In dialog enter following details:
+*	In dialog enter following details:
 		Name = local
 		Host = localhost
 
--- 	Click OK button
+*	Click OK button
 
---	Click Ok button on next dialog that displays a "Saving passwords" warning
+*  Click Ok button on next dialog that displays a "Saving passwords" warning
 
--- 	Note that a db server called "local" now appears in previously empty list of databases
+*	Note that a db server called "local" now appears in previously empty list of databases
 
--- 	Click pgAdmin III menu option: File --> Close
+*	Click pgAdmin III menu option: File --> Close
 
 7: Verification of RabbitMQ installation
 ----------------------------
 
---	Open a browser
+*  Open a browser
 
---	Enter url: localhost:15672
+*  Enter url: localhost:15672
 
---	The RabbitMQ login page will be displayed
+*  The RabbitMQ login page will be displayed
 
---  Close browser
+*  Close browser
 
 7: Cleanup
 ----------------------------
