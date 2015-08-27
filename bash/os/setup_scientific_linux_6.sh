@@ -45,7 +45,7 @@ prodiguer_setup_nginx()
 prodiguer_setup_mongodb()
 {
 	# Install MongoDB.
-	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db-mongodb-org-centos-6.repo -O /etc/yum.repos.d/mongodb-org.repo
 	yum -q -y install mongodb-org
 
 	# Start MongoDB service.
