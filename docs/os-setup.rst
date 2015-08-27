@@ -66,7 +66,44 @@ To install RabbitMQ server::
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-6: Cleanup
+6: Verification
+----------------------------
+
+If you installed MongoDB server::
+
+	mongo
+
+This will open up a mongoDB command line session.  Type exit to close session.
+
+If you installed PostgreSQL server::
+
+--	Click system menu option: Applications --> Programming --> pgAdmin III
+
+-- 	Click pgAdmin III menu option: File --> Add Server
+
+-- 	In dialog enter following details:
+		Name = local
+		Host = localhost
+
+-- 	Click OK button
+
+--	Click Ok button on next dialog that displays a "Saving passwords" warning
+
+-- 	Note that a db server called "local" now appears in previously empty list of databases
+
+-- 	Click pgAdmin III menu option: File --> Close
+
+If you installed RabbitMQ server::
+
+--	Open a browser
+
+--	Enter url: localhost:15672
+
+--	The RabbitMq login page will be displayed
+
+--  Close browser
+
+7: Cleanup
 ----------------------------
 
 Remove setup script::
