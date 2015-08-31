@@ -110,10 +110,10 @@ prodiguer_setup_rabbitmq()
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Import RabbitMQ broker definitions.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit-broker-definitions.json -O /tmp/prodiguer-rabbitmq-broker.conf
+	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit-broker-definitions.json
 	rabbitmqctl set_user_tags guest administrator
-	rabbitmqadmin -q import /tmp/prodiguer-rabbitmq-broker.conf
-	rm -f /tmp/prodiguer-rabbitmq-broker.conf
+	rabbitmqadmin -q import ./mq-rabbit-broker-definitions.json
+	rm -f ./mq-rabbit-broker-definitions.json
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
