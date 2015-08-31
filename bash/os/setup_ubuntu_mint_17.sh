@@ -75,7 +75,7 @@ prodiguer_setup_postgresql()
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /etc/postgresql/9.3/main/pg_hba.conf
 
 	# Start PostgreSQL service.
-	service postgresql start
+	service postgresql restart
 
 	# Install client tools.
 	apt-get install -qq -y pgadmin3
@@ -84,6 +84,9 @@ prodiguer_setup_postgresql()
 # Installs RabbitMQ server.
 prodiguer_setup_rabbitmq()
 {
+	# Install required libraries.
+	apt-get install -qq -y erlang
+
 	# Import the public key used by the package management system.
 	wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 	apt-key add ./rabbitmq-signing-key-public.asc
@@ -109,6 +112,6 @@ prodiguer_setup_rabbitmq()
 	rm -f /tmp/prodiguer-rabbitmq-broker.conf
 
 	# Start RabbitMQ service.
-	service rabbitmq-server start
+	service rabbitmq-server restart
 }
 
