@@ -8,10 +8,10 @@ Listed below are links to the full set of supported commands alongside command a
 
 **Note** - For each command listed below type -h or --help to access the command's help text.
 
---`Database commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_db.rst>`_
+-	`Database commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_db.rst>`_
 
---`Message Queue commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_mq.rst>`_
+-	`Message Queue commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_mq.rst>`_
 
---`Stack management commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_stack.rst>`_
+-	`Stack management commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_stack.rst>`_
 
---`Web service commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_web.rst>`_
+-	`Web service commands <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/usage_web.rst>`_
