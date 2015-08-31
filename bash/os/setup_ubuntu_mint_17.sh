@@ -30,8 +30,6 @@ prodiguer_setup_common()
 	apt-get -qq -y install freetype*
 	apt-get -qq -y install libpng-dev
 	apt-get -qq -y install python-matplotlib
-
-	# ???
 	apt-get -qq -y install postgresql-server-dev-9.3
 }
 
