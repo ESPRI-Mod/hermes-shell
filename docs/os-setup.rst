@@ -48,7 +48,7 @@ To install common libraries::
 5: Execute optional setup functions
 ----------------------------
 
-To install NGINX web server::
+To install NGinx web server::
 
 	prodiguer_setup_nginx
 
@@ -66,7 +66,22 @@ To install RabbitMQ server::
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
-6: To verify MongoDB installation
+6: To verify NGinx installation
+----------------------------
+
+Start nginx service (ignore warning regarding log file location)::
+
+	service nginx start
+
+*	Open Firefox web browser
+
+*	Navigate to localhost
+
+*  The NGinx welcome page will be displayed
+
+*  Close Firefox web browser
+
+7: To verify MongoDB installation
 ----------------------------
 
 Open a MongoDB interactive command line session::
@@ -75,7 +90,7 @@ Open a MongoDB interactive command line session::
 
 Type exit to close session.
 
-7: To verify PostgreSQL installation
+8: To verify PostgreSQL installation
 ----------------------------
 
 *  Click system menu option:
@@ -100,7 +115,7 @@ Type exit to close session.
 
 	-	File --> Close
 
-8: To verify RabbitMQ installation
+9: To verify RabbitMQ installation
 ----------------------------
 
 *  Open Firefox web browser
@@ -111,16 +126,12 @@ Type exit to close session.
 
 *  Close Firefox web browser
 
-9: Cleanup
+10: Cleanup
 ----------------------------
 
 Remove setup script::
 
 	rm -f ./prodiguer-os-setup.sh
-
-Update system packages::
-
-	yum update
 
 Close terminal session::
 

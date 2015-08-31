@@ -2,12 +2,13 @@
 prodiguer_setup_common()
 {
 	# Ensure machine is upto date.
+	yum -q -y update
 	yum -q -y upgrade
 
 	# Enable EPEL v6.
 	yum -q -y install epel-release
 
-	# Install various tools.
+	# Install various libs.
 	yum -q -y install git
 	yum -q -y install xz-libs
 	yum -q -y install zlib-devel

@@ -2,6 +2,7 @@
 prodiguer_setup_common()
 {
 	# Ensure machine is upto date.
+	yum -q -y update
 	yum -q -y upgrade
 
 	# Enable EPEL v6.
