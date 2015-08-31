@@ -29,8 +29,11 @@ prodiguer-mq-import-broker-definitions
 prodiguer-mq-produce
 ----------------------------
 
+prodiguer-mq-purge-debug-queues
+----------------------------
+
 prodiguer-mq-purge-live-queues
 ----------------------------
 
-prodiguer-mq-purge-debug-queues
+prodiguer-mq-purge-queues
 ----------------------------
