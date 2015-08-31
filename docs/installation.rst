@@ -69,3 +69,5 @@ Then perform the following:
 *  The prodiguer simulation moinitoring web application will be displayed
 
 *  Close Firefox web browser
+
+*	CTL-C to stop prodiguer web service
