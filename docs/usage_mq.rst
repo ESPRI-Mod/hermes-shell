@@ -1,24 +1,36 @@
 ============================
-Prodiguer Shell Usage Guide - Message Queue Commands
+Prodiguer Shell MQ Commands
 ============================
 
-Upon successful `installation <https://github.com/Prodiguer/prodiguer-client/blob/master/docs/installation.rst>`_ of the `prodiguer client <https://github.com/Prodiguer/prodiguer-client>`_ library, supported commands can easily be called from command line.  Listed below are the full set of supported commands alongside command argument descriptions.
-
-**Note** - For each command listed below type -h or --help to access the command's help text.
-
-prodiguer-mq
+prodiguer-mq-consume
 ----------------------------
 
-Uploads simulation metrics to remote repository.
+prodiguer-mq-daemons-init
+----------------------------
 
-**-f, --file**
+prodiguer-mq-daemons-kill
+----------------------------
 
-	Path to a metrics file to be uploaded to server
+prodiguer-mq-daemons-reset-logs
+----------------------------
 
-**--duplicate-action**
+prodiguer-mq-daemons-status
+----------------------------
 
-	Action to take when adding a metric with a duplicate hash identifier.  **Default = skip**.
+prodiguer-mq-daemons-update-config
+----------------------------
 
-	**skip** = duplicate metrics are ignored.
+prodiguer-mq-daemons-update-config-for-debug
+----------------------------
 
-	**force** = existing metrics are overwritten.
+prodiguer-mq-import-broker-definitions
+----------------------------
+
+prodiguer-mq-produce
+----------------------------
+
+prodiguer-mq-purge-live-queues
+----------------------------
+
+prodiguer-mq-purge-debug-queues
+----------------------------
