@@ -47,3 +47,25 @@ Run installer (takes 10-15 minutes)::
 To install prodiguer postgres database (if PostgreSQL is installed)::
 
 	prodiguer-db-pgres-install
+
+
+6.	Verification
+----------------------------
+
+Verify that the prodiguer web service can be started::
+
+	prodiguer-web-service
+
+Then perform the following:
+
+*  Open Firefox web browser
+
+*  Enter url: **localhost:8888/api**
+
+*  The prodiguer web service is running message will be displayed
+
+*  Enter url: **localhost:8888/static/simulation.monitoring.html**
+
+*  The prodiguer simulation moinitoring web application will be displayed
+
+*  Close Firefox web browser
