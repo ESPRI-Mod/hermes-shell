@@ -9,6 +9,7 @@ Prodiguer Shell
    os-setup
    installation
    configuration
+   ide-setup
    usage
    faq
    credits

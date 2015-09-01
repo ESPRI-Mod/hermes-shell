@@ -27,6 +27,11 @@ How to install prodiguer-shell ?
 
 Follow the installation instructions `here <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/installation.rst>`_.
 
+How to configure prodiguer-shell ?
+--------------------------------------
+
+Once installed you can configure the prodiguer-shell by assigning `environment variables <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/environment-variables.rst>`_.
+
 How to use prodiguer-shell ?
 --------------------------------------
 
