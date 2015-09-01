@@ -12,8 +12,11 @@ General Variables
 ----------------------------
 
 **PRODIGUER_HOME**  
+
 * Description:	Path to local prodiguer home directory.  
+
 * Machines:		all  
+
 * Default:		$HOME/prodiguer  
 
 **PRODIGUER_DEPLOYMENT_MODE**
