@@ -30,7 +30,7 @@ log "MQ : purging debug queues ..."
 
 for queue in "${QUEUES[@]}"
 do
-	rabbitmqadmin -q -u $1 -p $2 -V prodiguer purge queue name=q-$queue
+	rabbitmqadmin -q -u prodiguer-mq-admin -p $1 -V prodiguer purge queue name=q-$queue
 done
 
 log "MQ : purged debug queues"
