@@ -13,37 +13,37 @@ export PRODIGUER_CLIENT_WEB_URL=http://localhost:8888
 # --------------------------------------------------------------------
 # DB server settings
 # --------------------------------------------------------------------
-# Prodiguer mongo server host (includes port).
+# Prodiguer MongoDB server hostname & port.
 export PRODIGUER_DB_MONGO_HOST=localhost:27017
 
-# Prodiguer mongo database user password.
+# Prodiguer MongoDB password for the prodiguer-db-mongo-user account.
 export PRODIGUER_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 
-# Prodiguer pgres server host (includes port).
+# Prodiguer PostgreSQL server hostname & port.
 export PRODIGUER_DB_PGRES_HOST=localhost:5432
 
-# Prodiguer pgres pgdump executable path.
+# Prodiguer PostgreSQL pgdump executable path.
 export PRODIGUER_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 
 # --------------------------------------------------------------------
 # MQ server settings
 # --------------------------------------------------------------------
-# Prodiguer Rabbit MQ sever host (includes port).
+# Prodiguer RabbitMQ sever host (includes port).
 export PRODIGUER_MQ_RABBIT_HOST=localhost:5672
 
-# Prodiguer Rabbit MQ sever protocol (i.e. whether to communicate over ssl).
+# Prodiguer RabbitMQ sever protocol (i.e. whether to communicate over ssl).
 export PRODIGUER_MQ_RABBIT_PROTOCOL=ampq
 
-# Prodiguer Rabbit MQ libIGCM user password.
+# Prodiguer RabbitMQ libIGCM user password.
 export PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD=XXXXXXXXXXX
 
-# Prodiguer Rabbit MQ agent user password.
+# Prodiguer RabbitMQ agent user password.
 export PRODIGUER_MQ_RABBIT_USER_PASSWORD=XXXXXXXXXXX
 
-# Prodiguer Rabbit MQ client SSL cert path.
+# Prodiguer RabbitMQ client SSL cert path.
 export PRODIGUER_MQ_RABBIT_SSL_CLIENT_CERT=
 
-# Prodiguer Rabbit MQ client SSL cert key path.
+# Prodiguer RabbitMQ client SSL cert key path.
 export PRODIGUER_MQ_RABBIT_SSL_CLIENT_KEY=
 
 # Prodiguer IMAP mailbox.

@@ -1,5 +1,5 @@
 ===================================
-Prodiguer Shell Installation
+Prodiguer Shell - Installation
 ===================================
 
 **Note** - it is assumed that your OS is setup correctly as documented `here <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst>`_.
