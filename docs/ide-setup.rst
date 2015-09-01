@@ -18,11 +18,11 @@ Assumptions
 Setting up sublime-text
 ----------------------------
 
-Create sublime-text directories::
+* Create sublime-text directories::
 
 	mkdir -p $PRODIGUER_HOME/ops/ide/sublime/locals
 
-Create symbolic links to prodiguer stack::
+* Create symbolic links to prodiguer stack::
 
 	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client
 	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv
@@ -31,18 +31,18 @@ Create symbolic links to prodiguer stack::
 	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server
 	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell
 
-Open sublime-text.
+* Open sublime-text.
 
-Open new sublime-text project (CTL-SHIFT-N).
+* Open new sublime-text project (CTL-SHIFT-N).
 
-From main menu click: Project -->  Save Project as ...
+* From main menu click: Project -->  Save Project as ...
 
-	Save project to: $PRODIGUER_HOME/ops/ide/sublime
+	+ Save project to: $PRODIGUER_HOME/ops/ide/sublime
 
-	Save project as: prodiguer.sublime-project
+	+ Save project as: prodiguer.sublime-project
 
-From main menu click: Project -->  Add Folder to Project ...
+* From main menu click: Project -->  Add Folder to Project ...
 
-Select folder: $PRODIGUER_HOME/ops/ide/sublime/locals
+* Select folder: $PRODIGUER_HOME/ops/ide/sublime/locals
 
 The IDE will import the symbolic links into the project folder view.  If you wish to add links to other directories within the prodiguer stack then simply repeat step 2.
