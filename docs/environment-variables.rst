@@ -11,13 +11,13 @@ The Prodiguer platform is distributed across different types of machine.  Code r
 General Variables
 ----------------------------
 
-**PRODIGUER_HOME**  
+**PRODIGUER_HOME**
 
-* Description:	Path to local prodiguer home directory.  
+* Description:	Path to local prodiguer home directory.
 
-* Machines:		all  
+* Machines:		all
 
-* Default:		$HOME/prodiguer  
+* Default:		$HOME/prodiguer
 
 **PRODIGUER_DEPLOYMENT_MODE**
 
