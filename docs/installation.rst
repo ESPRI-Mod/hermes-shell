@@ -24,11 +24,11 @@ Clone from remote git repository::
 
 Copy template::
 
-	cp ./prodiguer/templates/prodiguer_env.sh $HOME/.prodiguer_server
+	cp ./prodiguer/templates/prodiguer_env.sh $HOME/.prodiguer
 
 Review & edit defaults::
 
-	vi $HOME/.prodiguer_server
+	vi $HOME/.prodiguer
 
 4: Run stack installer
 ----------------------------

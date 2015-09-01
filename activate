@@ -5,7 +5,7 @@
 # ###############################################################
 
 # Import environment vars.
-source $HOME/.prodiguer_server
+source $HOME/.prodiguer
 
 # CV server related commands.
 alias prodiguer-cv-git-push=$PRODIGUER_HOME/bash/cv/git_push.sh
@@ -40,6 +40,7 @@ alias prodiguer-stack-install=$PRODIGUER_HOME/bash/stack/install.sh
 alias prodiguer-stack-uninstall=$PRODIGUER_HOME/bash/stack/uninstall.sh
 alias prodiguer-stack-update=$PRODIGUER_HOME/bash/stack/update.sh
 alias prodiguer-stack-update-config=$PRODIGUER_HOME/bash/stack/update_config.sh
+alias prodiguer-stack-update-environment-vars=$PRODIGUER_HOME/bash/stack/update_environment_vars.sh
 alias prodiguer-stack-update-repos=$PRODIGUER_HOME/bash/stack/update_repos.sh
 alias prodiguer-stack-update-shell=$PRODIGUER_HOME/bash/stack/update_shell.sh
 alias prodiguer-stack-upgrade-venvs=$PRODIGUER_HOME/bash/stack/upgrade_venvs.sh
