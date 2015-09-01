@@ -16,9 +16,9 @@ alias prodiguer-db-pgres-install=$PRODIGUER_HOME/bash/db/pgres_install.sh
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
 alias prodiguer-db-pgres-reset-cv-table=$PRODIGUER_HOME/bash/db/pgres_reset_cv_table.sh
-alias prodiguer-db-pgres-reset-email-table=$PRODIGUER_HOME/bash/db/pgres_reset_email_table.sh
-alias prodiguer-db-pgres-reset-message-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_table.sh
 alias prodiguer-db-pgres-reset-environment-metric-table=$PRODIGUER_HOME/bash/db/pgres_reset_environment_metric_table.sh
+alias prodiguer-db-pgres-reset-message-email-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_email_table.sh
+alias prodiguer-db-pgres-reset-message-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_table.sh
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
 
@@ -48,13 +48,13 @@ alias prodiguer-stack-upgrade-venvs=$PRODIGUER_HOME/bash/stack/upgrade_venvs.sh
 alias prodiguer-tests-run=$PRODIGUER_HOME/bash/tests/run.sh
 
 # WEB server related commands.
-alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
 alias prodiguer-web-daemons-kill=$PRODIGUER_HOME/bash/web/daemons_kill.sh
 alias prodiguer-web-daemons-reset-logs=$PRODIGUER_HOME/bash/web/daemons_reset_logs.sh
 alias prodiguer-web-daemons-status=$PRODIGUER_HOME/bash/web/daemons_status.sh
 alias prodiguer-web-daemons-update-config=$PRODIGUER_HOME/bash/web/daemons_update_config.sh
 alias prodiguer-web-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/web/daemons_update_config_for_debug.sh
+alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
