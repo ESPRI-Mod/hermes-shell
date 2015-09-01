@@ -18,30 +18,31 @@ Assumptions
 Setting up sublime-text
 ----------------------------
 
-1.	Create sublime-text directories::
+Create sublime-text directories::
 
 	mkdir -p $PRODIGUER_HOME/ops/ide/sublime/locals
 
 Create symbolic links to prodiguer stack::
 
-	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client  
-	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv  
-	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs  
-	ln -s $PRODIGUER_HOME/repos/prodiguer-fe $PRODIGUER_HOME/ops/ide/sublime/locals/fe  
-	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server  
-	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell  
+	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client
+	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv
+	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs
+	ln -s $PRODIGUER_HOME/repos/prodiguer-fe $PRODIGUER_HOME/ops/ide/sublime/locals/fe
+	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server
+	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell
 
-3.	Open sublime-text.
+Open sublime-text.
 
-4.	Open new sublime-text project (CTL-SHIFT-N).
+Open new sublime-text project (CTL-SHIFT-N).
 
-5.	From main menu click: Project -->  Save Project as ...
+From main menu click: Project -->  Save Project as ...
 
-6.	Save project to: $PRODIGUER_HOME/ops/ide/sublime
+	Save project to: $PRODIGUER_HOME/ops/ide/sublime
+
 	Save project as: prodiguer.sublime-project
 
-7.  From main menu click: Project -->  Add Folder to Project ...
+From main menu click: Project -->  Add Folder to Project ...
 
-8.	Select folder: $PRODIGUER_HOME/ops/ide/sublime/locals
+Select folder: $PRODIGUER_HOME/ops/ide/sublime/locals
 
 The IDE will import the symbolic links into the project folder view.  If you wish to add links to other directories within the prodiguer stack then simply repeat step 2.
