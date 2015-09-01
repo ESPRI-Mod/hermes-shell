@@ -12,7 +12,7 @@ Assumptions
 
 - You have `installed <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/installation.rst>`_ the prodiguer stack.
 
-- You have setup sublime text for [python development](https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development/).
+- You have setup sublime text for `python development <https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development>`_.
 
 Setting up `sublime-text <http://www.sublimetext.com>`_
 ----------------------------
@@ -22,6 +22,7 @@ Setting up `sublime-text <http://www.sublimetext.com>`_
 	mkdir -p $PRODIGUER_HOME/ops/ide/sublime/locals
 
 2.	Create symbolic links to prodiguer stack::
+
 	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client
 	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv
 	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs
