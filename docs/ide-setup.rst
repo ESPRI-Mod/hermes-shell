@@ -22,7 +22,7 @@ Setting up sublime-text
 
 	mkdir -p $PRODIGUER_HOME/ops/ide/sublime/locals
 
-2.	Create symbolic links to prodiguer stack::
+Create symbolic links to prodiguer stack::
 
 	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client  
 	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv  
