@@ -24,12 +24,12 @@ Setting up sublime-text
 
 2.	Create symbolic links to prodiguer stack::
 
-	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client
-	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv
-	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs
-	ln -s $PRODIGUER_HOME/repos/prodiguer-fe $PRODIGUER_HOME/ops/ide/sublime/locals/fe
-	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server
-	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell
+	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client  
+	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv  
+	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs  
+	ln -s $PRODIGUER_HOME/repos/prodiguer-fe $PRODIGUER_HOME/ops/ide/sublime/locals/fe  
+	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server  
+	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell  
 
 3.	Open sublime-text.
 
