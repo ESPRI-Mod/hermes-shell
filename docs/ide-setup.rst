@@ -37,9 +37,7 @@ Setting up sublime-text
 
 * From main menu click: Project -->  Save Project as ...
 
-+ Save project to: $PRODIGUER_HOME/ops/ide/sublime
-
-+ Save project as: prodiguer.sublime-project
+	Save project as: $PRODIGUER_HOME/ops/ide/sublime/prodiguer.sublime-project
 
 * From main menu click: Project -->  Add Folder to Project ...
 
