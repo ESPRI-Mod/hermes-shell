@@ -4,8 +4,9 @@ Prodiguer Shell - IDE Setup
 
 Once the prodiguer-shell has been `installed <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/installation.rst>`_ and `configured <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/configuration.rst>`_ then you may wish to setup your Integrated Development Environment (IDE) so that you can begin contributing.
 
-This guide streamlines preparing an IDEfor Prodiguer platform development.  The supported IDE types are:
-* [sublime-text](http://www.sublimetext.com/)
+This guide streamlines preparing an IDE for Prodiguer platform development.  The supported IDE types are:
+
+* `sublime-text <http://www.sublimetext.com>`_
 
 Assumptions
 ----------------------------
@@ -14,7 +15,7 @@ Assumptions
 
 - You have setup sublime text for `python development <https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development>`_.
 
-Setting up `sublime-text <http://www.sublimetext.com>`_
+Setting up sublime-text
 ----------------------------
 
 1.	Create sublime-text directories::
