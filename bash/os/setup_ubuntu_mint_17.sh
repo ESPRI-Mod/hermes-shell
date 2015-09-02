@@ -90,6 +90,9 @@ prodiguer_setup_rabbitmq()
 	apt-key add ./rabbitmq-signing-key-public.asc
 	rm -f ./rabbitmq-signing-key-public.asc
 
+	# Reload local package database.
+	apt-get -qq -y update
+
 	# Install the RabbitMQ packages.
 	apt-get install -qq -y rabbitmq-server
 
