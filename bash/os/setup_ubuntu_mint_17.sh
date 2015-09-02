@@ -93,8 +93,14 @@ prodiguer_setup_rabbitmq()
 	# Install the RabbitMQ packages.
 	apt-get install -qq -y rabbitmq-server
 
+	# Stop service.
+	service rabbitmq-server stop
+
 	# Initialise configuration.
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
+
+	# Start service.
+	service rabbitmq-server start
 
 	# Enable RabbitMQ management plugin.
 	rabbitmq-plugins enable rabbitmq_management
@@ -108,6 +114,9 @@ prodiguer_setup_rabbitmq()
 	rabbitmqctl set_user_tags guest administrator
 	rabbitmqadmin -q import ./mq-rabbit-broker-definitions.json
 	rm -f ./mq-rabbit-broker-definitions.json
+
+	# Remove default user.
+	rabbitmqctl delete_user guest
 
 	# Start RabbitMQ service.
 	service rabbitmq-server restart
