@@ -26,10 +26,9 @@ declare -a QUEUES=(
 	'debug-internal-cv'
 )
 
-log "MQ : purging debug queues ..."
-
 for queue in "${QUEUES[@]}"
 do
+	log "MQ : purging debug queue :: "$queue
 	rabbitmqadmin -q -u prodiguer-mq-admin -p $1 -V prodiguer purge queue name=q-$queue
 done
 

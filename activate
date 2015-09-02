@@ -32,8 +32,9 @@ alias prodiguer-mq-daemons-update-config=$PRODIGUER_HOME/bash/mq/daemons_update_
 alias prodiguer-mq-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/mq/daemons_update_config_for_debug.sh
 alias prodiguer-mq-import-broker-definitions=$PRODIGUER_HOME/bash/mq/import_broker_definitions.sh
 alias prodiguer-mq-produce=$PRODIGUER_HOME/bash/mq/run_agent.sh
-alias prodiguer-mq-purge-live-queues=$PRODIGUER_HOME/bash/mq/purge_queues_live.sh
-alias prodiguer-mq-purge-debug-queues=$PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
+alias prodiguer-mq-purge-queues=$PRODIGUER_HOME/bash/mq/purge_queues.sh
+alias prodiguer-mq-purge-queues-live=$PRODIGUER_HOME/bash/mq/purge_queues_live.sh
+alias prodiguer-mq-purge-queues-debug=$PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
 
 # Stack management related commands.
 alias prodiguer-stack-install=$PRODIGUER_HOME/bash/stack/install.sh
@@ -59,7 +60,6 @@ alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 
 # Composite commands.
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
-alias prodiguer-mq-purge-queues='prodiguer-mq-purge-live-queues && prodiguer-mq-purge-debug-queues'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos'
 
 # Ensure target scripts are executable.
