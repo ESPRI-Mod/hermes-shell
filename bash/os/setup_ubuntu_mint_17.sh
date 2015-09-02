@@ -85,6 +85,9 @@ prodiguer_setup_rabbitmq()
 	# Install required libraries.
 	apt-get install -qq -y erlang
 
+	# Point to RabbitMQ APT repository.
+	echo "deb http://www.rabbitmq.com/debian/ testing main" >>  /etc/apt/sources.list
+
 	# Import the public key used by the package management system.
 	wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 	apt-key add ./rabbitmq-signing-key-public.asc
