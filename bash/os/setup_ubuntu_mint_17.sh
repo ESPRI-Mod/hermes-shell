@@ -93,17 +93,14 @@ prodiguer_setup_rabbitmq()
 	# Install the RabbitMQ packages.
 	apt-get install -qq -y rabbitmq-server
 
-	# Stop service.
-	service rabbitmq-server stop
-
 	# Initialise configuration.
+	service rabbitmq-server stop
 	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
-
-	# Start service.
 	service rabbitmq-server start
 
-	# Enable RabbitMQ management plugin.
+	# Enable RabbitMQ management plugin & restart.
 	rabbitmq-plugins enable rabbitmq_management
+	service rabbitmq-server restart
 
 	# Set RabbitMQ admin cli.
 	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
