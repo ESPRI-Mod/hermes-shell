@@ -59,6 +59,8 @@ alias prodiguer-web-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/web/dae
 alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 
 # Composite commands.
+alias prodiguer-daemons-init='prodiguer-web-daemons-init && prodiguer-mq-daemons-init'
+alias prodiguer-daemons-kill='prodiguer-mq-daemons-kill && prodiguer-web-daemons-kill'
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos'
 
