@@ -7,7 +7,6 @@ source $PRODIGUER_HOME/bash/init.sh
 main()
 {
 	declare backup=$HOME/.prodiguer-"`date +%Y-%m-%d`"
-
 	cp $HOME/.prodiguer $backup
 	cp $PRODIGUER_DIR_TEMPLATES/prodiguer_env.sh $HOME/.prodiguer
 

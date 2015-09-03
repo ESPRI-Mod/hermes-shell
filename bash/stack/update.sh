@@ -10,6 +10,7 @@ main()
 
 	source $PRODIGUER_HOME/bash/stack/update_shell.sh
 	source $PRODIGUER_HOME/bash/stack/update_config.sh
+	source $PRODIGUER_HOME/bash/stack/update_environment_vars.sh
 	source $PRODIGUER_HOME/bash/stack/update_repos.sh
 	source $PRODIGUER_HOME/bash/stack/update_venvs.sh
 
