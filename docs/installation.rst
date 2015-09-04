@@ -48,7 +48,6 @@ To install prodiguer postgres database (if PostgreSQL is installed)::
 
 	prodiguer-db-pgres-install
 
-
 6.	Verification
 ----------------------------
 
@@ -70,4 +69,4 @@ Then perform the following:
 
 *  Close Firefox web browser
 
-*	CTL-C to stop prodiguer web service
+*  CTL-C to stop prodiguer web service

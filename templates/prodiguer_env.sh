@@ -4,8 +4,11 @@
 # Path to Prodiguer server install directory.
 export PRODIGUER_HOME=$HOME/prodiguer
 
-# Mode of deployment.
+# Mode of deployment (dev|test|prod).
 export PRODIGUER_DEPLOYMENT_MODE=dev
+
+# Type of machine (dev|db|mq|mq).
+export PRODIGUER_MACHINE_TYPE=dev
 
 # Prodiguer client web service url.
 export PRODIGUER_CLIENT_WEB_URL=http://localhost:8888

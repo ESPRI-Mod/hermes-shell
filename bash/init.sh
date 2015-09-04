@@ -4,6 +4,20 @@
 # SECTION: HELPER FUNCTIONS
 # ###############################################################
 
+# Activates a virtual environment.
+activate_venv()
+{
+	if [ $1 = "server" ]; then
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-client
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
+	elif [ $1 = "conso" ]; then
+		# export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-conso
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
+	fi
+	source $PRODIGUER_DIR_VENV/$1/bin/activate
+	log "Activated virtual environment: "$1
+}
+
 # Wraps standard echo by adding PRODIGUER prefix.
 log()
 {
@@ -30,6 +44,19 @@ log_banner()
 	echo "-------------------------------------------------------------------------------"
 }
 
+# Removes all files of passed type in current working directory.
+remove_files()
+{
+	find . -name $1 -exec rm -rf {} \;
+}
+
+# Resets temporary folder.
+reset_tmp()
+{
+	rm -rf $PRODIGUER_DIR_TMP/*
+	mkdir -p $PRODIGUER_DIR_TMP
+}
+
 # Assigns the current working directory.
 set_working_dir()
 {
@@ -39,27 +66,6 @@ set_working_dir()
 		cd $PRODIGUER_HOME
 	fi
 }
-
-# Activates a virtual environment.
-activate_venv()
-{
-	if [ $1 = "server" ]; then
-		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-client
-		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
-	elif [ $1 = "conso" ]; then
-		# export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-conso
-		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
-	fi
-	source $PRODIGUER_DIR_VENV/$1/bin/activate
-	log "Activated virtual environment: "$1
-}
-
-# Removes all files of passed type in current working directory.
-remove_files()
-{
-	find . -name $1 -exec rm -rf {} \;
-}
-
 
 # ###############################################################
 # SECTION: INITIALIZE PATHS
@@ -107,6 +113,7 @@ declare -a PRODIGUER_OPS_DIRS=(
 	$PRODIGUER_DIR_CERTS
 	$PRODIGUER_DIR_CERTS/rabbitmq
 	$PRODIGUER_DIR_DAEMONS
+	$PRODIGUER_DIR_DAEMONS/db
 	$PRODIGUER_DIR_DAEMONS/mq
 	$PRODIGUER_DIR_DAEMONS/web
 	$PRODIGUER_DIR_DATA
@@ -121,4 +128,15 @@ declare -a PRODIGUER_OPS_DIRS=(
 	$PRODIGUER_DIR_VENV
 )
 
+# ###############################################################
+# SECTION: Initialise file system
+# ###############################################################
 
+# Ensure ops paths exist.
+for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
+do
+	mkdir -p $ops_dir
+done
+
+# Clear temp files.
+reset_tmp

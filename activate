@@ -48,6 +48,7 @@ alias prodiguer-stack-upgrade-venvs=$PRODIGUER_HOME/bash/stack/upgrade_venvs.sh
 
 # Tests related commands.
 alias prodiguer-tests-run=$PRODIGUER_HOME/bash/tests/run.sh
+alias prodiguer-tests-noop=$PRODIGUER_HOME/bash/tests/noop.sh
 
 # WEB server related commands.
 alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
