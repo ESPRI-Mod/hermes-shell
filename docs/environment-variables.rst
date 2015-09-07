@@ -29,6 +29,16 @@ General Variables
 
 * Allowed:		dev | test | prod
 
+**PRODIGUER_MACHINE_TYPE**
+
+* Description:	Type of machine onto which stack is deployed.
+
+* Machines:		all
+
+* Default:		dev
+
+* Allowed:		db | dev | mq | web
+
 **PRODIGUER_CLIENT_WEB_URL**
 
 * Description:	Web service url from prodiguer client.

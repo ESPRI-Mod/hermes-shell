@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.11",
+    "configSchemaVersion": "1.0.12",
     "deploymentMode": "dev",
     "apps": {
         "monitoring": {
@@ -27,17 +27,6 @@
                 "mailbox": "{PRODIGUER_MQ_IMAP_MAILBOX}",
                 "mailbox_processed": "{PRODIGUER_MQ_IMAP_MAILBOX}-PROCESSED",
                 "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
-                "port": 993,
-                "username": "superviseur"
-            },
-            "smtp": {
-                "addresses": {
-                    "prodiguer": "superviseur@ipsl.jussieu.fr",
-                    "supervisor": "superviseur@ipsl.jussieu.fr"
-                },
-                "host": "courriel3.ipsl.jussieu.fr",
-                "password": "{PRODIGUER_MQ_SMTP_PASSWORD}",
-                "port": 587,
                 "username": "superviseur"
             },
             "smtpConsumer": {

@@ -98,6 +98,7 @@ declare -a PRODIGUER_REPOS=(
 	'prodiguer-docs'
 	'prodiguer-fe'
 	'prodiguer-server'
+	'prodiguer-supervisor'
 )
 
 # Set of virtual environments.
