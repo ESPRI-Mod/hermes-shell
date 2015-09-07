@@ -10,7 +10,7 @@ activate_venv()
 	if [ $1 = "server" ]; then
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-client
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
-		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-supervisor
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-superviseur
 	elif [ $1 = "conso" ]; then
 		# export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-conso
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
@@ -99,7 +99,7 @@ declare -a PRODIGUER_REPOS=(
 	'prodiguer-docs'
 	'prodiguer-fe'
 	'prodiguer-server'
-	'prodiguer-supervisor'
+	'prodiguer-superviseur'
 )
 
 # Set of virtual environments.
