@@ -10,6 +10,7 @@ activate_venv()
 	if [ $1 = "server" ]; then
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-client
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
+		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-supervisor
 	elif [ $1 = "conso" ]; then
 		# export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-conso
 		export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_REPOS/prodiguer-server
