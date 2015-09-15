@@ -1,9 +1,9 @@
 {
-    "configSchemaVersion": "1.0.12",
+    "configSchemaVersion": "1.0.13",
     "deploymentMode": "dev",
     "apps": {
         "monitoring": {
-            "defaultJobWarningDelayInSeconds": 180
+            "defaultJobWarningDelayInSeconds": 86400
         }
     },
     "db": {
@@ -16,7 +16,6 @@
     },
     "mq": {
         "connections": {
-            "libigcm": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://libigcm-mq-user:{PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}",
             "main": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://prodiguer-mq-user:{PRODIGUER_MQ_RABBIT_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}"
         },
         "mail": {
@@ -30,7 +29,7 @@
                 "username": "superviseur"
             },
             "smtpConsumer": {
-                "excludedTypes": []
+                "excludedTypes": ["4900", "9000"]
             }
         }
     },

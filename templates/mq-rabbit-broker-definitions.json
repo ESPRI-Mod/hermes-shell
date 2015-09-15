@@ -2,378 +2,578 @@
     "bindings": [
         {
             "arguments": {},
-            "destination": "q-debug-ext-smtp",
+            "destination": "debug-7000",
             "destination_type": "queue",
-            "routing_key": "*.*.*.*.-1000",
-            "source": "x-ext",
+            "routing_key": "*.*.*.metrics.7000",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-ext-smtp",
+            "destination": "live-metrics-env",
             "destination_type": "queue",
-            "routing_key": "*.*.*.*.-1000",
-            "source": "x-ext",
+            "routing_key": "*.*.*.metrics.7000",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-ext-smtp",
+            "destination": "debug-7100",
             "destination_type": "queue",
-            "routing_key": "q-ext-smtp",
-            "source": "x-ext",
+            "routing_key": "*.*.*.metrics.7100",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-0000",
+            "destination": "live-metrics-sim",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.metrics.7100",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-0000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-0100",
+            "destination": "debug-0100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-1000",
+            "destination": "debug-1000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-1100",
+            "destination": "debug-1100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-2000",
+            "destination": "debug-2000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-2100",
+            "destination": "debug-2100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-2900",
+            "destination": "debug-2900",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2900",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2900",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-3000",
+            "destination": "debug-3000",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3000",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-3100",
+            "destination": "debug-3100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3100",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-3900",
+            "destination": "debug-3900",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3900",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3900",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-in-monitoring-4000",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.4000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-monitoring-4100",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.4100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-monitoring-4900",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.4900",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-compute",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.4900",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-metrics-env",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-metrics-env",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-metrics-sim",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-metrics-sim",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.7100",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-monitoring-8888",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.8888",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-monitoring-9000",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.9000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-in-monitoring-compute",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.9000",
-            "source": "x-in",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "destination": "q-debug-in-monitoring-9999",
+            "destination": "debug-9999",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9999",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9999",
-            "source": "x-in",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-metrics-env",
+            "destination": "debug-0000",
             "destination_type": "queue",
-            "routing_key": "q-in-metrics-env",
-            "source": "x-in",
+            "routing_key": "debug-0000",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-metrics-sim",
+            "destination": "debug-0100",
             "destination_type": "queue",
-            "routing_key": "q-in-metrics-sim",
-            "source": "x-in",
+            "routing_key": "debug-0100",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-compute",
+            "destination": "debug-1000",
             "destination_type": "queue",
-            "routing_key": "q-in-monitoring-compute",
-            "source": "x-in",
+            "routing_key": "debug-1000",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-in-monitoring-post-processing",
+            "destination": "debug-1100",
             "destination_type": "queue",
-            "routing_key": "q-in-monitoring-post-processing",
-            "source": "x-in",
+            "routing_key": "debug-1100",
+            "source": "x-primary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-internal-api",
+            "destination": "debug-2000",
+            "destination_type": "queue",
+            "routing_key": "debug-2000",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-2100",
+            "destination_type": "queue",
+            "routing_key": "debug-2100",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-2900",
+            "destination_type": "queue",
+            "routing_key": "debug-2900",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-3000",
+            "destination_type": "queue",
+            "routing_key": "debug-3000",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-3100",
+            "destination_type": "queue",
+            "routing_key": "debug-3100",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-3900",
+            "destination_type": "queue",
+            "routing_key": "debug-3900",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-7000",
+            "destination_type": "queue",
+            "routing_key": "debug-7000",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-7100",
+            "destination_type": "queue",
+            "routing_key": "debug-7100",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-9999",
+            "destination_type": "queue",
+            "routing_key": "debug-9999",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-metrics-env",
+            "destination_type": "queue",
+            "routing_key": "live-metrics-env",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-metrics-sim",
+            "destination_type": "queue",
+            "routing_key": "live-metrics-sim",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-compute",
+            "destination_type": "queue",
+            "routing_key": "live-monitoring-compute",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-post-processing",
+            "destination_type": "queue",
+            "routing_key": "live-monitoring-post-processing",
+            "source": "x-primary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-cv",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.*.-1000",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-cv",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.*.-1000",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-fe",
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-2000",
-            "source": "x-internal",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-internal-api",
+            "destination": "live-fe",
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-2000",
-            "source": "x-internal",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-internal-cv",
+            "destination": "debug-smtp",
             "destination_type": "queue",
-            "routing_key": "*.*.*.*.-4000",
-            "source": "x-internal",
+            "routing_key": "*.*.*.*.-3000",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-internal-cv",
+            "destination": "live-smtp",
             "destination_type": "queue",
-            "routing_key": "*.*.*.*.-4000",
-            "source": "x-internal",
+            "routing_key": "*.*.*.*.-3000",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-debug-internal-api",
+            "destination": "live-superviseur",
             "destination_type": "queue",
-            "routing_key": "q-debug-internal-api",
-            "source": "x-internal",
+            "routing_key": "*.*.*.superviseur.8000",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-internal-api",
+            "destination": "live-superviseur",
             "destination_type": "queue",
-            "routing_key": "q-internal-api",
-            "source": "x-internal",
+            "routing_key": "*.*.*.superviseur.8100",
+            "source": "x-secondary",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
-            "destination": "q-internal-cv",
+            "destination": "live-superviseur",
             "destination_type": "queue",
-            "routing_key": "q-internal-cv",
-            "source": "x-internal",
+            "routing_key": "*.*.*.superviseur.8200",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8000",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.supervisor.8000",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8100",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.supervisor.8100",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8200",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.supervisor.8200",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8000",
+            "destination_type": "queue",
+            "routing_key": "debug-8000",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8100",
+            "destination_type": "queue",
+            "routing_key": "debug-8100",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8200",
+            "destination_type": "queue",
+            "routing_key": "debug-8200",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-cv",
+            "destination_type": "queue",
+            "routing_key": "debug-cv",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-fe",
+            "destination_type": "queue",
+            "routing_key": "debug-fe",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-smtp",
+            "destination_type": "queue",
+            "routing_key": "debug-smtp",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-cv",
+            "destination_type": "queue",
+            "routing_key": "live-cv",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-fe",
+            "destination_type": "queue",
+            "routing_key": "live-fe",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-smtp",
+            "destination_type": "queue",
+            "routing_key": "live-smtp",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-superviseur",
+            "destination_type": "queue",
+            "routing_key": "live-superviseur",
+            "source": "x-secondary",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-1199",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.1199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-compute",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.1199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-2199",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.2199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-post-processing",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.2199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-3199",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.3199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-post-processing",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.3199",
+            "source": "x-secondary-delayed",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-compute",
+            "destination_type": "queue",
+            "routing_key": "live-monitoring-compute",
+            "source": "x-secondary-delayed",
             "vhost": "prodiguer"
         }
     ],
@@ -383,8 +583,19 @@
             "auto_delete": false,
             "durable": true,
             "internal": false,
-            "name": "x-ext",
+            "name": "x-primary",
             "type": "topic",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {
+                "x-delayed-type": "topic"
+            },
+            "auto_delete": false,
+            "durable": true,
+            "internal": false,
+            "name": "x-secondary-delayed",
+            "type": "x-delayed-message",
             "vhost": "prodiguer"
         },
         {
@@ -392,31 +603,20 @@
             "auto_delete": false,
             "durable": true,
             "internal": false,
-            "name": "x-internal",
-            "type": "topic",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "internal": false,
-            "name": "x-out",
-            "type": "topic",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "internal": false,
-            "name": "x-in",
+            "name": "x-secondary",
             "type": "topic",
             "vhost": "prodiguer"
         }
     ],
     "parameters": [],
     "permissions": [
+        {
+            "configure": ".*",
+            "read": ".*",
+            "user": "guest",
+            "vhost": "/",
+            "write": ".*"
+        },
         {
             "configure": "",
             "read": ".*",
@@ -430,13 +630,6 @@
             "user": "prodiguer-mq-admin",
             "vhost": "prodiguer",
             "write": ".*"
-        },
-        {
-            "configure": "",
-            "read": "",
-            "user": "libigcm-mq-user",
-            "vhost": "prodiguer",
-            "write": ".*"
         }
     ],
     "policies": [],
@@ -445,206 +638,215 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-0000",
+            "name": "debug-2100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-9999",
+            "name": "live-cv",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-2000",
+            "name": "debug-1199",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-internal-cv",
+            "name": "debug-0000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-metrics-sim",
+            "name": "debug-smtp",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-internal-api",
+            "name": "live-monitoring-post-processing",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-3000",
+            "name": "debug-3199",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-8888",
+            "name": "live-smtp",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-2900",
+            "name": "live-superviseur",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-3900",
+            "name": "debug-3100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-metrics-env",
+            "name": "debug-1000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-4000",
+            "name": "debug-8100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-0100",
+            "name": "debug-1100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-1100",
+            "name": "live-monitoring-compute",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-internal-cv",
+            "name": "debug-fe",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-ext-smtp",
+            "name": "debug-7100",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-1000",
+            "name": "live-metrics-sim",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-ext-smtp",
+            "name": "debug-2199",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-4100",
+            "name": "live-fe",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-4900",
+            "name": "live-metrics-env",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-2100",
+            "name": "debug-8000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-compute",
+            "name": "debug-7000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-3100",
+            "name": "debug-9999",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-internal-api",
+            "name": "debug-2000",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-metrics-env",
+            "name": "debug-cv",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-in-monitoring-post-processing",
+            "name": "debug-2900",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-monitoring-9000",
+            "name": "debug-3900",
             "vhost": "prodiguer"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "q-debug-in-metrics-sim",
+            "name": "debug-3000",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-0100",
+            "vhost": "prodiguer"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-8200",
             "vhost": "prodiguer"
         }
     ],
     "rabbit_version": "3.5.0",
     "users": [
-        {
-            "name": "libigcm-mq-user",
-            "password_hash": "Pkdxk1uJXzO7idyY9s3LdB16Oqo=",
-            "tags": ""
-        },
         {
             "name": "prodiguer-mq-admin",
             "password_hash": "GE+elfdqGTz/kWdn5CMjLp4yDTQ=",
@@ -654,6 +856,11 @@
             "name": "prodiguer-mq-user",
             "password_hash": "HumNKcAVW0bEeiwVLzbIqQJeQt0=",
             "tags": ""
+        },
+        {
+            "name": "guest",
+            "password_hash": "Hm49AeNhNyH2YGA+DgncW83IvhI=",
+            "tags": "administrator"
         }
     ],
     "vhosts": [
