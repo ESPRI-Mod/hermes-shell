@@ -23,7 +23,8 @@ alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
 
 # MQ server related commands.
-alias prodiguer-mq-consume=$PRODIGUER_HOME/bash/mq/run_agent.sh
+alias prodiguer-mq-run-agent=$PRODIGUER_HOME/bash/mq/run_agent.sh
+alias prodiguer-mq-daemons-ctl=$PRODIGUER_HOME/bash/mq/daemons_ctl.sh
 alias prodiguer-mq-daemons-init=$PRODIGUER_HOME/bash/mq/daemons_init.sh
 alias prodiguer-mq-daemons-kill=$PRODIGUER_HOME/bash/mq/daemons_kill.sh
 alias prodiguer-mq-daemons-reset-logs=$PRODIGUER_HOME/bash/mq/daemons_reset_logs.sh
@@ -31,7 +32,6 @@ alias prodiguer-mq-daemons-status=$PRODIGUER_HOME/bash/mq/daemons_status.sh
 alias prodiguer-mq-daemons-update-config=$PRODIGUER_HOME/bash/mq/daemons_update_config.sh
 alias prodiguer-mq-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/mq/daemons_update_config_for_debug.sh
 alias prodiguer-mq-import-broker-definitions=$PRODIGUER_HOME/bash/mq/import_broker_definitions.sh
-alias prodiguer-mq-produce=$PRODIGUER_HOME/bash/mq/run_agent.sh
 alias prodiguer-mq-purge-queues=$PRODIGUER_HOME/bash/mq/purge_queues.sh
 alias prodiguer-mq-purge-queues-live=$PRODIGUER_HOME/bash/mq/purge_queues_live.sh
 alias prodiguer-mq-purge-queues-debug=$PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
@@ -44,6 +44,7 @@ alias prodiguer-stack-update-config=$PRODIGUER_HOME/bash/stack/update_config.sh
 alias prodiguer-stack-update-environment-vars=$PRODIGUER_HOME/bash/stack/update_environment_vars.sh
 alias prodiguer-stack-update-repos=$PRODIGUER_HOME/bash/stack/update_repos.sh
 alias prodiguer-stack-update-shell=$PRODIGUER_HOME/bash/stack/update_shell.sh
+alias prodiguer-stack-upgrade-venv=$PRODIGUER_HOME/bash/stack/upgrade_venv.sh
 alias prodiguer-stack-upgrade-venvs=$PRODIGUER_HOME/bash/stack/upgrade_venvs.sh
 
 # Tests related commands.
@@ -51,12 +52,14 @@ alias prodiguer-tests-run=$PRODIGUER_HOME/bash/tests/run.sh
 alias prodiguer-tests-noop=$PRODIGUER_HOME/bash/tests/noop.sh
 
 # WEB server related commands.
+alias prodiguer-web-daemons-ctl=$PRODIGUER_HOME/bash/web/daemons_ctl.sh
 alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
 alias prodiguer-web-daemons-kill=$PRODIGUER_HOME/bash/web/daemons_kill.sh
 alias prodiguer-web-daemons-reset-logs=$PRODIGUER_HOME/bash/web/daemons_reset_logs.sh
 alias prodiguer-web-daemons-status=$PRODIGUER_HOME/bash/web/daemons_status.sh
 alias prodiguer-web-daemons-update-config=$PRODIGUER_HOME/bash/web/daemons_update_config.sh
 alias prodiguer-web-daemons-update-config-for-debug=$PRODIGUER_HOME/bash/web/daemons_update_config_for_debug.sh
+alias prodiguer-web-send-monitoring-event=$PRODIGUER_HOME/bash/web/send_monitoring_event.sh
 alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 
 # Composite commands.

@@ -78,7 +78,7 @@ declare PRODIGUER_DIR_CERTS=$PRODIGUER_HOME/ops/certs
 declare PRODIGUER_DIR_CONFIG=$PRODIGUER_HOME/ops/config
 declare PRODIGUER_DIR_DAEMONS=$PRODIGUER_HOME/ops/daemons
 declare PRODIGUER_DIR_DATA=$PRODIGUER_HOME/ops/data
-declare PRODIGUER_DIR_JOBS=$PRODIGUER_HOME/repos/prodiguer-server/jobs
+declare PRODIGUER_DIR_JOBS=$PRODIGUER_HOME/repos/prodiguer-server/prodiguer_jobs
 declare PRODIGUER_DIR_LOGS=$PRODIGUER_HOME/ops/logs
 declare PRODIGUER_DIR_PYTHON=$PRODIGUER_HOME/ops/venv/python
 declare PRODIGUER_DIR_REPOS=$PRODIGUER_HOME/repos
@@ -104,7 +104,7 @@ declare -a PRODIGUER_REPOS=(
 
 # Set of virtual environments.
 declare -a PRODIGUER_VENVS=(
-	'conso'
+	# 'conso'
 	'server'
 )
 
