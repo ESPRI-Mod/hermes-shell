@@ -6,7 +6,7 @@ declare -a QUEUES=(
 	'live-cv'
 	'live-fe'
 	'live-metrics-env'
-	'live-metrics-sim'
+	'live-metrics-pcmdi'
 	'live-monitoring-compute'
 	'live-monitoring-post-processing'
 	'live-smtp'
