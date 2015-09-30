@@ -32,3 +32,6 @@ DELETE FROM cv.tbl_cv_term;
 --Add column: cv.tbl_cv_term.uid
 ALTER TABLE cv.tbl_cv_term ADD COLUMN uid character varying(63);
 ALTER TABLE cv.tbl_cv_term ALTER COLUMN uid SET NOT NULL;
+
+--Add column: cv.tbl_cv_term.sort_key
+ALTER TABLE cv.tbl_cv_term ADD COLUMN sort_key character varying(127);
