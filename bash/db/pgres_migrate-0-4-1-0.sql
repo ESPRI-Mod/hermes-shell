@@ -25,3 +25,10 @@ ALTER TABLE monitoring.tbl_job DROP COLUMN expected_execution_end_date;
 
 -- Drop column: monitoring.tbl_job.was_late
 ALTER TABLE monitoring.tbl_job DROP COLUMN was_late;
+
+-- Reset cv table.
+DELETE FROM cv.tbl_cv_term;
+
+--Add column: cv.tbl_cv_term.uid
+ALTER TABLE cv.tbl_cv_term ADD COLUMN uid character varying(63);
+ALTER TABLE cv.tbl_cv_term ALTER COLUMN uid SET NOT NULL;
