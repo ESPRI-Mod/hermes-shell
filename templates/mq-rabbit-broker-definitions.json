@@ -178,13 +178,13 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-3000",
+        "name": "debug-3900",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-3900",
+        "name": "debug-3000",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -244,20 +244,6 @@
     "bindings": [{
         "source": "x-primary",
         "vhost": "prodiguer",
-        "destination": "debug-archive",
-        "destination_type": "queue",
-        "routing_key": "*.*.*.*.*",
-        "arguments": {}
-    }, {
-        "source": "x-primary",
-        "vhost": "prodiguer",
-        "destination": "live-archive",
-        "destination_type": "queue",
-        "routing_key": "*.*.*.*.*",
-        "arguments": {}
-    }, {
-        "source": "x-primary",
-        "vhost": "prodiguer",
         "destination": "debug-7000",
         "destination_type": "queue",
         "routing_key": "*.*.*.metrics.7000",
@@ -282,6 +268,20 @@
         "destination": "live-metrics-pcmdi",
         "destination_type": "queue",
         "routing_key": "*.*.*.metrics.7100",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "debug-archive",
+        "destination_type": "queue",
+        "routing_key": "*.*.*.monitoring.*",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-archive",
+        "destination_type": "queue",
+        "routing_key": "*.*.*.monitoring.*",
         "arguments": {}
     }, {
         "source": "x-primary",
@@ -541,6 +541,20 @@
         "destination": "live-metrics-pcmdi",
         "destination_type": "queue",
         "routing_key": "live-metrics-pcmdi",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-monitoring-compute",
+        "destination_type": "queue",
+        "routing_key": "live-monitoring-compute",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-monitoring-post-processing",
+        "destination_type": "queue",
+        "routing_key": "live-monitoring-post-processing",
         "arguments": {}
     }, {
         "source": "x-secondary",
