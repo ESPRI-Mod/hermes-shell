@@ -35,3 +35,31 @@ ALTER TABLE cv.tbl_cv_term ALTER COLUMN uid SET NOT NULL;
 
 --Add column: cv.tbl_cv_term.sort_key
 ALTER TABLE cv.tbl_cv_term ADD COLUMN sort_key character varying(127);
+
+-- Add schema: superviseur
+CREATE SCHEMA superviseur AUTHORIZATION prodiguer_db_admin;
+GRANT ALL ON SCHEMA superviseur TO prodiguer_db_admin;
+GRANT USAGE ON SCHEMA superviseur TO prodiguer_db_user;
+
+-- Add table: superviseur.tbl_supervision
+CREATE TABLE superviseur.tbl_supervision
+(
+  id serial NOT NULL,
+  simulation_uid character varying(63) NOT NULL,
+  job_uid character varying(63) NOT NULL,
+  dispatch_date timestamp without time zone,
+  dispatch_error text,
+  dispatch_try_count integer,
+  script text,
+  trigger_code character varying(63) NOT NULL,
+  trigger_date timestamp without time zone NOT NULL,
+  row_create_date timestamp without time zone NOT NULL,
+  row_update_date timestamp without time zone,
+  CONSTRAINT tbl_supervision_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE superviseur.tbl_supervision OWNER TO prodiguer_db_admin;
+GRANT ALL ON TABLE superviseur.tbl_supervision TO prodiguer_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE superviseur.tbl_supervision TO prodiguer_db_user;
