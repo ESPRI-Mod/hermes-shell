@@ -13,6 +13,7 @@ alias prodiguer-cv-git-push=$PRODIGUER_HOME/bash/cv/git_push.sh
 # DB server related commands.
 alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-install=$PRODIGUER_HOME/bash/db/pgres_install.sh
+alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_permissions.sh
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
 alias prodiguer-db-pgres-reset-cv-table=$PRODIGUER_HOME/bash/db/pgres_reset_cv_table.sh
