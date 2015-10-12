@@ -29,7 +29,7 @@
                 "username": "superviseur"
             },
             "smtpConsumer": {
-                "excludedTypes": ["4900", "9000"]
+                "excludedTypes": []
             }
         }
     },
