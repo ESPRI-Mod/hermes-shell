@@ -64,13 +64,13 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-1999",
+        "name": "debug-smtp",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-smtp",
+        "name": "debug-1999",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -196,13 +196,13 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-3000",
+        "name": "debug-3900",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-3900",
+        "name": "debug-3000",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -553,6 +553,27 @@
         "destination": "live-superviseur",
         "destination_type": "queue",
         "routing_key": "*.*.*.superviseur.8200",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
+        "destination": "debug-fe",
+        "destination_type": "queue",
+        "routing_key": "debug-fe",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
+        "destination": "debug-smtp",
+        "destination_type": "queue",
+        "routing_key": "debug-smtp",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
+        "destination": "live-fe",
+        "destination_type": "queue",
+        "routing_key": "live-fe",
         "arguments": {}
     }, {
         "source": "x-secondary-delayed",

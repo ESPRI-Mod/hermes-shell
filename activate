@@ -69,7 +69,7 @@ alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 alias prodiguer-daemons-init='prodiguer-web-daemons-init && prodiguer-mq-daemons-init'
 alias prodiguer-daemons-kill='prodiguer-mq-daemons-kill && prodiguer-web-daemons-kill'
 alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
-alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos'
+alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos && prodiguer-stack-update-config'
 
 # Ensure target scripts are executable.
 chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
