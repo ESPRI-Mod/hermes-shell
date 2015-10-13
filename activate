@@ -15,6 +15,7 @@ alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-install=$PRODIGUER_HOME/bash/db/pgres_install.sh
 alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_permissions.sh
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
+alias prodiguer-db-pgres-performance-tests=$PRODIGUER_HOME/bash/db/pgres_performance_tests.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
 alias prodiguer-db-pgres-reset-cv-table=$PRODIGUER_HOME/bash/db/pgres_reset_cv_table.sh
 alias prodiguer-db-pgres-reset-environment-metric-table=$PRODIGUER_HOME/bash/db/pgres_reset_environment_metric_table.sh
@@ -22,6 +23,7 @@ alias prodiguer-db-pgres-reset-message-email-table=$PRODIGUER_HOME/bash/db/pgres
 alias prodiguer-db-pgres-reset-message-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_table.sh
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
+
 
 # MQ server related commands.
 alias prodiguer-mq-run-agent=$PRODIGUER_HOME/bash/mq/run_agent.sh
