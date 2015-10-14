@@ -28,6 +28,9 @@ export PRODIGUER_DB_PGRES_HOST=localhost:5432
 # Prodiguer PostgreSQL pgdump executable path.
 export PRODIGUER_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 
+# Prodiguer PostgreSQL password for the prodiguer-db-user account.
+export PRODIGUER_DB_PGRES_USER_PASSWORD=XXXXXXXXXXX
+
 # --------------------------------------------------------------------
 # MQ server settings
 # --------------------------------------------------------------------
