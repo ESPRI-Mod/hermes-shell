@@ -64,13 +64,19 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-smtp",
+        "name": "debug-7010",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
         "arguments": {}
     }, {
         "name": "debug-1999",
+        "vhost": "prodiguer",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+    }, {
+        "name": "debug-smtp",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -154,12 +160,6 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "live-metrics-env",
-        "vhost": "prodiguer",
-        "durable": true,
-        "auto_delete": false,
-        "arguments": {}
-    }, {
         "name": "debug-1900",
         "vhost": "prodiguer",
         "durable": true,
@@ -196,19 +196,25 @@
         "auto_delete": false,
         "arguments": {}
     }, {
-        "name": "debug-3900",
-        "vhost": "prodiguer",
-        "durable": true,
-        "auto_delete": false,
-        "arguments": {}
-    }, {
         "name": "debug-3000",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
         "arguments": {}
     }, {
+        "name": "debug-3900",
+        "vhost": "prodiguer",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+    }, {
         "name": "live-metrics-pcmdi",
+        "vhost": "prodiguer",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+    }, {
+        "name": "live-metrics",
         "vhost": "prodiguer",
         "durable": true,
         "auto_delete": false,
@@ -263,9 +269,23 @@
     }, {
         "source": "x-primary",
         "vhost": "prodiguer",
-        "destination": "live-metrics-env",
+        "destination": "live-metrics",
         "destination_type": "queue",
         "routing_key": "*.*.*.metrics.7000",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "debug-7010",
+        "destination_type": "queue",
+        "routing_key": "*.*.*.metrics.7010",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-metrics",
+        "destination_type": "queue",
+        "routing_key": "*.*.*.metrics.7010",
         "arguments": {}
     }, {
         "source": "x-primary",
@@ -485,6 +505,34 @@
         "routing_key": "*.*.*.monitoring.8888",
         "arguments": {}
     }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "debug-0100",
+        "destination_type": "queue",
+        "routing_key": "debug-0100",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-metrics-pcmdi",
+        "destination_type": "queue",
+        "routing_key": "live-metrics-pcmdi",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-monitoring-compute",
+        "destination_type": "queue",
+        "routing_key": "live-monitoring-compute",
+        "arguments": {}
+    }, {
+        "source": "x-primary",
+        "vhost": "prodiguer",
+        "destination": "live-monitoring-post-processing",
+        "destination_type": "queue",
+        "routing_key": "live-monitoring-post-processing",
+        "arguments": {}
+    }, {
         "source": "x-secondary",
         "vhost": "prodiguer",
         "destination": "debug-cv",
@@ -571,9 +619,30 @@
     }, {
         "source": "x-secondary",
         "vhost": "prodiguer",
+        "destination": "live-cv",
+        "destination_type": "queue",
+        "routing_key": "live-cv",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
         "destination": "live-fe",
         "destination_type": "queue",
         "routing_key": "live-fe",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
+        "destination": "live-smtp",
+        "destination_type": "queue",
+        "routing_key": "live-smtp",
+        "arguments": {}
+    }, {
+        "source": "x-secondary",
+        "vhost": "prodiguer",
+        "destination": "live-superviseur",
+        "destination_type": "queue",
+        "routing_key": "live-superviseur",
         "arguments": {}
     }, {
         "source": "x-secondary-delayed",
