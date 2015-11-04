@@ -5,7 +5,7 @@ source $PRODIGUER_HOME/bash/init.sh
 declare -a QUEUES=(
 	'live-cv'
 	'live-fe'
-	'live-metrics-env'
+	'live-metrics'
 	'live-metrics-pcmdi'
 	'live-monitoring-compute'
 	'live-monitoring-post-processing'
