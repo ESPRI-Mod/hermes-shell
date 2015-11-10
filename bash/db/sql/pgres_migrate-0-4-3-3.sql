@@ -1,3 +1,32 @@
+-- Create message email fields to capture email transmission latencies.
+ALTER TABLE mq.tbl_message_email ADD COLUMN arrival_date timestamp without time zone;
+ALTER TABLE mq.tbl_message_email ADD COLUMN dispatch_date timestamp without time zone;
+ALTER TABLE mq.tbl_message_email ADD COLUMN dispatch_latency integer;
+
+-- Drop table: conso.tbl_project
+DROP TABLE conso.tbl_project;
+
+-- Drop sequence: conso.tbl_project_id_seq
+DROP SEQUENCE conso.tbl_project_id_seq;
+
+-- Drop table: conso.tbl_consumption_by_project
+DROP TABLE conso.tbl_consumption_by_project;
+
+-- Drop sequence: conso.tbl_consumption_by_project_id_seq
+DROP SEQUENCE conso.tbl_consumption_by_project_id_seq;
+
+-- Drop table: conso.tbl_consumption_by_login
+DROP TABLE conso.tbl_consumption_by_login;
+
+-- Drop sequence: conso.tbl_consumption_by_login_id_seq
+DROP SEQUENCE conso.tbl_consumption_by_login_id_seq;
+
+-- Drop table: conso.tbl_occupation_store
+DROP TABLE conso.tbl_occupation_store;
+
+-- Drop sequence: conso.tbl_occupation_store_id_seq
+DROP SEQUENCE conso.tbl_occupation_store_id_seq;
+
 -- Create table: conso.tbl_allocation
 CREATE TABLE conso.tbl_allocation
 (
@@ -61,12 +90,6 @@ CREATE SEQUENCE conso.tbl_consumption_id_seq
 ALTER TABLE conso.tbl_consumption_id_seq
   OWNER TO prodiguer_db_admin;
 
--- Drop table: conso.tbl_occupation_store
-DROP TABLE conso.tbl_occupation_store;
-
--- Drop sequence: conso.tbl_occupation_store_id_seq
-DROP SEQUENCE conso.tbl_occupation_store_id_seq;
-
 -- Create table: conso.tbl_occupation_store
 CREATE TABLE conso.tbl_occupation_store
 (
@@ -94,3 +117,4 @@ CREATE SEQUENCE conso.tbl_occupation_store_id_seq
   CACHE 1;
 ALTER TABLE conso.tbl_occupation_store_id_seq
   OWNER TO prodiguer_db_admin;
+
