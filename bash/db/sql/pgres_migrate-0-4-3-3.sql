@@ -3,26 +3,26 @@ ALTER TABLE mq.tbl_message_email ADD COLUMN arrival_date timestamp without time 
 ALTER TABLE mq.tbl_message_email ADD COLUMN dispatch_date timestamp without time zone;
 ALTER TABLE mq.tbl_message_email ADD COLUMN dispatch_latency integer;
 
+-- Drop table: conso.tbl_consumption_by_project
+DROP TABLE conso.tbl_consumption_by_project;
+
+-- Drop table: conso.tbl_consumption_by_login
+DROP TABLE conso.tbl_consumption_by_login;
+
+-- Drop table: conso.tbl_occupation_store
+DROP TABLE conso.tbl_occupation_store;
+
 -- Drop table: conso.tbl_project
 DROP TABLE conso.tbl_project;
 
 -- Drop sequence: conso.tbl_project_id_seq
 DROP SEQUENCE conso.tbl_project_id_seq;
 
--- Drop table: conso.tbl_consumption_by_project
-DROP TABLE conso.tbl_consumption_by_project;
-
 -- Drop sequence: conso.tbl_consumption_by_project_id_seq
 DROP SEQUENCE conso.tbl_consumption_by_project_id_seq;
 
--- Drop table: conso.tbl_consumption_by_login
-DROP TABLE conso.tbl_consumption_by_login;
-
 -- Drop sequence: conso.tbl_consumption_by_login_id_seq
 DROP SEQUENCE conso.tbl_consumption_by_login_id_seq;
-
--- Drop table: conso.tbl_occupation_store
-DROP TABLE conso.tbl_occupation_store;
 
 -- Drop sequence: conso.tbl_occupation_store_id_seq
 DROP SEQUENCE conso.tbl_occupation_store_id_seq;
