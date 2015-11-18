@@ -33,3 +33,5 @@ Prodiguer Shell - Change log
 -	`Version 0.4.3.2 <https://forge.ipsl.jussieu.fr/prodiguer/browser/docs/deployments/0.4.3.2/changelog.txt>`_
 
 -	`Version 0.4.3.3 <https://forge.ipsl.jussieu.fr/prodiguer/browser/docs/deployments/0.4.3.3/changelog.txt>`_
+
+-	`Version 0.4.3.4 <https://forge.ipsl.jussieu.fr/prodiguer/browser/docs/deployments/0.4.3.4/changelog.txt>`_
