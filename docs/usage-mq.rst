@@ -2,18 +2,10 @@
 Prodiguer Shell MQ Commands
 ============================
 
-prodiguer-mq-consume
+prodiguer-mq-daemons-ctl
 ----------------------------
 
-Launches an MQ agent that consumes messages placed upon a queue.
-
-**QUEUE-NAME**
-
-	Name of queue from which to consume messages.
-
-**THROTTLE**
-
-	Limit of number of messages to consume (0 = unlimited).
+Launches supervisorctl for fine grained control over daemonized MQ agents.
 
 prodiguer-mq-daemons-init
 ----------------------------
@@ -23,7 +15,17 @@ Initialises & launches MQ daemon processes.
 prodiguer-mq-daemons-kill
 ----------------------------
 
-Terminates all MQ daemon processes.
+Immediately terminates all MQ daemon processes.
+
+prodiguer-mq-daemons-kill-phase-1
+----------------------------
+
+Launches MQ daemon termination phase 1: stops smtp-listener daemon.
+
+prodiguer-mq-daemons-kill-phase-2
+----------------------------
+
+Launches MQ daemon termination phase 2: stops remaining MQ daemons.
 
 prodiguer-mq-daemons-reset-logs
 ----------------------------
@@ -67,6 +69,15 @@ Launches an MQ agent that produces new messages.
 
 	Limit of number of messages to publish (0 = unlimited).
 
+prodiguer-mq-purge-queues
+----------------------------
+
+Deletes the contents of all queues.
+
+**PASSWORD**
+
+	Password of RabbitMQ prodiguer-mq-admin user account.
+
 prodiguer-mq-purge-debug-queues
 ----------------------------
 
@@ -85,11 +96,15 @@ Deletes the contents of all live queues, i.e. those queues used in production.
 
 	Password of RabbitMQ prodiguer-mq-admin user account.
 
-prodiguer-mq-purge-queues
+prodiguer-mq-run-agent
 ----------------------------
 
-Deletes the contents of all queues.
+Launches an MQ agent that consumes messages placed upon a queue.
 
-**PASSWORD**
+**QUEUE-NAME**
 
-	Password of RabbitMQ prodiguer-mq-admin user account.
+	Name of queue from which to consume messages.
+
+**THROTTLE**
+
+	Limit of number of messages to consume (0 = unlimited).
