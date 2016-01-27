@@ -22,6 +22,7 @@ declare -a QUEUES=(
 	'debug-8000'
 	'debug-8100'
 	'debug-8200'
+	'debug-alert'
 	'debug-cv'
 	'debug-fe'
 	'debug-smtp'

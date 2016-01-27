@@ -3,6 +3,7 @@ source $PRODIGUER_HOME/bash/init.sh
 
 # Set of supported MQ queues.
 declare -a QUEUES=(
+	'live-alert'
 	'live-cv'
 	'live-fe'
 	'live-metrics'
