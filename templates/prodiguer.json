@@ -1,6 +1,9 @@
 {
-    "configSchemaVersion": "1.0.13",
+    "configSchemaVersion": "1.0.14",
     "deploymentMode": "dev",
+    "operator": {
+        "emailAddress": "ncarenton@ipsl.jussieu.fr, momipsl@ipsl.jussieu.fr"
+    },
     "apps": {
         "monitoring": {
             "defaultJobWarningDelayInSeconds": 86400
