@@ -24,6 +24,7 @@
         "mail": {
             "checker": {
                 "maxUnprocessedCount": 30,
+                "maxLatencyInSeconds": 1800,
                 "retryDelayInSeconds": 3600
             },
             "deleteProcessed": false,
