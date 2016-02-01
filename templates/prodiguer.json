@@ -24,22 +24,20 @@
         },
         "mail": {
             "checker": {
-                "maxUnprocessedCount": 30,
                 "maxLatencyInSeconds": 1800,
+                "maxUnprocessedCount": 20,
                 "retryDelayInSeconds": 3600
             },
             "deleteProcessed": false,
+            "host": "courriel3.ipsl.jussieu.fr",
             "idleFaultRetryDelayInSeconds": 60,
-            "imap": {
-                "host": "courriel3.ipsl.jussieu.fr",
-                "mailbox": "{PRODIGUER_MQ_IMAP_MAILBOX}",
-                "mailbox_processed": "{PRODIGUER_MQ_IMAP_MAILBOX}-PROCESSED",
-                "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
-                "username": "superviseur"
-            },
+            "mailbox": "{PRODIGUER_MQ_IMAP_MAILBOX}",
+            "mailbox_processed": "{PRODIGUER_MQ_IMAP_MAILBOX}-PROCESSED",
+            "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
             "smtpConsumer": {
                 "excludedTypes": []
-            }
+            },
+            "username": "superviseur"
         }
     },
     "web": {
