@@ -18,10 +18,10 @@ alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_p
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
 alias prodiguer-db-pgres-performance-tests=$PRODIGUER_HOME/bash/db/pgres_performance_tests.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
-alias prodiguer-db-pgres-reset-cv-table=$PRODIGUER_HOME/bash/db/pgres_reset_cv_table.sh
-alias prodiguer-db-pgres-reset-environment-metric-table=$PRODIGUER_HOME/bash/db/pgres_reset_environment_metric_table.sh
-alias prodiguer-db-pgres-reset-message-email-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_email_table.sh
-alias prodiguer-db-pgres-reset-message-table=$PRODIGUER_HOME/bash/db/pgres_reset_message_table.sh
+alias prodiguer-db-pgres-truncate-conso=$PRODIGUER_HOME/bash/db/pgres_truncate_conso.sh
+alias prodiguer-db-pgres-truncate-cv=$PRODIGUER_HOME/bash/db/pgres_truncate_cv.sh
+alias prodiguer-db-pgres-truncate-monitoring=$PRODIGUER_HOME/bash/db/pgres_truncate_monitoring.sh
+alias prodiguer-db-pgres-truncate-mq=$PRODIGUER_HOME/bash/db/pgres_truncate_mq.sh
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
 
