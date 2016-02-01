@@ -1,0 +1,1 @@
+TRUNCATE TABLE cv.tbl_cv_term;
