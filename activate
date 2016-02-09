@@ -24,6 +24,8 @@ alias prodiguer-db-pgres-truncate-monitoring=$PRODIGUER_HOME/bash/db/pgres_trunc
 alias prodiguer-db-pgres-truncate-mq=$PRODIGUER_HOME/bash/db/pgres_truncate_mq.sh
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
+alias prodiguer-db-pgres-vacuum=$PRODIGUER_HOME/bash/db/pgres_vacuum.sh
+alias prodiguer-db-pgres-vacuum-full=$PRODIGUER_HOME/bash/db/pgres_vacuum_full.sh
 
 # MQ server related commands.
 alias prodiguer-mq-run-agent=$PRODIGUER_HOME/bash/mq/run_agent.sh
