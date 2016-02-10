@@ -149,3 +149,68 @@ ALTER TABLE conso.tbl_occupation_store_id_seq
   OWNER TO prodiguer_db_admin;
 GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_admin;
 GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_user;
+
+-- Create table: mq.tbl_message_email_stats
+CREATE TABLE mq.tbl_message_email_stats
+(
+  id serial NOT NULL,
+  row_create_date timestamp without time zone NOT NULL,
+  row_update_date timestamp without time zone,
+  email_id bigint NOT NULL,
+  arrival_date timestamp without time zone,
+  dispatch_date timestamp without time zone,
+  dispatch_latency integer,
+  incoming integer,
+  errors_decoding_base64 integer,
+  errors_decoding_json integer,
+  errors_encoding_ampq integer,
+  excluded integer,
+  outgoing integer,
+  outgoing_0000 integer,
+  outgoing_0100 integer,
+  outgoing_1000 integer,
+  outgoing_1100 integer,
+  outgoing_1900 integer,
+  outgoing_1999 integer,
+  outgoing_2000 integer,
+  outgoing_2100 integer,
+  outgoing_2900 integer,
+  outgoing_2999 integer,
+  outgoing_3000 integer,
+  outgoing_3100 integer,
+  outgoing_3900 integer,
+  outgoing_3999 integer,
+  outgoing_7000 integer,
+  outgoing_7010 integer,
+  outgoing_7100 integer,
+  CONSTRAINT tbl_message_email_stats_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE mq.tbl_message_email_stats
+  OWNER TO prodiguer_db_admin;
+GRANT ALL ON TABLE mq.tbl_message_email_stats TO prodiguer_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE mq.tbl_message_email_stats TO prodiguer_db_user;
+
+-- Create sequence: mq.tbl_message_email_stats_id_seq
+CREATE SEQUENCE mq.tbl_message_email_stats_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 50
+  CACHE 1;
+ALTER TABLE mq.tbl_message_email_stats_id_seq
+  OWNER TO prodiguer_db_admin;
+GRANT ALL ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_admin;
+GRANT SELECT, USAGE ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_user;
+
+
+-- Drop column: mq.tbl_message_email.arrival_date
+-- ALTER TABLE mq.tbl_message_email DROP COLUMN arrival_date;
+
+-- Drop column: mq.tbl_message_email.dispatch_date
+-- ALTER TABLE mq.tbl_message_email DROP COLUMN dispatch_date;
+
+-- Drop column: mq.tbl_message_email.dispatch_latency
+-- ALTER TABLE mq.tbl_message_email DROP COLUMN dispatch_latency;
