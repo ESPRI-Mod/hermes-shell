@@ -23,6 +23,7 @@ alias prodiguer-db-pgres-truncate-cv=$PRODIGUER_HOME/bash/db/pgres_truncate_cv.s
 alias prodiguer-db-pgres-truncate-monitoring=$PRODIGUER_HOME/bash/db/pgres_truncate_monitoring.sh
 alias prodiguer-db-pgres-truncate-mq=$PRODIGUER_HOME/bash/db/pgres_truncate_mq.sh
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
+alias prodiguer-db-pgres-show-object-sizes=$PRODIGUER_HOME/bash/db/pgres_show_object_sizes.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
 alias prodiguer-db-pgres-vacuum=$PRODIGUER_HOME/bash/db/pgres_vacuum.sh
 alias prodiguer-db-pgres-vacuum-full=$PRODIGUER_HOME/bash/db/pgres_vacuum_full.sh
