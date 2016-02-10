@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.15",
+    "configSchemaVersion": "1.0.16",
     "deploymentMode": "dev",
     "alerts": {
         "emailAddressFrom": "prodiguer-ops@ipsl.listes.fr",
@@ -22,6 +22,7 @@
         "connections": {
             "main": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://prodiguer-mq-user:{PRODIGUER_MQ_RABBIT_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}"
         },
+        "deletableTypes": ["7000"],
         "excludedTypes": ["1900", "2900"],
         "mail": {
             "checker": {
