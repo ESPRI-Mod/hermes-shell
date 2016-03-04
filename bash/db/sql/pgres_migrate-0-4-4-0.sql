@@ -1,11 +1,11 @@
 -- Drop table: conso.tbl_consumption
-drop table conso.tbl_consumption;
+DROP TABLE conso.tbl_consumption;
 
 -- Drop table: conso.tbl_occupation_store
-drop table conso.tbl_occupation_store;
+DROP TABLE conso.tbl_occupation_store;
 
 -- Drop table: conso.tbl_allocation
-drop table conso.tbl_allocation;
+DROP TABLE conso.tbl_allocation;
 
 -- Create table: conso.tbl_allocation
 CREATE TABLE conso.tbl_allocation
@@ -209,12 +209,3 @@ ALTER TABLE mq.tbl_message_email_stats_id_seq
 GRANT ALL ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_admin;
 GRANT SELECT, USAGE ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_user;
 
-
--- Drop column: mq.tbl_message_email.arrival_date
--- ALTER TABLE mq.tbl_message_email DROP COLUMN arrival_date;
-
--- Drop column: mq.tbl_message_email.dispatch_date
--- ALTER TABLE mq.tbl_message_email DROP COLUMN dispatch_date;
-
--- Drop column: mq.tbl_message_email.dispatch_latency
--- ALTER TABLE mq.tbl_message_email DROP COLUMN dispatch_latency;
