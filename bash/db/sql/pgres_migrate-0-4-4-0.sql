@@ -185,6 +185,7 @@ CREATE TABLE mq.tbl_message_email_stats
   outgoing_3999 integer,
   outgoing_7000 integer,
   outgoing_7010 integer,
+  outgoing_7011 integer,
   outgoing_7100 integer,
   CONSTRAINT tbl_message_email_stats_pkey PRIMARY KEY (id)
 )
