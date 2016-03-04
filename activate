@@ -65,7 +65,7 @@ alias prodiguer-web-daemons-kill=$PRODIGUER_HOME/bash/web/daemons_kill.sh
 alias prodiguer-web-daemons-reset-logs=$PRODIGUER_HOME/bash/web/daemons_reset_logs.sh
 alias prodiguer-web-daemons-status=$PRODIGUER_HOME/bash/web/daemons_status.sh
 alias prodiguer-web-daemons-update-config=$PRODIGUER_HOME/bash/web/daemons_update_config.sh
-alias prodiguer-web-send-monitoring-event=$PRODIGUER_HOME/bash/web/send_monitoring_event.sh
+alias prodiguer-web-test-monitoring-event=$PRODIGUER_HOME/bash/web/test_monitoring_event.sh
 alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
 
 # Composite commands.

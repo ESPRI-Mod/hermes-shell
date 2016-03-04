@@ -18,6 +18,8 @@ declare -a QUEUES=(
 	'debug-3900'
 	'debug-3999'
 	'debug-7000'
+	'debug-7010'
+	'debug-7011'
 	'debug-7100'
 	'debug-8000'
 	'debug-8100'
