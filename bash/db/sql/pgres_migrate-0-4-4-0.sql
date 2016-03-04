@@ -58,7 +58,8 @@ CREATE TABLE conso.tbl_consumption
   CONSTRAINT tbl_consumption_pkey PRIMARY KEY (id),
   CONSTRAINT tbl_consumption_allocation_id_fkey FOREIGN KEY (allocation_id)
       REFERENCES conso.tbl_allocation (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbl_consumption_allocation_id_sub_project_login_date_key UNIQUE (allocation_id, sub_project, login, date)
 )
 WITH (
   OIDS=FALSE
@@ -138,6 +139,7 @@ ALTER TABLE conso.tbl_occupation_store
 GRANT ALL ON TABLE conso.tbl_occupation_store TO prodiguer_db_admin;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_occupation_store TO prodiguer_db_user;
 
+
 -- Create sequence: conso.tbl_occupation_store_id_seq
 CREATE SEQUENCE conso.tbl_occupation_store_id_seq
   INCREMENT 1
@@ -149,6 +151,7 @@ ALTER TABLE conso.tbl_occupation_store_id_seq
   OWNER TO prodiguer_db_admin;
 GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_admin;
 GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_user;
+
 
 -- Create table: mq.tbl_message_email_stats
 CREATE TABLE mq.tbl_message_email_stats
