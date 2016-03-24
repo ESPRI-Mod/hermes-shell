@@ -15,6 +15,7 @@ alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-create-test-db=$PRODIGUER_HOME/bash/db/pgres_create_test_db.sh
 alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_permissions.sh
+alias prodiguer-db-pgres-init-conso-tables=$PRODIGUER_HOME/bash/db/pgres_init_conso_tables.sh
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
 alias prodiguer-db-pgres-performance-tests=$PRODIGUER_HOME/bash/db/pgres_performance_tests.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
