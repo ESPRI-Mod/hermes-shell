@@ -15,7 +15,6 @@ alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
 alias prodiguer-db-pgres-create-test-db=$PRODIGUER_HOME/bash/db/pgres_create_test_db.sh
 alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_permissions.sh
-alias prodiguer-db-pgres-init-conso-tables=$PRODIGUER_HOME/bash/db/pgres_init_conso_tables.sh
 alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
 alias prodiguer-db-pgres-performance-tests=$PRODIGUER_HOME/bash/db/pgres_performance_tests.sh
 alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
@@ -27,6 +26,7 @@ alias prodiguer-db-pgres-truncate-mq-messages=$PRODIGUER_HOME/bash/db/pgres_trun
 alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
 alias prodiguer-db-pgres-show-object-sizes=$PRODIGUER_HOME/bash/db/pgres_show_object_sizes.sh
 alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
+alias prodiguer-db-pgres-update-conso=$PRODIGUER_HOME/bash/db/pgres_update_conso.sh
 alias prodiguer-db-pgres-vacuum=$PRODIGUER_HOME/bash/db/pgres_vacuum.sh
 alias prodiguer-db-pgres-vacuum-full=$PRODIGUER_HOME/bash/db/pgres_vacuum_full.sh
 
@@ -77,7 +77,7 @@ alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos && prodiguer-stack-update-config'
 
 # Misc one off commands.
-alias prodiguer-misc-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accounting_projects.sh && prodiguer-db-pgres-truncate-cv'
+alias prodiguer-cv-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accounting_projects.sh && prodiguer-db-pgres-truncate-cv'
 
 # Ensure target scripts are executable.
 chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
