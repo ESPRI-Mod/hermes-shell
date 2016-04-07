@@ -82,7 +82,6 @@ alias prodiguer-cv-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accoun
 # Ensure target scripts are executable.
 chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
 chmod a+x $PRODIGUER_HOME/bash/db/*.sh
-chmod a+x $PRODIGUER_HOME/bash/misc/*.sh
 chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
 chmod a+x $PRODIGUER_HOME/bash/os/*.sh
 chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
