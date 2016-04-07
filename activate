@@ -77,7 +77,7 @@ alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos && prodiguer-stack-update-config'
 
 # Misc one off commands.
-alias prodiguer-cv-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accounting_projects.sh && prodiguer-db-pgres-truncate-cv'
+alias prodiguer-cv-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accounting_projects.sh'
 
 # Ensure target scripts are executable.
 chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
