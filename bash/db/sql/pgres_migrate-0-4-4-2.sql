@@ -4,6 +4,12 @@ DROP TABLE conso.tbl_consumption;
 DROP TABLE conso.tbl_allocation;
 
 
+DROP SEQUENCE conso.tbl_allocation_id_seq;
+DROP SEQUENCE conso.tbl_consumption_id_seq;
+DROP SEQUENCE conso.tbl_cpu_state_id_seq;
+DROP SEQUENCE conso.tbl_occupation_store_id_seq;
+
+
 CREATE SEQUENCE conso.tbl_allocation_id_seq
   INCREMENT 1
   MINVALUE 1
@@ -92,7 +98,7 @@ CREATE TABLE conso.tbl_consumption
   CONSTRAINT tbl_consumption_pkey PRIMARY KEY (id),
   CONSTRAINT tbl_consumption_allocation_id_fkey FOREIGN KEY (allocation_id)
       REFERENCES conso.tbl_allocation (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tbl_consumption_allocation_id_sub_project_login_date_key UNIQUE (allocation_id, sub_project, login, date)
 )
 WITH (
