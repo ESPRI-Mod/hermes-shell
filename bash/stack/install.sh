@@ -66,7 +66,7 @@ _install_python_executable()
 
 	# Install setuptools.
 	cd $HERMES_DIR_PYTHON/src
-	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+	wget https://bootstrap.pypa.io/ez_setup.py
 	python ez_setup.py
 
 	# Install pip.
