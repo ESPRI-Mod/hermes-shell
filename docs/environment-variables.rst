@@ -19,7 +19,7 @@ General Variables
 
 * Default:		$HOME/prodiguer
 
-**PRODIGUER_DEPLOYMENT_MODE**
+**HERMES_DEPLOYMENT_MODE**
 
 * Description:	Mode of deployment.
 
@@ -29,7 +29,7 @@ General Variables
 
 * Allowed:		dev | test | prod
 
-**PRODIGUER_MACHINE_TYPE**
+**HERMES_MACHINE_TYPE**
 
 * Description:	Type of machine onto which stack is deployed.
 
@@ -39,7 +39,7 @@ General Variables
 
 * Allowed:		db | dev | mq | web
 
-**PRODIGUER_CLIENT_WEB_URL**
+**HERMES_CLIENT_WEB_URL**
 
 * Description:	Web service url from prodiguer client.
 
@@ -50,7 +50,7 @@ General Variables
 DB server variables
 ----------------------------
 
-**PRODIGUER_DB_MONGO_HOST**
+**HERMES_DB_MONGO_HOST**
 
 * Description:	MongoDB server hostname & port.
 
@@ -58,13 +58,13 @@ DB server variables
 
 * Default:		localhost:27017
 
-**PRODIGUER_DB_MONGO_USER_PASSWORD**
+**HERMES_DB_MONGO_USER_PASSWORD**
 
 * Description:	MongoDB password for the prodiguer-db-mongo-user account.
 
 * Machines:		all
 
-**PRODIGUER_DB_PGRES_HOST**
+**HERMES_DB_PGRES_HOST**
 
 * Description:	PostgreSQL server hostname & port.
 
@@ -72,7 +72,7 @@ DB server variables
 
 * Default:		localhost:5432
 
-**PRODIGUER_DB_PGRES_PGDUMP**
+**HERMES_DB_PGRES_PGDUMP**
 
 * Description:	Prodiguer PostgreSQL pgdump executable path.
 
@@ -83,7 +83,7 @@ DB server variables
 MQ server variables
 ----------------------------
 
-**PRODIGUER_MQ_RABBIT_HOST**
+**HERMES_MQ_RABBIT_HOST**
 
 * Description:	RabbitMQ server hostname & port.
 
@@ -91,7 +91,7 @@ MQ server variables
 
 * Default:		localhost:5671
 
-**PRODIGUER_MQ_RABBIT_PROTOCOL**
+**HERMES_MQ_RABBIT_PROTOCOL**
 
 * Description:	RabbitMQ sever protocol (i.e. whether to communicate over ssl).
 
@@ -99,31 +99,31 @@ MQ server variables
 
 * Default:		ampq
 
-**PRODIGUER_MQ_RABBIT_LIBIGCM_USER_PASSWORD**
+**HERMES_MQ_RABBIT_LIBIGCM_USER_PASSWORD**
 
 * Description:	RabbitMQ password for the libigcm-mq-user account.
 
 * Machines:		mq, dev
 
-**PRODIGUER_MQ_RABBIT_USER_PASSWORD**
+**HERMES_MQ_RABBIT_USER_PASSWORD**
 
 * Description:	RabbitMQ password for the prodiguer-mq-user account.
 
 * Machines:		mq, dev
 
-**PRODIGUER_MQ_RABBIT_SSL_CLIENT_CERT**  (if client ssl cert used)
+**HERMES_MQ_RABBIT_SSL_CLIENT_CERT**  (if client ssl cert used)
 
 * Description:	Client ssl cert file path.
 
 * Machines:		mq, dev
 
-**PRODIGUER_MQ_RABBIT_SSL_CLIENT_KEY**  (if client ssl cert used)
+**HERMES_MQ_RABBIT_SSL_CLIENT_KEY**  (if client ssl cert used)
 
 * Description:	Client ssl key file path.
 
 * Machines:		mq, dev
 
-**PRODIGUER_MQ_IMAP_MAILBOX**
+**HERMES_MQ_IMAP_MAILBOX**
 
 * Description:	IMAP mailbox from which emails are pulled.
 
@@ -131,13 +131,13 @@ MQ server variables
 
 * Default:		AMPQ-TEST
 
-**PRODIGUER_MQ_IMAP_PASSWORD**
+**HERMES_MQ_IMAP_PASSWORD**
 
 * Description:	IMAP server password for the _superviseur_ account.
 
 * Machines:		mq, dev
 
-**PRODIGUER_MQ_SMTP_PASSWORD**
+**HERMES_MQ_SMTP_PASSWORD**
 
 * Description:	SMTP server password for the _superviseur_ account.
 
@@ -146,13 +146,13 @@ MQ server variables
 Web server variables
 ----------------------------
 
-**PRODIGUER_WEB_API_COOKIE_SECRET**
+**HERMES_WEB_COOKIE_SECRET**
 
 * Description:	Secret cookie key associated with valid web service requests.
 
 * Machines:		web, dev
 
-**PRODIGUER_WEB_PORT**
+**HERMES_WEB_PORT**
 
 * Description:	Web server port number.
 
@@ -160,7 +160,7 @@ Web server variables
 
 * Default:		8888
 
-**PRODIGUER_WEB_URL**
+**HERMES_WEB_URL**
 
 * Description:	Web service url.
 

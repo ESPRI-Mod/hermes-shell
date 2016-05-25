@@ -109,16 +109,16 @@ _install_dirs()
 # Sets up configuration.
 _install_configuration()
 {
-	cp $PRODIGUER_DIR_TEMPLATES/prodiguer.json $PRODIGUER_DIR_CONFIG/prodiguer.json
-	cat $PRODIGUER_DIR_TEMPLATES/prodiguer_env_bash_profile.txt >> $HOME/.bash_profile
-	if [ $PRODIGUER_MACHINE_TYPE = "dev" ]; then
+	cp $PRODIGUER_DIR_TEMPLATES/hermes.json $PRODIGUER_DIR_CONFIG/hermes.json
+	cat $PRODIGUER_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
+	if [ $HERMES_MACHINE_TYPE = "dev" ]; then
 		cp $PRODIGUER_DIR_TEMPLATES/mq-supervisord-dev.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
-	elif [ $PRODIGUER_MACHINE_TYPE = "mq" ]; then
+	elif [ $HERMES_MACHINE_TYPE = "mq" ]; then
 		cp $PRODIGUER_DIR_TEMPLATES/mq-supervisord-mq.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
 	fi
-	if [ $PRODIGUER_MACHINE_TYPE = "dev" ]; then
+	if [ $HERMES_MACHINE_TYPE = "dev" ]; then
 		cp $PRODIGUER_DIR_TEMPLATES/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
-	elif [ $PRODIGUER_MACHINE_TYPE = "web" ]; then
+	elif [ $HERMES_MACHINE_TYPE = "web" ]; then
 		cp $PRODIGUER_DIR_TEMPLATES/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
 	fi
 }

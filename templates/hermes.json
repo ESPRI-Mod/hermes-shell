@@ -12,15 +12,15 @@
     },
     "db": {
         "mongodb": {
-            "main": "mongodb://prodiguer-db-mongo-user:{PRODIGUER_DB_MONGO_USER_PASSWORD}@{PRODIGUER_DB_MONGO_HOST}/metrics"
+            "main": "mongodb://prodiguer-db-mongo-user:{HERMES_DB_MONGO_USER_PASSWORD}@{HERMES_DB_MONGO_HOST}/metrics"
         },
         "pgres": {
-            "main": "postgresql://prodiguer_db_user:{PRODIGUER_DB_PGRES_USER_PASSWORD}@{PRODIGUER_DB_PGRES_HOST}/prodiguer"
+            "main": "postgresql://prodiguer_db_user:{HERMES_DB_PGRES_USER_PASSWORD}@{HERMES_DB_PGRES_HOST}/prodiguer"
         }
     },
     "mq": {
         "connections": {
-            "main": "{PRODIGUER_MQ_RABBIT_PROTOCOL}://prodiguer-mq-user:{PRODIGUER_MQ_RABBIT_USER_PASSWORD}@{PRODIGUER_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{PRODIGUER_MQ_RABBIT_SSL_OPTIONS}"
+            "main": "{HERMES_MQ_RABBIT_PROTOCOL}://prodiguer-mq-user:{HERMES_MQ_RABBIT_USER_PASSWORD}@{HERMES_MQ_RABBIT_HOST}/prodiguer?connection_attempts=3&heartbeat_interval=3600&{HERMES_MQ_RABBIT_SSL_OPTIONS}"
         },
         "deletableTypes": [],
         "excludedTypes": ["7000", "1900", "2900"],
@@ -34,16 +34,16 @@
             "host": "courriel3.ipsl.jussieu.fr",
             "smtpPort": 587,
             "idleFaultRetryDelayInSeconds": 60,
-            "mailbox": "{PRODIGUER_MQ_IMAP_MAILBOX}",
-            "mailbox_processed": "{PRODIGUER_MQ_IMAP_MAILBOX}-PROCESSED",
-            "password": "{PRODIGUER_MQ_IMAP_PASSWORD}",
+            "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
+            "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX}-PROCESSED",
+            "password": "{HERMES_MQ_IMAP_PASSWORD}",
             "username": "superviseur"
         }
     },
     "web": {
-        "cookie_secret": "{PRODIGUER_WEB_API_COOKIE_SECRET}",
-        "port": {PRODIGUER_WEB_PORT},
-        "url": "{PRODIGUER_WEB_URL}",
+        "cookie_secret": "{HERMES_WEB_COOKIE_SECRET}",
+        "port": {HERMES_WEB_PORT},
+        "url": "{HERMES_WEB_URL}",
         "websocketKeepAliveDelayInSeconds": 280
     }
 }
