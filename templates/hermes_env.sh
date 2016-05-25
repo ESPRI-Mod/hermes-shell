@@ -2,7 +2,7 @@
 # General settings
 # --------------------------------------------------------------------
 # Path to Hermes server install directory.
-export HERMES_HOME=$HOME/hermes
+export HERMES_HOME=/opt/hermes
 
 # Mode of deployment (dev|test|prod).
 export HERMES_DEPLOYMENT_MODE=dev
