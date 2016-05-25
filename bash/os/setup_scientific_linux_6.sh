@@ -123,6 +123,6 @@ hermes_setup_rabbitmq()
 	rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 	rm ./rabbitmq_delayed_message_exchange-0.0.1.ez
 
-	# Remove default user.
+	# Remove default users.
 	rabbitmqctl delete_user guest
 }
