@@ -1,5 +1,5 @@
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 # Run job.
 activate_venv server

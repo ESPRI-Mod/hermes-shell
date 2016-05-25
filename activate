@@ -5,70 +5,70 @@
 # ###############################################################
 
 # Import environment vars.
-source $HOME/.prodiguer
+source $HOME/.hermes
 
 # CV server related commands.
-alias prodiguer-cv-git-push=$PRODIGUER_HOME/bash/cv/git_push.sh
+alias prodiguer-cv-git-push=$HERMES_HOME/bash/cv/git_push.sh
 
 # DB server related commands.
-alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
-alias prodiguer-db-pgres-backup=$PRODIGUER_HOME/bash/db/pgres_backup.sh
-alias prodiguer-db-pgres-create-test-db=$PRODIGUER_HOME/bash/db/pgres_create_test_db.sh
-alias prodiguer-db-pgres-grant-permissions=$PRODIGUER_HOME/bash/db/pgres_grant_permissions.sh
-alias prodiguer-db-pgres-migrate=$PRODIGUER_HOME/bash/db/pgres_migrate.sh
-alias prodiguer-db-pgres-performance-tests=$PRODIGUER_HOME/bash/db/pgres_performance_tests.sh
-alias prodiguer-db-pgres-reset=$PRODIGUER_HOME/bash/db/pgres_reset_db.sh
-alias prodiguer-db-pgres-truncate-conso=$PRODIGUER_HOME/bash/db/pgres_truncate_conso.sh
-alias prodiguer-db-pgres-truncate-cv=$PRODIGUER_HOME/bash/db/pgres_truncate_cv.sh
-alias prodiguer-db-pgres-truncate-monitoring=$PRODIGUER_HOME/bash/db/pgres_truncate_monitoring.sh
-alias prodiguer-db-pgres-truncate-mq-emails=$PRODIGUER_HOME/bash/db/pgres_truncate_mq_emails.sh
-alias prodiguer-db-pgres-truncate-mq-messages=$PRODIGUER_HOME/bash/db/pgres_truncate_mq_messages.sh
-alias prodiguer-db-pgres-restore=$PRODIGUER_HOME/bash/db/pgres_restore.sh
-alias prodiguer-db-pgres-show-object-sizes=$PRODIGUER_HOME/bash/db/pgres_show_object_sizes.sh
-alias prodiguer-db-pgres-uninstall=$PRODIGUER_HOME/bash/db/pgres_uninstall.sh
-alias prodiguer-db-pgres-update-conso=$PRODIGUER_HOME/bash/db/pgres_update_conso.sh
-alias prodiguer-db-pgres-vacuum=$PRODIGUER_HOME/bash/db/pgres_vacuum.sh
-alias prodiguer-db-pgres-vacuum-full=$PRODIGUER_HOME/bash/db/pgres_vacuum_full.sh
+alias prodiguer-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
+alias prodiguer-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
+alias prodiguer-db-pgres-create-test-db=$HERMES_HOME/bash/db/pgres_create_test_db.sh
+alias prodiguer-db-pgres-grant-permissions=$HERMES_HOME/bash/db/pgres_grant_permissions.sh
+alias prodiguer-db-pgres-migrate=$HERMES_HOME/bash/db/pgres_migrate.sh
+alias prodiguer-db-pgres-performance-tests=$HERMES_HOME/bash/db/pgres_performance_tests.sh
+alias prodiguer-db-pgres-reset=$HERMES_HOME/bash/db/pgres_reset_db.sh
+alias prodiguer-db-pgres-truncate-conso=$HERMES_HOME/bash/db/pgres_truncate_conso.sh
+alias prodiguer-db-pgres-truncate-cv=$HERMES_HOME/bash/db/pgres_truncate_cv.sh
+alias prodiguer-db-pgres-truncate-monitoring=$HERMES_HOME/bash/db/pgres_truncate_monitoring.sh
+alias prodiguer-db-pgres-truncate-mq-emails=$HERMES_HOME/bash/db/pgres_truncate_mq_emails.sh
+alias prodiguer-db-pgres-truncate-mq-messages=$HERMES_HOME/bash/db/pgres_truncate_mq_messages.sh
+alias prodiguer-db-pgres-restore=$HERMES_HOME/bash/db/pgres_restore.sh
+alias prodiguer-db-pgres-show-object-sizes=$HERMES_HOME/bash/db/pgres_show_object_sizes.sh
+alias prodiguer-db-pgres-uninstall=$HERMES_HOME/bash/db/pgres_uninstall.sh
+alias prodiguer-db-pgres-update-conso=$HERMES_HOME/bash/db/pgres_update_conso.sh
+alias prodiguer-db-pgres-vacuum=$HERMES_HOME/bash/db/pgres_vacuum.sh
+alias prodiguer-db-pgres-vacuum-full=$HERMES_HOME/bash/db/pgres_vacuum_full.sh
 
 # MQ server related commands.
-alias prodiguer-mq-run-agent=$PRODIGUER_HOME/bash/mq/run_agent.sh
-alias prodiguer-mq-daemons-ctl=$PRODIGUER_HOME/bash/mq/daemons_ctl.sh
-alias prodiguer-mq-daemons-init=$PRODIGUER_HOME/bash/mq/daemons_init.sh
-alias prodiguer-mq-daemons-kill=$PRODIGUER_HOME/bash/mq/daemons_kill.sh
-alias prodiguer-mq-daemons-kill-phase-1=$PRODIGUER_HOME/bash/mq/daemons_kill_phase_1.sh
-alias prodiguer-mq-daemons-kill-phase-2=$PRODIGUER_HOME/bash/mq/daemons_kill_phase_2.sh
-alias prodiguer-mq-daemons-reset-logs=$PRODIGUER_HOME/bash/mq/daemons_reset_logs.sh
-alias prodiguer-mq-daemons-status=$PRODIGUER_HOME/bash/mq/daemons_status.sh
-alias prodiguer-mq-daemons-update-config=$PRODIGUER_HOME/bash/mq/daemons_update_config.sh
-alias prodiguer-mq-import-broker-definitions=$PRODIGUER_HOME/bash/mq/import_broker_definitions.sh
-alias prodiguer-mq-purge-queues=$PRODIGUER_HOME/bash/mq/purge_queues.sh
-alias prodiguer-mq-purge-queues-live=$PRODIGUER_HOME/bash/mq/purge_queues_live.sh
-alias prodiguer-mq-purge-queues-debug=$PRODIGUER_HOME/bash/mq/purge_queues_debug.sh
+alias prodiguer-mq-run-agent=$HERMES_HOME/bash/mq/run_agent.sh
+alias prodiguer-mq-daemons-ctl=$HERMES_HOME/bash/mq/daemons_ctl.sh
+alias prodiguer-mq-daemons-init=$HERMES_HOME/bash/mq/daemons_init.sh
+alias prodiguer-mq-daemons-kill=$HERMES_HOME/bash/mq/daemons_kill.sh
+alias prodiguer-mq-daemons-kill-phase-1=$HERMES_HOME/bash/mq/daemons_kill_phase_1.sh
+alias prodiguer-mq-daemons-kill-phase-2=$HERMES_HOME/bash/mq/daemons_kill_phase_2.sh
+alias prodiguer-mq-daemons-reset-logs=$HERMES_HOME/bash/mq/daemons_reset_logs.sh
+alias prodiguer-mq-daemons-status=$HERMES_HOME/bash/mq/daemons_status.sh
+alias prodiguer-mq-daemons-update-config=$HERMES_HOME/bash/mq/daemons_update_config.sh
+alias prodiguer-mq-import-broker-definitions=$HERMES_HOME/bash/mq/import_broker_definitions.sh
+alias prodiguer-mq-purge-queues=$HERMES_HOME/bash/mq/purge_queues.sh
+alias prodiguer-mq-purge-queues-live=$HERMES_HOME/bash/mq/purge_queues_live.sh
+alias prodiguer-mq-purge-queues-debug=$HERMES_HOME/bash/mq/purge_queues_debug.sh
 
 # Stack management related commands.
-alias prodiguer-stack-install=$PRODIGUER_HOME/bash/stack/install.sh
-alias prodiguer-stack-uninstall=$PRODIGUER_HOME/bash/stack/uninstall.sh
-alias prodiguer-stack-update=$PRODIGUER_HOME/bash/stack/update.sh
-alias prodiguer-stack-update-config=$PRODIGUER_HOME/bash/stack/update_config.sh
-alias prodiguer-stack-update-environment-vars=$PRODIGUER_HOME/bash/stack/update_environment_vars.sh
-alias prodiguer-stack-update-repos=$PRODIGUER_HOME/bash/stack/update_repos.sh
-alias prodiguer-stack-update-shell=$PRODIGUER_HOME/bash/stack/update_shell.sh
-alias prodiguer-stack-upgrade-venv=$PRODIGUER_HOME/bash/stack/upgrade_venv.sh
-alias prodiguer-stack-upgrade-venvs=$PRODIGUER_HOME/bash/stack/upgrade_venvs.sh
+alias prodiguer-stack-install=$HERMES_HOME/bash/stack/install.sh
+alias prodiguer-stack-uninstall=$HERMES_HOME/bash/stack/uninstall.sh
+alias prodiguer-stack-update=$HERMES_HOME/bash/stack/update.sh
+alias prodiguer-stack-update-config=$HERMES_HOME/bash/stack/update_config.sh
+alias prodiguer-stack-update-environment-vars=$HERMES_HOME/bash/stack/update_environment_vars.sh
+alias prodiguer-stack-update-repos=$HERMES_HOME/bash/stack/update_repos.sh
+alias prodiguer-stack-update-shell=$HERMES_HOME/bash/stack/update_shell.sh
+alias prodiguer-stack-upgrade-venv=$HERMES_HOME/bash/stack/upgrade_venv.sh
+alias prodiguer-stack-upgrade-venvs=$HERMES_HOME/bash/stack/upgrade_venvs.sh
 
 # Tests related commands.
-alias prodiguer-tests-run=$PRODIGUER_HOME/bash/tests/run.sh
-alias prodiguer-tests-noop=$PRODIGUER_HOME/bash/tests/noop.sh
+alias prodiguer-tests-run=$HERMES_HOME/bash/tests/run.sh
+alias prodiguer-tests-noop=$HERMES_HOME/bash/tests/noop.sh
 
 # WEB server related commands.
-alias prodiguer-web-daemons-ctl=$PRODIGUER_HOME/bash/web/daemons_ctl.sh
-alias prodiguer-web-daemons-init=$PRODIGUER_HOME/bash/web/daemons_init.sh
-alias prodiguer-web-daemons-kill=$PRODIGUER_HOME/bash/web/daemons_kill.sh
-alias prodiguer-web-daemons-reset-logs=$PRODIGUER_HOME/bash/web/daemons_reset_logs.sh
-alias prodiguer-web-daemons-status=$PRODIGUER_HOME/bash/web/daemons_status.sh
-alias prodiguer-web-daemons-update-config=$PRODIGUER_HOME/bash/web/daemons_update_config.sh
-alias prodiguer-web-test-monitoring-event=$PRODIGUER_HOME/bash/web/test_monitoring_event.sh
-alias prodiguer-web-service=$PRODIGUER_HOME/bash/web/run_web_service.sh
+alias prodiguer-web-daemons-ctl=$HERMES_HOME/bash/web/daemons_ctl.sh
+alias prodiguer-web-daemons-init=$HERMES_HOME/bash/web/daemons_init.sh
+alias prodiguer-web-daemons-kill=$HERMES_HOME/bash/web/daemons_kill.sh
+alias prodiguer-web-daemons-reset-logs=$HERMES_HOME/bash/web/daemons_reset_logs.sh
+alias prodiguer-web-daemons-status=$HERMES_HOME/bash/web/daemons_status.sh
+alias prodiguer-web-daemons-update-config=$HERMES_HOME/bash/web/daemons_update_config.sh
+alias prodiguer-web-test-monitoring-event=$HERMES_HOME/bash/web/test_monitoring_event.sh
+alias prodiguer-web-service=$HERMES_HOME/bash/web/run_web_service.sh
 
 # Composite commands.
 alias prodiguer-daemons-init='prodiguer-web-daemons-init && prodiguer-mq-daemons-init'
@@ -77,13 +77,13 @@ alias prodiguer-db-reset='prodiguer-cv-git-pull && prodiguer-db-pgres-reset'
 alias prodiguer-stack-update-source='prodiguer-stack-update-shell && prodiguer-stack-update-repos && prodiguer-stack-update-config'
 
 # Misc one off commands.
-alias prodiguer-cv-seed-accounting-projects='$PRODIGUER_HOME/bash/cv/seed_accounting_projects.sh'
+alias prodiguer-cv-seed-accounting-projects='$HERMES_HOME/bash/cv/seed_accounting_projects.sh'
 
 # Ensure target scripts are executable.
-chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
-chmod a+x $PRODIGUER_HOME/bash/db/*.sh
-chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
-chmod a+x $PRODIGUER_HOME/bash/os/*.sh
-chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
-chmod a+x $PRODIGUER_HOME/bash/tests/*.sh
-chmod a+x $PRODIGUER_HOME/bash/web/*.sh
+chmod a+x $HERMES_HOME/bash/cv/*.sh
+chmod a+x $HERMES_HOME/bash/db/*.sh
+chmod a+x $HERMES_HOME/bash/mq/*.sh
+chmod a+x $HERMES_HOME/bash/os/*.sh
+chmod a+x $HERMES_HOME/bash/stack/*.sh
+chmod a+x $HERMES_HOME/bash/tests/*.sh
+chmod a+x $HERMES_HOME/bash/web/*.sh

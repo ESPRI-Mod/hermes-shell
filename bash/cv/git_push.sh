@@ -1,4 +1,4 @@
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 log "CV : pushing new terms to prodiguer-cv repo: "
 

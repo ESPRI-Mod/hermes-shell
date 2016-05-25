@@ -1,5 +1,5 @@
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 # Reset supervisord log.
 rm $PRODIGUER_DIR_DAEMONS/mq/supervisor.log

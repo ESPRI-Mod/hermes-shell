@@ -1,4 +1,4 @@
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 log "DB : dropping database users"
 

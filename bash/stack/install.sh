@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 # Installs virtual environments.
 _install_venv()
@@ -126,13 +126,13 @@ _install_configuration()
 # Sets up script permissions.
 _install_script_permissions()
 {
-	chmod a+x $PRODIGUER_HOME/bash/cv/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/db/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/mq/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/os/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/stack/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/tests/*.sh
-	chmod a+x $PRODIGUER_HOME/bash/web/*.sh
+	chmod a+x $HERMES_HOME/bash/cv/*.sh
+	chmod a+x $HERMES_HOME/bash/db/*.sh
+	chmod a+x $HERMES_HOME/bash/mq/*.sh
+	chmod a+x $HERMES_HOME/bash/os/*.sh
+	chmod a+x $HERMES_HOME/bash/stack/*.sh
+	chmod a+x $HERMES_HOME/bash/tests/*.sh
+	chmod a+x $HERMES_HOME/bash/web/*.sh
 }
 
 # Main entry point.

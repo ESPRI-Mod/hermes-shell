@@ -1,5 +1,5 @@
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 log "Launching web service API"
 activate_venv server

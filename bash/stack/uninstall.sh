@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 # Uninstalls shell.
 _uninstall_shell()
 {
 	log "Uninstalling shell"
 
-	rm -rf $PRODIGUER_HOME
+	rm -rf $HERMES_HOME
 }
 
 # Uninstalls git repo.

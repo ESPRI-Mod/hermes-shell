@@ -2,7 +2,7 @@
 # General settings
 # --------------------------------------------------------------------
 # Path to Prodiguer server install directory.
-export PRODIGUER_HOME=$HOME/prodiguer
+export HERMES_HOME=$HOME/prodiguer
 
 # Mode of deployment (dev|test|prod).
 export PRODIGUER_DEPLOYMENT_MODE=dev

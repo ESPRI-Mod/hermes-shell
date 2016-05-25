@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Import utils.
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 # Main entry point.
 main()
 {
 	log "UPDATING STACK"
 
-	source $PRODIGUER_HOME/bash/stack/update_shell.sh
-	source $PRODIGUER_HOME/bash/stack/update_config.sh
-	source $PRODIGUER_HOME/bash/stack/update_environment_vars.sh
-	source $PRODIGUER_HOME/bash/stack/update_repos.sh
-	source $PRODIGUER_HOME/bash/stack/update_venvs.sh
+	source $HERMES_HOME/bash/stack/update_shell.sh
+	source $HERMES_HOME/bash/stack/update_config.sh
+	source $HERMES_HOME/bash/stack/update_environment_vars.sh
+	source $HERMES_HOME/bash/stack/update_repos.sh
+	source $HERMES_HOME/bash/stack/update_venvs.sh
 
 	log "UPDATED STACK"
 

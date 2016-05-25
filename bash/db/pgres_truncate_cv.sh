@@ -1,8 +1,8 @@
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 log "DB : truncating postgres cv tables ..."
 
-psql -U prodiguer_db_admin -d prodiguer -q -f $PRODIGUER_HOME/bash/db/sql/pgres_truncate_cv.sql
+psql -U prodiguer_db_admin -d prodiguer -q -f $HERMES_HOME/bash/db/sql/pgres_truncate_cv.sql
 
 activate_venv server
 python $PRODIGUER_DIR_JOBS/db/run_pgres_reset_cv_table.py

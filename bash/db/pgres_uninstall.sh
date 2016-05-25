@@ -1,9 +1,9 @@
-source $PRODIGUER_HOME/bash/init.sh
+source $HERMES_HOME/bash/init.sh
 
 log "DB : uninstalling postgres db ..."
 
-source $PRODIGUER_HOME/bash/db/pgres_backup.sh
-source $PRODIGUER_HOME/bash/db/pgres_drop_db.sh
-source $PRODIGUER_HOME/bash/db/pgres_drop_db_users.sh
+source $HERMES_HOME/bash/db/pgres_backup.sh
+source $HERMES_HOME/bash/db/pgres_drop_db.sh
+source $HERMES_HOME/bash/db/pgres_drop_db_users.sh
 
 log "DB : uninstalled postgres db"
