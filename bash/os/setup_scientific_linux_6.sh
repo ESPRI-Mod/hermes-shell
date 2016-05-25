@@ -119,7 +119,7 @@ hermes_setup_rabbitmq()
 
 	# Install delayed message plugin.
 	wget http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
-	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /var/lib/rabbitmq/mnesia/rabbit@hermes-mq-plugins-expand
+	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.4/plugins
 	rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 	rm ./rabbitmq_delayed_message_exchange-0.0.1.ez
 
