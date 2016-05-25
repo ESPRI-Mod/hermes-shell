@@ -2,10 +2,10 @@
 Prodiguer Shell - FAQ
 ===================================
 
-What is PRODIGUER ?
+What is HERMES ?
 --------------------------------------
 
-PRODIGUER is a french national climatology informatics project.  It's goal is to support dissemination and exploitation of climate simulation research data.
+HERMES is a french national climatology informatics project.  It's goal is to support dissemination and exploitation of climate simulation research data.
 
 What is prodiguer-shell ?
 --------------------------------------

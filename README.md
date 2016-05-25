@@ -1,28 +1,28 @@
-prodiguer-shell
+hermes-shell
 ===============
 
-PRODIGUER command line shell
+HERMES command line shell
 
 
-What is PRODIGUER ?
+What is HERMES ?
 --------------------------------------
 
-PRODIGUER is a french national climatology informatics project.  It's goal is to support dissemination and exploitation of climate simulation research data.
+HERMES is a french national climatology informatics project.  It's goal is to support dissemination and exploitation of climate simulation research data.
 
 
-What is prodiguer-shell ?
+What is hermes-shell ?
 --------------------------------------
 
-prodiguer-shell is a command line interface for interacting with the prodiguer eco-system.
+hermes-shell is a command line interface for interacting with the hermes eco-system.
 
 
-Why prodiguer-shell ?
+Why hermes-shell ?
 --------------------------------------
 
 There is a need to support command line scenarios such as streamlining deployments ... etc.
 
 
-Who uses prodiguer-shell ?
+Who uses hermes-shell ?
 --------------------------------------
 
-Prodiguer system admin and developers.
+Hermes system admin and developers.
