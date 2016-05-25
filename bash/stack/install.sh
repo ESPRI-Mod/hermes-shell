@@ -111,7 +111,6 @@ _install_dirs()
 _install_configuration()
 {
 	cp $HERMES_DIR_TEMPLATES/hermes.json $HERMES_DIR_CONFIG/hermes.json
-	cat $HERMES_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
 	cp $HERMES_DIR_TEMPLATES/mq-supervisord.conf $HERMES_DIR_DAEMONS/mq/supervisord.conf
 	cp $HERMES_DIR_TEMPLATES/web-supervisord.conf $HERMES_DIR_DAEMONS/web/supervisord.conf
 }
@@ -139,6 +138,7 @@ main()
 	_install_repos
 	# _install_python_executable
 	# _install_venvs
+	# cat $HERMES_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
 
 	log "INSTALLED STACK"
 }
