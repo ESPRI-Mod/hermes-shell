@@ -23,6 +23,7 @@ _install_venv()
     # Build dependencies.
     source $TARGET_VENV/bin/activate
 	declare TARGET_REQUIREMENTS=$HERMES_DIR_TEMPLATES/venv-requirements-$1.txt
+	pip install --upgrade pip
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
