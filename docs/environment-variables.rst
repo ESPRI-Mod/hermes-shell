@@ -107,7 +107,7 @@ MQ server variables
 
 **HERMES_MQ_RABBIT_USER_PASSWORD**
 
-* Description:	RabbitMQ password for the prodiguer-mq-user account.
+* Description:	RabbitMQ password for the hermes-mq-user account.
 
 * Machines:		mq, dev
 

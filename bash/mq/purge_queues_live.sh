@@ -17,7 +17,7 @@ declare -a QUEUES=(
 for queue in "${QUEUES[@]}"
 do
 	log "MQ : purging live queue :: "$queue
-	rabbitmqadmin -q -u prodiguer-mq-admin -p $1 -V prodiguer purge queue name=$queue
+	rabbitmqadmin -q -u hermes-mq-admin -p $1 -V prodiguer purge queue name=$queue
 done
 
 log "MQ : purged live queues"

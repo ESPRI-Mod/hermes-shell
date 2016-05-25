@@ -2,7 +2,7 @@
 # General settings
 # --------------------------------------------------------------------
 # Path to Hermes server install directory.
-export HERMES_HOME=$HOME/prodiguer
+export HERMES_HOME=$HOME/hermes
 
 # Mode of deployment (dev|test|prod).
 export HERMES_DEPLOYMENT_MODE=dev
@@ -19,7 +19,7 @@ export HERMES_CLIENT_WEB_URL=http://localhost:8888
 # Hermes MongoDB server hostname & port.
 export HERMES_DB_MONGO_HOST=localhost:27017
 
-# Hermes MongoDB password for the prodiguer-db-mongo-user account.
+# Hermes MongoDB password for the hermes-db-mongo-user account.
 export HERMES_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 
 # Hermes PostgreSQL server hostname & port.
@@ -28,7 +28,7 @@ export HERMES_DB_PGRES_HOST=localhost:5432
 # Hermes PostgreSQL pgdump executable path.
 export HERMES_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 
-# Hermes PostgreSQL password for the prodiguer-db-user account.
+# Hermes PostgreSQL password for the hermes-db-user account.
 export HERMES_DB_PGRES_USER_PASSWORD=XXXXXXXXXXX
 
 # --------------------------------------------------------------------

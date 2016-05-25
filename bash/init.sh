@@ -8,12 +8,11 @@
 activate_venv()
 {
 	if [ $1 = "server" ]; then
-		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/prodiguer-client
-		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/prodiguer-server
-		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/prodiguer-superviseur
+		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-client
+		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-server
+		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-superviseur
 	elif [ $1 = "conso" ]; then
-		# export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/prodiguer-conso
-		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/prodiguer-server
+		export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-server
 	fi
 	source $HERMES_DIR_VENV/$1/bin/activate
 	log "Activated virtual environment: "$1
@@ -78,13 +77,13 @@ declare HERMES_DIR_CERTS=$HERMES_HOME/ops/certs
 declare HERMES_DIR_CONFIG=$HERMES_HOME/ops/config
 declare HERMES_DIR_DAEMONS=$HERMES_HOME/ops/daemons
 declare HERMES_DIR_DATA=$HERMES_HOME/ops/data
-declare HERMES_DIR_JOBS=$HERMES_HOME/repos/prodiguer-server/prodiguer_jobs
+declare HERMES_DIR_JOBS=$HERMES_HOME/repos/hermes-server/hermes_jobs
 declare HERMES_DIR_LOGS=$HERMES_HOME/ops/logs
 declare HERMES_DIR_PYTHON=$HERMES_HOME/ops/venv/python
 declare HERMES_DIR_REPOS=$HERMES_HOME/repos
 declare HERMES_DIR_TEMPLATES=$HERMES_HOME/templates
-declare HERMES_DIR_SERVER=$HERMES_HOME/repos/prodiguer-server
-declare HERMES_DIR_SERVER_TESTS=$HERMES_HOME/repos/prodiguer-server/tests
+declare HERMES_DIR_SERVER=$HERMES_HOME/repos/hermes-server
+declare HERMES_DIR_SERVER_TESTS=$HERMES_HOME/repos/hermes-server/tests
 declare HERMES_DIR_TMP=$HERMES_HOME/ops/tmp
 declare HERMES_DIR_VENV=$HERMES_HOME/ops/venv
 
@@ -99,12 +98,11 @@ $HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
 
 # Set of git repos.
 declare -a HERMES_REPOS=(
-	'prodiguer-client'
-	'prodiguer-cv'
-	'prodiguer-docs'
-	'prodiguer-fe'
-	'prodiguer-server'
-	'prodiguer-superviseur'
+	'hermes-client'
+	'hermes-cv'
+	'hermes-fe'
+	'hermes-server'
+	'hermes-superviseur'
 )
 
 # Set of virtual environments.

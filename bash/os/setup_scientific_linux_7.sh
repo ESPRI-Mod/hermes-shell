@@ -1,5 +1,5 @@
 # Installs common libraries.
-prodiguer_setup_common()
+hermes_setup_common()
 {
 	# Ensure machine is upto date.
 	yum -q -y update
@@ -33,7 +33,7 @@ prodiguer_setup_common()
 }
 
 # Installs NGINX web server.
-prodiguer_setup_nginx()
+hermes_setup_nginx()
 {
 	# Install nginx.
 	yum -q -y install nginx
@@ -43,7 +43,7 @@ prodiguer_setup_nginx()
 }
 
 # Installs mongodb db server.
-prodiguer_setup_mongodb()
+hermes_setup_mongodb()
 {
 	# Install MongoDB.
 	wget https://repo.mongodb.org/yum/redhat/mongodb-org.repo -O /etc/yum.repos.d/mongodb-org.repo
@@ -54,7 +54,7 @@ prodiguer_setup_mongodb()
 }
 
 # Installs postgres db server (v9.2).
-prodiguer_setup_postgresql()
+hermes_setup_postgresql()
 {
 	# Install PostgreSQL repository.
 	rpm -Uvh http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-sl94-9.4-1.noarch.rpm
@@ -80,7 +80,7 @@ prodiguer_setup_postgresql()
 }
 
 # Installs RabbitMQ server.
-prodiguer_setup_rabbitmq()
+hermes_setup_rabbitmq()
 {
 	# Install dependencies.
 	yum -q -y install erlang

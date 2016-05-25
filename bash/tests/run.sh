@@ -7,7 +7,7 @@ source $HERMES_HOME/bash/init.sh
 main()
 {
 	# Set test folder paths.
-	HERMES_DIR_SERVER_TESTS=$HERMES_DIR_REPOS/prodiguer-server/tests
+	HERMES_DIR_SERVER_TESTS=$HERMES_DIR_REPOS/hermes-server/tests
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_SERVER_TESTS
 
 	# Activate server venv.

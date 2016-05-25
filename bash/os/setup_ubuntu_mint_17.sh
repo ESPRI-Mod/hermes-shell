@@ -1,5 +1,5 @@
 # Installs common libraries.
-prodiguer_setup_common()
+hermes_setup_common()
 {
 	# Ensure machine is upto date.
 	apt-get -qq -y update
@@ -34,7 +34,7 @@ prodiguer_setup_common()
 }
 
 # Installs NGINX web server.
-prodiguer_setup_nginx()
+hermes_setup_nginx()
 {
 	# Install the NGinx packages.
 	apt-get install -qq -y nginx
@@ -45,7 +45,7 @@ prodiguer_setup_nginx()
 
 # Installs mongodb db server.
 # see http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu
-prodiguer_setup_mongodb()
+hermes_setup_mongodb()
 {
 	# Import the public key used by the package management system.
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
@@ -61,7 +61,7 @@ prodiguer_setup_mongodb()
 }
 
 # Installs PostgreSQL db server.
-prodiguer_setup_postgresql()
+hermes_setup_postgresql()
 {
 	# Reload local package database.
 	apt-get -qq -y update
@@ -80,7 +80,7 @@ prodiguer_setup_postgresql()
 }
 
 # Installs RabbitMQ server.
-prodiguer_setup_rabbitmq()
+hermes_setup_rabbitmq()
 {
 	# Install required libraries.
 	apt-get install -qq -y erlang
