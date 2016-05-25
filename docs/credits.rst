@@ -1,5 +1,5 @@
 ===================================
-Prodiguer Shell - Credits
+HERMES Shell - Credits
 ===================================
 
 Developer/Author

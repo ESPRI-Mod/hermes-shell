@@ -1,5 +1,5 @@
 ===================================
-Prodiguer Shell - Change log
+HERMES Shell - Change log
 ===================================
 
 -	`Version 0.4.0.0 <https://forge.ipsl.jussieu.fr/prodiguer/browser/docs/deployments/0.4.0.0/changelog.txt>`_

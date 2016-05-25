@@ -1,8 +1,8 @@
 ===================================
-Prodiguer Shell - Environment Variables
+HERMES Shell - Environment Variables
 ===================================
 
-The Prodiguer platform is distributed across different types of machine.  Code running upon each machine requires access to sensitive information such as passwords & server addresses.  All such information is stored in environment variables details of which are listed below.
+The HERMES platform is distributed across different types of machine.  Code running upon each machine requires access to sensitive information such as passwords & server addresses.  All such information is stored in environment variables details of which are listed below.
 
 **Note 1** The list of supported machine types are: db, mq, web & dev.  Some variables are required across all machines (particulary if your machine is setup for development).
 
@@ -74,7 +74,7 @@ DB server variables
 
 **HERMES_DB_PGRES_PGDUMP**
 
-* Description:	Prodiguer PostgreSQL pgdump executable path.
+* Description:	HERMES PostgreSQL pgdump executable path.
 
 * Machines:		all
 

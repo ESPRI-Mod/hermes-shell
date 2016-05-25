@@ -1,5 +1,5 @@
 ===================================
-Prodiguer Operating System Setup
+HERMES Operating System Setup
 ===================================
 
 1: Open terminal session
@@ -12,57 +12,57 @@ Prodiguer Operating System Setup
 
 **CentOS v6**::
 
-	wget http://bit.ly/1E7vTxV -O ./prodiguer-os-setup.sh
+	wget http://bit.ly/1E7vTxV -O ./hermes-os-setup.sh
 
 **CentOS v7**::
 
-	wget http://bit.ly/1hOVbH7 -O ./prodiguer-os-setup.sh
+	wget http://bit.ly/1hOVbH7 -O ./hermes-os-setup.sh
 
 **Scientific Linux v6**::
 
-	wget http://bit.ly/1UVXwOH -O ./prodiguer-os-setup.sh
+	wget http://bit.ly/1UVXwOH -O ./hermes-os-setup.sh
 
 **Scientific Linux v7**::
 
-	wget http://bit.ly/1NoHY4G -O ./prodiguer-os-setup.sh
+	wget http://bit.ly/1NoHY4G -O ./hermes-os-setup.sh
 
 **Ubuntu Mint v17**::
 
-	wget http://bit.ly/1U1w4wu -O ./prodiguer-os-setup.sh
+	wget http://bit.ly/1U1w4wu -O ./hermes-os-setup.sh
 
 3: Activate setup script
 ----------------------------
 
 Update permissions & import setup functions::
 
-	chmod a+x ./prodiguer-os-setup.sh
-	source ./prodiguer-os-setup.sh
+	chmod a+x ./hermes-os-setup.sh
+	source ./hermes-os-setup.sh
 
 4: Execute required setup functions
 ----------------------------
 
 To install common libraries::
 
-	prodiguer_setup_common
+	hermes_setup_common
 
 5: Execute optional setup functions
 ----------------------------
 
 To install NGinx web server::
 
-	prodiguer_setup_nginx
+	hermes_setup_nginx
 
 To install MongoDB server::
 
-	prodiguer_setup_mongodb
+	hermes_setup_mongodb
 
 To install PostgreSQL server::
 
-	prodiguer_setup_postgresql
+	hermes_setup_postgresql
 
 To install RabbitMQ server::
 
-	prodiguer_setup_rabbitmq
+	hermes_setup_rabbitmq
 
 **Note** - if you are setting up a machine for development purposes then you will need to execute all the setup functions listed above.
 
@@ -131,7 +131,7 @@ Type exit to close session.
 
 Remove setup script::
 
-	rm -f ./prodiguer-os-setup.sh
+	rm -f ./hermes-os-setup.sh
 
 Close terminal session::
 

@@ -1,8 +1,8 @@
 ===================================
-Prodiguer Shell - Installation
+HERMES Shell - Installation
 ===================================
 
-**Note** - it is assumed that your OS is setup correctly as documented `here <https://github.com/Prodiguer/prodiguer-shell/blob/master/docs/os-setup.rst>`_.
+**Note** - it is assumed that your OS is setup correctly as documented `here <https://github.com/Prodiguer/hermes-shell/blob/master/docs/os-setup.rst>`_.
 
 1: Open terminal session
 ----------------------------
@@ -17,43 +17,43 @@ Log in under the user account that will be used to to run / develop the shell.
 Clone from remote git repository::
 
 	cd $HOME
-	git clone https://github.com/Prodiguer/prodiguer-shell.git prodiguer
+	git clone https://github.com/Prodiguer/hermes-shell.git hermes
 
 3: Define environment variables
 ----------------------------
 
 Copy template::
 
-	cp ./prodiguer/templates/prodiguer_env.sh $HOME/.prodiguer
+	cp ./hermes/templates/hermes_env.sh $HOME/.hermes
 
 Review & edit defaults::
 
-	vi $HOME/.prodiguer
+	vi $HOME/.hermes
 
 4: Run stack installer
 ----------------------------
 
 Activate shell::
 
-	source ./prodiguer/activate
+	source ./hermes/activate
 
 Run installer (takes 10-15 minutes)::
 
-	prodiguer-stack-install
+	hermes-stack-install
 
 5. Install database
 ----------------------------
 
-To install prodiguer postgres database (if PostgreSQL is installed)::
+To install HERMES postgres database (if PostgreSQL is installed)::
 
-	prodiguer-db-pgres-install
+	hermes-db-pgres-install
 
 6.	Verification
 ----------------------------
 
-Verify that the prodiguer web service can be started::
+Verify that the HERMES web service can be started::
 
-	prodiguer-web-service
+	hermes-web-service
 
 Then perform the following:
 
@@ -61,12 +61,12 @@ Then perform the following:
 
 *  Enter url: **localhost:8888/api**
 
-*  The prodiguer web service is running message will be displayed
+*  The HERMES web service is running message will be displayed
 
 *  Enter url: **localhost:8888/static/simulation.monitoring.html**
 
-*  The prodiguer simulation moinitoring web application will be displayed
+*  The HERMES simulation moinitoring web application will be displayed
 
 *  Close Firefox web browser
 
-*  CTL-C to stop prodiguer web service
+*  CTL-C to stop HERMES web service

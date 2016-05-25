@@ -1,3 +1,3 @@
 
-# Prodiguer: activate shell
+# HERMES: activate shell
 source $HOME/prodiguer/activate
