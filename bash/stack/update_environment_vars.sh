@@ -13,7 +13,7 @@ main()
 		cp $HOME/.prodiguer $backup
 		log "previous environment variable configuration file backup @ "$backup
 	fi
-	cp $PRODIGUER_DIR_TEMPLATES/hermes_env.sh $HOME/.prodiguer
+	cp $HERMES_DIR_TEMPLATES/hermes_env.sh $HOME/.prodiguer
 
 	log "UPDATED ENVIRONMENT VARS"
 }

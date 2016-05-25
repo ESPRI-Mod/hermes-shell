@@ -8,8 +8,8 @@ _install_repo()
 {
 	log "Installing repo: $1"
 
-	rm -rf $PRODIGUER_DIR_REPOS/$1
-	git clone -q https://github.com/Prodiguer/$1.git $PRODIGUER_DIR_REPOS/$1
+	rm -rf $HERMES_DIR_REPOS/$1
+	git clone -q https://github.com/Prodiguer/$1.git $HERMES_DIR_REPOS/$1
 }
 
 # Updates a git repo.
@@ -17,7 +17,7 @@ _update_repo()
 {
 	log "Updating repo: $1"
 
-	set_working_dir $PRODIGUER_DIR_REPOS/$1
+	set_working_dir $HERMES_DIR_REPOS/$1
 	git pull -q
 	remove_files "*.pyc"
 	set_working_dir
@@ -30,7 +30,7 @@ main()
 
 	for repo in "${PRODIGUER_REPOS[@]}"
 	do
-		if [ -d "$PRODIGUER_DIR_REPOS/$repo" ]; then
+		if [ -d "$HERMES_DIR_REPOS/$repo" ]; then
 			_update_repo $repo
 		else
 			_install_repo $repo

@@ -11,18 +11,18 @@ _install_venv()
 	fi
 
 	# Make directory.
-	declare TARGET_VENV=$PRODIGUER_DIR_VENV/$1
+	declare TARGET_VENV=$HERMES_DIR_VENV/$1
 	rm -rf $TARGET_VENV
     mkdir -p $TARGET_VENV
 
     # Initialise venv.
-    export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
+    export PATH=$HERMES_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_PYTHON
     virtualenv -q $TARGET_VENV
 
     # Build dependencies.
     source $TARGET_VENV/bin/activate
-	declare TARGET_REQUIREMENTS=$PRODIGUER_DIR_TEMPLATES/venv-requirements-$1.txt
+	declare TARGET_REQUIREMENTS=$HERMES_DIR_TEMPLATES/venv-requirements-$1.txt
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -47,7 +47,7 @@ _install_python_executable()
 	log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
 	# Download source.
-	set_working_dir $PRODIGUER_DIR_PYTHON
+	set_working_dir $HERMES_DIR_PYTHON
 	mkdir src
 	cd src
 	wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz --no-check-certificate
@@ -56,19 +56,19 @@ _install_python_executable()
 
 	# Compile.
 	cd Python-$PYTHON_VERSION
-	./configure --prefix=$PRODIGUER_DIR_PYTHON
+	./configure --prefix=$HERMES_DIR_PYTHON
 	make
 	make install
-	export PATH=$PRODIGUER_DIR_PYTHON/bin:$PATH
-	export PYTHONPATH=$PYTHONPATH:$PRODIGUER_DIR_PYTHON
+	export PATH=$HERMES_DIR_PYTHON/bin:$PATH
+	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_PYTHON
 
 	# Install setuptools.
-	cd $PRODIGUER_DIR_PYTHON/src
+	cd $HERMES_DIR_PYTHON/src
 	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 	python ez_setup.py
 
 	# Install pip.
-	easy_install --prefix $PRODIGUER_DIR_PYTHON pip
+	easy_install --prefix $HERMES_DIR_PYTHON pip
 
 	# Install virtualenv.
 	pip install virtualenv
@@ -79,8 +79,8 @@ _install_repo()
 {
 	log "Installing repo: $1"
 
-	rm -rf $PRODIGUER_DIR_REPOS/$1
-	git clone -q https://github.com/Prodiguer/$1.git $PRODIGUER_DIR_REPOS/$1
+	rm -rf $HERMES_DIR_REPOS/$1
+	git clone -q https://github.com/Prodiguer/$1.git $HERMES_DIR_REPOS/$1
 }
 
 # Installs git repos.
@@ -101,25 +101,25 @@ _install_dirs()
 	do
 		mkdir -p $ops_dir
 	done
-	mkdir -p $PRODIGUER_DIR_REPOS
-	mkdir -p $PRODIGUER_DIR_PYTHON
-	mkdir -p $PRODIGUER_DIR_TMP
+	mkdir -p $HERMES_DIR_REPOS
+	mkdir -p $HERMES_DIR_PYTHON
+	mkdir -p $HERMES_DIR_TMP
 }
 
 # Sets up configuration.
 _install_configuration()
 {
-	cp $PRODIGUER_DIR_TEMPLATES/hermes.json $PRODIGUER_DIR_CONFIG/hermes.json
-	cat $PRODIGUER_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
+	cp $HERMES_DIR_TEMPLATES/hermes.json $HERMES_DIR_CONFIG/hermes.json
+	cat $HERMES_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
 	if [ $HERMES_MACHINE_TYPE = "dev" ]; then
-		cp $PRODIGUER_DIR_TEMPLATES/mq-supervisord-dev.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+		cp $HERMES_DIR_TEMPLATES/mq-supervisord-dev.conf $HERMES_DIR_DAEMONS/mq/supervisord.conf
 	elif [ $HERMES_MACHINE_TYPE = "mq" ]; then
-		cp $PRODIGUER_DIR_TEMPLATES/mq-supervisord-mq.conf $PRODIGUER_DIR_DAEMONS/mq/supervisord.conf
+		cp $HERMES_DIR_TEMPLATES/mq-supervisord-mq.conf $HERMES_DIR_DAEMONS/mq/supervisord.conf
 	fi
 	if [ $HERMES_MACHINE_TYPE = "dev" ]; then
-		cp $PRODIGUER_DIR_TEMPLATES/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
+		cp $HERMES_DIR_TEMPLATES/web-supervisord.conf $HERMES_DIR_DAEMONS/web/supervisord.conf
 	elif [ $HERMES_MACHINE_TYPE = "web" ]; then
-		cp $PRODIGUER_DIR_TEMPLATES/web-supervisord.conf $PRODIGUER_DIR_DAEMONS/web/supervisord.conf
+		cp $HERMES_DIR_TEMPLATES/web-supervisord.conf $HERMES_DIR_DAEMONS/web/supervisord.conf
 	fi
 }
 

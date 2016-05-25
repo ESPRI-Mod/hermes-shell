@@ -3,7 +3,7 @@ source $HERMES_HOME/bash/init.sh
 # Initialises the db backup dir.
 _init_backup_dir()
 {
-	FINAL_DB_BACKUP_DIR=$PRODIGUER_DIR_BACKUPS"/db/""`date +\%Y-\%m-\%d`/"
+	FINAL_DB_BACKUP_DIR=$HERMES_DIR_BACKUPS"/db/""`date +\%Y-\%m-\%d`/"
 
 	log "Making backup directory @ $FINAL_DB_BACKUP_DIR"
 

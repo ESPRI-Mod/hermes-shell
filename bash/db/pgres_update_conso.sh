@@ -9,7 +9,7 @@ main()
 	log "initialising conso db tables"
 
 	activate_venv server
-	python $PRODIGUER_DIR_JOBS/db/run_pgres_update_conso.py
+	python $HERMES_DIR_JOBS/db/run_pgres_update_conso.py
 
 
 	log "initialised conso db tables"

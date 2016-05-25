@@ -16,7 +16,7 @@ _uninstall_repo()
 {
 	log "Uninstalling repo: $1"
 
-	rm -rf $PRODIGUER_DIR_REPOS/$1
+	rm -rf $HERMES_DIR_REPOS/$1
 }
 
 # Uninstalls git repos.
@@ -35,7 +35,7 @@ _uninstall_python()
 {
 	log "Uninstalling python"
 
-	rm -rf $PRODIGUER_DIR_PYTHON
+	rm -rf $HERMES_DIR_PYTHON
 }
 
 # Uninstalls a virtual environment.
@@ -45,7 +45,7 @@ _uninstall_venv()
 		log "Uninstalling virtual environment :: $1"
 	fi
 
-	rm -rf $PRODIGUER_DIR_VENV/$1
+	rm -rf $HERMES_DIR_VENV/$1
 }
 
 # Uninstalls virtual environments.
