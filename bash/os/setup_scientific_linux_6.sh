@@ -117,12 +117,12 @@ hermes_setup_rabbitmq()
 	rabbitmqadmin -q import ./mq-rabbit-broker-definitions.json
 	rm -f ./mq-rabbit-broker-definitions.json
 
-	# Remove default user.
-	rabbitmqctl delete_user guest
-
 	# Install delayed message plugin.
 	wget http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
 	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /var/lib/rabbitmq/mnesia/rabbit@hermes-mq-plugins-expand
 	rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 	rm ./rabbitmq_delayed_message_exchange-0.0.1.ez
+
+	# Remove default user.
+	rabbitmqctl delete_user guest
 }
