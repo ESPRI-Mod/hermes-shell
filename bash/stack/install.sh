@@ -23,7 +23,6 @@ _install_venv()
     # Build dependencies.
     source $TARGET_VENV/bin/activate
 	declare TARGET_REQUIREMENTS=$HERMES_DIR_TEMPLATES/venv-requirements-$1.txt
-	pip install --upgrade pip
     pip install -q --allow-all-external -r $TARGET_REQUIREMENTS
 
     # Cleanup.
@@ -69,8 +68,9 @@ _install_python_executable()
 	wget https://bootstrap.pypa.io/ez_setup.py
 	python ez_setup.py
 
-	# Install pip.
+	# Install & upgrade pip.
 	easy_install --prefix $HERMES_DIR_PYTHON pip
+	pip install --upgrade pip
 
 	# Install virtualenv.
 	pip install virtualenv
