@@ -21,6 +21,7 @@ hermes_setup_common()
 	yum -q -y install gdbm-devel
 	yum -q -y install db4-devel
 	yum -q -y install libpcap-devel
+	# does not exit according to nico
 	yum -q -y install postgresql-client
 	yum -q -y install postgresql-devel
 	yum -q -y install python-devel
@@ -118,4 +119,10 @@ hermes_setup_rabbitmq()
 
 	# Remove default user.
 	rabbitmqctl delete_user guest
+
+	# Install delayed message plugin.
+	wget http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
+	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /var/lib/rabbitmq/mnesia/rabbit@hermes-mq-plugins-expand
+	rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+	rm ./rabbitmq_delayed_message_exchange-0.0.1.ez
 }
