@@ -92,9 +92,9 @@ declare HERMES_DIR_VENV=$HERMES_HOME/ops/venv
 # ###############################################################
 
 # GitHub urls.
-$HERMES_GITHUB=https://github.com/Prodiguer
-$HERMES_GITHUB_RAW=https://raw.githubusercontent.com/Prodiguer
-$HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
+declare HERMES_GITHUB=https://github.com/Prodiguer
+declare HERMES_GITHUB_RAW=https://raw.githubusercontent.com/Prodiguer
+declare HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
 
 # Set of git repos.
 declare -a HERMES_REPOS=(
