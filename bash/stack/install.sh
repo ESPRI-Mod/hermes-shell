@@ -81,7 +81,7 @@ _install_repo()
 	log "Installing repo: $1"
 
 	rm -rf $HERMES_DIR_REPOS/$1
-	git clone -q HERMES_GITHUB/$1.git $HERMES_DIR_REPOS/$1
+	git clone -q $HERMES_GITHUB/$1.git $HERMES_DIR_REPOS/$1
 }
 
 # Installs git repos.
