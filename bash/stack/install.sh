@@ -62,6 +62,7 @@ _install_python_executable()
 	make install
 	export PATH=$HERMES_DIR_PYTHON/bin:$PATH
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_PYTHON
+	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_PYTHON/lib/python2.7/site-packages
 
 	# Install setuptools.
 	cd $HERMES_DIR_PYTHON/src
