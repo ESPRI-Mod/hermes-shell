@@ -24,7 +24,7 @@ _uninstall_repos()
 {
 	log "Uninstalling repos"
 
-	for repo in "${PRODIGUER_REPOS[@]}"
+	for repo in "${HERMES_REPOS[@]}"
 	do
 		_uninstall_repo $repo
 	done
@@ -51,7 +51,7 @@ _uninstall_venv()
 # Uninstalls virtual environments.
 _uninstall_venvs()
 {
-	for venv in "${PRODIGUER_VENVS[@]}"
+	for venv in "${HERMES_VENVS[@]}"
 	do
 		_uninstall_venv $venv "echo"
 	done

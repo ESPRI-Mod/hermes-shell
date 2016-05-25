@@ -20,16 +20,16 @@ Setting up sublime-text
 
 * Create sublime-text directories::
 
-	mkdir -p $PRODIGUER_HOME/ops/ide/sublime/locals
+	mkdir -p $HERMES_HOME/ops/ide/sublime/locals
 
 * Create symbolic links to prodiguer stack::
 
-	ln -s $PRODIGUER_HOME/repos/prodiguer-client $PRODIGUER_HOME/ops/ide/sublime/locals/client
-	ln -s $PRODIGUER_HOME/repos/prodiguer-cv $PRODIGUER_HOME/ops/ide/sublime/locals/cv
-	ln -s $PRODIGUER_HOME/repos/prodiguer-docs $PRODIGUER_HOME/ops/ide/sublime/locals/docs
-	ln -s $PRODIGUER_HOME/repos/prodiguer-fe $PRODIGUER_HOME/ops/ide/sublime/locals/fe
-	ln -s $PRODIGUER_HOME/repos/prodiguer-server $PRODIGUER_HOME/ops/ide/sublime/locals/server
-	ln -s $PRODIGUER_HOME $PRODIGUER_HOME/ops/ide/sublime/locals/shell
+	ln -s $HERMES_HOME/repos/prodiguer-client $HERMES_HOME/ops/ide/sublime/locals/client
+	ln -s $HERMES_HOME/repos/prodiguer-cv $HERMES_HOME/ops/ide/sublime/locals/cv
+	ln -s $HERMES_HOME/repos/prodiguer-docs $HERMES_HOME/ops/ide/sublime/locals/docs
+	ln -s $HERMES_HOME/repos/prodiguer-fe $HERMES_HOME/ops/ide/sublime/locals/fe
+	ln -s $HERMES_HOME/repos/prodiguer-server $HERMES_HOME/ops/ide/sublime/locals/server
+	ln -s $HERMES_HOME $HERMES_HOME/ops/ide/sublime/locals/shell
 
 * Open sublime-text.
 
@@ -37,10 +37,10 @@ Setting up sublime-text
 
 * From main menu click: Project -->  Save Project as ...
 
-	Save project as: $PRODIGUER_HOME/ops/ide/sublime/prodiguer.sublime-project
+	Save project as: $HERMES_HOME/ops/ide/sublime/prodiguer.sublime-project
 
 * From main menu click: Project -->  Add Folder to Project ...
 
-* Select folder: $PRODIGUER_HOME/ops/ide/sublime/locals
+* Select folder: $HERMES_HOME/ops/ide/sublime/locals
 
 The IDE will import the symbolic links into the project folder view.  If you wish to add links to other directories within the prodiguer stack then simply repeat step 2.

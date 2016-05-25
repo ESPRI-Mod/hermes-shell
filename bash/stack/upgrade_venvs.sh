@@ -22,7 +22,7 @@ main()
 
 	export PATH=$HERMES_DIR_PYTHON/bin:$PATH
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_PYTHON
-	for venv in "${PRODIGUER_VENVS[@]}"
+	for venv in "${HERMES_VENVS[@]}"
 	do
 		_upgrade_venv $venv
 	done

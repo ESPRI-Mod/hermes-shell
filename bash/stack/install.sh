@@ -32,7 +32,7 @@ _install_venv()
 # Installs python virtual environments.
 _install_venvs()
 {
-	for venv in "${PRODIGUER_VENVS[@]}"
+	for venv in "${HERMES_VENVS[@]}"
 	do
 		_install_venv $venv "echo"
 	done
@@ -88,7 +88,7 @@ _install_repos()
 {
 	log "Installing repos"
 
-	for repo in "${PRODIGUER_REPOS[@]}"
+	for repo in "${HERMES_REPOS[@]}"
 	do
 		_install_repo $repo
 	done
@@ -97,7 +97,7 @@ _install_repos()
 # Sets up directories.
 _install_dirs()
 {
-	for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
+	for ops_dir in "${HERMES_OPS_DIRS[@]}"
 	do
 		mkdir -p $ops_dir
 	done

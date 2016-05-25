@@ -5,7 +5,7 @@ Prodiguer Shell DB Commands
 prodiguer-db-pgres-backup
 ----------------------------
 
-Backs up prodiguer PostgreSQL database to $PRODIGUER_HOME/ops/backups/db/pgres/YYYY-MM-DD.
+Backs up prodiguer PostgreSQL database to $HERMES_HOME/ops/backups/db/pgres/YYYY-MM-DD.
 
 prodiguer-db-pgres-install
 ----------------------------

@@ -19,7 +19,7 @@ activate_venv()
 	log "Activated virtual environment: "$1
 }
 
-# Wraps standard echo by adding PRODIGUER prefix.
+# Wraps standard echo by adding HERMES prefix.
 log()
 {
 	declare now=`date +%Y-%m-%dT%H:%M:%S`
@@ -30,12 +30,12 @@ log()
 			do
 				declare tabs+='\t'
 			done
-	    	echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "$tabs$1
+	    	echo -e $now" [INFO] :: IPSL HERMES-SHELL > "$tabs$1
 	    else
-	    	echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "$1
+	    	echo -e $now" [INFO] :: IPSL HERMES-SHELL > "$1
 	    fi
 	else
-	    echo -e $now" [INFO] :: IPSL PRODIGUER-SHELL > "
+	    echo -e $now" [INFO] :: IPSL HERMES-SHELL > "
 	fi
 }
 
@@ -93,7 +93,7 @@ declare HERMES_DIR_VENV=$HERMES_HOME/ops/venv
 # ###############################################################
 
 # Set of git repos.
-declare -a PRODIGUER_REPOS=(
+declare -a HERMES_REPOS=(
 	'prodiguer-client'
 	'prodiguer-cv'
 	'prodiguer-docs'
@@ -103,12 +103,12 @@ declare -a PRODIGUER_REPOS=(
 )
 
 # Set of virtual environments.
-declare -a PRODIGUER_VENVS=(
+declare -a HERMES_VENVS=(
 	'server'
 )
 
 # Set of ops sub-directories.
-declare -a PRODIGUER_OPS_DIRS=(
+declare -a HERMES_OPS_DIRS=(
 	$HERMES_DIR_BACKUPS
 	$HERMES_DIR_CONFIG
 	$HERMES_DIR_CERTS
@@ -134,7 +134,7 @@ declare -a PRODIGUER_OPS_DIRS=(
 # ###############################################################
 
 # Ensure ops paths exist.
-for ops_dir in "${PRODIGUER_OPS_DIRS[@]}"
+for ops_dir in "${HERMES_OPS_DIRS[@]}"
 do
 	mkdir -p $ops_dir
 done

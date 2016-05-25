@@ -20,7 +20,7 @@ Updates stack by pulling down new source code, rebuilding virtual environments .
 prodiguer-stack-update-config
 ----------------------------
 
-Updates shell configuration files found in $PRODIGUER_HOME/ops/config.
+Updates shell configuration files found in $HERMES_HOME/ops/config.
 
 prodiguer-stack-update-repos
 ----------------------------

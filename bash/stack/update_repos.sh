@@ -28,7 +28,7 @@ main()
 {
 	log "UPDATING REPOS"
 
-	for repo in "${PRODIGUER_REPOS[@]}"
+	for repo in "${HERMES_REPOS[@]}"
 	do
 		if [ -d "$HERMES_DIR_REPOS/$repo" ]; then
 			_update_repo $repo

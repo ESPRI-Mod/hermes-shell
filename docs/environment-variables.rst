@@ -11,7 +11,7 @@ The Prodiguer platform is distributed across different types of machine.  Code r
 General Variables
 ----------------------------
 
-**PRODIGUER_HOME**
+**HERMES_HOME**
 
 * Description:	Path to local prodiguer home directory.
 
