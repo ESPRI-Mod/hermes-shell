@@ -40,7 +40,7 @@ prodiguer_setup_nginx()
 	apt-get install -qq -y nginx
 
 	# Update nginx configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/web-nginx.conf -O /etc/nginx/nginx.conf
+	wget $HERMES_GITHUB_RAW_SHELL/master/templates/web-nginx.conf -O /etc/nginx/nginx.conf
 }
 
 # Installs mongodb db server.
@@ -70,7 +70,7 @@ prodiguer_setup_postgresql()
 	apt-get install -qq -y postgresql postgresql-contrib
 
 	# Install default configuration.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/db_pg_hba.conf -O /etc/postgresql/9.3/main/pg_hba.conf
+	wget $HERMES_GITHUB_RAW_SHELL/master/templates/db_pg_hba.conf -O /etc/postgresql/9.3/main/pg_hba.conf
 
 	# Start PostgreSQL service.
 	service postgresql restart
@@ -101,7 +101,7 @@ prodiguer_setup_rabbitmq()
 
 	# Initialise configuration.
 	service rabbitmq-server stop
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
+	wget $HERMES_GITHUB_RAW_SHELL/master/templates/mq-rabbit.config -O /etc/rabbitmq/rabbitmq.config
 	service rabbitmq-server start
 
 	# Enable RabbitMQ management plugin & restart.
@@ -113,7 +113,7 @@ prodiguer_setup_rabbitmq()
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Import RabbitMQ broker definitions.
-	wget https://raw.githubusercontent.com/Prodiguer/prodiguer-shell/master/templates/mq-rabbit-broker-definitions.json
+	wget $HERMES_GITHUB_RAW_SHELL/master/templates/mq-rabbit-broker-definitions.json
 	rabbitmqctl set_user_tags guest administrator
 	rabbitmqadmin -q import ./mq-rabbit-broker-definitions.json
 	rm -f ./mq-rabbit-broker-definitions.json

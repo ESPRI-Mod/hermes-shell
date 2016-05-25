@@ -92,6 +92,10 @@ declare HERMES_DIR_VENV=$HERMES_HOME/ops/venv
 # SECTION: INITIALIZE VARS
 # ###############################################################
 
+# GitHub urls.
+$HERMES_GITHUB_RAW=https://raw.githubusercontent.com/Prodiguer
+$HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
+
 # Set of git repos.
 declare -a HERMES_REPOS=(
 	'prodiguer-client'
