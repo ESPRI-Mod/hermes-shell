@@ -89,7 +89,7 @@ hermes_setup_rabbitmq()
 
 	# Install RabbitMQ repository.
 	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-	rpm -Uvh https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_4/rabbitmq-server-3.5.4-1.noarch.rpm
+	rpm -Uvh https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_5_7/rabbitmq-server-3.5.7-1.noarch.rpm
 	yum -q -y update
 
 	# Install RabbitMQ.
@@ -108,7 +108,7 @@ hermes_setup_rabbitmq()
 	service rabbitmq-server start
 
 	# Set RabbitMQ admin cli.
-	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_4/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
+	wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/rabbitmq_v3_5_7/bin/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
 	chmod a+x /usr/local/bin/rabbitmqadmin
 
 	# Import RabbitMQ broker definitions.
@@ -118,8 +118,8 @@ hermes_setup_rabbitmq()
 	rm -f ./mq-rabbit-broker-definitions.json
 
 	# Install delayed message plugin.
-	wget http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
-	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.4/plugins
+	wget http://www.rabbitmq.com/community-plugins/v3.5.x/rabbitmq_delayed_message_exchange-0.0.1-rmq3.5.x-9bf265e4.ez
+	cp ./rabbitmq_delayed_message_exchange-0.0.1.ez /usr/lib/rabbitmq/lib/rabbitmq_server-3.5.7/plugins
 	rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 	rm ./rabbitmq_delayed_message_exchange-0.0.1.ez
 
