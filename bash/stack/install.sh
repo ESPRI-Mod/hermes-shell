@@ -138,8 +138,8 @@ main()
 	_install_script_permissions
 	_install_repos
 	_install_python_executable
-	# _install_venvs
-	# cat $HERMES_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
+	_install_venvs
+	cat $HERMES_DIR_TEMPLATES/hermes_env_bash_profile.txt >> $HOME/.bash_profile
 
 	log "INSTALLED STACK"
 }
