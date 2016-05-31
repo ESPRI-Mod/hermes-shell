@@ -6,7 +6,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -14,7 +14,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -22,7 +22,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7010",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -30,7 +30,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7010",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -38,7 +38,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7011",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -46,7 +46,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7011",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -54,7 +54,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -62,7 +62,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -70,7 +70,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -78,7 +78,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -86,7 +86,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -94,7 +94,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.0100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -102,7 +102,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -110,7 +110,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -118,7 +118,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -126,7 +126,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -134,7 +134,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -142,7 +142,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -150,7 +150,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -158,7 +158,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -166,7 +166,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -174,7 +174,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -182,7 +182,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -190,7 +190,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -198,7 +198,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -206,7 +206,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -214,7 +214,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -222,7 +222,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -230,7 +230,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -238,7 +238,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -246,7 +246,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -254,7 +254,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -262,7 +262,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -270,7 +270,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -278,7 +278,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -286,7 +286,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.3999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -294,7 +294,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.8888",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -302,7 +302,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9999",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -310,7 +310,7 @@
             "destination_type": "queue",
             "routing_key": "debug-0000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -318,7 +318,7 @@
             "destination_type": "queue",
             "routing_key": "debug-0100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -326,7 +326,7 @@
             "destination_type": "queue",
             "routing_key": "debug-1000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -334,7 +334,7 @@
             "destination_type": "queue",
             "routing_key": "debug-1100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -342,7 +342,7 @@
             "destination_type": "queue",
             "routing_key": "debug-2000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -350,7 +350,7 @@
             "destination_type": "queue",
             "routing_key": "debug-2100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -358,7 +358,7 @@
             "destination_type": "queue",
             "routing_key": "debug-2900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -366,7 +366,7 @@
             "destination_type": "queue",
             "routing_key": "debug-3000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -374,7 +374,7 @@
             "destination_type": "queue",
             "routing_key": "debug-3100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -382,7 +382,7 @@
             "destination_type": "queue",
             "routing_key": "debug-3900",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -390,7 +390,7 @@
             "destination_type": "queue",
             "routing_key": "debug-7000",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -398,7 +398,7 @@
             "destination_type": "queue",
             "routing_key": "debug-7100",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -406,7 +406,7 @@
             "destination_type": "queue",
             "routing_key": "live-metrics",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -414,7 +414,7 @@
             "destination_type": "queue",
             "routing_key": "live-metrics-pcmdi",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -422,7 +422,7 @@
             "destination_type": "queue",
             "routing_key": "live-monitoring-compute",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -430,7 +430,7 @@
             "destination_type": "queue",
             "routing_key": "live-monitoring-post-processing",
             "source": "x-primary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -438,7 +438,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-1000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -446,7 +446,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-1000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -454,7 +454,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-2000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -462,7 +462,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-2000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -470,7 +470,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-3000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -478,7 +478,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-3000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -486,7 +486,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-4000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -494,7 +494,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.*.-4000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -502,7 +502,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8100",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -510,7 +510,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8100",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -518,7 +518,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8200",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -526,7 +526,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8200",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -534,7 +534,7 @@
             "destination_type": "queue",
             "routing_key": "debug-8000",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -542,7 +542,7 @@
             "destination_type": "queue",
             "routing_key": "debug-8100",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -550,7 +550,7 @@
             "destination_type": "queue",
             "routing_key": "debug-8200",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -558,7 +558,7 @@
             "destination_type": "queue",
             "routing_key": "debug-cv",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -566,7 +566,7 @@
             "destination_type": "queue",
             "routing_key": "debug-fe",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -574,7 +574,7 @@
             "destination_type": "queue",
             "routing_key": "debug-smtp",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -582,7 +582,7 @@
             "destination_type": "queue",
             "routing_key": "live-alert",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -590,7 +590,7 @@
             "destination_type": "queue",
             "routing_key": "live-cv",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -598,7 +598,7 @@
             "destination_type": "queue",
             "routing_key": "live-fe",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -606,7 +606,7 @@
             "destination_type": "queue",
             "routing_key": "live-smtp",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -614,7 +614,7 @@
             "destination_type": "queue",
             "routing_key": "live-superviseur",
             "source": "x-secondary",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -622,7 +622,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8000",
             "source": "x-secondary-delayed",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
@@ -630,7 +630,7 @@
             "destination_type": "queue",
             "routing_key": "*.*.*.superviseur.8000",
             "source": "x-secondary-delayed",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         }
     ],
     "exchanges": [
@@ -641,35 +641,6 @@
             "internal": false,
             "name": "x-primary",
             "type": "topic",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {
-                "x-delayed-type": "topic"
-            },
-            "auto_delete": false,
-            "durable": true,
-            "internal": false,
-            "name": "x-secondary-delayed",
-            "type": "x-delayed-message",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "internal": false,
-            "name": "x-secondary",
-            "type": "topic",
-            "vhost": "prodiguer"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "internal": false,
-            "name": "x-secondary",
-            "type": "topic",
             "vhost": "hermes"
         },
         {
@@ -688,27 +659,13 @@
             "auto_delete": false,
             "durable": true,
             "internal": false,
-            "name": "x-primary",
+            "name": "x-secondary",
             "type": "topic",
             "vhost": "hermes"
         }
     ],
     "parameters": [],
     "permissions": [
-        {
-            "configure": ".*",
-            "read": ".*",
-            "user": "hermes-mq-admin",
-            "vhost": "prodiguer",
-            "write": ".*"
-        },
-        {
-            "configure": ".*",
-            "read": ".*",
-            "user": "hermes-mq-admin",
-            "vhost": "hermes",
-            "write": ".*"
-        },
         {
             "configure": ".*",
             "read": ".*",
@@ -719,27 +676,6 @@
         {
             "configure": "",
             "read": ".*",
-            "user": "prodiguer-mq-user",
-            "vhost": "prodiguer",
-            "write": ".*"
-        },
-        {
-            "configure": ".*",
-            "read": ".*",
-            "user": "prodiguer-mq-admin",
-            "vhost": "hermes",
-            "write": ".*"
-        },
-        {
-            "configure": "",
-            "read": ".*",
-            "user": "hermes-mq-user",
-            "vhost": "prodiguer",
-            "write": ".*"
-        },
-        {
-            "configure": "",
-            "read": ".*",
             "user": "hermes-mq-user",
             "vhost": "hermes",
             "write": ".*"
@@ -747,8 +683,8 @@
         {
             "configure": ".*",
             "read": ".*",
-            "user": "prodiguer-mq-admin",
-            "vhost": "prodiguer",
+            "user": "hermes-mq-admin",
+            "vhost": "hermes",
             "write": ".*"
         }
     ],
@@ -759,266 +695,256 @@
             "auto_delete": false,
             "durable": true,
             "name": "debug-2100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-cv",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-8888",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-0000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-7010",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-1999",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-smtp",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-monitoring-post-processing",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-2999",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-smtp",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-superviseur",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-3100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-1000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-8100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-1100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-alert",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-monitoring-compute",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-fe",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-3999",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-7100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-fe",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-7011",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-1900",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-8000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-7000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-2000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-cv",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-2900",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-3000",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-3900",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-metrics-pcmdi",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-alert",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "live-metrics",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-8200",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
             "name": "debug-0100",
-            "vhost": "prodiguer"
+            "vhost": "hermes"
         }
     ],
     "rabbit_version": "3.5.0",
     "users": [
         {
-            "name": "hermes-mq-user",
-            "password_hash": "52iQGIqqvs7hA4Rn0lnLqgtS7l8=",
-            "tags": ""
-        },
-        {
-            "name": "prodiguer-mq-admin",
+            "name": "hermes-mq-admin",
             "password_hash": "GE+elfdqGTz/kWdn5CMjLp4yDTQ=",
             "tags": "administrator"
         },
         {
-            "name": "hermes-mq-admin",
-            "password_hash": "Q/xlq61DYDJ3gP8QMS68IIpXxGk=",
-            "tags": "administrator"
-        },
-        {
-            "name": "prodiguer-mq-user",
+            "name": "hermes-mq-user",
             "password_hash": "HumNKcAVW0bEeiwVLzbIqQJeQt0=",
             "tags": ""
         },
@@ -1029,9 +955,6 @@
         }
     ],
     "vhosts": [
-        {
-            "name": "prodiguer"
-        },
         {
             "name": "hermes"
         },
