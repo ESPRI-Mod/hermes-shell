@@ -28,9 +28,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_allocation
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_allocation TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_allocation TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_allocation TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_allocation TO hermes_db_user;
 
 -- Create sequence: conso.tbl_allocation_id_seq
 CREATE SEQUENCE conso.tbl_allocation_id_seq
@@ -40,9 +40,9 @@ CREATE SEQUENCE conso.tbl_allocation_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_allocation_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_allocation_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_allocation_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_allocation_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_allocation_id_seq TO hermes_db_user;
 
 -- Create table: conso.tbl_consumption
 CREATE TABLE conso.tbl_consumption
@@ -65,9 +65,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_consumption
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_consumption TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_consumption TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_consumption TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_consumption TO hermes_db_user;
 
 -- Create sequence: conso.tbl_consumption_id_seq
 CREATE SEQUENCE conso.tbl_consumption_id_seq
@@ -77,9 +77,9 @@ CREATE SEQUENCE conso.tbl_consumption_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_consumption_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_consumption_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_consumption_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_consumption_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_consumption_id_seq TO hermes_db_user;
 
 -- Create table: conso.tbl_cpu_state
 CREATE TABLE conso.tbl_cpu_state
@@ -100,9 +100,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_cpu_state
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_cpu_state TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_cpu_state TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_cpu_state TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_cpu_state TO hermes_db_user;
 
 -- Create sequence: conso.tbl_consumption_id_seq
 CREATE SEQUENCE conso.tbl_cpu_state_id_seq
@@ -112,9 +112,9 @@ CREATE SEQUENCE conso.tbl_cpu_state_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_cpu_state_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_cpu_state_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_cpu_state_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_cpu_state_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_cpu_state_id_seq TO hermes_db_user;
 
 -- Create table: conso.tbl_occupation_store
 CREATE TABLE conso.tbl_occupation_store
@@ -135,9 +135,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_occupation_store
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_occupation_store TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_occupation_store TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_occupation_store TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_occupation_store TO hermes_db_user;
 
 
 -- Create sequence: conso.tbl_occupation_store_id_seq
@@ -148,9 +148,9 @@ CREATE SEQUENCE conso.tbl_occupation_store_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_occupation_store_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO hermes_db_user;
 
 
 -- Create table: mq.tbl_message_email_stats
@@ -193,9 +193,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE mq.tbl_message_email_stats
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE mq.tbl_message_email_stats TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE mq.tbl_message_email_stats TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE mq.tbl_message_email_stats TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE mq.tbl_message_email_stats TO hermes_db_user;
 
 -- Create sequence: mq.tbl_message_email_stats_id_seq
 CREATE SEQUENCE mq.tbl_message_email_stats_id_seq
@@ -205,7 +205,7 @@ CREATE SEQUENCE mq.tbl_message_email_stats_id_seq
   START 50
   CACHE 1;
 ALTER TABLE mq.tbl_message_email_stats_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE mq.tbl_message_email_stats_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE mq.tbl_message_email_stats_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE mq.tbl_message_email_stats_id_seq TO hermes_db_user;
 

@@ -17,7 +17,7 @@ _do_backup()
 {
 	log "db = $1 :: back up begins "
 
-	if ! $HERMES_DB_PGRES_PGDUMP -Fp -h localhost -U prodiguer_db_admin "$1" | gzip > $FINAL_DB_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
+	if ! $HERMES_DB_PGRES_PGDUMP -Fp -h localhost -U hermes_db_admin "$1" | gzip > $FINAL_DB_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
 		log "[!!ERROR!!] Failed to produce plain backup database $1"
 	else
 		mv $FINAL_DB_BACKUP_DIR"$1".sql.gz.in_progress $FINAL_DB_BACKUP_DIR"$1".sql.gz
@@ -33,7 +33,7 @@ _do()
 	log "Performing backups"
 
 	FULL_BACKUP_QUERY="select datname from pg_database where not datistemplate order by datname;"
-	for DATABASE in `psql -h localhost -U prodiguer_db_admin -At -c "$FULL_BACKUP_QUERY" postgres`
+	for DATABASE in `psql -h localhost -U hermes_db_admin -At -c "$FULL_BACKUP_QUERY" postgres`
 	do
 		if [[ $DATABASE == prodiguer* ]];
 		then

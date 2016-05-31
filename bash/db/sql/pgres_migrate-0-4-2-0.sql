@@ -26,5 +26,5 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE monitoring.tbl_command
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE monitoring.tbl_command TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE monitoring.tbl_command TO hermes_db_admin;

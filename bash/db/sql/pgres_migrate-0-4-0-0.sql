@@ -37,7 +37,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE monitoring.tbl_environment_metric
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- monitoring.tbl_environment_metric_id_seq: add new sequence.
 CREATE SEQUENCE monitoring.tbl_environment_metric_id_seq
@@ -47,5 +47,5 @@ CREATE SEQUENCE monitoring.tbl_environment_metric_id_seq
   START 11856
   CACHE 1;
 ALTER TABLE monitoring.tbl_environment_metric_id_seq
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 

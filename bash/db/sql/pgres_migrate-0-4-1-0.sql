@@ -47,9 +47,9 @@ ALTER TABLE cv.tbl_cv_term ALTER COLUMN uid SET NOT NULL;
 ALTER TABLE cv.tbl_cv_term ADD COLUMN sort_key character varying(127);
 
 -- Add schema: superviseur
-CREATE SCHEMA superviseur AUTHORIZATION prodiguer_db_admin;
-GRANT ALL ON SCHEMA superviseur TO prodiguer_db_admin;
-GRANT USAGE ON SCHEMA superviseur TO prodiguer_db_user;
+CREATE SCHEMA superviseur AUTHORIZATION hermes_db_admin;
+GRANT ALL ON SCHEMA superviseur TO hermes_db_admin;
+GRANT USAGE ON SCHEMA superviseur TO hermes_db_user;
 
 -- Add table: superviseur.tbl_supervision
 CREATE TABLE superviseur.tbl_supervision
@@ -70,5 +70,5 @@ CREATE TABLE superviseur.tbl_supervision
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE superviseur.tbl_supervision OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE superviseur.tbl_supervision TO prodiguer_db_admin;
+ALTER TABLE superviseur.tbl_supervision OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE superviseur.tbl_supervision TO hermes_db_admin;

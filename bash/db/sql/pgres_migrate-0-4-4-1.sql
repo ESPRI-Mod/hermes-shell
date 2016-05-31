@@ -11,9 +11,9 @@ CREATE SEQUENCE conso.tbl_allocation_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_allocation_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_allocation_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_allocation_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_allocation_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_allocation_id_seq TO hermes_db_user;
 
 
 CREATE SEQUENCE conso.tbl_consumption_id_seq
@@ -23,9 +23,9 @@ CREATE SEQUENCE conso.tbl_consumption_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_consumption_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_consumption_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_consumption_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_consumption_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_consumption_id_seq TO hermes_db_user;
 
 
 CREATE SEQUENCE conso.tbl_cpu_state_id_seq
@@ -35,9 +35,9 @@ CREATE SEQUENCE conso.tbl_cpu_state_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_cpu_state_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_cpu_state_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_cpu_state_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_cpu_state_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_cpu_state_id_seq TO hermes_db_user;
 
 
 CREATE SEQUENCE conso.tbl_occupation_store_id_seq
@@ -47,9 +47,9 @@ CREATE SEQUENCE conso.tbl_occupation_store_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_occupation_store_id_seq
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_admin;
-GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_occupation_store_id_seq TO hermes_db_admin;
+GRANT SELECT, USAGE ON TABLE conso.tbl_occupation_store_id_seq TO hermes_db_user;
 
 
 CREATE TABLE conso.tbl_allocation
@@ -72,9 +72,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_allocation
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_allocation TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_allocation TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_allocation TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_allocation TO hermes_db_user;
 
 
 CREATE TABLE conso.tbl_consumption
@@ -97,9 +97,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_consumption
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_consumption TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_consumption TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_consumption TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_consumption TO hermes_db_user;
 
 
 CREATE TABLE conso.tbl_cpu_state
@@ -120,9 +120,9 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_cpu_state
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_cpu_state TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_cpu_state TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_cpu_state TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_cpu_state TO hermes_db_user;
 
 
 CREATE TABLE conso.tbl_occupation_store
@@ -143,6 +143,6 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_occupation_store
-  OWNER TO prodiguer_db_admin;
-GRANT ALL ON TABLE conso.tbl_occupation_store TO prodiguer_db_admin;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_occupation_store TO prodiguer_db_user;
+  OWNER TO hermes_db_admin;
+GRANT ALL ON TABLE conso.tbl_occupation_store TO hermes_db_admin;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE conso.tbl_occupation_store TO hermes_db_user;

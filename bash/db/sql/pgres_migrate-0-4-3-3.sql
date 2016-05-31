@@ -47,7 +47,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_allocation
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- Create sequence: conso.tbl_allocation_id_seq
 CREATE SEQUENCE conso.tbl_allocation_id_seq
@@ -57,7 +57,7 @@ CREATE SEQUENCE conso.tbl_allocation_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_allocation_id_seq
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- Create table: conso.tbl_consumption
 CREATE TABLE conso.tbl_consumption
@@ -78,7 +78,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_consumption
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- Create sequence: conso.tbl_consumption_id_seq
 CREATE SEQUENCE conso.tbl_consumption_id_seq
@@ -88,7 +88,7 @@ CREATE SEQUENCE conso.tbl_consumption_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_consumption_id_seq
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- Create table: conso.tbl_occupation_store
 CREATE TABLE conso.tbl_occupation_store
@@ -106,7 +106,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE conso.tbl_occupation_store
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 
 -- Create sequence: conso.tbl_occupation_store_id_seq
 CREATE SEQUENCE conso.tbl_occupation_store_id_seq
@@ -116,5 +116,5 @@ CREATE SEQUENCE conso.tbl_occupation_store_id_seq
   START 1
   CACHE 1;
 ALTER TABLE conso.tbl_occupation_store_id_seq
-  OWNER TO prodiguer_db_admin;
+  OWNER TO hermes_db_admin;
 

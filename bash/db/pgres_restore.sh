@@ -8,7 +8,7 @@ source $HERMES_HOME/bash/db/pgres_create_db.sh
 declare backup_dir=$1
 
 gzip -d $backup_dir/prodiguer.sql.gz
-psql -U prodiguer_db_admin prodiguer -f $backup_dir/prodiguer.sql -q
+psql -U hermes_db_admin prodiguer -f $backup_dir/prodiguer.sql -q
 gzip $backup_dir/prodiguer.sql
 
 log "DB : restored postgres db"

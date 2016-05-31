@@ -2,4 +2,4 @@ source $HERMES_HOME/bash/init.sh
 
 log "DB : creating database"
 
-createdb -U prodiguer_db_admin -e -O prodiguer_db_admin -T template0 prodiguer
+createdb -U hermes_db_admin -e -O hermes_db_admin -T template0 prodiguer

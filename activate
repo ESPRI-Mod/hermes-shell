@@ -14,6 +14,7 @@ alias hermes-cv-git-push=$HERMES_HOME/bash/cv/git_push.sh
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
 alias hermes-db-pgres-create-test-db=$HERMES_HOME/bash/db/pgres_create_test_db.sh
+alias hermes-db-pgres-create-users='$HERMES_HOME/bash/db/pgres_create_db_users.sh && $HERMES_HOME/bash/db/pgres_grant_permissions.sh'
 alias hermes-db-pgres-grant-permissions=$HERMES_HOME/bash/db/pgres_grant_permissions.sh
 alias hermes-db-pgres-migrate=$HERMES_HOME/bash/db/pgres_migrate.sh
 alias hermes-db-pgres-performance-tests=$HERMES_HOME/bash/db/pgres_performance_tests.sh
@@ -29,6 +30,7 @@ alias hermes-db-pgres-uninstall=$HERMES_HOME/bash/db/pgres_uninstall.sh
 alias hermes-db-pgres-update-conso=$HERMES_HOME/bash/db/pgres_update_conso.sh
 alias hermes-db-pgres-vacuum=$HERMES_HOME/bash/db/pgres_vacuum.sh
 alias hermes-db-pgres-vacuum-full=$HERMES_HOME/bash/db/pgres_vacuum_full.sh
+
 
 # MQ server related commands.
 alias hermes-mq-run-agent=$HERMES_HOME/bash/mq/run_agent.sh
@@ -78,7 +80,7 @@ alias hermes-db-reset='hermes-cv-git-pull && hermes-db-pgres-reset'
 alias hermes-stack-update-source='hermes-stack-update-shell && hermes-stack-update-repos && hermes-stack-update-config'
 
 # Misc one off commands.
-alias hermes-cv-seed-accounting-projects='$HERMES_HOME/bash/cv/seed_accounting_projects.sh'
+alias hermes-cv-seed-accounting-projects=$HERMES_HOME/bash/cv/seed_accounting_projects.sh
 
 # Ensure target scripts are executable.
 chmod a+x $HERMES_HOME/bash/cv/*.sh

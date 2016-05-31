@@ -2,5 +2,5 @@ source $HERMES_HOME/bash/init.sh
 
 log "DB : dropping database users"
 
-dropuser -U prodiguer_db_admin prodiguer_db_user
-dropuser -U postgres prodiguer_db_admin
+dropuser -U hermes_db_admin hermes_db_user
+dropuser -U postgres hermes_db_admin
