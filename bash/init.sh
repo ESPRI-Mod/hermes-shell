@@ -96,6 +96,9 @@ declare HERMES_GITHUB=https://github.com/Prodiguer
 declare HERMES_GITHUB_RAW=https://raw.githubusercontent.com/Prodiguer
 declare HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
 
+# Database names.
+declare HERMES_PGRES_DB_NAME=prodiguer
+
 # Set of git repos.
 declare -a HERMES_REPOS=(
 	'hermes-client'

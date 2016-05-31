@@ -13,11 +13,11 @@ General Variables
 
 **HERMES_HOME**
 
-* Description:	Path to local prodiguer home directory.
+* Description:	Path to local HERMES home directory.
 
 * Machines:		all
 
-* Default:		$HOME/prodiguer
+* Default:		$HOME/hermes
 
 **HERMES_DEPLOYMENT_MODE**
 
@@ -41,11 +41,11 @@ General Variables
 
 **HERMES_CLIENT_WEB_URL**
 
-* Description:	Web service url from prodiguer client.
+* Description:	Web service url from HERMES client.
 
 * Machines:		mq, dev
 
-* Default:		https://prodiguer-test-web.ipsl.fr
+* Default:		https://hermes.upmc.ipsl.fr
 
 DB server variables
 ----------------------------
@@ -60,7 +60,7 @@ DB server variables
 
 **HERMES_DB_MONGO_USER_PASSWORD**
 
-* Description:	MongoDB password for the prodiguer-db-mongo-user account.
+* Description:	MongoDB password for the hermes-db-mongo-user account.
 
 * Machines:		all
 

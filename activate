@@ -31,7 +31,6 @@ alias hermes-db-pgres-update-conso=$HERMES_HOME/bash/db/pgres_update_conso.sh
 alias hermes-db-pgres-vacuum=$HERMES_HOME/bash/db/pgres_vacuum.sh
 alias hermes-db-pgres-vacuum-full=$HERMES_HOME/bash/db/pgres_vacuum_full.sh
 
-
 # MQ server related commands.
 alias hermes-mq-run-agent=$HERMES_HOME/bash/mq/run_agent.sh
 alias hermes-mq-daemons-ctl=$HERMES_HOME/bash/mq/daemons_ctl.sh
