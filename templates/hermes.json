@@ -1,6 +1,6 @@
 {
     "configSchemaVersion": "1.0.16",
-    "deploymentMode": "dev",
+    "deploymentMode": "{HERMES_DEPLOYMENT_MODE}",
     "alerts": {
         "emailAddressFrom": "prodiguer-ops@ipsl.listes.fr",
         "emailAddressTo": "prodiguer-ops@ipsl.listes.fr"
