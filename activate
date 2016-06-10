@@ -26,6 +26,7 @@ alias hermes-db-pgres-truncate-mq-emails=$HERMES_HOME/bash/db/pgres_truncate_mq_
 alias hermes-db-pgres-truncate-mq-messages=$HERMES_HOME/bash/db/pgres_truncate_mq_messages.sh
 alias hermes-db-pgres-restore=$HERMES_HOME/bash/db/pgres_restore.sh
 alias hermes-db-pgres-show-object-sizes=$HERMES_HOME/bash/db/pgres_show_object_sizes.sh
+alias hermes-db-pgres-install=$HERMES_HOME/bash/db/pgres_install.sh
 alias hermes-db-pgres-uninstall=$HERMES_HOME/bash/db/pgres_uninstall.sh
 alias hermes-db-pgres-update-conso=$HERMES_HOME/bash/db/pgres_update_conso.sh
 alias hermes-db-pgres-vacuum=$HERMES_HOME/bash/db/pgres_vacuum.sh
@@ -76,6 +77,7 @@ alias hermes-web-service=$HERMES_HOME/bash/web/run_web_service.sh
 alias hermes-daemons-init='hermes-web-daemons-init && hermes-mq-daemons-init'
 alias hermes-daemons-kill='hermes-mq-daemons-kill && hermes-web-daemons-kill'
 alias hermes-db-reset='hermes-cv-git-pull && hermes-db-pgres-reset'
+
 alias hermes-stack-update-source='hermes-stack-update-shell && hermes-stack-update-repos && hermes-stack-update-config'
 
 # Misc one off commands.
