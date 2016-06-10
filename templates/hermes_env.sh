@@ -13,6 +13,10 @@ export HERMES_MACHINE_TYPE=dev
 # Hermes client web service url.
 export HERMES_CLIENT_WEB_URL=http://localhost:8888
 
+# Hermes alert email addresses.
+export HERMES_ALERT_EMAIL_ADDRESS_FROM=prodiguer-ops@ipsl.listes.fr
+export HERMES_ALERT_EMAIL_ADDRESS_TO=prodiguer-ops@ipsl.listes.fr
+
 # --------------------------------------------------------------------
 # DB server settings
 # --------------------------------------------------------------------
