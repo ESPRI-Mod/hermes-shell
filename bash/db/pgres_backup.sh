@@ -35,7 +35,7 @@ _do()
 	FULL_BACKUP_QUERY="select datname from pg_database where not datistemplate order by datname;"
 	for DATABASE in `psql -h localhost -U hermes_db_admin -At -c "$FULL_BACKUP_QUERY" postgres`
 	do
-		if [[ $DATABASE == $HERMES_PGRES_DB_NAME* ]];
+		if [[ $DATABASE == $HERMES_DB_PGRES_NAME* ]];
 		then
 			_do_backup $DATABASE
 		fi

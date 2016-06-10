@@ -25,6 +25,9 @@ export HERMES_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 # Hermes PostgreSQL server hostname & port.
 export HERMES_DB_PGRES_HOST=localhost:5432
 
+# Hermes PostgreSQL database name.
+export HERMES_DB_PGRES_NAME=hermes
+
 # Hermes PostgreSQL pgdump executable path.
 export HERMES_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 
