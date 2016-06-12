@@ -35,7 +35,7 @@
             "smtpPort": 587,
             "idleFaultRetryDelayInSeconds": 60,
             "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
-            "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX}-PROCESSED",
+            "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX_PROCESSED}",
             "password": "{HERMES_MQ_IMAP_PASSWORD}",
             "username": "superviseur"
         }
