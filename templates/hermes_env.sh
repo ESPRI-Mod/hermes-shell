@@ -35,6 +35,9 @@ export HERMES_DB_PGRES_NAME=hermes
 # Hermes PostgreSQL pgdump executable path.
 export HERMES_DB_PGRES_PGDUMP=/usr/bin/pg_dump
 
+# Hermes PostgreSQL name for the db-user account.
+export HERMES_DB_PGRES_USER=hermes_db_user
+
 # Hermes PostgreSQL password for the db user account.
 export HERMES_DB_PGRES_USER_PASSWORD=XXXXXXXXXXX
 

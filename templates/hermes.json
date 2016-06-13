@@ -15,7 +15,7 @@
             "main": "mongodb://prodiguer-db-mongo-user:{HERMES_DB_MONGO_USER_PASSWORD}@{HERMES_DB_MONGO_HOST}/metrics"
         },
         "pgres": {
-            "main": "postgresql://hermes_db_user:{HERMES_DB_PGRES_USER_PASSWORD}@{HERMES_DB_PGRES_HOST}/{HERMES_DB_PGRES_NAME}"
+            "main": "postgresql://{HERMES_DB_PGRES_USER}:{HERMES_DB_PGRES_USER_PASSWORD}@{HERMES_DB_PGRES_HOST}/{HERMES_DB_PGRES_NAME}"
         }
     },
     "mq": {
