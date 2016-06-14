@@ -17,12 +17,8 @@ _do_backup()
 {
 	log "db = $1 :: back up begins "
 
-	if ! $HERMES_DB_PGRES_PGDUMP -Fp -h localhost -U hermes_db_admin "$1" | gzip > $FINAL_DB_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
-		log "[!!ERROR!!] Failed to produce plain backup database $1"
-	else
-		mv $FINAL_DB_BACKUP_DIR"$1".sql.gz.in_progress $FINAL_DB_BACKUP_DIR"$1".sql.gz
-	fi
-	log "db = $1 :: back up file @ $FINAL_DB_BACKUP_DIR$1.sql.gz"
+	$HERMES_DB_PGRES_PGDUMP "$1" -U hermes_db_admin -c -f $FINAL_DB_BACKUP_DIR"$1".sql;
+	log "db = $1 :: back up file @ $FINAL_DB_BACKUP_DIR$1.sql"
 
 	log "db = $1 :: back up ends"
 }
