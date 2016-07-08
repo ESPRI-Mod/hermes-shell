@@ -6,6 +6,7 @@ declare -a QUEUES=(
 	'debug-0000'
 	'debug-0100'
 	'debug-1000'
+	'debug-1001'
 	'debug-1100'
 	'debug-1900'
 	'debug-1999'
