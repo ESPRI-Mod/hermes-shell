@@ -114,6 +114,22 @@
         },
         {
             "arguments": {},
+            "destination": "debug-1001",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.1001",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-compute",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.1001",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
             "destination": "debug-1100",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1100",
@@ -639,7 +655,7 @@
             "auto_delete": false,
             "durable": true,
             "internal": false,
-            "name": "x-primary",
+            "name": "x-secondary",
             "type": "topic",
             "vhost": "hermes"
         },
@@ -659,13 +675,20 @@
             "auto_delete": false,
             "durable": true,
             "internal": false,
-            "name": "x-secondary",
+            "name": "x-primary",
             "type": "topic",
             "vhost": "hermes"
         }
     ],
     "parameters": [],
     "permissions": [
+        {
+            "configure": ".*",
+            "read": ".*",
+            "user": "hermes-mq-admin",
+            "vhost": "hermes",
+            "write": ".*"
+        },
         {
             "configure": ".*",
             "read": ".*",
@@ -679,13 +702,6 @@
             "user": "hermes-mq-user",
             "vhost": "hermes",
             "write": ".*"
-        },
-        {
-            "configure": ".*",
-            "read": ".*",
-            "user": "hermes-mq-admin",
-            "vhost": "hermes",
-            "write": ".*"
         }
     ],
     "policies": [],
@@ -694,21 +710,7 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-2100",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "live-cv",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-8888",
+            "name": "debug-7100",
             "vhost": "hermes"
         },
         {
@@ -722,14 +724,56 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-7010",
+            "name": "debug-7000",
             "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-1999",
+            "name": "live-alert",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-0100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-8000",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-1000",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-3100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-3900",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-2999",
             "vhost": "hermes"
         },
         {
@@ -750,56 +794,21 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-2999",
+            "name": "debug-cv",
             "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "live-smtp",
+            "name": "debug-7010",
             "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "live-superviseur",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-3100",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-1000",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-8100",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-1100",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-alert",
+            "name": "debug-8200",
             "vhost": "hermes"
         },
         {
@@ -820,14 +829,7 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-3999",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-7100",
+            "name": "debug-1001",
             "vhost": "hermes"
         },
         {
@@ -841,63 +843,7 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-7011",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-1900",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-8000",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-7000",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-2000",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-cv",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-2900",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-3000",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-3900",
+            "name": "debug-3999",
             "vhost": "hermes"
         },
         {
@@ -911,7 +857,63 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "live-alert",
+            "name": "debug-8100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-2100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-3000",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "live-superviseur",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-1100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-8888",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-1900",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-2900",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "live-cv",
             "vhost": "hermes"
         },
         {
@@ -925,28 +927,49 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-8200",
+            "name": "debug-2000",
             "vhost": "hermes"
         },
         {
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-0100",
+            "name": "debug-1999",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "live-smtp",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-7011",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-alert",
             "vhost": "hermes"
         }
     ],
     "rabbit_version": "3.5.0",
     "users": [
         {
-            "name": "hermes-mq-admin",
-            "password_hash": "GE+elfdqGTz/kWdn5CMjLp4yDTQ=",
-            "tags": "administrator"
-        },
-        {
             "name": "hermes-mq-user",
             "password_hash": "HumNKcAVW0bEeiwVLzbIqQJeQt0=",
             "tags": ""
+        },
+        {
+            "name": "hermes-mq-admin",
+            "password_hash": "GE+elfdqGTz/kWdn5CMjLp4yDTQ=",
+            "tags": "administrator"
         },
         {
             "name": "guest",
