@@ -9,8 +9,10 @@ source $HOME/.hermes
 
 # CV server related commands.
 alias hermes-cv-git-push=$HERMES_HOME/bash/cv/git_push.sh
+alias hermes-cv-seed-pyessv=$HERMES_HOME/bash/cv/seed_pyessv.sh
 
-# DB server related commands.
+
+# PostgreSQL DB server related commands.
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
 alias hermes-db-pgres-create-test-db=$HERMES_HOME/bash/db/pgres_create_test_db.sh
@@ -31,6 +33,9 @@ alias hermes-db-pgres-uninstall=$HERMES_HOME/bash/db/pgres_uninstall.sh
 alias hermes-db-pgres-update-conso=$HERMES_HOME/bash/db/pgres_update_conso.sh
 alias hermes-db-pgres-vacuum=$HERMES_HOME/bash/db/pgres_vacuum.sh
 alias hermes-db-pgres-vacuum-full=$HERMES_HOME/bash/db/pgres_vacuum_full.sh
+
+# Mongo DB server related commands.
+alias hermes-db-mongo-setup=$HERMES_HOME/bash/db/mongo_setup.sh
 
 # MQ server related commands.
 alias hermes-mq-run-agent=$HERMES_HOME/bash/mq/run_agent.sh
