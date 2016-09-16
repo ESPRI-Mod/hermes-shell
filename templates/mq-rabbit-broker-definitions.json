@@ -242,6 +242,22 @@
         },
         {
             "arguments": {},
+            "destination": "debug-8888",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.8888",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "live-monitoring-compute",
+            "destination_type": "queue",
+            "routing_key": "*.*.*.monitoring.8888",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
             "destination": "live-monitoring-compute",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.9999",
@@ -269,6 +285,14 @@
             "destination": "debug-1000",
             "destination_type": "queue",
             "routing_key": "debug-1000",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-1001",
+            "destination_type": "queue",
+            "routing_key": "debug-1001",
             "source": "x-primary",
             "vhost": "hermes"
         },
@@ -309,6 +333,14 @@
             "destination": "debug-7000",
             "destination_type": "queue",
             "routing_key": "debug-7000",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-7010",
+            "destination_type": "queue",
+            "routing_key": "debug-7010",
             "source": "x-primary",
             "vhost": "hermes"
         },
@@ -762,6 +794,13 @@
             "auto_delete": false,
             "durable": true,
             "name": "debug-1100",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "debug-8888",
             "vhost": "hermes"
         },
         {
