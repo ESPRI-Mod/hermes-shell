@@ -28,3 +28,4 @@ tornado==4.2.1
 voluptuous==0.8.7
 wheel==0.24.0
 wsgiref==0.1.2
+jsonschema
