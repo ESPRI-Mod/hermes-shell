@@ -10,7 +10,7 @@
         },
         {
             "arguments": {},
-            "destination": "live-metrics",
+            "destination": "live-metrics-env",
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7000",
             "source": "x-primary",
@@ -26,7 +26,7 @@
         },
         {
             "arguments": {},
-            "destination": "live-metrics",
+            "destination": "live-metrics-conso",
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7010",
             "source": "x-primary",
@@ -42,7 +42,7 @@
         },
         {
             "arguments": {},
-            "destination": "live-metrics",
+            "destination": "live-metrics-conso",
             "destination_type": "queue",
             "routing_key": "*.*.*.metrics.7011",
             "source": "x-primary",
@@ -146,22 +146,6 @@
         },
         {
             "arguments": {},
-            "destination": "debug-1900",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.1900",
-            "source": "x-primary",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "destination": "live-monitoring-compute",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.1900",
-            "source": "x-primary",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
             "destination": "debug-1999",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.1999",
@@ -205,14 +189,6 @@
             "destination": "live-monitoring-post-processing",
             "destination_type": "queue",
             "routing_key": "*.*.*.monitoring.2100",
-            "source": "x-primary",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "destination": "debug-2900",
-            "destination_type": "queue",
-            "routing_key": "*.*.*.monitoring.2900",
             "source": "x-primary",
             "vhost": "hermes"
         },
@@ -306,6 +282,14 @@
         },
         {
             "arguments": {},
+            "destination": "debug-1999",
+            "destination_type": "queue",
+            "routing_key": "debug-1999",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
             "destination": "debug-2000",
             "destination_type": "queue",
             "routing_key": "debug-2000",
@@ -322,9 +306,9 @@
         },
         {
             "arguments": {},
-            "destination": "debug-2900",
+            "destination": "debug-2999",
             "destination_type": "queue",
-            "routing_key": "debug-2900",
+            "routing_key": "debug-2999",
             "source": "x-primary",
             "vhost": "hermes"
         },
@@ -354,9 +338,17 @@
         },
         {
             "arguments": {},
-            "destination": "live-metrics",
+            "destination": "live-metrics-conso",
             "destination_type": "queue",
-            "routing_key": "live-metrics",
+            "routing_key": "live-metrics-conso",
+            "source": "x-primary",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "live-metrics-env",
+            "destination_type": "queue",
+            "routing_key": "live-metrics-env",
             "source": "x-primary",
             "vhost": "hermes"
         },
@@ -583,6 +575,14 @@
             "routing_key": "*.*.*.superviseur.8000",
             "source": "x-secondary-delayed",
             "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "destination": "debug-8000",
+            "destination_type": "queue",
+            "routing_key": "debug-8000",
+            "source": "x-secondary-delayed",
+            "vhost": "hermes"
         }
     ],
     "exchanges": [
@@ -681,6 +681,13 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
+            "name": "live-metrics-env",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
             "name": "debug-8000",
             "vhost": "hermes"
         },
@@ -710,6 +717,13 @@
             "auto_delete": false,
             "durable": true,
             "name": "live-monitoring-post-processing",
+            "vhost": "hermes"
+        },
+        {
+            "arguments": {},
+            "auto_delete": false,
+            "durable": true,
+            "name": "live-metrics-conso",
             "vhost": "hermes"
         },
         {
@@ -807,28 +821,7 @@
             "arguments": {},
             "auto_delete": false,
             "durable": true,
-            "name": "debug-1900",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "debug-2900",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
             "name": "live-cv",
-            "vhost": "hermes"
-        },
-        {
-            "arguments": {},
-            "auto_delete": false,
-            "durable": true,
-            "name": "live-metrics",
             "vhost": "hermes"
         },
         {

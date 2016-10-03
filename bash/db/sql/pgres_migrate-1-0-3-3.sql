@@ -14,4 +14,3 @@ UPDATE monitoring.tbl_job SET execution_state = 'c' WHERE execution_end_date IS 
 -- Set job inter-monitoring flag.
 UPDATE monitoring.tbl_job SET is_im = FALSE;
 UPDATE monitoring.tbl_job SET is_im = TRUE WHERE post_processing_name = 'monitoring';
-
