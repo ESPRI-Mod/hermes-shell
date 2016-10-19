@@ -12,27 +12,16 @@
 """
 import argparse
 
-import arrow
 import pika
 
-from prodiguer import cv
-from prodiguer.db.pgres import session
-from prodiguer.db.pgres import types
-from prodiguer.db.pgres import dao_mq
-from prodiguer.utils import logger
 from hermes_jobs.mq.monitoring import job_end
 from hermes_jobs.mq.monitoring import job_start
 from hermes_jobs.mq.utils import invoke as invoke_handler
+from prodiguer import cv
+from prodiguer.db import pgres as db
+from prodiguer.db.pgres import dao_mq
+from prodiguer.utils import logger
 
-
-
-# Re-process various message types.
-# _reprocess("0000", lambda: _retrieve_simulation_messages("0000"), job_start)
-# _reprocess("0100", lambda: _retrieve_simulation_messages("0100"), job_end)
-# _reprocess("1000", lambda: _retrieve_job_messages("1000"), job_start)
-# _reprocess("2000", lambda: _retrieve_job_messages("2000"), job_start)
-
-# with session.create():
 
 
 # Map of message types to processing agents.
@@ -48,9 +37,9 @@ def _get_message():
     """Returns a message that previously failed.
 
     """
-    m = types.Message
+    m = db.types.Message
 
-    qry = session.query(m)
+    qry = db.session.query(m)
     qry = qry.filter(m.is_queued_for_reprocessing == True)
 
     return qry.first()
@@ -101,7 +90,7 @@ def _main(throttle):
     # Re-process messages.
     reprocessed = 0
     while True if throttle == 0 else reprocessed < throttle:
-        with session.create():
+        with db.session.create():
             # Dequeue next message to be re-processed.
             m = _get_message()
             if m is None:
@@ -113,14 +102,14 @@ def _main(throttle):
             except Exception as err:
                 err = "{} --> {}".format(err.__class__.__name__, err)
                 logger.log_mq_error(err)
-                session.rollback()
+                db.session.rollback()
                 m.processing_error = unicode(err)
             else:
                 m.processing_error = None
             finally:
                 m.processing_tries += 1
                 m.is_queued_for_reprocessing = False
-                session.update(m)
+                db.session.update(m)
 
             # Increment counter.
             reprocessed += 1
