@@ -4,3 +4,4 @@ repos
 svn
 tmp
 dev-web.tar.encrypted
+pgres_rectify_1.sql
