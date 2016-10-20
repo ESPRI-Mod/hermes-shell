@@ -45,11 +45,12 @@ def _get_message():
     return qry.first()
 
 
-def _reprocess_message(m):
+def _reprocess_message(m, verbose):
     """Reprocesses a message.
 
     """
-    logger.log_mq("reprocessing message: {} --> {}".format(m.type_id, m.uid))
+    if verbose:
+        logger.log_mq("reprocessing message: {} --> {}".format(m.type_id, m.uid))
 
     # Set message agent.
     if m.type_id not in _AGENTS:
@@ -98,7 +99,7 @@ def _main(throttle):
 
             # Perform message processing.
             try:
-                _reprocess_message(m)
+                _reprocess_message(m, throttle > 0)
             except Exception as err:
                 err = "{} --> {}".format(err.__class__.__name__, err)
                 logger.log_mq_error(err)
