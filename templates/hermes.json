@@ -7,8 +7,12 @@
     },
     "apps": {
         "monitoring": {
-            "defaultJobWarningDelayInSeconds": 86400,
-            "maxJobPeriodFailures": 3
+            "defaultJobWarningDelayInSeconds": 86400
+        },
+        "superviseur": {
+            "maxJobPeriodFailures": 3,
+            "maxScriptFormattingAttempts": 3,
+            "scriptReformattingDelayInSeconds": 300
         }
     },
     "db": {
