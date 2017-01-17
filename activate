@@ -8,6 +8,7 @@
 source $HOME/.hermes
 
 # CV server related commands.
+alias hermes-cv-git-pull=$HERMES_HOME/bash/cv/git_pull.sh
 alias hermes-cv-git-push=$HERMES_HOME/bash/cv/git_push.sh
 alias hermes-cv-seed-pyessv=$HERMES_HOME/bash/cv/seed_pyessv.sh
 
