@@ -26,7 +26,7 @@ main()
 	pip install --upgrade virtualenv
 
     # Upgrade dependencies.
-    pip install -q --allow-all-external --upgrade -r $HERMES_REQUIREMENTS
+    pip install --allow-all-external --upgrade -r $HERMES_REQUIREMENTS
 
 	# Clean up.
 	deactivate

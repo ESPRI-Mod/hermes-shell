@@ -11,7 +11,6 @@ main()
 	# Set variables.
 	declare HERMES_DIR_VENV=$HERMES_HOME/ops/python/venv
 	declare HERMES_DIR_PYTHON=$HERMES_HOME/ops/python
-	declare HERMES_PYTHON=$HERMES_HOME/ops/python/bin/python
 	declare HERMES_REQUIREMENTS=$HERMES_HOME/templates/venv-requirements-server.txt
 
 	# Reset.
@@ -31,8 +30,7 @@ main()
     source $HERMES_DIR_VENV/bin/activate
 
     # Install dependencies.
-    wget https://raw.githubusercontent.com/Prodiguer/hermes-shell/master/templates/venv-requirements-server.txt
-    pip install -q --allow-all-external -r $HERMES_REQUIREMENTS
+    pip install --allow-all-external -r $HERMES_REQUIREMENTS
 
 	# Clean up.
 	deactivate
