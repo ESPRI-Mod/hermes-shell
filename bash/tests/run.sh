@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Main entry point.
 main()
@@ -11,7 +11,7 @@ main()
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_SERVER_TESTS
 
 	# Activate server venv.
-	activate_venv server
+	activate_venv
 
 	# Run all test(s).
 	if [ -z "$1" ]; then

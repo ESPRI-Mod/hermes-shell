@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Main entry point.
 main()
@@ -10,7 +10,6 @@ main()
 
     # Set variables.
     declare PYTHON_VERSION=2.7.12
-    declare HERMES_DIR_PYTHON=$HERMES_HOME/ops/python
 
     log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 

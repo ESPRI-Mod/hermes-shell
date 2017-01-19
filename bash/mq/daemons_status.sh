@@ -1,6 +1,6 @@
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Display daemon status.
-activate_venv server
+activate_venv
 supervisorctl -c $HERMES_DIR_DAEMONS/mq/supervisord.conf status all

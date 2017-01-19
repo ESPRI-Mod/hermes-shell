@@ -1,3 +1,0 @@
-
-# HERMES: activate shell
-source opt/hermes/activate

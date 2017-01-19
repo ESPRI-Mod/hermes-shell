@@ -1,4 +1,4 @@
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Initialises the db backup dir.
 _init_backup_dir()

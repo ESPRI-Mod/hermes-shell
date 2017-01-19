@@ -1,6 +1,6 @@
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 log "DB : creating database tables"
 
-activate_venv server
+activate_venv
 python $HERMES_DIR_JOBS/db/run_pgres_setup.py

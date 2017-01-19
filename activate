@@ -12,7 +12,6 @@ alias hermes-cv-git-pull=$HERMES_HOME/bash/cv/git_pull.sh
 alias hermes-cv-git-push=$HERMES_HOME/bash/cv/git_push.sh
 alias hermes-cv-seed-pyessv=$HERMES_HOME/bash/cv/seed_pyessv.sh
 
-
 # PostgreSQL DB server related commands.
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
 alias hermes-db-pgres-backup=$HERMES_HOME/bash/db/pgres_backup.sh
@@ -94,12 +93,3 @@ alias hermes-stack-update-source='hermes-stack-update-shell && hermes-stack-upda
 
 # Misc one off commands.
 alias hermes-cv-seed-accounting-projects=$HERMES_HOME/bash/cv/seed_accounting_projects.sh
-
-# Ensure target scripts are executable.
-chmod a+x $HERMES_HOME/bash/cv/*.sh
-chmod a+x $HERMES_HOME/bash/db/*.sh
-chmod a+x $HERMES_HOME/bash/mq/*.sh
-chmod a+x $HERMES_HOME/bash/os/*.sh
-chmod a+x $HERMES_HOME/bash/stack/*.sh
-chmod a+x $HERMES_HOME/bash/tests/*.sh
-chmod a+x $HERMES_HOME/bash/web/*.sh

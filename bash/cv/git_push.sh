@@ -1,4 +1,4 @@
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 log "CV : pushing new terms to hermes-cv repo: "
 

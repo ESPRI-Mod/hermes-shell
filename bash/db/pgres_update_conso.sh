@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Main entry point.
 main()
 {
 	log "initialising conso db tables"
 
-	activate_venv server
+	activate_venv
 	python $HERMES_DIR_JOBS/db/run_pgres_update_conso.py
 
 

@@ -1,6 +1,6 @@
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Run job.
-activate_venv server
+activate_venv
 python $HERMES_DIR_JOBS"/mq" --agent-type=$1 --agent-limit=$2

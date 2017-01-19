@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Main entry point.
 main()

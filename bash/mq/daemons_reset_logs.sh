@@ -1,5 +1,5 @@
 # Import utils.
-source $HERMES_HOME/bash/init.sh
+source $HERMES_HOME/bash/utils.sh
 
 # Delete log files.
 rm $HERMES_DIR_LOGS/mq/std*.*
