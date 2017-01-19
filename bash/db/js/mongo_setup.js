@@ -1,20 +1,27 @@
-// Connect to db server.
-var server = new Mongo();
-var db = server.getDB("metrics1");
+use admin
 
-print(db);
+db.createUser(
+  {
+    user: "hermes-db-mongo-admin",
+    pwd: "N@ture93!",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
 
-// // Create general users.
-// var user = db.getUser("prodiguer-db-mongo-user");
+use metrics
 
-// print(user);
+db.createUser(
+  {
+    user: "hermes-db-mongo-user",
+    pwd: "N@ture93!",
+    roles: [ { role: "readWrite", db: "metrics" } ]
+  }
+)
 
-// if (db.getUser("prodiguer-db-mongo-user")) {
-//     db.createUser({
-//         user: "prodiguer-db-mongo-user",
-//         pwd: "N@ture93!",
-//         roles: [
-//             { role: "readWrite", db: "metrics" }
-//         ]
-//     });
-// }
+db.createUser(
+  {
+    user: "external-db-mongo-exploitation",
+    pwd: "N@ture93!",
+    roles: [ { role: "read", db: "metrics" } ]
+  }
+)

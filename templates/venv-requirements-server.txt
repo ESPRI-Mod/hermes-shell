@@ -29,3 +29,5 @@ voluptuous
 wheel
 wsgiref
 jsonschema
+numpy
+matplotlib
