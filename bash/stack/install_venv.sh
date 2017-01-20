@@ -6,18 +6,20 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
-    log "Installing virtual environment"
+    log "Installing virtual environment: "$HERMES_DIR_VENV
 
-    # Reset.
+    # Set paths.
+    set PATH=$HERMES_DIR_PYTHON/bin:$PATH
+    set PYTHONPATH=$HERMES_DIR_PYTHON/bin:$PYTHONPATH
+
+    # Upgrade pip/virtualenv.
+    pip install --upgrade pip
+    pip install --upgrade virtualenv
+
+    # Create venv.
     rm -rf $HERMES_DIR_VENV
     mkdir -p $HERMES_DIR_VENV
-
-    # Upgrade pip / virtual env.
-    $HERMES_DIR_PYTHON/bin/pip install --upgrade pip
-    $HERMES_DIR_PYTHON/bin/pip install --upgrade virtualenv
-
-    # Initialize venv.
-    $HERMES_DIR_PYTHON/bin/virtualenv -q $HERMES_DIR_VENV
+    virtualenv -q $HERMES_DIR_VENV
 
     # Activate venv.
     source $HERMES_DIR_VENV/bin/activate
