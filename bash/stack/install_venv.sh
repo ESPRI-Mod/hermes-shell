@@ -9,8 +9,8 @@ main()
     log "Installing virtual environment: "$HERMES_DIR_VENV
 
     # Set paths.
-    set PATH=$HERMES_DIR_PYTHON/bin:$PATH
-    set PYTHONPATH=$HERMES_DIR_PYTHON/bin:$PYTHONPATH
+    export PATH=$HERMES_DIR_PYTHON/bin:$PATH
+    export PYTHONPATH=$HERMES_DIR_PYTHON/bin:$PYTHONPATH
 
     # Upgrade pip/virtualenv.
     pip install --upgrade pip
