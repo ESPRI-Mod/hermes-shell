@@ -72,7 +72,6 @@ alias hermes-stack-update-venv=$HERMES_HOME/bash/stack/update_venv.sh
 
 # Tests related commands.
 alias hermes-tests-run=$HERMES_HOME/bash/tests/run.sh
-alias hermes-tests-noop=$HERMES_HOME/bash/tests/noop.sh
 
 # WEB server related commands.
 alias hermes-web-daemons-ctl=$HERMES_HOME/bash/web/daemons_ctl.sh
