@@ -6,6 +6,9 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
+    log "Installing system dependencies"
+    yum install gcc libffi-devel python-devel openssl-devel
+
     log "Installing python ..."
 
     # Set variables.
@@ -20,7 +23,7 @@ main()
     # Download source.
     cd $HERMES_DIR_PYTHON/src
     wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz --no-check-certificate
-    tar -xvf Python-$PYTHON_VERSION.tgz
+    tar -xvf ./Python-$PYTHON_VERSION.tgz
 
     # Compile.
     cd Python-$PYTHON_VERSION
@@ -39,9 +42,7 @@ main()
     python ez_setup.py
 
     # Install & upgrade pip / virtual env.
-    easy_install --prefix $HERMES_DIR_PYTHON pip
-    pip install --upgrade pip
-    pip install --upgrade virtualenv
+    easy_install --prefix $HERMES_DIR_PYTHON pip virtualenv
 }
 
 # Invoke entry point.
