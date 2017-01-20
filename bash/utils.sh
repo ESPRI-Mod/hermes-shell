@@ -147,3 +147,4 @@ chmod a+x $HERMES_HOME/bash/os/*.sh
 chmod a+x $HERMES_HOME/bash/stack/*.sh
 chmod a+x $HERMES_HOME/bash/tests/*.sh
 chmod a+x $HERMES_HOME/bash/web/*.sh
+
