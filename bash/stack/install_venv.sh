@@ -6,6 +6,9 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
+    log "Installing system dependencies"
+    yum install gcc libffi-devel python-devel openssl-devel
+
     log "Installing virtual environment: "$HERMES_DIR_VENV
 
     # Set paths.

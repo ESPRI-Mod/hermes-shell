@@ -26,7 +26,9 @@ hermes_setup_common()
 	yum -q -y install python-devel
 	yum -q -y install postgresql-plpython
 	yum -q -y install python-psycopg2
+	yum -q -y install gcc
 	yum -q -y install gcc-c++
+	yum -q -y install libffi-devel
 	yum -q -y install freetype-devel
 	yum -q -y install libpng-devel
 	yum -q -y install python-matplotlib
