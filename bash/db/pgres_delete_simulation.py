@@ -25,7 +25,7 @@ _ARGS.add_argument(
     "--uid",
     help="UID of simulation to be deleted.",
     dest="uid",
-    type=str
+    type=unicode
     )
 
 
