@@ -1,5 +1,5 @@
 {
-    "configSchemaVersion": "1.0.16",
+    "configSchemaVersion": "1.0.17",
     "deploymentMode": "{HERMES_DEPLOYMENT_MODE}",
     "alerts": {
         "emailAddressFrom": "{HERMES_ALERT_EMAIL_ADDRESS_FROM}",
