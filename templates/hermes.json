@@ -29,7 +29,7 @@
             "main": "{HERMES_MQ_RABBIT_PROTOCOL}://hermes-mq-user:{HERMES_MQ_RABBIT_USER_PASSWORD}@{HERMES_MQ_RABBIT_HOST}/hermes?connection_attempts=3&heartbeat_interval=3600&{HERMES_MQ_RABBIT_SSL_OPTIONS}"
         },
         "deletableTypes": [],
-        "excludedTypes": ["7000", "1900", "2900", "3000", "3100", "3900", "3999", "8888"],
+        "excludedTypes": ["7000", "1900", "2900", "3000", "3100", "3900", "3999"],
         "mail": {
             "checker": {
                 "maxLatencyInSeconds": 1800,
