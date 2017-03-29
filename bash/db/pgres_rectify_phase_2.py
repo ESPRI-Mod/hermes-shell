@@ -71,6 +71,7 @@ def _reprocess_message(m, verbose):
     ctx.msg = m
 
     # Invoke processing tasks.
+    print agent.get_tasks()
     for task in agent.get_tasks()[:-3]:
         task(ctx)
         if ctx.abort:
