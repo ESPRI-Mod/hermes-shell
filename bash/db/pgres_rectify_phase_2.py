@@ -91,6 +91,7 @@ def _main(throttle):
             # Dequeue next message to be re-processed.
             m = _get_message()
             if m is None:
+                logger.log_mq("no more messages to reprocess")
                 return
 
             logger.log_mq("rerpocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
