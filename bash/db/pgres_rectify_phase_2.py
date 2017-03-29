@@ -93,6 +93,8 @@ def _main(throttle):
             if m is None:
                 return
 
+            logger.log_mq("rerpocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
+
             # Perform message processing.
             try:
                 _reprocess_message(m, throttle > 0)
@@ -102,6 +104,7 @@ def _main(throttle):
                 db.session.rollback()
                 m.processing_error = unicode(err)
             else:
+                logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
                 m.processing_error = None
             finally:
                 m.processing_tries += 1
