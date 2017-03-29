@@ -14,8 +14,7 @@ import argparse
 
 import pika
 
-from hermes_jobs.mq.monitoring import job_end
-from hermes_jobs.mq.monitoring import job_start
+from hermes_jobs.mq.monitoring import simulation_delete
 from hermes_jobs.mq.utils import invoke as invoke_handler
 from prodiguer import cv
 from prodiguer.db import pgres as db
@@ -26,10 +25,7 @@ from prodiguer.utils import logger
 
 # Map of message types to processing agents.
 _AGENTS = {
-    u"0000": job_start,
-    u"0100": job_end,
-    u"1000": job_start,
-    u"2000": job_start
+    u"8888": simulation_delete,
 }
 
 
