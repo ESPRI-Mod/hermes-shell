@@ -94,7 +94,7 @@ def _main(throttle):
                 logger.log_mq("no more messages to reprocess")
                 return
 
-            logger.log_mq("rerpocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
+            logger.log_mq("reprocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
 
             # Perform message processing.
             try:

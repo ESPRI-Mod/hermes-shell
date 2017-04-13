@@ -23,6 +23,9 @@ export HERMES_ALERT_EMAIL_ADDRESS_TO=prodiguer-ops@ipsl.listes.fr
 # Hermes MongoDB server hostname & port.
 export HERMES_DB_MONGO_HOST=localhost:27017
 
+# Hermes MongoDB name for the db-mongo-user account.
+export HERMES_DB_MONGO_USER=hermes-db-mongo-user
+
 # Hermes MongoDB password for the db user account.
 export HERMES_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 
@@ -50,8 +53,8 @@ export HERMES_MQ_RABBIT_HOST=localhost:5672
 # Hermes RabbitMQ sever protocol (i.e. whether to communicate over ssl).
 export HERMES_MQ_RABBIT_PROTOCOL=ampq
 
-# Hermes RabbitMQ libIGCM user password.
-export HERMES_MQ_RABBIT_LIBIGCM_USER_PASSWORD=XXXXXXXXXXX
+# Hermes RabbitMQ agent user.
+export HERMES_MQ_RABBIT_USER=hermes-mq-user
 
 # Hermes RabbitMQ agent user password.
 export HERMES_MQ_RABBIT_USER_PASSWORD=XXXXXXXXXXX

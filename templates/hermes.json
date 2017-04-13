@@ -18,7 +18,7 @@
     },
     "db": {
         "mongodb": {
-            "main": "mongodb://prodiguer-db-mongo-user:{HERMES_DB_MONGO_USER_PASSWORD}@{HERMES_DB_MONGO_HOST}/metrics"
+            "main": "mongodb://{HERMES_DB_MONGO_USER}:{HERMES_DB_MONGO_USER_PASSWORD}@{HERMES_DB_MONGO_HOST}/metrics"
         },
         "pgres": {
             "main": "postgresql://{HERMES_DB_PGRES_USER}:{HERMES_DB_PGRES_USER_PASSWORD}@{HERMES_DB_PGRES_HOST}/{HERMES_DB_PGRES_NAME}"
@@ -26,7 +26,7 @@
     },
     "mq": {
         "connections": {
-            "main": "{HERMES_MQ_RABBIT_PROTOCOL}://hermes-mq-user:{HERMES_MQ_RABBIT_USER_PASSWORD}@{HERMES_MQ_RABBIT_HOST}/hermes?connection_attempts=3&heartbeat_interval=3600&{HERMES_MQ_RABBIT_SSL_OPTIONS}"
+            "main": "{HERMES_MQ_RABBIT_PROTOCOL}://{HERMES_MQ_RABBIT_USER}:{HERMES_MQ_RABBIT_USER_PASSWORD}@{HERMES_MQ_RABBIT_HOST}/hermes?connection_attempts=3&heartbeat_interval=3600&{HERMES_MQ_RABBIT_SSL_OPTIONS}"
         },
         "deletableTypes": [],
         "excludedTypes": ["7000", "1900", "2900", "3000", "3100", "3900", "3999"],
@@ -49,7 +49,7 @@
     },
     "web": {
         "cookie_secret": "{HERMES_WEB_COOKIE_SECRET}",
-        "port": {HERMES_WEB_PORT},
+        "port": "{HERMES_WEB_PORT}",
         "url": "{HERMES_WEB_URL}",
         "websocketKeepAliveDelayInSeconds": 280
     }

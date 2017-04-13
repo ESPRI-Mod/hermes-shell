@@ -89,8 +89,16 @@ alias hermes-web-service=$HERMES_HOME/bash/web/run_web_service.sh
 alias hermes-daemons-init='hermes-web-daemons-init && hermes-mq-daemons-init'
 alias hermes-daemons-kill='hermes-mq-daemons-kill && hermes-web-daemons-kill'
 alias hermes-db-reset='hermes-cv-git-pull && hermes-db-pgres-reset'
-
 alias hermes-stack-update-source='hermes-stack-update-shell && hermes-stack-update-repos && hermes-stack-update-config'
 
 # Misc one off commands.
 alias hermes-cv-seed-accounting-projects=$HERMES_HOME/bash/cv/seed_accounting_projects.sh
+
+# HERMES: reset logs
+_hermes_reset_logs()
+{
+	rm $HERMES_HOME/ops/logs/*/*.log
+	rm $HERMES_HOME/ops/daemons/*/supervisor.log
+}
+alias hermes-reset-logs=_hermes_reset_logs
+
