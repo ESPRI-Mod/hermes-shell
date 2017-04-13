@@ -16,10 +16,10 @@ import pika
 
 from hermes_jobs.mq.monitoring import simulation_delete
 from hermes_jobs.mq.utils import invoke as invoke_handler
-from prodiguer import cv
-from prodiguer.db import pgres as db
-from prodiguer.db.pgres import dao_mq
-from prodiguer.utils import logger
+from hermes import cv
+from hermes.db import pgres as db
+from hermes.db.pgres import dao_mq
+from hermes.utils import logger
 
 
 
