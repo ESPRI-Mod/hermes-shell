@@ -58,7 +58,9 @@ alias hermes-mq-purge-queues-debug=$HERMES_HOME/bash/mq/purge_queues_debug.sh
 
 # Stack management related commands.
 alias hermes-stack-install=$HERMES_HOME/bash/stack/install.sh
+alias hermes-stack-install-config=$HERMES_HOME/bash/stack/install_config.sh
 alias hermes-stack-install-python=$HERMES_HOME/bash/stack/install_python.sh
+alias hermes-stack-install-repos=$HERMES_HOME/bash/stack/install_repos.sh
 alias hermes-stack-install-venv=$HERMES_HOME/bash/stack/install_venv.sh
 alias hermes-stack-install-environment-vars=$HERMES_HOME/bash/stack/install_environment_vars.sh
 
