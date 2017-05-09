@@ -78,7 +78,8 @@ export HERMES_MQ_IMAP_MAILBOX_REJECTED=AMPQ-DEV-REJECTED
 export HERMES_MQ_IMAP_PASSWORD=XXXXXXXXXXX
 
 # Hermes SMTP user password.
-export HERMES_MQ_SMTP_PASSWORD=XXXXXXXXXXX
+export HERMES_MQ_SMTP_PASSWORD_01=XXXXXXXXXXX
+export HERMES_MQ_SMTP_PASSWORD_02=XXXXXXXXXXX
 
 # --------------------------------------------------------------------
 # Web server settings

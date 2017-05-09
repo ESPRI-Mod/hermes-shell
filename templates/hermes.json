@@ -1,6 +1,4 @@
 {
-    "configSchemaVersion": "1.0.17",
-    "deploymentMode": "{HERMES_DEPLOYMENT_MODE}",
     "alerts": {
         "emailAddressFrom": "{HERMES_ALERT_EMAIL_ADDRESS_FROM}",
         "emailAddressTo": "{HERMES_ALERT_EMAIL_ADDRESS_TO}"
@@ -16,6 +14,7 @@
             "scriptReformattingDelayInSeconds": 300
         }
     },
+    "configSchemaVersion": "1.0.18",
     "db": {
         "mongodb": {
             "main": "mongodb://{HERMES_DB_MONGO_USER}:{HERMES_DB_MONGO_USER_PASSWORD}@{HERMES_DB_MONGO_HOST}/metrics"
@@ -24,28 +23,55 @@
             "main": "postgresql://{HERMES_DB_PGRES_USER}:{HERMES_DB_PGRES_USER_PASSWORD}@{HERMES_DB_PGRES_HOST}/{HERMES_DB_PGRES_NAME}"
         }
     },
+    "deploymentMode": "{HERMES_DEPLOYMENT_MODE}",
     "mq": {
         "connections": {
             "main": "{HERMES_MQ_RABBIT_PROTOCOL}://{HERMES_MQ_RABBIT_USER}:{HERMES_MQ_RABBIT_USER_PASSWORD}@{HERMES_MQ_RABBIT_HOST}/hermes?connection_attempts=3&heartbeat_interval=3600&{HERMES_MQ_RABBIT_SSL_OPTIONS}"
         },
         "deletableTypes": [],
-        "excludedTypes": ["7000", "1900", "2900", "3000", "3100", "3900", "3999"],
-        "mail": {
-            "checker": {
-                "maxLatencyInSeconds": 1800,
-                "maxUnprocessedCount": 20,
-                "retryDelayInSeconds": 3600
+        "emailServers": [
+            {
+                "checker": {
+                    "maxLatencyInSeconds": 1800,
+                    "maxUnprocessedCount": 20,
+                    "retryDelayInSeconds": 3600
+                },
+                "deleteProcessed": false,
+                "host": "courriel3.ipsl.jussieu.fr",
+                "idleFaultRetryDelayInSeconds": 60,
+                "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
+                "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX_PROCESSED}",
+                "mailbox_rejected": "{HERMES_MQ_IMAP_MAILBOX_REJECTED}",
+                "password": "{HERMES_MQ_IMAP_PASSWORD_01}",
+                "smtpPort": 587,
+                "username": "superviseur"
             },
-            "deleteProcessed": false,
-            "host": "courriel3.ipsl.jussieu.fr",
-            "smtpPort": 587,
-            "idleFaultRetryDelayInSeconds": 60,
-            "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
-            "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX_PROCESSED}",
-            "mailbox_rejected": "{HERMES_MQ_IMAP_MAILBOX_REJECTED}",
-            "password": "{HERMES_MQ_IMAP_PASSWORD}",
-            "username": "superviseur"
-        }
+            {
+                "checker": {
+                    "maxLatencyInSeconds": 1800,
+                    "maxUnprocessedCount": 20,
+                    "retryDelayInSeconds": 3600
+                },
+                "deleteProcessed": false,
+                "host": "mail.ipsl.upmc.fr",
+                "idleFaultRetryDelayInSeconds": 60,
+                "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
+                "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX_PROCESSED}",
+                "mailbox_rejected": "{HERMES_MQ_IMAP_MAILBOX_REJECTED}",
+                "password": "{HERMES_MQ_IMAP_PASSWORD_02}",
+                "smtpPort": 587,
+                "username": "superviseur"
+            }
+        ],
+        "excludedTypes": [
+            "7000",
+            "1900",
+            "2900",
+            "3000",
+            "3100",
+            "3900",
+            "3999"
+        ]
     },
     "web": {
         "cookie_secret": "{HERMES_WEB_COOKIE_SECRET}",
