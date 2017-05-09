@@ -6,7 +6,7 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
-	source $HERMES_HOME/bash/mq/daemons_kill.sh
+	source $HERMES_HOME/bash/mq/daemons_stop.sh
 }
 
 # Invoke entry point.

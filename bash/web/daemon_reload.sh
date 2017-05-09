@@ -6,9 +6,10 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
-	activate_venv
-	python $HERMES_DIR_JOBS"/mq" --agent-type=$1 --agent-limit=$2 --agent-parameter=$3
+	source $HERMES_HOME/bash/web/daemon_stop.sh
+	sleep 3.0
+	source $HERMES_HOME/bash/web/daemon_start.sh
 }
 
 # Invoke entry point.
-main $1 $2 $3
+main

@@ -13,7 +13,11 @@ main()
 	activate_venv
 	supervisord -c $HERMES_DIR_DAEMONS/web/supervisord.conf
 
-	log "WEB : initialized daemons"
+	# Display status.
+	sleep 2.0
+	source $HERMES_HOME/bash/web/daemon_status.sh
+
+	log "WEB : initialized daemon"
 }
 
 # Invoke entry point.

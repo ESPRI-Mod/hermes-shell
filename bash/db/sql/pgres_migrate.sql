@@ -1,3 +1,2 @@
--- Add new simulation table column to simplify inter-monitoring use case.
-ALTER TABLE monitoring.tbl_simulation ADD COLUMN is_im boolean;
-ALTER TABLE monitoring.tbl_simulation ALTER COLUMN is_im SET DEFAULT false;
+ALTER TABLE mq.tbl_message_email_stats ADD COLUMN email_server_id bigint;
+ALTER TABLE mq.tbl_message_email_stats ALTER COLUMN email_server_id SET DEFAULT 1;

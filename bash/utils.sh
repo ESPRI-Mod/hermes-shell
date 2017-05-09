@@ -11,7 +11,6 @@ activate_venv()
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-server
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-superviseur
 	source $HERMES_DIR_VENV/bin/activate
-	log "Activated virtual environment"
 }
 
 # Wraps standard echo by adding HERMES prefix.

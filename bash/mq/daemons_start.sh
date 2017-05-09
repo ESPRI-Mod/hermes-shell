@@ -13,6 +13,10 @@ main()
 	activate_venv
 	supervisord -c $HERMES_DIR_DAEMONS/mq/supervisord.conf
 
+	# Display status.
+	sleep 3.0
+	source $HERMES_HOME/bash/mq/daemons_status.sh
+
 	log "MQ : initialized daemons"
 }
 
