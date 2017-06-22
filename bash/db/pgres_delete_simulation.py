@@ -36,7 +36,10 @@ def _main(args):
     logger.log_db("Deleting simulation: begins")
 
     with db.session.create(commitable=True):
-        dao.delete_simulation(args.uid)
+        simulation = retrieve_simulation(args.uid)
+        if simulation is not None:
+            for simulation in retrieve_simulations_by_hashid(simulation.hashid)
+                dao.delete_simulation(simulation.uid)
 
     logger.log_db("Deleting simulation: ends")
 
