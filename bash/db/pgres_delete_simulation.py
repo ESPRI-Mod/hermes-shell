@@ -14,7 +14,9 @@
 import argparse
 
 from hermes.db import pgres as db
-from hermes.db.pgres import dao_monitoring as dao
+from hermes.db.pgres.dao_monitoring import retrieve_simulation
+from hermes.db.pgres.dao_monitoring import retrieve_simulations_by_hashid
+from hermes.db.pgres.dao_monitoring import delete_simulation
 from hermes.utils import logger
 
 
@@ -39,7 +41,7 @@ def _main(args):
         simulation = retrieve_simulation(args.uid)
         if simulation is not None:
             for simulation in retrieve_simulations_by_hashid(simulation.hashid):
-                dao.delete_simulation(simulation.uid)
+                delete_simulation(simulation.uid)
 
     logger.log_db("Deleting simulation: ends")
 
