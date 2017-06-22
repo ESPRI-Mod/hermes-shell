@@ -14,12 +14,12 @@ import argparse
 
 import pika
 
-from hermes_jobs.mq.monitoring import simulation_delete
-from hermes_jobs.mq.utils import invoke as invoke_handler
 from hermes import cv
 from hermes.db import pgres as db
 from hermes.db.pgres import dao_mq
 from hermes.utils import logger
+from hermes_jobs.mq.monitoring import simulation_delete
+from hermes_jobs.mq.utils import invoke as invoke_handler
 
 
 
@@ -91,7 +91,7 @@ def _main(throttle):
             # Dequeue next message to be re-processed.
             m = _get_message()
             if m is None:
-                logger.log_mq("no more messages to reprocess")
+                logger.log_mq("reprocessing complete")
                 return
 
             logger.log_mq("reprocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
