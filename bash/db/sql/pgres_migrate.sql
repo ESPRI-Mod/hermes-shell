@@ -12,13 +12,19 @@ WHERE
 	warning_limit IS NULL AND
 	execution_start_date IS NOT NULL;
 
+-- Initialise warning_state indicator.
+UPDATE
+	monitoring.tbl_job as j
+SET
+	warning_state = 0;
+
 -- Set warning_state indicator where jobs are under supervision.
 UPDATE
 	monitoring.tbl_job as j
 SET
 	warning_state = 1
 WHERE
-    j.job_uid IN (SELECT job_uid FROM superviseur.tbl_supervision);
+	j.job_uid IN (SELECT job_uid FROM superviseur.tbl_supervision WHERE trigger_code != '1999');
 
 -- Set warning_state indicator where jobs are late.
 UPDATE
@@ -26,7 +32,7 @@ UPDATE
 SET
 	warning_state = 2
 WHERE
-	warning_state = 0 AND
+	warning_state != 1 AND
 	execution_start_date IS NOT NULL AND
 	execution_end_date IS NULL AND
 	now() > warning_limit;
@@ -37,4 +43,5 @@ UPDATE
 SET
 	execution_state = 'l'
 WHERE
-	execution_end_date IS NULL AND warning_state > 0;
+	execution_end_date IS NULL AND
+	warning_state > 0;
