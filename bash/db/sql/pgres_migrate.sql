@@ -3,7 +3,13 @@ ALTER TABLE monitoring.tbl_job ADD COLUMN warning_limit timestamp without time z
 ALTER TABLE monitoring.tbl_job ADD COLUMN warning_state integer;
 ALTER TABLE monitoring.tbl_job ALTER COLUMN warning_state SET DEFAULT 0;
 
--- Calculate job execution end date limits.
+-- Initialise warning_state indicator.
+UPDATE
+	monitoring.tbl_job as j
+SET
+	warning_state = 0;
+
+-- Initialise job warning limits.
 UPDATE
 	monitoring.tbl_job
 SET
@@ -12,21 +18,16 @@ WHERE
 	warning_limit IS NULL AND
 	execution_start_date IS NOT NULL;
 
--- Initialise warning_state indicator.
-UPDATE
-	monitoring.tbl_job as j
-SET
-	warning_state = 0;
-
--- Set warning_state indicator where jobs are under supervision.
+-- Jobs under supervision :: update warning state.
 UPDATE
 	monitoring.tbl_job as j
 SET
 	warning_state = 1
 WHERE
+	warning_state = 0 AND
 	j.job_uid IN (SELECT job_uid FROM superviseur.tbl_supervision WHERE trigger_code != '1999');
 
--- Set warning_state indicator where jobs are late.
+-- Late jobs not under supervision :: update warning state.
 UPDATE
 	monitoring.tbl_job
 SET
@@ -37,7 +38,7 @@ WHERE
 	execution_end_date IS NULL AND
 	now() > warning_limit;
 
--- Set execution state of late jobs.
+-- Late jobs :: update execution state.
 UPDATE
 	monitoring.tbl_job
 SET
@@ -45,3 +46,4 @@ SET
 WHERE
 	execution_end_date IS NULL AND
 	warning_state > 0;
+
