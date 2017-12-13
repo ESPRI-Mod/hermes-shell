@@ -47,9 +47,6 @@ def _reprocess_message(m, verbose):
     """Reprocesses a message.
 
     """
-    if verbose:
-        logger.log_mq("reprocessing message: {} --> {}".format(m.type_id, m.uid))
-
     # Set message agent.
     if m.type_id not in _AGENTS:
         raise KeyError("Unsupported message re-processing agent: {}".format(m.type_id))
@@ -88,6 +85,7 @@ def _main(throttle):
 
     # Re-process messages.
     reprocessed = 0
+    verbose = throttle > 0
     while True if throttle == 0 else reprocessed < throttle:
         with db.session.create():
             # Dequeue next message to be re-processed.
@@ -96,23 +94,24 @@ def _main(throttle):
                 logger.log_mq("reprocessing complete")
                 return
 
-            logger.log_mq("reprocessing message: {} :: {}".format(m.uid, m.correlation_id_1))
+            if verbose:
+                logger.log_mq("reprocessing message: {} :: {} :: {}".format(m.type_id, m.uid, m.correlation_id_1))
 
             # Perform message processing.
-            try:
-                _reprocess_message(m, throttle > 0)
-            except Exception as err:
-                err = "{} --> {}".format(err.__class__.__name__, err)
-                logger.log_mq_error(err)
-                db.session.rollback()
-                m.processing_error = unicode(err)
-            else:
-                logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
-                m.processing_error = None
-            finally:
-                m.processing_tries += 1
-                m.is_queued_for_reprocessing = False
-                db.session.update(m)
+            # try:
+            #     _reprocess_message(m, verbose)
+            # except Exception as err:
+            #     err = "{} --> {}".format(err.__class__.__name__, err)
+            #     logger.log_mq_error(err)
+            #     db.session.rollback()
+            #     m.processing_error = unicode(err)
+            # else:
+            #     logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
+            #     m.processing_error = None
+            # finally:
+            #     m.processing_tries += 1
+            #     m.is_queued_for_reprocessing = False
+            #     db.session.update(m)
 
             # Increment counter.
             reprocessed += 1
