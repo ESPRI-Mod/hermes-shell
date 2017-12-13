@@ -18,6 +18,7 @@ from hermes import cv
 from hermes.db import pgres as db
 from hermes.db.pgres import dao_mq
 from hermes.utils import logger
+from hermes_jobs.mq.monitoring import job_start
 from hermes_jobs.mq.monitoring import simulation_delete
 from hermes_jobs.mq.utils import invoke as invoke_handler
 
@@ -25,6 +26,7 @@ from hermes_jobs.mq.utils import invoke as invoke_handler
 
 # Map of message types to processing agents.
 _AGENTS = {
+    u"0000": job_start,
     u"8888": simulation_delete,
 }
 
