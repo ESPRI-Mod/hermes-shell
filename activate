@@ -19,6 +19,7 @@ alias hermes-db-pgres-create-test-db=$HERMES_HOME/bash/db/pgres_create_test_db.s
 alias hermes-db-pgres-create-users='$HERMES_HOME/bash/db/pgres_create_db_users.sh && $HERMES_HOME/bash/db/pgres_grant_permissions.sh'
 alias hermes-db-pgres-delete-simulation=$HERMES_HOME/bash/db/pgres_delete_simulation.sh
 alias hermes-db-pgres-grant-permissions=$HERMES_HOME/bash/db/pgres_grant_permissions.sh
+alias hermes-db-pgres-kill=$HERMES_HOME/bash/db/pgres_kill.sh
 alias hermes-db-pgres-migrate=$HERMES_HOME/bash/db/pgres_migrate.sh
 alias hermes-db-pgres-performance-tests=$HERMES_HOME/bash/db/pgres_performance_tests.sh
 alias hermes-db-pgres-rectify=$HERMES_HOME/bash/db/pgres_rectify.sh
