@@ -32,6 +32,7 @@ logging.getLogger("requests").setLevel(logging.ERROR)
 # Map of message types to processing agents.
 _AGENTS = {
     u"0000": monitoring.job_start,
+    u"2000": monitoring.job_start,
     u"8000": supervision.detect_late_job,
     u"8888": monitoring.simulation_delete,
 }
