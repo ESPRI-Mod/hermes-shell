@@ -98,20 +98,20 @@ def _main(throttle):
                 logger.log_mq("reprocessing message: {} :: {} :: {}".format(m.type_id, m.uid, m.correlation_id_1))
 
             # Perform message processing.
-            # try:
-            #     _reprocess_message(m, verbose)
-            # except Exception as err:
-            #     err = "{} --> {}".format(err.__class__.__name__, err)
-            #     logger.log_mq_error(err)
-            #     db.session.rollback()
-            #     m.processing_error = unicode(err)
-            # else:
-            #     logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
-            #     m.processing_error = None
-            # finally:
-            #     m.processing_tries += 1
-            #     m.is_queued_for_reprocessing = False
-            #     db.session.update(m)
+            try:
+                _reprocess_message(m, verbose)
+            except Exception as err:
+                err = "{} --> {}".format(err.__class__.__name__, err)
+                logger.log_mq_error(err)
+                db.session.rollback()
+                m.processing_error = unicode(err)
+            else:
+                logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
+                m.processing_error = None
+            finally:
+                m.processing_tries += 1
+                m.is_queued_for_reprocessing = False
+                db.session.update(m)
 
             # Increment counter.
             reprocessed += 1
