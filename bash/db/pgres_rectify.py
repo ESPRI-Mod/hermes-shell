@@ -11,6 +11,7 @@
 
 """
 import argparse
+import logging
 
 import pika
 
@@ -23,6 +24,10 @@ from hermes_jobs.mq.monitoring import simulation_delete
 from hermes_jobs.mq.utils import invoke as invoke_handler
 
 
+
+# Set logging options.
+logging.getLogger("pika").setLevel(logging.ERROR)
+logging.getLogger("requests").setLevel(logging.ERROR)
 
 # Map of message types to processing agents.
 _AGENTS = {
