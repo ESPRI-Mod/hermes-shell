@@ -19,6 +19,7 @@ from hermes import cv
 from hermes.db import pgres as db
 from hermes.db.pgres import dao_mq
 from hermes.utils import logger
+from hermes_jobs.mq import metrics
 from hermes_jobs.mq import monitoring
 from hermes_jobs.mq import supervision
 from hermes_jobs.mq.utils import invoke as invoke_handler
@@ -34,6 +35,7 @@ _AGENTS = {
     u"0000": monitoring.job_start,
     u"1000": monitoring.job_start,
     u"2000": monitoring.job_start,
+    u"7010": metrics.conso_project,
     u"8000": supervision.detect_late_job,
     u"8888": monitoring.simulation_delete,
 }
