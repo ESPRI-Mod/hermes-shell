@@ -114,7 +114,8 @@ def _main(throttle):
                 db.session.rollback()
                 m.processing_error = unicode(err)
             else:
-                logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
+                if verbose:
+                    logger.log_mq("message reprocessed: {} :: {}".format(m.uid, m.correlation_id_1))
                 m.processing_error = None
             finally:
                 m.processing_tries += 1
