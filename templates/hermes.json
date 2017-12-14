@@ -42,7 +42,7 @@
                 "mailbox": "{HERMES_MQ_IMAP_MAILBOX}",
                 "mailbox_processed": "{HERMES_MQ_IMAP_MAILBOX_PROCESSED}",
                 "mailbox_rejected": "{HERMES_MQ_IMAP_MAILBOX_REJECTED}",
-                "password": "{HERMES_MQ_IMAP_PASSWORD_02}",
+                "password": "{HERMES_MQ_IMAP_PASSWORD_01}",
                 "smtpPort": 587,
                 "username": "superviseur"
             }
