@@ -24,11 +24,11 @@ main()
 	for queue in "${QUEUES[@]}"
 	do
 		log "MQ : purging live queue :: "$queue
-		rabbitmqadmin -q -u hermes-mq-admin -p $1 -V hermes purge queue name=$queue
+		rabbitmqadmin -q -u hermes-mq-admin -p $HERMES_MQ_PURGE_PASSWORD -V hermes purge queue name=$queue
 	done
 
 	log "MQ : purged live queues"
 }
 
 # Invoke entry point.
-main $1
+main

@@ -65,6 +65,9 @@ export HERMES_MQ_RABBIT_SSL_CLIENT_CERT=
 # Hermes RabbitMQ client SSL cert key path.
 export HERMES_MQ_RABBIT_SSL_CLIENT_KEY=
 
+# Hermes RabbitMQ queue purge password.
+export HERMES_MQ_PURGE_PASSWORD=XXXXXXXXXXX
+
 # Hermes IMAP mailbox.
 export HERMES_MQ_IMAP_MAILBOX=AMPQ-DEV
 
@@ -79,7 +82,6 @@ export HERMES_MQ_IMAP_PASSWORD=XXXXXXXXXXX
 
 # Hermes SMTP user password.
 export HERMES_MQ_SMTP_PASSWORD_01=XXXXXXXXXXX
-export HERMES_MQ_SMTP_PASSWORD_02=XXXXXXXXXXX
 
 # --------------------------------------------------------------------
 # Web server settings
