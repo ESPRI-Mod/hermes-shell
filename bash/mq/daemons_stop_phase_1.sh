@@ -8,7 +8,7 @@ main()
 {
 	log "MQ : stopping live-smtp-realtime email listener ..."
 	activate_venv
-	supervisorctl -c $HERMES_DIR_DAEMONS/mq/supervisord.conf stop live-smtp-realtime-1
+	supervisorctl -c $HERMES_DIR_DAEMONS/mq/supervisord.conf stop live-smtp-realtime-1:01
 	log "MQ : stopped live-smtp-realtime email listener ..."
 }
 
