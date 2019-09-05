@@ -4,6 +4,9 @@
         "emailAddressTo": "{HERMES_ALERT_EMAIL_ADDRESS_TO}"
     },
     "apps": {
+        "conso": {
+            "outputDirectory": "{HERMES_MQ_CONSO_OUTPUT_DIR}"
+        },
         "monitoring": {
             "defaultJobWarningDelayInSeconds": 86400,
             "purgeSimulationConfirmDelayInSeconds": 86400

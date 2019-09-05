@@ -47,6 +47,9 @@ export HERMES_DB_PGRES_USER_PASSWORD=XXXXXXXXXXX
 # --------------------------------------------------------------------
 # MQ server settings
 # --------------------------------------------------------------------
+# Hermes conso output directory.
+export HERMES_MQ_CONSO_OUTPUT_DIR=$HERMES_HOME/ops/data/conso
+
 # Hermes RabbitMQ sever host (includes port).
 export HERMES_MQ_RABBIT_HOST=localhost:5672
 
