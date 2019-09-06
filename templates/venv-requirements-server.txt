@@ -14,7 +14,7 @@ IMAPClient
 meld3
 nose
 pika
-psycopg2
+psycopg2-binary
 pymongo
 python-dateutil
 pytz
@@ -28,7 +28,6 @@ wheel
 jsonschema
 numpy
 matplotlib
-
 supervisor
 voluptuous
 wsgiref

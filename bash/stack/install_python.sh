@@ -12,7 +12,7 @@ main()
     log "Installing python ..."
 
     # Set variables.
-    declare PYTHON_VERSION=2.7.13
+    declare PYTHON_VERSION=2.7.16
 
     log "Installing python "$PYTHON_VERSION" (takes approx 2 minutes)"
 
