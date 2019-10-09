@@ -8,6 +8,7 @@
 activate_venv()
 {
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-client
+	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-cpt
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-server
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-superviseur
 	source $HERMES_DIR_VENV/bin/activate
@@ -95,6 +96,7 @@ declare HERMES_GITHUB_RAW_SHELL=$HERMES_GITHUB_RAW_SHELL
 # Set of git repos.
 declare -a HERMES_REPOS=(
 	'hermes-client'
+	'hermes-cpt'
 	'hermes-cv'
 	'hermes-fe'
 	'hermes-server'
