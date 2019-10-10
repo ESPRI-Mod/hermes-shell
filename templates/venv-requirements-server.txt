@@ -13,7 +13,7 @@ docutils
 IMAPClient
 meld3
 nose
-pika
+pika=0.10.0
 psycopg2-binary
 pymongo
 python-dateutil
