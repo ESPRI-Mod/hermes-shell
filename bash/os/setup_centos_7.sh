@@ -5,7 +5,7 @@ hermes_setup_common()
 	yum -q -y update
 	yum -q -y upgrade
 
-	# Enable EPEL v6.
+	# Enable EPEL.
 	yum -q -y install epel-release
 
 	# Install various tools.
@@ -116,6 +116,83 @@ hermes_setup_rabbitmq()
 	rabbitmqadmin -q import ./mq-rabbit-broker-definitions.json
 	rm -f ./mq-rabbit-broker-definitions.json
 
+	# Remove default user.
+	rabbitmqctl delete_user guest
+}
+
+
+# ESGF-PID RabbitMQ install - step 00.
+esgf_pid_setup_rabbitmq_00()
+{
+	# Ensure machine is upto date.
+	yum -q -y update
+	yum -q -y upgrade
+
+	# Enable EPEL.
+	yum -q -y install epel-release
+
+	# Install base libraries - perhaps unneccessary.
+	yum -q -y install socat wget vim git openssl zlib bzip2
+	
+	# Install Erlang.
+	declare ERL_VER="22.2.4"
+	wget https://github.com/rabbitmq/erlang-rpm/releases/download/v${ERL_VER}/erlang-${ERL_VER}-1.el7.x86_64.rpm
+	yum localinstall erlang-${ERL_VER}-1.el7.x86_64.rpm
+
+	# Verify erlang.
+	erl
+
+	# Cleanup.
+	rm erlang-${ERL_VER}-1.el7.x86_64.rpm
+}
+
+
+# ESGF-PID RabbitMQ install - step 01.
+esgf_pid_setup_rabbitmq_01()
+{
+	# Install RabbitMQ repository.	
+	rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	rpm -Uvh https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-3.8.2-1.el7.noarch.rpm
+	yum -q -y update
+
+	# Install RabbitMQ.
+	yum -q -y install rabbitmq-server-3.8.2-1.el7.noarch.rpm
+
+	# Enable RabbitMQ management plugin.
+	rabbitmq-plugins enable rabbitmq_management
+
+	# Start RabbitMQ service.
+	systemctl start rabbitmq-server.service
+
+	# Auto start RabbitMQ on system boot.
+	systemctl enable rabbitmq-server.service
+
+	# Check status
+	rabbitmqctl status	
+}
+
+
+# ESGF-PID RabbitMQ install - step 02.
+esgf_pid_setup_rabbitmq_02()
+{
+	# Enable the RabbitMQ management console.
+	rabbitmq-plugins enable rabbitmq_management
+	chown -R rabbitmq:rabbitmq /var/lib/rabbitmq
+
+	# Setup an administrator user account for accessing the RabbitMQ server management console
+	declare NODE_ADMIN_USER=node-admin
+	declare NODE_ADMIN_PWD=74p9ttcj7muEV4m6BVk69yqxe8PKCenH
+	rabbitmqctl add_user $NODE_ADMIN_USER $NODE_ADMIN_PWD
+	rabbitmqctl set_user_tags $NODE_ADMIN_USER administrator
+	rabbitmqctl set_permissions -p / $NODE_ADMIN_USER ".*" ".*" ".*"
+
+	# Visit the following URL and login: node-admin@74p9ttcj7muEV4m6BVk69yqxe8PKCenH.
+	http://localhost:15672
+}
+
+# ESGF-PID RabbitMQ install - step 03.
+esgf_pid_setup_rabbitmq_03()
+{
 	# Remove default user.
 	rabbitmqctl delete_user guest
 }
