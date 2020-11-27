@@ -7,7 +7,7 @@ export HERMES_HOME=/opt/hermes
 # Mode of deployment (dev|test|prod).
 export HERMES_DEPLOYMENT_MODE=dev
 
-# Type of machine (dev|db|mq|mq).
+# Type of machine (dev|db|mq|web).
 export HERMES_MACHINE_TYPE=dev
 
 # Hermes client web service url.
@@ -21,12 +21,15 @@ export HERMES_ALERT_EMAIL_ADDRESS_TO=prodiguer-ops@ipsl.listes.fr
 # DB server settings
 # --------------------------------------------------------------------
 # Hermes MongoDB server hostname & port.
+# WARNING: Obsolete
 export HERMES_DB_MONGO_HOST=localhost:27017
 
 # Hermes MongoDB name for the db-mongo-user account.
+# WARNING: Obsolete
 export HERMES_DB_MONGO_USER=hermes-db-mongo-user
 
 # Hermes MongoDB password for the db user account.
+# WARNING: Obsolete
 export HERMES_DB_MONGO_USER_PASSWORD=XXXXXXXXXXX
 
 # Hermes PostgreSQL server hostname & port.
