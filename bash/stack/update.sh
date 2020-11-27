@@ -12,7 +12,6 @@ main()
 	source $HERMES_HOME/bash/stack/update_config.sh
 	source $HERMES_HOME/bash/stack/update_environment_vars.sh
 	source $HERMES_HOME/bash/stack/update_repos.sh
-	source $HERMES_HOME/bash/stack/update_venv.sh
 
 	log "UPDATED STACK"
 

@@ -30,6 +30,9 @@ hermes_setup_common()
 	yum -q -y install freetype-devel
 	yum -q -y install libpng-devel
 	yum -q -y install python-matplotlib
+
+	# Install pyenv.
+	curl https://pyenv.run | bash
 }
 
 # Installs NGINX web server.

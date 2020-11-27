@@ -10,8 +10,6 @@ main()
 
 	source $HERMES_HOME/bash/stack/install_config.sh
 	source $HERMES_HOME/bash/stack/install_repos.sh
-	source $HERMES_HOME/bash/stack/install_python.sh
-	source $HERMES_HOME/bash/stack/install_venv.sh
 
 	log "INSTALLED STACK"
 }
