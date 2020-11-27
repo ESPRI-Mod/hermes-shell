@@ -16,7 +16,7 @@ Log in under the user account that will be used to to run / develop the shell.
 
 Clone from remote git repository::
 
-	cd $HOME/opt
+	cd /opt
 	git clone https://github.com/Prodiguer/hermes-shell.git hermes
 
 3: Define environment variables
