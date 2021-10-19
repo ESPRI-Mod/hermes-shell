@@ -13,9 +13,10 @@ docutils
 IMAPClient
 meld3
 nose
-pika=0.10.0
+pika==0.10.0
 psycopg2-binary
 pymongo
+pytest
 python-dateutil
 pytz
 requests
@@ -24,6 +25,7 @@ six
 snowballstemmer
 sphinx-rtd-theme
 tornado
+tox
 wheel
 jsonschema
 numpy

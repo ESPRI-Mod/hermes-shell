@@ -20,7 +20,6 @@ main()
 		'live-superviseur'
 	)
 
-
 	for queue in "${QUEUES[@]}"
 	do
 		log "MQ : purging live queue :: "$queue

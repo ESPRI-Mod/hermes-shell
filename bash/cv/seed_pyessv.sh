@@ -9,8 +9,9 @@ main()
 	log "Seeding pyessv ..."
 
 	activate_venv
-
-	python $HERMES_DIR_JOBS/cv/run_seed_pyessv.py
+	pushd $HERMES_HOME
+	pipenv run python $HERMES_DIR_JOBS/cv/run_seed_pyessv.py
+	popd
 }
 
 # Invoke entry point.

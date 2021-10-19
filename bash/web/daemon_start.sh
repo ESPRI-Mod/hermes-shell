@@ -10,8 +10,9 @@ main()
 	rm $HERMES_DIR_DAEMONS/web/supervisor.log
 
 	# Launch daemon.
-	activate_venv
+	pushd $HERMES_HOME
 	supervisord -c $HERMES_DIR_DAEMONS/web/supervisord.conf
+	popd
 
 	# Display status.
 	sleep 2.0

@@ -6,8 +6,9 @@ source $HERMES_HOME/bash/utils.sh
 # Main entry point.
 main()
 {
-	activate_venv
+	pushd $HERMES_HOME	
 	supervisorctl -c $HERMES_DIR_DAEMONS/mq/supervisord.conf
+	popd
 }
 
 # Invoke entry point.

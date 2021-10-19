@@ -7,8 +7,10 @@ source $HERMES_HOME/bash/utils.sh
 main()
 {
 	log "Launching web service API"
+	pushd $HERMES_HOME
 	activate_venv
-	python $HERMES_DIR_JOBS/web/run_web_service.py
+	pipenv run python $HERMES_DIR_JOBS/web/run_web_service.py
+	popd
 }
 
 # Invoke entry point.

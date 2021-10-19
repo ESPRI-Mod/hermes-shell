@@ -7,11 +7,11 @@
 # Activates a virtual environment.
 activate_venv()
 {
+	export PYTHONPATH=$PYTHONPATH:$HERMES_HOME
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-client
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-cpt
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-server
 	export PYTHONPATH=$PYTHONPATH:$HERMES_DIR_REPOS/hermes-superviseur
-	source $HERMES_DIR_VENV/bin/activate
 }
 
 # Wraps standard echo by adding HERMES prefix.
@@ -61,6 +61,16 @@ set_working_dir()
 	else
 		cd $HERMES_HOME
 	fi
+}
+
+# Wraps pushd command to suppress stdout.
+function pushd () {
+    command pushd "$@" > /dev/null
+}
+
+# Wraps popd command to suppress stdout.
+function popd () {
+    command popd "$@" > /dev/null
 }
 
 # ###############################################################

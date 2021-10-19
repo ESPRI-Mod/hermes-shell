@@ -7,8 +7,11 @@ source $HERMES_HOME/bash/utils.sh
 main()
 {
 	log "Seeding cv termset: accounting project ..."
+
 	activate_venv
-	python $HERMES_DIR_JOBS/cv/run_seed_accounting_projects.py
+	pushd $HERMES_HOME
+	pipenv run python $HERMES_DIR_JOBS/cv/run_seed_accounting_projects.py
+	popd
 }
 
 # Invoke entry point.

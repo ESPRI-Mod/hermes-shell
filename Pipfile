@@ -1,0 +1,45 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+arrow = "*"
+alabaster = "*"
+certifi = "*"
+docutils = "*"
+meld3 = "*"
+nose = "*"
+pika = "==0.10.0"
+psycopg2-binary = "*"
+pymongo = "*"
+pytest = "*"
+python-dateutil = "*"
+pytz = "*"
+requests = "*"
+singledispatch = "*"
+six = "*"
+snowballstemmer = "*"
+sphinx-rtd-theme = "*"
+tornado = "*"
+tox = "*"
+jsonschema = "*"
+numpy = "*"
+matplotlib = "*"
+supervisor = "*"
+voluptuous = "*"
+wsgiref = "*"
+"backports.ssl_match_hostname" = "*"
+Pygments = "*"
+backports_abc = "*"
+Babel = "*"
+SQLAlchemy = "*"
+MarkupSafe = "*"
+Jinja2 = "*"
+IMAPClient = "*"
+Sphinx = "*"
+
+[requires]
+python_version = "2.7"
+
+[dev-packages]

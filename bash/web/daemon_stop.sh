@@ -7,9 +7,10 @@ source $HERMES_HOME/bash/utils.sh
 main()
 {
 	# Kill daemon.
-	activate_venv
+	pushd $HERMES_HOME
 	supervisorctl -c $HERMES_DIR_DAEMONS/web/supervisord.conf stop all
 	supervisorctl -c $HERMES_DIR_DAEMONS/web/supervisord.conf shutdown
+	popd
 
 	log "WEB : killed daemon"
 }

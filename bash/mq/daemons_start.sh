@@ -10,8 +10,9 @@ main()
 	rm $HERMES_DIR_DAEMONS/mq/supervisor.log
 
 	# Launch daemons.
-	activate_venv
+	pushd $HERMES_HOME
 	supervisord -c $HERMES_DIR_DAEMONS/mq/supervisord.conf
+	popd
 
 	# Display status.
 	sleep 3.0
